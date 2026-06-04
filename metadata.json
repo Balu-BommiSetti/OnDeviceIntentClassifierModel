@@ -1,0 +1,6 @@
+{
+  "name": "On-Device NLP Workspace",
+  "description": "Interactive Technical Design Document & mobile NLP trade-off simulator for TensorFlow.js",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

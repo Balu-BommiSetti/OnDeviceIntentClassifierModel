@@ -1,0 +1,2230 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "generate_dataset.ts",
+      "file_type": "code",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "generate_dataset.ts",
+      "id": "generate_dataset_ts"
+    },
+    {
+      "label": "INTENTS",
+      "file_type": "code",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L4",
+      "community": 2,
+      "norm_label": "intents",
+      "id": "on_device_nlp_workspace_generate_dataset_intents"
+    },
+    {
+      "label": "CATEGORIES",
+      "file_type": "code",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L53",
+      "community": 2,
+      "norm_label": "categories",
+      "id": "on_device_nlp_workspace_generate_dataset_categories"
+    },
+    {
+      "label": "MERCHANTS",
+      "file_type": "code",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L62",
+      "community": 2,
+      "norm_label": "merchants",
+      "id": "on_device_nlp_workspace_generate_dataset_merchants"
+    },
+    {
+      "label": "buildSentence()",
+      "file_type": "code",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L182",
+      "community": 2,
+      "norm_label": "buildsentence()",
+      "id": "on_device_nlp_workspace_generate_dataset_buildsentence"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "vite.config.ts",
+      "source_location": "L1",
+      "community": 7,
+      "norm_label": "vite.config.ts",
+      "id": "vite_config_ts"
+    },
+    {
+      "label": "test_inference.py",
+      "file_type": "code",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L1",
+      "community": 4,
+      "norm_label": "test_inference.py",
+      "id": "training_pipeline_test_inference_py"
+    },
+    {
+      "label": "run_inference()",
+      "file_type": "code",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L27",
+      "community": 4,
+      "norm_label": "run_inference()",
+      "id": "training_pipeline_test_inference_run_inference"
+    },
+    {
+      "label": "Simulates high-performance on-device execution:     1. Preprocesses/Tokenizes te",
+      "file_type": "rationale",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L28",
+      "community": 4,
+      "norm_label": "simulates high-performance on-device execution:     1. preprocesses/tokenizes te",
+      "id": "training_pipeline_test_inference_rationale_28"
+    },
+    {
+      "label": "train.py",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L1",
+      "community": 4,
+      "norm_label": "train.py",
+      "id": "training_pipeline_train_py"
+    },
+    {
+      "label": "load_dataset()",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L32",
+      "community": 4,
+      "norm_label": "load_dataset()",
+      "id": "training_pipeline_train_load_dataset"
+    },
+    {
+      "label": "clean_tokenize()",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L59",
+      "community": 4,
+      "norm_label": "clean_tokenize()",
+      "id": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "label": "build_vocab_and_label_mappings()",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L66",
+      "community": 4,
+      "norm_label": "build_vocab_and_label_mappings()",
+      "id": "training_pipeline_train_build_vocab_and_label_mappings"
+    },
+    {
+      "label": "vectorize_samples()",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L109",
+      "community": 4,
+      "norm_label": "vectorize_samples()",
+      "id": "training_pipeline_train_vectorize_samples"
+    },
+    {
+      "label": "build_multitask_model()",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L154",
+      "community": 4,
+      "norm_label": "build_multitask_model()",
+      "id": "training_pipeline_train_build_multitask_model"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L205",
+      "community": 4,
+      "norm_label": "main()",
+      "id": "training_pipeline_train_main"
+    },
+    {
+      "label": "Reads dataset from disk. Supports local fallback coordinates.",
+      "file_type": "rationale",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L33",
+      "community": 4,
+      "norm_label": "reads dataset from disk. supports local fallback coordinates.",
+      "id": "training_pipeline_train_rationale_33"
+    },
+    {
+      "label": "Normalized whitespace split with basic punctuation sanitation.",
+      "file_type": "rationale",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L60",
+      "community": 4,
+      "norm_label": "normalized whitespace split with basic punctuation sanitation.",
+      "id": "training_pipeline_train_rationale_60"
+    },
+    {
+      "label": "Builds a robust word-to-index mapping and indices for intents & slot classes.",
+      "file_type": "rationale",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L67",
+      "community": 4,
+      "norm_label": "builds a robust word-to-index mapping and indices for intents & slot classes.",
+      "id": "training_pipeline_train_rationale_67"
+    },
+    {
+      "label": "Translates raw string datasets and sequential chunk vectors to numpy training ar",
+      "file_type": "rationale",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L110",
+      "community": 4,
+      "norm_label": "translates raw string datasets and sequential chunk vectors to numpy training ar",
+      "id": "training_pipeline_train_rationale_110"
+    },
+    {
+      "label": "Creates a unified Shared-Representation Multi-Task deep neural model.     Head A",
+      "file_type": "rationale",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L155",
+      "community": 4,
+      "norm_label": "creates a unified shared-representation multi-task deep neural model.     head a",
+      "id": "training_pipeline_train_rationale_155"
+    },
+    {
+      "label": "App.tsx",
+      "file_type": "code",
+      "source_file": "src/App.tsx",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "app.tsx",
+      "id": "src_app_tsx"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "src/App.tsx",
+      "source_location": "L22",
+      "community": 3,
+      "norm_label": "app()",
+      "id": "src_app_app"
+    },
+    {
+      "label": "main.tsx",
+      "file_type": "code",
+      "source_file": "src/main.tsx",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "main.tsx",
+      "id": "src_main_tsx"
+    },
+    {
+      "label": "ReactNativeInference.ts",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L1",
+      "community": 5,
+      "norm_label": "reactnativeinference.ts",
+      "id": "src_reactnativeinference_ts"
+    },
+    {
+      "label": "NLPResult",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L20",
+      "community": 5,
+      "norm_label": "nlpresult",
+      "id": "src_reactnativeinference_nlpresult"
+    },
+    {
+      "label": "ModelVocab",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L26",
+      "community": 5,
+      "norm_label": "modelvocab",
+      "id": "src_reactnativeinference_modelvocab"
+    },
+    {
+      "label": "ModelLabels",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L31",
+      "community": 5,
+      "norm_label": "modellabels",
+      "id": "src_reactnativeinference_modellabels"
+    },
+    {
+      "label": "NLPCoprocessor",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L39",
+      "community": 5,
+      "norm_label": "nlpcoprocessor",
+      "id": "src_reactnativeinference_nlpcoprocessor"
+    },
+    {
+      "label": ".initialize()",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L55",
+      "community": 5,
+      "norm_label": ".initialize()",
+      "id": "src_reactnativeinference_nlpcoprocessor_initialize"
+    },
+    {
+      "label": ".warmup()",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L110",
+      "community": 5,
+      "norm_label": ".warmup()",
+      "id": "src_reactnativeinference_nlpcoprocessor_warmup"
+    },
+    {
+      "label": ".process()",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L136",
+      "community": 5,
+      "norm_label": ".process()",
+      "id": "src_reactnativeinference_nlpcoprocessor_process"
+    },
+    {
+      "label": "NLPEngine",
+      "file_type": "code",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L257",
+      "community": 5,
+      "norm_label": "nlpengine",
+      "id": "src_reactnativeinference_nlpengine"
+    },
+    {
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "src/types.ts",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "types.ts",
+      "id": "src_types_ts"
+    },
+    {
+      "label": "ModelArchitecture",
+      "file_type": "code",
+      "source_file": "src/types.ts",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "modelarchitecture",
+      "id": "src_types_modelarchitecture"
+    },
+    {
+      "label": "SimulationResult",
+      "file_type": "code",
+      "source_file": "src/types.ts",
+      "source_location": "L19",
+      "community": 3,
+      "norm_label": "simulationresult",
+      "id": "src_types_simulationresult"
+    },
+    {
+      "label": "SystemMetrics",
+      "file_type": "code",
+      "source_file": "src/types.ts",
+      "source_location": "L45",
+      "community": 3,
+      "norm_label": "systemmetrics",
+      "id": "src_types_systemmetrics"
+    },
+    {
+      "label": "NlpSandbox.tsx",
+      "file_type": "code",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "nlpsandbox.tsx",
+      "id": "src_components_nlpsandbox_tsx"
+    },
+    {
+      "label": "SAMPLE_UTTERANCES",
+      "file_type": "code",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L22",
+      "community": 3,
+      "norm_label": "sample_utterances",
+      "id": "components_nlpsandbox_sample_utterances"
+    },
+    {
+      "label": "simulateOnDeviceModel()",
+      "file_type": "code",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L33",
+      "community": 3,
+      "norm_label": "simulateondevicemodel()",
+      "id": "components_nlpsandbox_simulateondevicemodel"
+    },
+    {
+      "label": "NlpSandbox()",
+      "file_type": "code",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L453",
+      "community": 3,
+      "norm_label": "nlpsandbox()",
+      "id": "components_nlpsandbox_nlpsandbox"
+    },
+    {
+      "label": "TrainingPipeline.tsx",
+      "file_type": "code",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L1",
+      "community": 6,
+      "norm_label": "trainingpipeline.tsx",
+      "id": "src_components_trainingpipeline_tsx"
+    },
+    {
+      "label": "LIST_OF_INTENTS",
+      "file_type": "code",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L24",
+      "community": 6,
+      "norm_label": "list_of_intents",
+      "id": "components_trainingpipeline_list_of_intents"
+    },
+    {
+      "label": "LIST_OF_SLOTS",
+      "file_type": "code",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L44",
+      "community": 6,
+      "norm_label": "list_of_slots",
+      "id": "components_trainingpipeline_list_of_slots"
+    },
+    {
+      "label": "CODE_FILES",
+      "file_type": "code",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L68",
+      "community": 6,
+      "norm_label": "code_files",
+      "id": "components_trainingpipeline_code_files"
+    },
+    {
+      "label": "generateConfusionMatrixData()",
+      "file_type": "code",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L181",
+      "community": 6,
+      "norm_label": "generateconfusionmatrixdata()",
+      "id": "components_trainingpipeline_generateconfusionmatrixdata"
+    },
+    {
+      "label": "ModelSelector.tsx",
+      "file_type": "code",
+      "source_file": "src/components/ModelSelector.tsx",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "modelselector.tsx",
+      "id": "src_components_modelselector_tsx"
+    },
+    {
+      "label": "ARCHITECTURES",
+      "file_type": "code",
+      "source_file": "src/components/ModelSelector.tsx",
+      "source_location": "L5",
+      "community": 3,
+      "norm_label": "architectures",
+      "id": "components_modelselector_architectures"
+    },
+    {
+      "label": "LatencyCalculator.tsx",
+      "file_type": "code",
+      "source_file": "src/components/LatencyCalculator.tsx",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "latencycalculator.tsx",
+      "id": "src_components_latencycalculator_tsx"
+    },
+    {
+      "label": "TddViewer.tsx",
+      "file_type": "code",
+      "source_file": "src/components/TddViewer.tsx",
+      "source_location": "L1",
+      "community": 3,
+      "norm_label": "tddviewer.tsx",
+      "id": "src_components_tddviewer_tsx"
+    },
+    {
+      "label": "TddViewer()",
+      "file_type": "code",
+      "source_file": "src/components/TddViewer.tsx",
+      "source_location": "L17",
+      "community": 3,
+      "norm_label": "tddviewer()",
+      "id": "components_tddviewer_tddviewer"
+    },
+    {
+      "label": "FinanceDatasetGenerator.tsx",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L1",
+      "community": 0,
+      "norm_label": "financedatasetgenerator.tsx",
+      "id": "src_components_financedatasetgenerator_tsx"
+    },
+    {
+      "label": "VERBS_SPEND",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L19",
+      "community": 0,
+      "norm_label": "verbs_spend",
+      "id": "components_financedatasetgenerator_verbs_spend"
+    },
+    {
+      "label": "VERBS_INCOME",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L27",
+      "community": 0,
+      "norm_label": "verbs_income",
+      "id": "components_financedatasetgenerator_verbs_income"
+    },
+    {
+      "label": "VERBS_LIMIT",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L33",
+      "community": 0,
+      "norm_label": "verbs_limit",
+      "id": "components_financedatasetgenerator_verbs_limit"
+    },
+    {
+      "label": "CURRENCY_SYMBOLS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L38",
+      "community": 0,
+      "norm_label": "currency_symbols",
+      "id": "components_financedatasetgenerator_currency_symbols"
+    },
+    {
+      "label": "AMOUNTS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L40",
+      "community": 2,
+      "norm_label": "amounts",
+      "id": "components_financedatasetgenerator_amounts"
+    },
+    {
+      "label": "NOUNS_CATEGORY",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L47",
+      "community": 0,
+      "norm_label": "nouns_category",
+      "id": "components_financedatasetgenerator_nouns_category"
+    },
+    {
+      "label": "NOUNS_MERCHANT",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L54",
+      "community": 0,
+      "norm_label": "nouns_merchant",
+      "id": "components_financedatasetgenerator_nouns_merchant"
+    },
+    {
+      "label": "PAYMENT_METHODS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L65",
+      "community": 0,
+      "norm_label": "payment_methods",
+      "id": "components_financedatasetgenerator_payment_methods"
+    },
+    {
+      "label": "TIMES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L70",
+      "community": 0,
+      "norm_label": "times",
+      "id": "components_financedatasetgenerator_times"
+    },
+    {
+      "label": "NOTES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L78",
+      "community": 0,
+      "norm_label": "notes",
+      "id": "components_financedatasetgenerator_notes"
+    },
+    {
+      "label": "SOURCES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L84",
+      "community": 2,
+      "norm_label": "sources",
+      "id": "components_financedatasetgenerator_sources"
+    },
+    {
+      "label": "FREQUENCIES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L89",
+      "community": 0,
+      "norm_label": "frequencies",
+      "id": "components_financedatasetgenerator_frequencies"
+    },
+    {
+      "label": "COMMITMENT_TYPES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L94",
+      "community": 2,
+      "norm_label": "commitment_types",
+      "id": "components_financedatasetgenerator_commitment_types"
+    },
+    {
+      "label": "GOAL_NAMES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L99",
+      "community": 0,
+      "norm_label": "goal_names",
+      "id": "components_financedatasetgenerator_goal_names"
+    },
+    {
+      "label": "ASSET_TYPES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L104",
+      "community": 2,
+      "norm_label": "asset_types",
+      "id": "components_financedatasetgenerator_asset_types"
+    },
+    {
+      "label": "ASSET_NAMES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L109",
+      "community": 0,
+      "norm_label": "asset_names",
+      "id": "components_financedatasetgenerator_asset_names"
+    },
+    {
+      "label": "LIABILITY_TYPES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L114",
+      "community": 2,
+      "norm_label": "liability_types",
+      "id": "components_financedatasetgenerator_liability_types"
+    },
+    {
+      "label": "INTEREST_RATES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L119",
+      "community": 0,
+      "norm_label": "interest_rates",
+      "id": "components_financedatasetgenerator_interest_rates"
+    },
+    {
+      "label": "ITEM_NAMES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L123",
+      "community": 2,
+      "norm_label": "item_names",
+      "id": "components_financedatasetgenerator_item_names"
+    },
+    {
+      "label": "FILLERS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L128",
+      "community": 2,
+      "norm_label": "fillers",
+      "id": "components_financedatasetgenerator_fillers"
+    },
+    {
+      "label": "ENDERS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L136",
+      "community": 0,
+      "norm_label": "enders",
+      "id": "components_financedatasetgenerator_enders"
+    },
+    {
+      "label": "UNKNOWN_VERBS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L144",
+      "community": 2,
+      "norm_label": "unknown_verbs",
+      "id": "components_financedatasetgenerator_unknown_verbs"
+    },
+    {
+      "label": "UNKNOWN_TOPICS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L149",
+      "community": 2,
+      "norm_label": "unknown_topics",
+      "id": "components_financedatasetgenerator_unknown_topics"
+    },
+    {
+      "label": "UNKNOWN_SPORTS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L158",
+      "community": 0,
+      "norm_label": "unknown_sports",
+      "id": "components_financedatasetgenerator_unknown_sports"
+    },
+    {
+      "label": "UNKNOWN_CITIES",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L163",
+      "community": 2,
+      "norm_label": "unknown_cities",
+      "id": "components_financedatasetgenerator_unknown_cities"
+    },
+    {
+      "label": "UNKNOWN_CODER_TASKS",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L168",
+      "community": 2,
+      "norm_label": "unknown_coder_tasks",
+      "id": "components_financedatasetgenerator_unknown_coder_tasks"
+    },
+    {
+      "label": "GeneratedUtterance",
+      "file_type": "code",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L173",
+      "community": 0,
+      "norm_label": "generatedutterance",
+      "id": "components_financedatasetgenerator_generatedutterance"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "community": 1,
+      "norm_label": "readme.md",
+      "id": "readme_md"
+    },
+    {
+      "label": "Run and deploy your AI Studio app",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L5",
+      "community": 1,
+      "norm_label": "run and deploy your ai studio app",
+      "id": "on_device_nlp_workspace_readme_run_and_deploy_your_ai_studio_app"
+    },
+    {
+      "label": "Run Locally",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L11",
+      "community": 1,
+      "norm_label": "run locally",
+      "id": "on_device_nlp_workspace_readme_run_locally"
+    },
+    {
+      "label": "AI Training Pipeline- On-Device NLP Intent and Entity Extraction",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L1",
+      "community": 1,
+      "norm_label": "ai training pipeline- on-device nlp intent and entity extraction",
+      "id": "training_pipeline_readme_ai_training_pipeline_on_device_nlp_intent_and_entity_extraction"
+    },
+    {
+      "label": "Folder Structure",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L5",
+      "community": 1,
+      "norm_label": "folder structure",
+      "id": "training_pipeline_readme_folder_structure"
+    },
+    {
+      "label": "code:block1 (/training_pipeline)",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L7",
+      "community": 1,
+      "norm_label": "code:block1 (/training_pipeline)",
+      "id": "training_pipeline_readme_codeblock_1"
+    },
+    {
+      "label": "Technical Specifications",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L24",
+      "community": 1,
+      "norm_label": "technical specifications",
+      "id": "training_pipeline_readme_technical_specifications"
+    },
+    {
+      "label": "Multi-Task Neural Architecture",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L26",
+      "community": 1,
+      "norm_label": "multi-task neural architecture",
+      "id": "training_pipeline_readme_multi_task_neural_architecture"
+    },
+    {
+      "label": "Execution Guide",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L37",
+      "community": 1,
+      "norm_label": "execution guide",
+      "id": "training_pipeline_readme_execution_guide"
+    },
+    {
+      "label": "1. Set Up Python Environment",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L39",
+      "community": 1,
+      "norm_label": "1. set up python environment",
+      "id": "training_pipeline_readme_1_set_up_python_environment"
+    },
+    {
+      "label": "code:bash (pip install -r requirements.txt)",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L41",
+      "community": 1,
+      "norm_label": "code:bash (pip install -r requirements.txt)",
+      "id": "training_pipeline_readme_codeblock_2"
+    },
+    {
+      "label": "2. Run Training Pipeline",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L45",
+      "community": 1,
+      "norm_label": "2. run training pipeline",
+      "id": "training_pipeline_readme_2_run_training_pipeline"
+    },
+    {
+      "label": "code:bash (python train.py)",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L47",
+      "community": 1,
+      "norm_label": "code:bash (python train.py)",
+      "id": "training_pipeline_readme_codeblock_3"
+    },
+    {
+      "label": "3. Test Predictions Locally",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L51",
+      "community": 1,
+      "norm_label": "3. test predictions locally",
+      "id": "training_pipeline_readme_3_test_predictions_locally"
+    },
+    {
+      "label": "code:bash (python test_inference.py)",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L53",
+      "community": 1,
+      "norm_label": "code:bash (python test_inference.py)",
+      "id": "training_pipeline_readme_codeblock_4"
+    },
+    {
+      "label": "On-Device TensorFlow.js (React Native / Web) Loader Integration",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L59",
+      "community": 1,
+      "norm_label": "on-device tensorflow.js (react native / web) loader integration",
+      "id": "training_pipeline_readme_on_device_tensorflow_js_react_native_web_loader_integration"
+    },
+    {
+      "label": "code:typescript (import * as tf from '@tensorflow/tfjs';)",
+      "file_type": "document",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L63",
+      "community": 1,
+      "norm_label": "code:typescript (import * as tf from '@tensorflow/tfjs';)",
+      "id": "training_pipeline_readme_codeblock_5"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "on_device_nlp_workspace_generate_dataset_intents"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_verbs_spend"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_verbs_income"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_verbs_limit"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_currency_symbols"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_amounts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "on_device_nlp_workspace_generate_dataset_categories"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L62",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "on_device_nlp_workspace_generate_dataset_merchants"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_payment_methods"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_times"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_notes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L92",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_sources"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L97",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_frequencies"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L102",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_commitment_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_goal_names"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L112",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_asset_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L117",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_asset_names"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L122",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_liability_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L127",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_interest_rates"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L131",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_item_names"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_fillers"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L144",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_enders"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L152",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_unknown_verbs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L157",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_unknown_topics"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L166",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_unknown_sports"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L171",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_unknown_cities"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L176",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "components_financedatasetgenerator_unknown_coder_tasks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generate_dataset.ts",
+      "source_location": "L182",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generate_dataset_ts",
+      "target": "on_device_nlp_workspace_generate_dataset_buildsentence"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_test_inference_py",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_test_inference_py",
+      "target": "training_pipeline_test_inference_run_inference"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_test_inference_py",
+      "target": "training_pipeline_train_main"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_test_inference_run_inference",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L135",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_main",
+      "target": "training_pipeline_test_inference_run_inference"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/test_inference.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_test_inference_rationale_28",
+      "target": "training_pipeline_test_inference_run_inference"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_py",
+      "target": "training_pipeline_train_load_dataset"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_py",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_py",
+      "target": "training_pipeline_train_build_vocab_and_label_mappings"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L109",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_py",
+      "target": "training_pipeline_train_vectorize_samples"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L154",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_py",
+      "target": "training_pipeline_train_build_multitask_model"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L205",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_py",
+      "target": "training_pipeline_train_main"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L212",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_main",
+      "target": "training_pipeline_train_load_dataset"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_rationale_33",
+      "target": "training_pipeline_train_load_dataset"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_rationale_60",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_build_vocab_and_label_mappings",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_vectorize_samples",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L123",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_nlpcoprocessor",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L145",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_nlpcoprocessor_process",
+      "target": "training_pipeline_train_clean_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L221",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_main",
+      "target": "training_pipeline_train_build_vocab_and_label_mappings"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_rationale_67",
+      "target": "training_pipeline_train_build_vocab_and_label_mappings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L236",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_main",
+      "target": "training_pipeline_train_vectorize_samples"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L110",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_rationale_110",
+      "target": "training_pipeline_train_vectorize_samples"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L241",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_main",
+      "target": "training_pipeline_train_build_multitask_model"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/train.py",
+      "source_location": "L155",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_train_rationale_155",
+      "target": "training_pipeline_train_build_multitask_model"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_tddviewer_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "components_tddviewer_tddviewer"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_modelselector_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_latencycalculator_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_nlpsandbox_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "components_nlpsandbox_nlpsandbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_financedatasetgenerator_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_trainingpipeline_tsx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_app_app"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_main_tsx",
+      "target": "src_app_tsx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_ts",
+      "target": "src_reactnativeinference_nlpresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_ts",
+      "target": "src_reactnativeinference_modelvocab"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_ts",
+      "target": "src_reactnativeinference_modellabels"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_ts",
+      "target": "src_reactnativeinference_nlpcoprocessor"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L257",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_ts",
+      "target": "src_reactnativeinference_nlpengine"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L71",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_nlpcoprocessor",
+      "target": "src_reactnativeinference_nlpcoprocessor_initialize"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_nlpcoprocessor",
+      "target": "src_reactnativeinference_nlpcoprocessor_warmup"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_nlpcoprocessor",
+      "target": "src_reactnativeinference_nlpcoprocessor_process"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/ReactNativeInference.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_reactnativeinference_nlpcoprocessor_initialize",
+      "target": "src_reactnativeinference_nlpcoprocessor_warmup"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_types_ts",
+      "target": "src_types_modelarchitecture"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_types_ts",
+      "target": "src_types_simulationresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_types_ts",
+      "target": "src_types_systemmetrics"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_nlpsandbox_tsx",
+      "target": "src_types_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ModelSelector.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_modelselector_tsx",
+      "target": "src_types_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/LatencyCalculator.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_latencycalculator_tsx",
+      "target": "src_types_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ModelSelector.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_modelselector_tsx",
+      "target": "src_types_modelarchitecture"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_nlpsandbox_tsx",
+      "target": "src_types_simulationresult"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/LatencyCalculator.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_latencycalculator_tsx",
+      "target": "src_types_systemmetrics"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_nlpsandbox_tsx",
+      "target": "components_nlpsandbox_sample_utterances"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_nlpsandbox_tsx",
+      "target": "components_nlpsandbox_simulateondevicemodel"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/NlpSandbox.tsx",
+      "source_location": "L453",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_nlpsandbox_tsx",
+      "target": "components_nlpsandbox_nlpsandbox"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_trainingpipeline_tsx",
+      "target": "components_trainingpipeline_list_of_intents"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_trainingpipeline_tsx",
+      "target": "components_trainingpipeline_list_of_slots"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_trainingpipeline_tsx",
+      "target": "components_trainingpipeline_code_files"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TrainingPipeline.tsx",
+      "source_location": "L232",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "context": "call",
+      "source": "src_components_trainingpipeline_tsx",
+      "target": "components_trainingpipeline_generateconfusionmatrixdata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ModelSelector.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_modelselector_tsx",
+      "target": "components_modelselector_architectures"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TddViewer.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_tddviewer_tsx",
+      "target": "components_tddviewer_tddviewer"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_verbs_spend"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_verbs_income"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_verbs_limit"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_currency_symbols"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_amounts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_nouns_category"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_nouns_merchant"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_payment_methods"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_times"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_notes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_sources"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L89",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_frequencies"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L94",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_commitment_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L99",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_goal_names"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L104",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_asset_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L109",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_asset_names"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_liability_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_interest_rates"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L123",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_item_names"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L128",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_fillers"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L136",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_enders"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L144",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_unknown_verbs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L149",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_unknown_topics"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L158",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_unknown_sports"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L163",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_unknown_cities"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L168",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_unknown_coder_tasks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FinanceDatasetGenerator.tsx",
+      "source_location": "L173",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_financedatasetgenerator_tsx",
+      "target": "components_financedatasetgenerator_generatedutterance"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_md",
+      "target": "on_device_nlp_workspace_readme_run_and_deploy_your_ai_studio_app"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_md",
+      "target": "training_pipeline_readme_ai_training_pipeline_on_device_nlp_intent_and_entity_extraction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "on_device_nlp_workspace_readme_run_and_deploy_your_ai_studio_app",
+      "target": "on_device_nlp_workspace_readme_run_locally"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_ai_training_pipeline_on_device_nlp_intent_and_entity_extraction",
+      "target": "training_pipeline_readme_folder_structure"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_ai_training_pipeline_on_device_nlp_intent_and_entity_extraction",
+      "target": "training_pipeline_readme_technical_specifications"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_ai_training_pipeline_on_device_nlp_intent_and_entity_extraction",
+      "target": "training_pipeline_readme_execution_guide"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_ai_training_pipeline_on_device_nlp_intent_and_entity_extraction",
+      "target": "training_pipeline_readme_on_device_tensorflow_js_react_native_web_loader_integration"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_folder_structure",
+      "target": "training_pipeline_readme_codeblock_1"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_technical_specifications",
+      "target": "training_pipeline_readme_multi_task_neural_architecture"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_execution_guide",
+      "target": "training_pipeline_readme_1_set_up_python_environment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_execution_guide",
+      "target": "training_pipeline_readme_2_run_training_pipeline"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_execution_guide",
+      "target": "training_pipeline_readme_3_test_predictions_locally"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_1_set_up_python_environment",
+      "target": "training_pipeline_readme_codeblock_2"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_2_run_training_pipeline",
+      "target": "training_pipeline_readme_codeblock_3"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_3_test_predictions_locally",
+      "target": "training_pipeline_readme_codeblock_4"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "training_pipeline/README.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "training_pipeline_readme_on_device_tensorflow_js_react_native_web_loader_integration",
+      "target": "training_pipeline_readme_codeblock_5"
+    }
+  ],
+  "hyperedges": []
+}

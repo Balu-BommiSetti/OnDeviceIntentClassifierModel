@@ -1,0 +1,74 @@
+{
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/generate_dataset.ts": {
+    "mtime": 1780545072.0,
+    "hash": "59f06ecd13252d241192ebfdef8f8eb6"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/vite.config.ts": {
+    "mtime": 1780545072.0,
+    "hash": "9c319043c25764dfe83b687f74637c6c"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/training_pipeline/test_inference.py": {
+    "mtime": 1780545072.0,
+    "hash": "05815645c7f5d4085fccb9c1ed2d33ba"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/training_pipeline/train.py": {
+    "mtime": 1780545072.0,
+    "hash": "9827759181c44eff41439ce8735a5152"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/App.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "da6044dcff1d196277bd554b78c798cb"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/main.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "2b36426d5ad7e08ef79746aa524f4fb7"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/ReactNativeInference.ts": {
+    "mtime": 1780545072.0,
+    "hash": "f0df8e98d3d395bd8b249c9e855a2650"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/types.ts": {
+    "mtime": 1780545072.0,
+    "hash": "1ebb3b34ea1be478b3a363d879aa4496"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/components/NlpSandbox.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "afee11b706498d25ebb36f369b95883e"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/components/TrainingPipeline.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "5806af1844e1473ecfd2c7760a9c7d48"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/components/ModelSelector.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "9c38e02c9ae7e45601f111a59285c07f"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/components/LatencyCalculator.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "8f41bfd6e4238093c6c005e5aeef6dc3"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/components/TddViewer.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "14d997efc704dff9f3f49773e99a5e9d"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/src/components/FinanceDatasetGenerator.tsx": {
+    "mtime": 1780545072.0,
+    "hash": "636adbce5ebb9e21e2533973ecbc6a65"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/index.html": {
+    "mtime": 1780545072.0,
+    "hash": "c6cdc88c3abec682e37d1f35b7b4ad0b"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/README.md": {
+    "mtime": 1780545072.0,
+    "hash": "669250b55be499f411f4d85dbcde1d3c"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/training_pipeline/requirements.txt": {
+    "mtime": 1780545072.0,
+    "hash": "ac475413c6df26f9613dc64e3fcfbbb9"
+  },
+  "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/training_pipeline/README.md": {
+    "mtime": 1780545072.0,
+    "hash": "75a8703fa114e5d162c9fd4a55f3ea38"
+  }
+}
