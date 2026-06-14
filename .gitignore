@@ -6,3 +6,19 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Large generated files and virtual environments
+training_pipeline/.venv11/
+training_pipeline/exported_model*/
+exported_model*/
+exported_dataset/
+graphify-out/
+public/*.json
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!category_mapping.json
+!dataset_metadata.json
+!metadata.json
+!audit_report.json

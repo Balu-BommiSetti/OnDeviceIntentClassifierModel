@@ -1,0 +1,16 @@
+export enum TaskType {
+  CREATE = "CREATE",
+  UPDATE = "UPDATE",
+  DELETE = "DELETE",
+  SUMMARY = "SUMMARY",
+  STATUS = "STATUS",
+  ANALYSIS = "ANALYSIS",
+  INSIGHTS = "INSIGHTS",
+  COMPARISON = "COMPARISON",
+  RISK_CHECK = "RISK_CHECK",
+  FORECAST = "FORECAST",
+  WHAT_IF = "WHAT_IF",
+  EXPLANATION = "EXPLANATION"
+}
+
+export const TASK_TYPE_LIST = Object.values(TaskType) as TaskType[];
