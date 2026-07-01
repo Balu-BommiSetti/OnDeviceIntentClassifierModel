@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 MODEL_PATH = "exported_model/nlp_multitask_model.keras"
 MODEL_PATH = "exported_model/nlp_multitask_model.h5"
 TFJS_DIR = "exported_model/tfjs"
-WEALTHPILOT_ASSETS_DIR = "../../WealthPilot/wealthpilot_native_app/src/ai/model/assets/"
+WEALTHPILOT_ASSETS_DIR = os.environ.get("ASSETS_DIR", "exported_model/app_assets")
 
 print("Loading Keras model...")
 # Provide a dummy implementation for NameMapping if the model requires it for loading,

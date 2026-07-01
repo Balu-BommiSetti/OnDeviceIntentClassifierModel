@@ -9,6 +9,11 @@ if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir, { recursive: true });
 }
 
+function clean_tokenize(text: string): string[] {
+    const text_clean = text.toLowerCase().replace(/\./g, " ").replace(/,/g, " ").replace(/\?/g, " ").replace(/!/g, " ");
+    return text_clean.split(" ").map(t => t.trim()).filter(t => t.length > 0);
+}
+
 function generateUnknownSamples(numSamples: number): any[] {
     const unknownUtterances = [
         "hello", "hi there", "good morning", "what's up", "hey",
@@ -39,12 +44,14 @@ function generateUnknownSamples(numSamples: number): any[] {
         if (i % 4 === 2) text = "uh " + text;
         if (i % 5 === 1) text = text + " today";
 
+        const tokens = clean_tokenize(text);
+        
         samples.push({
             id: `unk_${idCounter++}`,
             intent: 'UNKNOWN',
             taskType: 'UNKNOWN',
-            utterance: text,
-            entities: []
+            tokens: tokens,
+            tags: new Array(tokens.length).fill('O')
         });
     }
     return samples;
@@ -66,19 +73,12 @@ async function main() {
     let count = 0;
 
     for (const sample of data.samples) {
-        const entities: any[] = [];
-        if (sample.slots) {
-            for (const [k, v] of Object.entries(sample.slots)) {
-                entities.push({ type: k, value: String(v) });
-            }
-        }
-
         allSamples.push({
             id: `v4_${count++}`,
             intent: sample.intent,
             taskType: sample.subIntent,
-            utterance: sample.utterance,
-            entities: entities
+            tokens: sample.tokens || [],
+            tags: sample.tags || []
         });
     }
 

@@ -4,10 +4,10 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import * as fs from "fs";
-import { Intent, SubIntent, INTENT_TAXONOMY } from "../V3/intent_taxonomy";
+import { Intent, SubIntent, INTENT_TAXONOMY } from "./intent_taxonomy";
 
 // ─── 1. GLOBAL VOCABULARY (The Slot Engine) ───────────────────────────────────
-import { MOCK_DATA as RAW_MOCK_DATA } from "./mock_data";
+import { MOCK_DATA as RAW_MOCK_DATA, generateRandomAmount, generateRandomDate } from "./mock_data.js";
 
 // Build flat arrays needed by the template engine from the diverse mock data
 const merchantsFlat: any[] = [];
@@ -33,11 +33,9 @@ const lendersFlat: any[] = RAW_MOCK_DATA.liabilities.map((l: any) => ({ surface:
 const targetAmountsFlat = RAW_MOCK_DATA.goals.map((g: any) => ({ surface: g.target.toString(), value: g.target.toString() }));
 
 const MOCK_DATA = {
-    amount: RAW_MOCK_DATA.amount,
     currency: Array.from(new Set(currenciesFlat)).concat(["bucks", "quid"]),
     category: categoriesFlat,
     merchant: merchantsFlat,
-    date: RAW_MOCK_DATA.dates,
     period: ["this month", "last month", "last 3 months", "Q1", "last year", "this week"],
     source: [
         { surface: "salary", value: "Salary" },
@@ -1927,11 +1925,6 @@ const TEMPLATE_REGISTRY = {
             "l-setup la-automatic la-savingS l-amount {amount}",
             "L-automate l-savings de-tails l-period {period}",
             "l-show la-automatic la-saving de-tails {date}",
-            "l-setup l-automation l-savings de-tails {period}",
-            "l-automate la-savings la-amount {amount} la-date {date}",
-            "de-tail la-automaticL l-savings l-period {period}",
-            "de-tailL la-automation de-savings {date}",
-            "L-automate l-savings la-amount {amount} {period}",
             "l-show l-automatic la-saving l-amount {amount} {date}",
             "l-setup l-automation l-savings l-amount {amount} {period}",
             "L-automate de-savings la-amount {amount} la-date {date}",
@@ -1946,51 +1939,147 @@ function pick<T>(arr: T[]): T {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function resolveSlots(text: string): { utterance: string, slots: Record<string, string> } {
-    let utterance = text;
-    const slots: Record<string, string> = {};
+function clean_tokenize(text: string): string[] {
+    let s = text.toLowerCase();
+    
+    // 1. Remove commas from numbers (e.g. "2,162.76" -> "2162.76")
+    s = s.replace(/(\d),(\d)/g, '$1$2');
+    
+    // 2. Remove standard punctuation (?!,) but KEEP periods for decimals
+    s = s.replace(/[?!,]/g, " ");
+    
+    // 3. Remove periods that are at the end of the sentence or followed by a space
+    s = s.replace(/\.\s/g, " ").replace(/\.$/, "");
+    
+    // 4. Split by whitespace and filter empties
+    return s.split(/\s+/).map(t => t.trim()).filter(t => t.length > 0);
+}
 
-    for (const [key, values] of Object.entries(MOCK_DATA)) {
-        if (utterance.includes(`{${key}}`)) {
-            const pickedValue: any = pick(values as any[]);
-
-            // IF the value is an object (like our amounts), we split it
-            if (typeof pickedValue === 'object' && pickedValue !== null) {
-                // User sees the "surface" (e.g., "10k")
-                utterance = utterance.replace(new RegExp(`\\{${key}\\}`, 'g'), pickedValue.surface);
-                // Database gets the "value" (e.g., "10000")
-                let outKey = key === "source" ? "category" : key;
-                slots[outKey] = pickedValue.value;
+function resolveSlots(template: string, region: string): { tokens: string[]; tags: string[] } {
+    const tokens: string[] = [];
+    const tags: string[] = [];
+    
+    // Split by placeholders
+    const parts = template.split(/(\{.*?\})/g);
+    
+    for (const part of parts) {
+        if (!part) continue;
+        
+        if (part.startsWith('{') && part.endsWith('}')) {
+            // [ARCHITECTURAL FIX] Removed the random 15% drop logic here.
+            // Randomly dropping slots leaves broken grammar (e.g., "I spent on food").
+            // If we want utterances without amounts, they must be provided as explicitly authored templates.
+            
+            const key = part.slice(1, -1);
+            let pickedSurface = "";
+            let outKey = key === "source" ? "category" : key;
+            
+            if (key === "amount") {
+                const cur = (RAW_MOCK_DATA.regionalData as any)[region]?.currencySymbol || "";
+                pickedSurface = generateRandomAmount(cur).surface;
+            } else if (key === "date" || key === "targetDate") {
+                pickedSurface = generateRandomDate().surface;
+            } else if (MOCK_DATA[key as keyof typeof MOCK_DATA]) {
+                const values = MOCK_DATA[key as keyof typeof MOCK_DATA] as any[];
+                const pickedValue: any = pick(values);
+                if (typeof pickedValue === 'object' && pickedValue !== null) {
+                    pickedSurface = pickedValue.surface;
+                } else {
+                    pickedSurface = pickedValue;
+                }
             } else {
-                // For simple strings (like "food" or "salary")
-                utterance = utterance.replace(new RegExp(`\\{${key}\\}`, 'g'), pickedValue);
-                let outKey = key === "source" ? "category" : key;
-                slots[outKey] = pickedValue;
+                pickedSurface = part; // Not a known slot, just treat as text
+            }
+            
+            const entityTokens = clean_tokenize(pickedSurface);
+            if (entityTokens.length > 0) {
+                tokens.push(entityTokens[0]);
+                tags.push(`B-${outKey.toUpperCase()}`);
+                for (let i = 1; i < entityTokens.length; i++) {
+                    tokens.push(entityTokens[i]);
+                    tags.push(`I-${outKey.toUpperCase()}`);
+                }
+            }
+        } else {
+            const partTokens = clean_tokenize(part);
+            for (const t of partTokens) {
+                tokens.push(t);
+                tags.push("O");
             }
         }
     }
-    return { utterance, slots };
+    return { tokens, tags };
 }
 
-function applyNoise(text: string): string {
-    let result = text;
-    const roll = Math.random();
-
-    if (roll < 0.1) result = result.toLowerCase();
-    if (roll < 0.2) result = result.toUpperCase();
-    if (roll < 0.3) result += ` ${pick(HINGLISH_FILLERS)}`;
-    if (roll < 0.4) result = result.replace(" ", "  "); // Double space typo
-    if (roll < 0.5) result = result.replace("budget", "budgt"); // Common typo
-
-    return result.trim();
+function applyNoise(tokens: string[], tags: string[]): { tokens: string[], tags: string[] } {
+    const resultTokens: string[] = [];
+    const resultTags: string[] = [];
+    
+    for (let i = 0; i < tokens.length; i++) {
+        let t = tokens[i];
+        const tg = tags[i];
+        
+        // Simulating typo (e.g. "budget" -> "budgt")
+        if (t === "budget" && Math.random() < 0.5) {
+            t = "budgt";
+        }
+        
+        resultTokens.push(t);
+        resultTags.push(tg);
+        
+        // Randomly insert Hinglish fillers between tokens (mostly outside entities)
+        if (Math.random() < 0.05 && tg === "O") {
+            const fillers = clean_tokenize(pick(HINGLISH_FILLERS));
+            for (const filler of fillers) {
+                resultTokens.push(filler);
+                resultTags.push("O");
+            }
+        }
+    }
+    
+    // Junk entity addition ("a lot", "stuff") mapped to O
+    if (Math.random() < 0.1) {
+        resultTokens.push("stuff");
+        resultTags.push("O");
+    }
+    
+    return { tokens: resultTokens, tags: resultTags };
 }
 
-export function generateBalancedDataset(targetPerSubIntent: number = 1000, stream: fs.WriteStream) {
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export function generateBalancedDataset(targetPerSubIntent: number = 1000, stream: fs.WriteStream, targetIntent: string | null = null) {
+    const llmTemplatesPath = path.join(__dirname, 'llm_templates.json');
+    if (fs.existsSync(llmTemplatesPath)) {
+        try {
+            const llmData = JSON.parse(fs.readFileSync(llmTemplatesPath, 'utf8'));
+            for (const intent of Object.keys(llmData)) {
+                if (!TEMPLATE_REGISTRY[intent]) TEMPLATE_REGISTRY[intent] = {};
+                for (const subIntent of Object.keys(llmData[intent])) {
+                    if (!TEMPLATE_REGISTRY[intent][subIntent]) TEMPLATE_REGISTRY[intent][subIntent] = [];
+                    const newTemplates = llmData[intent][subIntent];
+                    TEMPLATE_REGISTRY[intent][subIntent] = Array.from(new Set([
+                        ...TEMPLATE_REGISTRY[intent][subIntent],
+                        ...newTemplates
+                    ]));
+                }
+            }
+            console.log("✅ Successfully merged LLM templates into TEMPLATE_REGISTRY.");
+        } catch (e) {
+            console.error("Failed to load llm_templates.json", e);
+        }
+    }
+
     const ALL_REGIONS = ["US", "UK", "UAE", "IN", "AU", "CA"];
     let totalSamples = 0;
-    let isFirst = true;
+    let sampleIdCounter = 0;
 
     for (const [intent, tasks] of Object.entries(TEMPLATE_REGISTRY)) {
+        if (targetIntent && intent !== targetIntent) continue;
+
         for (const [subIntent, templates] of Object.entries(tasks)) {
 
             let count = 0;
@@ -2003,24 +2092,23 @@ export function generateBalancedDataset(targetPerSubIntent: number = 1000, strea
                 const template = templates[templateIdx % templates.length];
                 const region = pick(ALL_REGIONS);
 
-                const { utterance, slots } = resolveSlots(template);
-                const noisyUtterance = applyNoise(utterance);
+                const { tokens, tags } = resolveSlots(template, region);
+                const { tokens: noisyTokens, tags: noisyTags } = applyNoise(tokens, tags);
 
                 const roll = Math.random();
                 const split = roll < 0.8 ? "train" : roll < 0.9 ? "val" : "test";
 
                 const sample = {
+                    id: `v4_${sampleIdCounter++}`,
                     intent: intent,
-                    subIntent: subIntent,
-                    utterance: noisyUtterance,
+                    taskType: subIntent,
+                    tokens: noisyTokens,
+                    tags: noisyTags,
                     region: region,
-                    split: split,
-                    slots: slots
+                    split: split
                 };
 
-                const prefix = isFirst ? "" : ",\n";
-                isFirst = false;
-                stream.write(prefix + "    " + JSON.stringify(sample));
+                stream.write(JSON.stringify(sample) + "\n");
 
                 templateIdx++;
                 count++;
@@ -2034,28 +2122,37 @@ export function generateBalancedDataset(targetPerSubIntent: number = 1000, strea
 // ─── 4. MAIN EXECUTION ────────────────────────────────────────────────────────
 
 function main() {
-    console.log("Generating Contrastive Dataset with Stream Writing...");
+    let targetIntent: string | null = null;
+    const args = process.argv.slice(2);
+    const intentFlagIdx = args.indexOf('--intent');
+    
+    if (intentFlagIdx !== -1 && args.length > intentFlagIdx + 1) {
+        targetIntent = args[intentFlagIdx + 1];
+    }
 
-    const stream = fs.createWriteStream("./wealthpilot_train_v4.json");
-    stream.write(`{
-  "metadata": {
-    "version": "4.0.0",
-    "strategy": "Round-Robin Diversity Sampling",
-    "noise_injection": true
-  },
-  "samples": [
-`);
+    const outDir = path.resolve(process.cwd(), 'exported_dataset');
+    if (!fs.existsSync(outDir)) {
+        fs.mkdirSync(outDir, { recursive: true });
+    }
 
-    const totalSamples = generateBalancedDataset(2000, stream); // 2k samples per sub-intent
+    const filename = targetIntent ? `${targetIntent}.jsonl` : `dataset_all.jsonl`;
+    const filepath = path.join(outDir, filename);
 
-    stream.write(`
-  ]
-}
-`);
+    console.log(`Generating Contrastive Dataset to: ${filepath}`);
+    if (targetIntent) {
+        console.log(`Filtering generation to INTENT: ${targetIntent}`);
+    } else {
+        console.log(`Generating ALL intents (no --intent flag provided)`);
+    }
+
+    const stream = fs.createWriteStream(filepath);
+
+    const totalSamples = generateBalancedDataset(2000, stream, targetIntent); // 2k samples per sub-intent
+
     stream.end();
 
     stream.on('finish', () => {
-        console.log(`✅ Success! Generated ${totalSamples} balanced samples to stream.`);
+        console.log(`✅ Success! Generated ${totalSamples} samples to ${filepath}.`);
     });
 }
 

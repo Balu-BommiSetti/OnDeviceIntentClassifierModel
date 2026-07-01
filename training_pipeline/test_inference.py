@@ -50,7 +50,7 @@ def run_inference(text, model, word2idx, intents_list, slots_list):
     predicted_intent = intents_list[intent_idx]
     intent_confidence = float(predictions[0][0][intent_idx])
     
-    slots_idxs = np.argmax(predictions[1][0], axis=-1)
+    slots_idxs = np.argmax(predictions[2][0], axis=-1)
     
     print("-" * 50)
     print(f"[PREDICTED INTENT] {predicted_intent} ({intent_confidence * 100:.2f}% confidence)")

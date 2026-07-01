@@ -25,6 +25,9 @@ DROPOUT_RATE = 0.3
 BATCH_SIZE = 128
 EPOCHS = 10
 RANDOM_SEED = 42
+BOUNDARY_PERCENTILE = 95
+BOUNDARY_RADIUS_MULTIPLIER = 1.15
+TEMPERATURE_GRID = np.linspace(0.5, 5.0, 46)
 
 tf.random.set_seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
@@ -68,7 +71,7 @@ def build_vocab_and_label_mappings(samples):
 
     print("[*] Computing vocabulary and label distributions...")
     for sample in samples:
-        tokens = clean_tokenize(sample["utterance"])
+        tokens = sample.get("tokens", [])
         for token in tokens:
             word_counts[token] = word_counts.get(token, 0) + 1
         
@@ -76,10 +79,8 @@ def build_vocab_and_label_mappings(samples):
         if "taskType" in sample:
             unique_tasks.add(sample["taskType"])
             
-        for entity in sample.get("entities", []):
-            label = entity["type"].upper()
-            unique_slots.add(f"B-{label}")
-            unique_slots.add(f"I-{label}")
+        for tag in sample.get("tags", []):
+            unique_slots.add(tag.upper())
 
     # Sort vocabs by frequency for optimal layout
     vocab = ["<PAD>", "<UNK>"]
@@ -117,7 +118,7 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
         if (i + 1) % 50000 == 0:
             print(f"    ... Vectorized {i + 1}/{num_samples} samples.")
             
-        tokens = clean_tokenize(sample["utterance"])
+        tokens = sample.get("tokens", [])
         
         # 1. Map tokens to Word Index
         for j, token in enumerate(tokens[:MAX_SEQ_LENGTH]):
@@ -135,22 +136,12 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
             Y_task[i] = task2idx[sample["taskType"]]
         
         # 3. Align Entities to Tokens
-        tag_sequence = ["O"] * len(tokens)
-        
-        for entity in sample.get("entities", []):
-            entity_text = entity.get("value", "")
-            entity_label = entity.get("type", "UNKNOWN").upper()
-            entity_tokens = clean_tokenize(entity_text)
-            
-            for idx in range(len(tokens) - len(entity_tokens) + 1):
-                if tokens[idx:idx + len(entity_tokens)] == entity_tokens:
-                    tag_sequence[idx] = f"B-{entity_label}"
-                    for sub_idx in range(1, len(entity_tokens)):
-                        tag_sequence[idx + sub_idx] = f"I-{entity_label}"
-                    break
+        tag_sequence = sample.get("tags", [])
         
         for j, tag in enumerate(tag_sequence[:MAX_SEQ_LENGTH]):
-            Y_slots[i, j] = slot2idx.get(tag, slot2idx["O"])
+            if X[i, j] == word2idx.get("<UNK>") and tokens[j] != "<UNK>":
+                tag = "O"
+            Y_slots[i, j] = slot2idx.get(tag.upper(), slot2idx["O"])
             
     return X, Y_intent, Y_task, Y_slots
 
@@ -200,6 +191,76 @@ def build_model(vocab_size, num_intents, num_tasks, num_slots):
     return model
 
 
+def _temperature_scale(probabilities, temperature):
+    """Applies post-hoc temperature scaling to already-softmaxed probabilities."""
+    clipped = np.clip(probabilities, 1e-8, 1.0)
+    logits = np.log(clipped) / temperature
+    logits = logits - np.max(logits, axis=1, keepdims=True)
+    exp_logits = np.exp(logits)
+    return exp_logits / np.sum(exp_logits, axis=1, keepdims=True)
+
+
+def fit_temperature(probabilities, labels):
+    """Selects a scalar temperature that minimizes validation negative log likelihood."""
+    best_temperature = 1.0
+    best_nll = float("inf")
+
+    for temperature in TEMPERATURE_GRID:
+        scaled = _temperature_scale(probabilities, temperature)
+        nll = -np.mean(np.log(np.clip(scaled[np.arange(len(labels)), labels], 1e-8, 1.0)))
+        if nll < best_nll:
+            best_nll = nll
+            best_temperature = float(temperature)
+
+    return {
+        "enabled": True,
+        "temperature": best_temperature,
+        "validation_nll": float(best_nll),
+    }
+
+
+def build_intent_decision_boundary(model, X_reference, Y_reference, intents_list):
+    """
+    Builds adaptive decision boundaries over the intent embedding space.
+    A query is accepted only if its intent embedding falls inside at least one class radius.
+    """
+    embedding_model = Model(
+        inputs=model.input,
+        outputs=model.get_layer("intent_dense").output,
+        name="intent_embedding_exporter"
+    )
+    embeddings = embedding_model.predict(X_reference, batch_size=BATCH_SIZE, verbose=0)
+
+    centroids = {}
+    radii = {}
+    counts = {}
+
+    for intent_idx, intent_name in enumerate(intents_list):
+        class_embeddings = embeddings[Y_reference == intent_idx]
+        counts[intent_name] = int(len(class_embeddings))
+
+        if len(class_embeddings) == 0:
+            continue
+
+        centroid = np.mean(class_embeddings, axis=0)
+        distances = np.linalg.norm(class_embeddings - centroid, axis=1)
+        radius = np.percentile(distances, BOUNDARY_PERCENTILE) * BOUNDARY_RADIUS_MULTIPLIER
+
+        centroids[intent_name] = centroid.astype(float).tolist()
+        radii[intent_name] = float(max(radius, 1e-6))
+
+    return {
+        "enabled": True,
+        "layer": "intent_dense",
+        "metric": "euclidean",
+        "percentile": BOUNDARY_PERCENTILE,
+        "radius_multiplier": BOUNDARY_RADIUS_MULTIPLIER,
+        "centroids": centroids,
+        "radii": radii,
+        "counts": counts,
+    }
+
+
 def main():
     print("="*60)
     print("   ON-DEVICE PRODUCTION AI TRAINING PIPELINE FOR LOCAL EXPORT")
@@ -215,14 +276,18 @@ def main():
 
     word2idx, vocab, intent2idx, intents_list, task2idx, tasks_list, slot2idx, slots_list = build_vocab_and_label_mappings(samples)
     
-    import random
-    random.shuffle(samples)
-    train_end = int(len(samples) * 0.8)
-    val_end = int(len(samples) * 0.9)
+    train_samples = [s for s in samples if s.get("split") == "train"]
+    val_samples = [s for s in samples if s.get("split") == "val"]
+    test_samples = [s for s in samples if s.get("split") == "test"]
     
-    train_samples = samples[:train_end]
-    val_samples = samples[train_end:val_end]
-    test_samples = samples[val_end:]
+    if not train_samples:
+        import random
+        random.shuffle(samples)
+        train_end = int(len(samples) * 0.8)
+        val_end = int(len(samples) * 0.9)
+        train_samples = samples[:train_end]
+        val_samples = samples[train_end:val_end]
+        test_samples = samples[val_end:]
     
     print(f"\n[*] Processing data splits (Total samples):")
     print(f"    - Training Split:   {len(train_samples)} samples")
@@ -283,6 +348,13 @@ def main():
     Y_intent_pred = np.argmax(Y_pred_raw[0], axis=-1)
     Y_slots_pred = np.argmax(Y_pred_raw[2], axis=-1)
 
+    print("\n[*] Calibrating intent confidence and decision boundaries...")
+    Y_val_pred_raw = model.predict(X_val, batch_size=BATCH_SIZE, verbose=0)
+    temperature_scaling = fit_temperature(Y_val_pred_raw[0], Y_intent_val)
+    decision_boundary = build_intent_decision_boundary(model, X_train, Y_intent_train, intents_list)
+    print(f"    - Temperature: {temperature_scaling['temperature']:.2f}")
+    print(f"    - Boundary classes: {len(decision_boundary['centroids'])}")
+
     # Compile Intent Classification Metrics
     print("\n[A] Intent Head Classifier Evaluation (16 Intents Mapping):")
     intent_report = classification_report(
@@ -310,10 +382,16 @@ def main():
         flat_test_slots.extend(Y_slots_test[i, :actual_len])
         flat_pred_slots.extend(Y_slots_pred[i, :actual_len])
 
+    labels_without_O = [idx for idx, tag in enumerate(slots_list) if tag != "O"]
+    target_names_without_O = [slots_list[idx] for idx in labels_without_O]
+
     slot_report = classification_report(
         flat_test_slots,
         flat_pred_slots,
-        digits=4
+        labels=labels_without_O,
+        target_names=target_names_without_O,
+        digits=4,
+        zero_division=0
     )
     print(slot_report)
 
@@ -334,9 +412,12 @@ def main():
             "intents": intents_list,
             "intent2idx": intent2idx,
             "tasks": tasks_list,
+            "task2idx": task2idx,
             "slots": slots_list,
             "slot2idx": slot2idx,
-            "max_seq_length": MAX_SEQ_LENGTH
+            "max_seq_length": MAX_SEQ_LENGTH,
+            "temperature_scaling": temperature_scaling,
+            "decision_boundary": decision_boundary
         }, f, indent=2)
 
     import shutil

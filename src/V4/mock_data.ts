@@ -311,8 +311,8 @@ export const REGIONAL_DATA: Record<string, {
         currencyCode: "INR",
         merchants: [
             { id: "in_1", name: "Reliance Digital", canonicalName: "Reliance Digital", noiseLabel: "Rel Digital Txn #5419-IN" },
-            { id: "in_2", name: "Zomato", canonicalName: "Zomato", noiseLabel: "Zomato Food Order Deliv" },
-            { id: "in_3", name: "Swiggy", canonicalName: "Swiggy", noiseLabel: "Swiggy Instamart Grocery" },
+            { id: "in_2", name: "zomato pvt ltd", canonicalName: "Zomato", noiseLabel: "Zomato Food Order Deliv" },
+            { id: "in_3", name: "swiggy instamart", canonicalName: "Swiggy", noiseLabel: "Swiggy Instamart Grocery" },
             { id: "in_4", name: "Paytm", canonicalName: "Paytm Wallet", noiseLabel: "Paytm Recharge Txn" },
             { id: "in_5", name: "D-Mart", canonicalName: "DMart Retail", noiseLabel: "DMart Supermarket Bill" },
             { id: "in_6", name: "MakeMyTrip", canonicalName: "MakeMyTrip", noiseLabel: "MMT Flight Booking" },
@@ -493,11 +493,11 @@ export const REGIONAL_DATA: Record<string, {
             { id: "us_10", name: "Lowe's Home Improvement", canonicalName: "Lowes DIY", noiseLabel: "Lowes hardware custom tools bill" },
             { id: "us_11", name: "Best Buy Co", canonicalName: "Best Buy Tech", noiseLabel: "Best Buy tech store OLED monitor" },
             { id: "us_12", name: "Apple Store Online", canonicalName: "Apple Inc online retail", noiseLabel: "Apple Store App purchase digital" },
-            { id: "us_13", name: "Amazon US", canonicalName: "Amazon Prime Retail", noiseLabel: "Amazon Pay Txn USA #892B" },
+            { id: "us_13", name: "amazon prime", canonicalName: "Amazon Prime Retail", noiseLabel: "Amazon Pay Txn USA #892B" },
             { id: "us_14", name: "DoorDash Delivery", canonicalName: "DoorDash app", noiseLabel: "DoorDash Dinner Takeaway Meal" },
-            { id: "us_15", name: "UberEats US", canonicalName: "UberEats America", noiseLabel: "UberEats dynamic meal drop delivery" },
+            { id: "us_15", name: "uber eats", canonicalName: "UberEats America", noiseLabel: "UberEats dynamic meal drop delivery" },
             { id: "us_16", name: "Grubhub America", canonicalName: "Grubhub food delivery", noiseLabel: "Grubhub pizza delivery checkout" },
-            { id: "us_17", name: "Starbucks Coffee USA", canonicalName: "Starbucks US", noiseLabel: "Starbucks Store Seattle morning brew" },
+            { id: "us_17", name: "starbucks coffee inc", canonicalName: "Starbucks US", noiseLabel: "Starbucks Store Seattle morning brew" },
             { id: "us_18", name: "Dunkin Donuts", canonicalName: "Dunkin Donuts chain", noiseLabel: "Dunkin Donuts daily warm glaze bagels" },
             { id: "us_19", name: "McDonald's Drive Thru", canonicalName: "McDonalds fast food", noiseLabel: "McDonalds Txn #9012 California" },
             { id: "us_20", name: "Burger King", canonicalName: "Burger King", noiseLabel: "Burger King whooper burger card" },
@@ -594,363 +594,9 @@ export const REGIONAL_DATA: Record<string, {
 };
 
 export const MOCK_DATA = {
-    amount: [
-        // --- MICRO MAGNITUDE (1 to 1000) ---
-        {
-            surface: "₹45.50",
-            value: "45.50",
-            label: "Micro (Decimals, Indian symbol prefix)"
-        },
-        {
-            surface: "45.50rs",
-            value: "45.50",
-            label: "Micro (Decimals, Indian slang suffix)"
-        },
-        {
-            surface: "Forty-five rupees and fifty paisa",
-            value: "45.50",
-            label: "Micro (Decimals, Written word form)"
-        },
-        {
-            surface: "forty-five bucks fifty paise",
-            value: "45.50",
-            label: "Micro (Decimals, Regional slang)"
-        },
-        {
-            surface: "45.50",
-            value: "45.50",
-            label: "Micro (Decimals, Clean plain number)"
-        },
-
-        {
-            surface: "$120.00",
-            value: "120.00",
-            label: "Micro (Medium, Western symbol prefix)"
-        },
-        {
-            surface: "120 bucks",
-            value: "120.00",
-            label: "Micro (Medium, Slang suffix)"
-        },
-        {
-            surface: "One hundred and twenty dollars",
-            value: "120.00",
-            label: "Micro (Medium, Written word form)"
-        },
-        {
-            surface: "120 greenbacks",
-            value: "120.00",
-            label: "Micro (Medium, Regional jargon)"
-        },
-        {
-            surface: "120",
-            value: "120.00",
-            label: "Micro (Medium, Clean plain number)"
-        },
-
-        {
-            surface: "₨500",
-            value: "500.00",
-            label: "Micro (High, Nepali symbol prefix)"
-        },
-        {
-            surface: "500rs",
-            value: "500.00",
-            label: "Micro (High, Symbol suffix)"
-        },
-        {
-            surface: "Five hundred rupees",
-            value: "500.00",
-            label: "Micro (High, Written word form)"
-        },
-        {
-            surface: "five hundred bucks",
-            value: "500.00",
-            label: "Micro (High, Regional slang)"
-        },
-        {
-            surface: "500",
-            value: "500.00",
-            label: "Micro (High, Clean plain number)"
-        },
-
-        {
-            surface: "£95.75",
-            value: "95.75",
-            label: "Micro (Decimals, UK symbol prefix)"
-        },
-        {
-            surface: "95.75 quid",
-            value: "95.75",
-            label: "Micro (Decimals, UK slang suffix)"
-        },
-        {
-            surface: "Ninety-five pounds and seventy-five pence",
-            value: "95.75",
-            label: "Micro (Decimals, Written word form)"
-        },
-        {
-            surface: "95 quid 75p",
-            value: "95.75",
-            label: "Micro (Decimals, UK regional jargon)"
-        },
-        {
-            surface: "95.75",
-            value: "95.75",
-            label: "Micro (Decimals, Clean plain number)"
-        },
-
-        // --- MID MAGNITUDE (1001 to 100,000) ---
-        {
-            surface: "$12,000",
-            value: "12000.00",
-            label: "Mid (Western thousands, symbol prefix)"
-        },
-        {
-            surface: "12000 dollars",
-            value: "12000.00",
-            label: "Mid (Western thousands, suffix)"
-        },
-        {
-            surface: "Twelve thousand USD",
-            value: "12000.00",
-            label: "Mid (Western thousands, written word)"
-        },
-        {
-            surface: "12k",
-            value: "12000.00",
-            label: "Mid (Western thousands, 'k' shorthand)"
-        },
-        {
-            surface: "12000",
-            value: "12000.00",
-            label: "Mid (Western thousands, plain number)"
-        },
-
-        {
-            surface: "₹45,000",
-            value: "45000.00",
-            label: "Mid (Indian thousands, symbol prefix)"
-        },
-        {
-            surface: "45000 inr",
-            value: "45000.00",
-            label: "Mid (Indian thousands, suffix)"
-        },
-        {
-            surface: "Forty-five thousand rupees",
-            value: "45000.00",
-            label: "Mid (Indian thousands, written word)"
-        },
-        {
-            surface: "45k rupees",
-            value: "45000.00",
-            label: "Mid (Indian thousands, slang 'k' shorthand)"
-        },
-        {
-            surface: "45000",
-            value: "45000.00",
-            label: "Mid (Indian thousands, plain number)"
-        },
-
-        {
-            surface: "AED5,200",
-            value: "5200.00",
-            label: "Mid (UAE thousands, symbol prefix)"
-        },
-        {
-            surface: "5200 Dirhams",
-            value: "5200.00",
-            label: "Mid (UAE thousands, suffix)"
-        },
-        {
-            surface: "Five thousand two hundred AED",
-            value: "5200.00",
-            label: "Mid (UAE thousands, written word)"
-        },
-        {
-            surface: "5.2k dirhams",
-            value: "5200.00",
-            label: "Mid (UAE thousands, slang 'k' shorthand)"
-        },
-        {
-            surface: "5200",
-            value: "5200.00",
-            label: "Mid (UAE thousands, plain number)"
-        },
-
-        {
-            surface: "£2,500",
-            value: "2500.00",
-            label: "Mid (UK thousands, symbol prefix)"
-        },
-        {
-            surface: "2500 quid",
-            value: "2500.00",
-            label: "Mid (UK thousands, slang suffix)"
-        },
-        {
-            surface: "Two thousand five hundred pounds",
-            value: "2500.00",
-            label: "Mid (UK thousands, written word)"
-        },
-        {
-            surface: "2.5k quid",
-            value: "2500.00",
-            label: "Mid (UK thousands, slang 'k' shorthand)"
-        },
-        {
-            surface: "2500",
-            value: "2500.00",
-            label: "Mid (UK thousands, plain number)"
-        },
-
-        // --- LARGE MAGNITUDE (100,001 to 10,000,000+) ---
-        {
-            surface: "₹1,50,000",
-            value: "150000.00",
-            label: "Large (Indian Lakhs system, symbol prefix)"
-        },
-        {
-            surface: "150000 rupees",
-            value: "150000.00",
-            label: "Large (Indian Lakhs system, suffix)"
-        },
-        {
-            surface: "One Lakh fifty thousand rupees",
-            value: "150000.00",
-            label: "Large (Indian Lakhs system, written word)"
-        },
-        {
-            surface: "1.5L",
-            value: "150000.00",
-            label: "Large (Indian Lakhs system, regional slang)"
-        },
-        {
-            surface: "150000",
-            value: "150000.00",
-            label: "Large (Indian Lakhs system, plain number)"
-        },
-
-        {
-            surface: "₹2,20,000",
-            value: "220000.00",
-            label: "Large (Indian Lakhs variation, symbol prefix)"
-        },
-        {
-            surface: "220k rs",
-            value: "220000.00",
-            label: "Large (Indian Lakhs variation, slang suffix)"
-        },
-        {
-            surface: "Two Lakh twenty thousand inr",
-            value: "220000.00",
-            label: "Large (Indian Lakhs variation, written word)"
-        },
-        {
-            surface: "2.2 Lakhs",
-            value: "220000.00",
-            label: "Large (Indian Lakhs variation, regional slang)"
-        },
-        {
-            surface: "220000",
-            value: "220000.00",
-            label: "Large (Indian Lakhs variation, plain number)"
-        },
-
-        {
-            surface: "₹1,00,00,000",
-            value: "10000000.00",
-            label: "Large (Indian Crores system, symbol prefix)"
-        },
-        {
-            surface: "10000000rs",
-            value: "10000000.00",
-            label: "Large (Indian Crores system, suffix)"
-        },
-        {
-            surface: "One Crore rupees",
-            value: "10000000.00",
-            label: "Large (Indian Crores system, written word)"
-        },
-        {
-            surface: "1 Cr",
-            value: "10000000.00",
-            label: "Large (Indian Crores system, regional slang)"
-        },
-        {
-            surface: "10000000",
-            value: "10000000.00",
-            label: "Large (Indian Crores system, plain number)"
-        },
-
-        {
-            surface: "$1,000,000",
-            value: "1000000.00",
-            label: "Large (Western Millions system, symbol prefix)"
-        },
-        {
-            surface: "1000000 bucks",
-            value: "1000000.00",
-            label: "Large (Western Millions system, suffix)"
-        },
-        {
-            surface: "One million dollars",
-            value: "1000000.00",
-            label: "Large (Western Millions system, written word)"
-        },
-        {
-            surface: "1M",
-            value: "1000000.00",
-            label: "Large (Western Millions system, regional slang)"
-        },
-        {
-            surface: "1000000",
-            value: "1000000.00",
-            label: "Large (Western Millions system, plain number)"
-        },
-
-        {
-            surface: "$2,500,000",
-            value: "2500000.00",
-            label: "Large (Western Millions variation, symbol prefix)"
-        },
-        {
-            surface: "2.5M bucks",
-            value: "2500000.00",
-            label: "Large (Western Millions variation, slang suffix)"
-        },
-        {
-            surface: "Two point five million dollars",
-            value: "2500000.00",
-            label: "Large (Western Millions variation, written word)"
-        },
-        {
-            surface: "2.5 million",
-            value: "2500000.00",
-            label: "Large (Western Millions variation, regional slang)"
-        },
-        {
-            surface: "2500000",
-            value: "2500000.00",
-            label: "Large (Western Millions variation, plain number)"
-        }
-    ],
-
     category: CANONICAL_CATEGORIES,
     categorySynonyms: CATEGORY_SYNONYMS,
     regionalData: REGIONAL_DATA,
-
-    dates: [
-        { surface: "yesterday", value: "RELATIVE_PAST_1_DAY" },
-        { surface: "last week", value: "RELATIVE_PAST_7_DAYS" },
-        { surface: "5th June", value: "2026-06-05" },
-        { surface: "05/06/24", value: "2024-06-05" },
-        { surface: "2024-06-05", value: "2024-06-05" },
-        { surface: "last Wednesday", value: "RELATIVE_PAST_WEDNESDAY" },
-        { surface: "20 days ago", value: "RELATIVE_PAST_20_DAYS" },
-        { surface: "today", value: "RELATIVE_CURRENT_DAY" }
-    ],
 
     goals: [
         { id: "g_1", name: "Tokyo Cherry Blossom Trip", target: 350000, current: 180000, category: "Travel & Stay" },
@@ -999,3 +645,81 @@ export const MOCK_DATA = {
         { id: "l_10", name: "HBL Joint Flat Refurbish Credit", liabilityType: "Personal Loan", principal: 600000, interestRate: 11.2, tenureMonths: 48 }
     ]
 };
+
+// Programmatic Generators
+
+export function generateRandomAmount(currencySymbol: string = ""): SurfaceValue {
+    const isLarge = Math.random() < 0.2;
+    const isDecimal = Math.random() < 0.3;
+    
+    let rawValue = 0;
+    if (isLarge) {
+        rawValue = Math.floor(Math.random() * 9000000) + 100000;
+    } else {
+        rawValue = Math.floor(Math.random() * 9000) + 10;
+    }
+    
+    if (isDecimal) {
+        rawValue += Math.floor(Math.random() * 99) / 100;
+    }
+    
+    const valueStr = rawValue.toFixed(2);
+    
+    const formatRoll = Math.random();
+    let surfaceStr = "";
+    
+    if (formatRoll < 0.2) {
+        surfaceStr = `${currencySymbol}${rawValue}`; // $500
+    } else if (formatRoll < 0.4) {
+        surfaceStr = `${rawValue} ${currencySymbol}`; // 500 USD
+    } else if (formatRoll < 0.6) {
+        const slangs = ["bucks", "quid", "rs", "inr", "dollars"];
+        surfaceStr = `${rawValue} ${slangs[Math.floor(Math.random() * slangs.length)]}`;
+    } else if (formatRoll < 0.8 && rawValue >= 1000) {
+        surfaceStr = `${(rawValue / 1000).toFixed(1)}k`; // 1.5k
+    } else {
+        surfaceStr = `${rawValue}`; // 500
+    }
+
+    return {
+        surface: surfaceStr.trim(),
+        value: valueStr
+    };
+}
+
+export function generateRandomDate(): SurfaceValue {
+    const datePatterns = [
+        { surface: "yesterday", value: "RELATIVE_PAST_1_DAY" },
+        { surface: "yday", value: "RELATIVE_PAST_1_DAY" },
+        { surface: "last week", value: "RELATIVE_PAST_7_DAYS" },
+        { surface: "last wk", value: "RELATIVE_PAST_7_DAYS" },
+        { surface: "today", value: "RELATIVE_CURRENT_DAY" },
+        { surface: "tmrw", value: "RELATIVE_FUTURE_1_DAY" },
+        { surface: "tomorrow", value: "RELATIVE_FUTURE_1_DAY" },
+        { surface: "next week", value: "RELATIVE_FUTURE_7_DAYS" },
+        { surface: "nxt wk", value: "RELATIVE_FUTURE_7_DAYS" },
+        { surface: "monday morning", value: "RELATIVE_FUTURE_MONDAY" },
+        { surface: "last Wednesday", value: "RELATIVE_PAST_WEDNESDAY" }
+    ];
+    
+    const roll = Math.random();
+    if (roll < 0.5) {
+        return datePatterns[Math.floor(Math.random() * datePatterns.length)];
+    } else {
+        // Generate a random formal date DD/MM/YYYY or YYYY-MM-DD
+        const d = Math.floor(Math.random() * 28) + 1;
+        const m = Math.floor(Math.random() * 12) + 1;
+        const y = 2024 + Math.floor(Math.random() * 3);
+        const ds = d < 10 ? `0${d}` : `${d}`;
+        const ms = m < 10 ? `0${m}` : `${m}`;
+        const val = `${y}-${ms}-${ds}`;
+        
+        const style = Math.random();
+        let surface = "";
+        if (style < 0.3) surface = `${ds}/${ms}/${y}`;
+        else if (style < 0.6) surface = `${ds}-${ms}-${y}`;
+        else surface = val;
+        
+        return { surface, value: val };
+    }
+}

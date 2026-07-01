@@ -20,7 +20,16 @@ import '@tensorflow/tfjs-react-native';
 export interface NLPResult {
   intent: string;
   confidence: number;
+  taskType?: string;
+  taskConfidence?: number;
   entities: Record<string, string>;
+  boundary?: {
+    accepted: boolean;
+    nearestIntent: string;
+    distance: number;
+    radius: number;
+  };
+  unknownReason?: 'confidence' | 'boundary';
 }
 
 export interface ModelVocab {
@@ -31,13 +40,27 @@ export interface ModelVocab {
 export interface ModelLabels {
   intents: string[];
   intent2idx: Record<string, number>;
+  tasks?: string[];
+  task2idx?: Record<string, number>;
   slots: string[];
   slot2idx: Record<string, number>;
   max_seq_length: number;
+  temperature_scaling?: {
+    enabled: boolean;
+    temperature: number;
+  };
+  decision_boundary?: {
+    enabled: boolean;
+    layer: string;
+    metric: 'euclidean';
+    centroids: Record<string, number[]>;
+    radii: Record<string, number>;
+  };
 }
 
 export class NLPCoprocessor {
   private model: tf.LayersModel | null = null;
+  private embeddingModel: tf.LayersModel | null = null;
   private vocabRegistry: ModelVocab | null = null;
   private labelRegistry: ModelLabels | null = null;
   private isInitializing: boolean = false;
@@ -90,6 +113,7 @@ export class NLPCoprocessor {
       // 3. Load lookup registries
       this.vocabRegistry = vocabData;
       this.labelRegistry = labelData;
+      this.embeddingModel = this.createEmbeddingModel(this.model);
 
       // 4. Perform GPU warmup to prevent lag on first user interaction
       this.warmup();
@@ -100,6 +124,22 @@ export class NLPCoprocessor {
       throw error;
     } finally {
       this.isInitializing = false;
+    }
+  }
+
+  private createEmbeddingModel(model: tf.LayersModel): tf.LayersModel | null {
+    const boundary = this.labelRegistry?.decision_boundary;
+    const layerName = boundary?.layer ?? 'intent_dense';
+
+    try {
+      const embeddingLayer = model.getLayer(layerName);
+      return tf.model({
+        inputs: model.inputs,
+        outputs: embeddingLayer.output,
+      });
+    } catch (error) {
+      console.warn(`[NLP Coprocessor] Boundary embedding layer unavailable: ${layerName}`, error);
+      return null;
     }
   }
 
@@ -140,7 +180,7 @@ export class NLPCoprocessor {
 
     // Capture standard data bindings
     const { word2idx } = this.vocabRegistry;
-    const { intents, slots, max_seq_length } = this.labelRegistry;
+    const { intents, tasks, slots, max_seq_length } = this.labelRegistry;
 
     const tokens = this.cleanTokenize(text);
     
@@ -159,20 +199,28 @@ export class NLPCoprocessor {
     const results = tf.tidy(() => {
       const inputTensor = tf.tensor2d([sequence], [1, max_seq_length], 'int32');
       
-      // Perform inference (Heads: 0 is Intent, 1 is Slots)
+      // Perform inference (Heads: 0 is Intent, 1 is TaskType, 2 is Slots)
       const predictionWrapper = this.model!.predict(inputTensor) as tf.Tensor[];
       
-      const intentPredictions = predictionWrapper[0].dataSync();
-      const slotPredictions = predictionWrapper[1]; 
+      const intentPredictions = Array.from(predictionWrapper[0].dataSync());
+      const taskPredictions = predictionWrapper[1] ? Array.from(predictionWrapper[1].dataSync()) : [];
+      const slotPredictions = predictionWrapper[2];
+      const embedding = this.embeddingModel
+        ? Array.from((this.embeddingModel.predict(inputTensor) as tf.Tensor).dataSync())
+        : [];
       
       // Argmax logic
       const intentClassId = (predictionWrapper[0].argMax(-1).dataSync())[0];
+      const taskClassId = predictionWrapper[1] ? (predictionWrapper[1].argMax(-1).dataSync())[0] : -1;
       const seqClassIds = slotPredictions.argMax(-1).dataSync();
       
       return {
         intentId: intentClassId,
-        intentConfidence: intentPredictions[intentClassId],
-        seqIds: Array.from(seqClassIds)
+        intentPredictions,
+        taskId: taskClassId,
+        taskPredictions,
+        seqIds: Array.from(seqClassIds),
+        embedding,
       };
     });
 
@@ -181,10 +229,29 @@ export class NLPCoprocessor {
     // ---------------------------------------------
     
     // Threshold filtering to prevent hallucinated actions
-    let finalIntent = intents[results.intentId];
-    if (results.intentConfidence < this.CONFIDENCE_THRESHOLD) {
+    const calibratedIntentScores = this.applyTemperature(results.intentPredictions);
+    const calibratedIntentId = this.argmax(calibratedIntentScores);
+    const boundaryDecision = this.evaluateDecisionBoundary(results.embedding);
+
+    let finalIntent = intents[calibratedIntentId];
+    let unknownReason: NLPResult['unknownReason'] | undefined;
+    let intentConfidence = calibratedIntentScores[calibratedIntentId] ?? 0;
+
+    if (boundaryDecision && !boundaryDecision.accepted) {
       finalIntent = this.UNKNOWN_INTENT;
+      unknownReason = 'boundary';
+    } else if (boundaryDecision?.accepted) {
+      finalIntent = boundaryDecision.nearestIntent;
+      const boundaryIntentId = this.labelRegistry.intent2idx[finalIntent];
+      if (boundaryIntentId !== undefined) {
+        intentConfidence = calibratedIntentScores[boundaryIntentId] ?? intentConfidence;
+      }
+    } else if (intentConfidence < this.CONFIDENCE_THRESHOLD) {
+      finalIntent = this.UNKNOWN_INTENT;
+      unknownReason = 'confidence';
     }
+
+    const taskConfidence = results.taskId >= 0 ? results.taskPredictions[results.taskId] : undefined;
 
     // Assemble entities from IOB tags
     const entities: Record<string, string> = {};
@@ -239,18 +306,88 @@ export class NLPCoprocessor {
     
     // Refine some known slots dynamically (e.g. format amounts)
     // Mobile specific: You can add currency symbol parsing or date calculations here.
-    if (entities['amount']) {
-       const cleanedNumber = entities['amount'].replace(/[^0-9.]/g, '');
+    if (entities['AMOUNT']) {
+       const cleanedNumber = entities['AMOUNT'].replace(/[^0-9.]/g, '');
        if (cleanedNumber.length > 0) {
-          entities['amount'] = cleanedNumber;
+          entities['AMOUNT'] = cleanedNumber;
        }
     }
 
     return {
       intent: finalIntent,
-      confidence: results.intentConfidence,
-      entities: entities
+      confidence: intentConfidence,
+      taskType: tasks && results.taskId >= 0 ? tasks[results.taskId] : undefined,
+      taskConfidence,
+      entities,
+      boundary: boundaryDecision,
+      unknownReason,
     };
+  }
+
+  private applyTemperature(probabilities: number[]): number[] {
+    const temperature = this.labelRegistry?.temperature_scaling?.enabled
+      ? this.labelRegistry.temperature_scaling.temperature
+      : 1.0;
+
+    if (!Number.isFinite(temperature) || temperature <= 0 || temperature === 1.0) {
+      return probabilities;
+    }
+
+    const logits = probabilities.map((probability) => Math.log(Math.max(probability, 1e-8)) / temperature);
+    const maxLogit = Math.max(...logits);
+    const exps = logits.map((logit) => Math.exp(logit - maxLogit));
+    const total = exps.reduce((sum, value) => sum + value, 0);
+    return exps.map((value) => value / total);
+  }
+
+  private evaluateDecisionBoundary(embedding: number[]): NLPResult['boundary'] | undefined {
+    const boundary = this.labelRegistry?.decision_boundary;
+    if (!boundary?.enabled || !embedding.length) return undefined;
+
+    let nearestIntent = this.UNKNOWN_INTENT;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+    let nearestRadius = 0;
+
+    for (const [intent, centroid] of Object.entries(boundary.centroids)) {
+      if (centroid.length !== embedding.length) continue;
+
+      const distance = this.euclideanDistance(embedding, centroid);
+      if (distance < nearestDistance) {
+        nearestIntent = intent;
+        nearestDistance = distance;
+        nearestRadius = boundary.radii[intent] ?? 0;
+      }
+    }
+
+    if (!Number.isFinite(nearestDistance) || nearestRadius <= 0) return undefined;
+
+    return {
+      accepted: nearestDistance <= nearestRadius,
+      nearestIntent,
+      distance: nearestDistance,
+      radius: nearestRadius,
+    };
+  }
+
+  private euclideanDistance(left: number[], right: number[]): number {
+    let sum = 0;
+    for (let i = 0; i < left.length; i++) {
+      const delta = left[i] - right[i];
+      sum += delta * delta;
+    }
+    return Math.sqrt(sum);
+  }
+
+  private argmax(values: number[]): number {
+    let bestIdx = 0;
+    let bestValue = Number.NEGATIVE_INFINITY;
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] > bestValue) {
+        bestValue = values[i];
+        bestIdx = i;
+      }
+    }
+    return bestIdx;
   }
 }
 
