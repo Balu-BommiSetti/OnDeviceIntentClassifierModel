@@ -8,7 +8,14 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "dataset:generate": "tsx src/knowledge/generateFromSpec.ts",
+    "dataset:validate": "tsx src/knowledge/validate.ts ./exported_dataset/spec_dataset.jsonl",
+    "dataset:codegen": "tsx src/knowledge/codegen.ts",
+    "dataset:codegen:app": "tsx src/knowledge/codegenApp.ts",
+    "dataset:build": "npm run dataset:generate && npm run dataset:validate && npm run dataset:codegen",
+    "pipeline": "./run_pipeline.sh",
+    "pipeline:no-train": "./run_pipeline.sh --no-train"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

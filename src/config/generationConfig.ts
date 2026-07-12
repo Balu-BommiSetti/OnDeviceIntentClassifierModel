@@ -57,55 +57,15 @@ export const CATEGORIES = [
   "food", "dining", "groceries", "rent", "mortgage", "electricity", "water", "internet", 
   "Netflix", "Spotify", "Gym", "Uber", "Amazon", "Shopping", "Clothing", "Medicine", 
   "Hospital", "Education", "Tuition", "Insurance", "Fuel", "Petrol", "Dining out", 
-  "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment", "SIP",
-  "booze", "liquor", "night outs", "takeout", "food delivery", "Swiggy", "Zomato",
-  "Swiggy Instamart", "Blinkit", "Zepto", "coffee runs", "subscriptions", "Amazon Prime",
-  "EMI", "loan repayment", "credit card bill", "school fees", "maid salary", "cab rides",
-  "UPI spends", "medical emergency", "home repairs", "mutual funds", "Nifty 50 SIP"
-];
-
-export const MERCHANTS = [
-  "Amazon", "amazon prime", "amazon marketplace", "Flipkart", "Myntra", "Nykaa",
-  "Swiggy", "Swiggy Instamart", "Zomato", "Blinkit", "Zepto", "BigBasket",
-  "Uber", "Ola", "Rapido", "Starbucks", "Blue Tokai", "McDonald's", "KFC",
-  "Netflix", "Spotify", "Apple", "Google Play", "HDFC Bank", "ICICI Bank",
-  "SBI Card", "Axis Bank", "LIC", "Tata AIA", "Reliance Digital", "Croma"
-];
-
-export const ITEM_NAMES = [
-  "iPhone 15 Pro", "new laptop", "MacBook", "washing machine", "fridge",
-  "flight tickets", "school admission", "wedding expense", "bike", "car down payment",
-  "health insurance", "term insurance", "vacation", "rent deposit", "home renovation"
-];
-
-export const LIABILITY_TYPES = [
-  "home loan", "HDFC home loan", "education loan", "car loan", "personal loan",
-  "credit card debt", "SBI card dues", "BNPL balance", "mortgage", "loan EMI"
-];
-
-export const ASSET_TYPES = [
-  "mutual fund", "Nifty 50 SIP", "index fund", "FD", "recurring deposit",
-  "stocks", "gold ETF", "PPF", "EPF", "emergency fund", "crypto"
-];
-
-export const ASSET_NAMES = [
-  "Nifty 50", "Sensex index fund", "Parag Parikh Flexi Cap", "SBI Bluechip",
-  "Axis Small Cap", "HDFC balanced advantage", "PPF account", "emergency corpus"
-];
-
-export const GOAL_NAMES = [
-  "emergency fund", "house down payment", "kids education", "retirement",
-  "vacation fund", "wedding fund", "new car", "debt-free goal"
+  "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment", "SIP"
 ];
 
 export const FREQUENCIES = [
-  "monthly", "weekly", "annually", "every month", "every week", "yearly", "bi-weekly", "each month", "quarterly",
-  "per month", "a month", "every weekend", "this weekend", "every payday", "twice a month"
+  "monthly", "weekly", "annually", "every month", "every week", "yearly", "bi-weekly", "each month", "quarterly"
 ];
 
 export const INTEREST_RATES = [
-  "5%", "7.5%", "8.5%", "12% APR", "8% interest rate", "10% per annum", "6.2% fixed", "15% interest",
-  "18% credit card APR", "9.25% floating", "7.1% post-tax", "11 percent"
+  "5%", "7.5%", "12% APR", "8% interest rate", "10% per annum", "6.2% fixed", "15% interest"
 ];
 
 export const STYLE_MODIFIERS: Record<string, { openers: string[], fillers: string[] }> = {
@@ -135,14 +95,11 @@ export const STYLE_MODIFIERS: Record<string, { openers: string[], fillers: strin
   }
 };
 
-export const ALL_INTENTS = [
-  "ADD_INCOME", "ADD_EXPENSE", "INCOME_DECLARATION", "SPENDING_ANALYSIS", 
-  "NET_WORTH_CHECK", "CASHFLOW_WARNING", "BUDGET_PLANNING", "SAVINGS_ADVICE", 
-  "GOAL_PLANNING", "AFFORDABILITY_CHECK", "LOAN_ANALYSIS", "DEBT_FREEDOM_ANALYSIS", 
-  "SIP_VS_PREPAY", "ADD_ASSET", "ADD_LIABILITY", "REFUND"
-];
+// Derive from the taxonomy so the generator's intent/task lists can never
+// drift from the classifier's label space (INTENT_LIST / TASK_TYPE_LIST).
+import { INTENT_LIST } from "../taxonomy/intents";
+import { TASK_TYPE_LIST } from "../taxonomy/taskTypes";
 
-export const ALL_TASK_TYPES = [
-  "CREATE", "STATUS", "ANALYSIS", "UPDATE", "DELETE", "SUMMARY", 
-  "INSIGHTS", "COMPARISON", "RISK_CHECK", "FORECAST", "WHAT_IF", "EXPLANATION"
-];
+export const ALL_INTENTS = INTENT_LIST as readonly string[];
+
+export const ALL_TASK_TYPES = TASK_TYPE_LIST as readonly string[];
