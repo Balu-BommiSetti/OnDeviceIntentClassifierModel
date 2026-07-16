@@ -1,0 +1,44 @@
+{
+  "name": "react-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit",
+    "dataset:generate": "tsx src/knowledge/generateFromSpec.ts",
+    "dataset:validate": "tsx src/knowledge/validate.ts ./exported_dataset/spec_dataset.jsonl",
+    "dataset:codegen": "tsx src/knowledge/codegen.ts",
+    "dataset:codegen:app": "tsx src/knowledge/codegenApp.ts",
+    "dataset:build": "npm run dataset:generate && npm run dataset:validate && npm run dataset:codegen",
+    "pipeline": "./run_pipeline.sh",
+    "pipeline:no-train": "./run_pipeline.sh --no-train"
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-react-native": "^1.0.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^6.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3"
+  }
+}

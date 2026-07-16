@@ -1,0 +1,36 @@
+import fs from "fs";
+
+const CATEGORY_MAP: Record<string, string[]> = {
+  "Groceries": ["groceries", "grocereis", "d-mart", "supermarket"],
+  "Food": ["food", "kharcha"],
+  "Tea & Coffee": ["coffee", "coffe", "tea", "chai"],
+  "Transport": ["transportation", "transit"],
+  "Entertainment": ["entertainment", "concert tickets", "movie theater", "movies"],
+  "Subscriptions": ["subscriptions", "netflix", "spotify", "prime"],
+  "Utilities": ["utilities", "utlities", "bijli bill", "paani block"],
+  "Fuel": ["gas", "petrol", "diesel", "fuel"],
+  "Rent": ["rent", "house rent"],
+  "Travel": ["travel", "flight", "airbnb", "hotel"],
+  "Dining Out": ["dining out", "restaurant", "restuarant", "eating out", "dinner", "lunch"],
+  "Fitness": ["fitness", "gym", "workout"],
+  "Clothing": ["clothing", "clothes", "apparel", "shopping"],
+  "Education": ["education", "tuition", "school fees"],
+  "Hobbies": ["hobbies"],
+  "Healthcare": ["health", "dawa", "medicine"],
+  "Insurance": ["insurance", "premium"],
+  "Gifts & Donations": ["gifts", "charity", "donation"],
+  "Investment": ["investments", "mutual funds", "stocks", "crypto"],
+  "Electronics / Gadgets": ["gadgets", "electronics", "laptop", "phone"],
+  "Parking & Toll": ["parking", "toll"],
+  "Doctor / Consultation": ["dentistry", "doctor", "consultation"],
+  "Travel": ["car rent"],
+  "Books": ["books"],
+  "Home Maintenance": ["hardware", "maintenance", "repairs"],
+  "Pet Care": ["pet care", "vet", "dog food"],
+  "Food Delivery": ["fast food", "swiggy", "zomato", "doordash", "uber eats"],
+  "Other Expense": ["kharcha", "miscellaneous"]
+};
+
+const CATEGORIES = Object.values(CATEGORY_MAP).flat();
+
+console.log(CATEGORIES);

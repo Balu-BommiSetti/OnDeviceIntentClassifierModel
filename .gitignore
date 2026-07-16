@@ -1,0 +1,25 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+v6/training_pipeline/embeddings/
+
+# Large generated files and virtual environments
+training_pipeline/.venv11/
+training_pipeline/exported_model*/
+exported_model*/
+exported_dataset/
+graphify-out/
+public/*.json
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!category_mapping.json
+!dataset_metadata.json
+!metadata.json
+!audit_report.json
