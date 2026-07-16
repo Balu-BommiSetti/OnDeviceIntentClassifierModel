@@ -1,6 +1,3 @@
-{
-  "name": "On-Device NLP Workspace",
-  "description": "Interactive Technical Design Document & mobile NLP trade-off simulator for TensorFlow.js",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:97d218a4b2db44270a4baae34235456e0abb47d5613ad2d41baf54f4ebd923b5
+size 250
