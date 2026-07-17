@@ -1,0 +1,34 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "DEBT_FREEDOM_ANALYSIS",
+  "description": "User asks when/how they will become debt free. Read-only advisory intent.",
+  "supported_actions": ["ANALYSIS", "WHAT_IF", "SUMMARY"],
+  "required_entities": [],
+  "optional_entities": ["LIABILITYTYPE", "EXTRAPAYMENT", "TARGETDATE", "PERIOD"],
+  "backend_route": "DEBT_FREEDOM_ANALYSIS",
+  "advisory_intent": "DEBT_FREEDOM_ANALYSIS",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "when will I become debt free",
+      "how long to clear my {LIABILITYTYPE}",
+      "what is my payoff timeline for my {LIABILITYTYPE}",
+      "how do I escape debt faster {PERIOD}",
+      "analyze my path to clearing my {LIABILITYTYPE}",
+      "how many months until my {LIABILITYTYPE} is gone",
+      "when do I finish paying {LIABILITYTYPE} by {TARGETDATE}"
+    ],
+    "WHAT_IF": [
+      "what if I pay {EXTRAPAYMENT} extra towards debt",
+      "can I be debt free by {TARGETDATE}",
+      "how much sooner if I pay off my {LIABILITYTYPE} first"
+    ],
+    "SUMMARY": [
+      "show my debt payoff plan for my {LIABILITYTYPE}",
+      "how much {LIABILITYTYPE} is left",
+      "my remaining timeline on my {LIABILITYTYPE}",
+      "debt free date for my {LIABILITYTYPE}",
+      "summary of my {LIABILITYTYPE} payoff by {TARGETDATE}"
+    ]
+  }
+}

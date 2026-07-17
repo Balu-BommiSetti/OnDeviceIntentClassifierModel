@@ -16,6 +16,7 @@ exported_dataset/
 graphify-out/
 public/*.json
 *.json
+!*.intent.json
 !package.json
 !package-lock.json
 !tsconfig.json

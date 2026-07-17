@@ -1,0 +1,45 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "ADD_INCOME",
+  "description": "User records money they received.",
+  "supported_actions": ["CREATE", "UPDATE", "DELETE", "SUMMARY", "ANALYSIS"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["MERCHANT", "CATEGORY", "DATE", "PAYMENT_METHOD"],
+  "backend_route": "LOG_TRANSACTION",
+  "advisory_intent": "RECORD_INCOME",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "CREATE": [
+      "received {AMOUNT} from {MERCHANT}",
+      "got paid {AMOUNT} {DATE}",
+      "record income of {AMOUNT} for {CATEGORY}",
+      "{AMOUNT} credited {DATE} via {PAYMENT_METHOD}",
+      "add income {AMOUNT} from {MERCHANT}",
+      "earned {AMOUNT} from {CATEGORY}"
+    ],
+    "UPDATE": [
+      "change {DATE} income to {AMOUNT}",
+      "update the {MERCHANT} payment to {AMOUNT}",
+      "correct my {CATEGORY} income to {AMOUNT}",
+      "actually I received {AMOUNT} not the logged amount"
+    ],
+    "DELETE": [
+      "remove the {MERCHANT} income entry",
+      "delete the {AMOUNT} income from {DATE}",
+      "cancel the duplicate {CATEGORY} income",
+      "undo my last income entry"
+    ],
+    "SUMMARY": [
+      "show my income {DATE}",
+      "how much did I earn {DATE}",
+      "list my {MERCHANT} payments received",
+      "total income {DATE}"
+    ],
+    "ANALYSIS": [
+      "why is my income lower {DATE}",
+      "compare my income across {DATE}",
+      "break down my income sources {DATE}",
+      "is my {CATEGORY} income growing"
+    ]
+  }
+}

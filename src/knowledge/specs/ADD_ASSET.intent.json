@@ -1,0 +1,49 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "ADD_ASSET",
+  "description": "User records an asset they own or acquired (investment, property, gold, etc.).",
+  "supported_actions": [
+    "CREATE",
+    "UPDATE",
+    "DELETE",
+    "SUMMARY"
+  ],
+  "required_entities": [
+    "AMOUNT",
+    "ASSETTYPE"
+  ],
+  "optional_entities": [
+    "DATE",
+    "CATEGORY"
+  ],
+  "backend_route": "ADD_ASSET_NODE",
+  "advisory_intent": "WEALTH_SUMMARY",
+  "validation": {
+    "min_distinct_utterances_per_action": 20
+  },
+  "utterance_patterns": {
+    "CREATE": [
+      "bought {ASSETTYPE} worth {AMOUNT}",
+      "add asset {ASSETTYPE} valued at {AMOUNT}",
+      "I purchased {ASSETTYPE} for {AMOUNT} {DATE}",
+      "record my {ASSETTYPE} investment of {AMOUNT}",
+      "i own {ASSETTYPE} worth {AMOUNT}"
+    ],
+    "UPDATE": [
+      "update my {ASSETTYPE} value to {AMOUNT}",
+      "my {ASSETTYPE} is now worth {AMOUNT}",
+      "correct the {ASSETTYPE} value to {AMOUNT}",
+      "revalue my {ASSETTYPE} at {AMOUNT}"
+    ],
+    "DELETE": [
+      "remove my {ASSETTYPE} asset",
+      "delete the {AMOUNT} {ASSETTYPE} entry",
+      "I sold my {ASSETTYPE}, remove it"
+    ],
+    "SUMMARY": [
+      "show my assets",
+      "list my {ASSETTYPE} holdings",
+      "what assets do I have {DATE}"
+    ]
+  }
+}

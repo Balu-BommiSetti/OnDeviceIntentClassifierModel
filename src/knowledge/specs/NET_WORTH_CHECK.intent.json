@@ -1,0 +1,29 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "NET_WORTH_CHECK",
+  "description": "User asks for their net worth / overall financial position. Read-only advisory intent.",
+  "supported_actions": ["SUMMARY", "ANALYSIS", "COMPARISON"],
+  "required_entities": [],
+  "optional_entities": ["DATE", "PERIOD"],
+  "backend_route": "WEALTH_SUMMARY",
+  "advisory_intent": "WEALTH_SUMMARY",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "SUMMARY": [
+      "what is my net worth",
+      "show my wealth {DATE}",
+      "how much am I worth",
+      "total assets minus liabilities"
+    ],
+    "ANALYSIS": [
+      "why did my net worth drop {PERIOD}",
+      "what is affecting my net worth",
+      "analyze my financial position {DATE}"
+    ],
+    "COMPARISON": [
+      "how has my net worth changed {PERIOD}",
+      "compare my wealth this month vs last",
+      "is my net worth growing"
+    ]
+  }
+}

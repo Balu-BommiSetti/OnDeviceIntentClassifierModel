@@ -1,0 +1,25 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "AFFORDABILITY_CHECK",
+  "description": "User asks whether they can afford a purchase. Read-only advisory intent; amount is the purchase price.",
+  "supported_actions": ["ANALYSIS", "WHAT_IF"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["CATEGORY", "MERCHANT", "DATE"],
+  "backend_route": "AFFORDABILITY_CHECK",
+  "advisory_intent": "AFFORDABILITY_CHECK",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "can I afford {CATEGORY} for {AMOUNT}",
+      "should I buy this for {AMOUNT}",
+      "is spending {AMOUNT} on {CATEGORY} safe",
+      "can I afford to spend {AMOUNT} at {MERCHANT}"
+    ],
+    "WHAT_IF": [
+      "what if I buy {CATEGORY} for {AMOUNT}",
+      "if I spend {AMOUNT} will I be okay {DATE}",
+      "how would spending {AMOUNT} affect my finances",
+      "impact of buying {CATEGORY} at {AMOUNT}"
+    ]
+  }
+}

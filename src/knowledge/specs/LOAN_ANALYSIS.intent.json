@@ -1,0 +1,32 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "LOAN_ANALYSIS",
+  "description": "User asks about their loan burden / EMI pressure. Read-only advisory intent.",
+  "supported_actions": ["ANALYSIS", "SUMMARY", "WHAT_IF"],
+  "required_entities": [],
+  "optional_entities": ["LIABILITYTYPE", "LENDER", "AMOUNT", "INTERESTRATE", "EXTRAPAYMENT", "TENUREMONTHS", "PERIOD"],
+  "backend_route": "ANALYZE_LOAN",
+  "advisory_intent": "ANALYZE_LOAN",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "how much of my salary goes to EMI",
+      "is my {LIABILITYTYPE} burden too high",
+      "analyze my loan from {LENDER}",
+      "how much interest am I paying on my {LIABILITYTYPE}"
+    ],
+    "SUMMARY": [
+      "show my {LIABILITYTYPE} details",
+      "what is my total EMI {PERIOD}",
+      "how much {LIABILITYTYPE} do I have left",
+      "show my loan from {LENDER}",
+      "my {LIABILITYTYPE} balance and rate",
+      "outstanding on my {LIABILITYTYPE} at {INTERESTRATE}"
+    ],
+    "WHAT_IF": [
+      "what if I pay {EXTRAPAYMENT} extra on my loan",
+      "how much do I save if I refinance at {INTERESTRATE}",
+      "what if I reduce my tenure to {TENUREMONTHS}"
+    ]
+  }
+}

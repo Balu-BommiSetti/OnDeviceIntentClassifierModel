@@ -1,0 +1,29 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "SIP_VS_PREPAY",
+  "description": "User asks whether to invest (SIP) or prepay a loan. Read-only advisory comparison intent.",
+  "supported_actions": ["ANALYSIS", "COMPARISON", "WHAT_IF"],
+  "required_entities": [],
+  "optional_entities": ["AMOUNT", "INTERESTRATE", "EXTRAPAYMENT", "LIABILITYTYPE", "PERIOD"],
+  "backend_route": "SIP_VS_PREPAY",
+  "advisory_intent": "SIP_VS_PREPAY",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "should I invest or prepay my {LIABILITYTYPE}",
+      "is it better to prepay my loan or start a SIP",
+      "where should I put my extra {AMOUNT}",
+      "sip or loan prepayment for me"
+    ],
+    "COMPARISON": [
+      "compare investing {AMOUNT} vs prepaying my loan",
+      "SIP returns vs loan interest at {INTERESTRATE}",
+      "which is better, mutual fund or loan closure"
+    ],
+    "WHAT_IF": [
+      "what if I invest {AMOUNT} instead of prepaying",
+      "what if I prepay {EXTRAPAYMENT} instead of a SIP",
+      "impact of choosing SIP over prepayment for {PERIOD}"
+    ]
+  }
+}

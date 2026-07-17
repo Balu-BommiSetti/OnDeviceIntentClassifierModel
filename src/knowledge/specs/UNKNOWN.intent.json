@@ -1,0 +1,39 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "UNKNOWN",
+  "description": "The safety net. Used when the utterance is gibberish, a greeting, or out of the app's finance scope. The model is trained on these negative examples so it learns an explicit 'I don't understand' region rather than relying only on the confidence threshold. Offline app: no backend service — the single NONE action means 'respond gracefully, take no action' (BackendActionResolver already short-circuits UNKNOWN to no action + a clarification reply).",
+  "supported_actions": ["NONE"],
+  "required_entities": [],
+  "optional_entities": [],
+  "backend_route": "NONE",
+  "advisory_intent": "UNSUPPORTED",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "NONE": [
+      "asdfgh",
+      "qwerty lorem ipsum",
+      "hello there",
+      "hi",
+      "good morning",
+      "how are you",
+      "what is the weather today",
+      "tell me a joke",
+      "who won the match",
+      "play some music",
+      "what time is it",
+      "random text here",
+      "blah blah blah",
+      "can you help",
+      "i dont know",
+      "nothing specific",
+      "just testing",
+      "something weird",
+      "ok",
+      "thanks",
+      "never mind",
+      "what can you do",
+      "lorem ipsum dolor",
+      "xyz abc 123"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "ADD_EXPENSE",
+  "description": "User records money they spent.",
+  "supported_actions": ["CREATE", "UPDATE", "DELETE", "SUMMARY", "ANALYSIS"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["MERCHANT", "CATEGORY", "DATE", "PAYMENT_METHOD"],
+  "backend_route": "LOG_TRANSACTION",
+  "advisory_intent": "RECORD_EXPENSE",
+  "validation": {
+    "min_distinct_utterances_per_action": 20
+  },
+  "utterance_patterns": {
+    "CREATE": [
+      "spent {AMOUNT} on {CATEGORY}",
+      "paid {AMOUNT} to {MERCHANT}",
+      "record an expense of {AMOUNT} for {CATEGORY}",
+      "{AMOUNT} spent at {MERCHANT} {DATE}",
+      "log {AMOUNT} {CATEGORY} expense",
+      "I bought {CATEGORY} for {AMOUNT}",
+      "add expense {AMOUNT} {MERCHANT} via {PAYMENT_METHOD}"
+    ],
+    "UPDATE": [
+      "change {DATE} {CATEGORY} expense to {AMOUNT}",
+      "update the {MERCHANT} expense amount to {AMOUNT}",
+      "correct my {CATEGORY} spend to {AMOUNT}",
+      "actually the {MERCHANT} bill was {AMOUNT}",
+      "edit {DATE} expense, it was {AMOUNT}"
+    ],
+    "DELETE": [
+      "remove the {CATEGORY} expense",
+      "delete my {MERCHANT} transaction",
+      "cancel the {AMOUNT} expense from {DATE}",
+      "get rid of the duplicate {CATEGORY} entry",
+      "undo my last {MERCHANT} payment"
+    ],
+    "SUMMARY": [
+      "show my logged {CATEGORY} expenses {DATE}",
+      "list my {MERCHANT} expense entries",
+      "show the expenses I recorded {DATE}",
+      "list my {CATEGORY} transactions {DATE}",
+      "show my expense entries for {MERCHANT}"
+    ],
+    "ANALYSIS": [
+      "why is my {CATEGORY} spending increasing",
+      "am I overspending on {CATEGORY}",
+      "compare my {CATEGORY} expenses {DATE}",
+      "break down where my money went {DATE}",
+      "is my {CATEGORY} spend unusual"
+    ]
+  }
+}

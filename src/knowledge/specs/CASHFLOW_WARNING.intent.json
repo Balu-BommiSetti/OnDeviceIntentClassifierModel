@@ -1,0 +1,29 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "CASHFLOW_WARNING",
+  "description": "User expresses concern about running low on money / cashflow risk. Read-only advisory intent.",
+  "supported_actions": ["ANALYSIS", "SUMMARY", "INSIGHTS"],
+  "required_entities": [],
+  "optional_entities": ["DATE", "PERIOD", "AMOUNT"],
+  "backend_route": "CASHFLOW_SUMMARY",
+  "advisory_intent": "CASHFLOW_SUMMARY",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "will I run out of money {PERIOD}",
+      "why is my cashflow so tight",
+      "can I survive till {DATE}",
+      "am I at risk of running low this month"
+    ],
+    "SUMMARY": [
+      "show my cashflow {PERIOD}",
+      "how much money will I have left {DATE}",
+      "what is my remaining balance forecast"
+    ],
+    "INSIGHTS": [
+      "warn me if I am overspending",
+      "any cashflow risks {PERIOD}",
+      "flag upcoming money problems"
+    ]
+  }
+}

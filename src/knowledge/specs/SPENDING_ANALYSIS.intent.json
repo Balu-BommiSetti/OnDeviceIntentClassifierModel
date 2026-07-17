@@ -1,0 +1,35 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "SPENDING_ANALYSIS",
+  "description": "User asks to analyze or report on their spending. Read-only advisory intent (never writes transactions).",
+  "supported_actions": ["ANALYSIS", "SUMMARY", "COMPARISON", "INSIGHTS"],
+  "required_entities": [],
+  "optional_entities": ["CATEGORY", "PERIOD", "DATE", "MERCHANT"],
+  "backend_route": "ANALYZE_SPENDING",
+  "advisory_intent": "ANALYZE_SPENDING",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "why is my {CATEGORY} spending so high",
+      "analyze my spending {PERIOD}",
+      "where is my money going {DATE}",
+      "what is driving my {CATEGORY} expenses"
+    ],
+    "SUMMARY": [
+      "show my spending report {PERIOD}",
+      "total spend {DATE}",
+      "how much did I spend on {CATEGORY} {PERIOD}",
+      "expense breakdown {DATE}"
+    ],
+    "COMPARISON": [
+      "compare my {CATEGORY} spend this month vs last",
+      "is my spending higher than {PERIOD}",
+      "compare spending across {PERIOD}"
+    ],
+    "INSIGHTS": [
+      "give me insights on my spending",
+      "any unusual spending {PERIOD}",
+      "top merchants I spent at {DATE}"
+    ]
+  }
+}

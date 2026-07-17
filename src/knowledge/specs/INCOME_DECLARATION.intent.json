@@ -1,0 +1,34 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "INCOME_DECLARATION",
+  "description": "User declares their recurring base salary / income level (updates planning income, not a transaction).",
+  "supported_actions": ["CREATE", "UPDATE", "SUMMARY"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["FREQUENCY", "DATE"],
+  "backend_route": "UPDATE_BASE_SALARY",
+  "advisory_intent": "RECORD_INCOME",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "CREATE": [
+      "my monthly salary is {AMOUNT}",
+      "my income is {AMOUNT} {FREQUENCY}",
+      "declare my base salary as {AMOUNT}",
+      "set my {FREQUENCY} income to {AMOUNT}",
+      "my annual income is {AMOUNT}"
+    ],
+    "UPDATE": [
+      "update my salary to {AMOUNT}",
+      "my income changed to {AMOUNT} {FREQUENCY}",
+      "correct my base salary to {AMOUNT}",
+      "I got a raise, salary is now {AMOUNT}"
+    ],
+    "SUMMARY": [
+      "what is my declared income",
+      "show my base salary",
+      "what did I set my {FREQUENCY} income to",
+      "my declared {FREQUENCY} salary",
+      "show my income declaration from {DATE}",
+      "what is my planning income {FREQUENCY}"
+    ]
+  }
+}

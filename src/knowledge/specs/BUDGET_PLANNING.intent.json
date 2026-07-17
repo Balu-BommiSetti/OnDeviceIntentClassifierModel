@@ -1,0 +1,29 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "BUDGET_PLANNING",
+  "description": "User asks for help planning or reviewing a budget. Read-only advisory intent.",
+  "supported_actions": ["ANALYSIS", "SUMMARY", "INSIGHTS"],
+  "required_entities": [],
+  "optional_entities": ["CATEGORY", "AMOUNT", "PERIOD", "DATE"],
+  "backend_route": "ANALYZE_BUDGET",
+  "advisory_intent": "ANALYZE_BUDGET",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "help me plan a budget for {PERIOD}",
+      "how should I divide my {AMOUNT} income",
+      "how much should I budget for {CATEGORY}",
+      "am I within budget on {CATEGORY}"
+    ],
+    "SUMMARY": [
+      "show my budget {PERIOD}",
+      "what are my budget limits",
+      "budget status for {CATEGORY}"
+    ],
+    "INSIGHTS": [
+      "where can I cut my budget",
+      "which categories am I over budget on",
+      "budget suggestions for {PERIOD}"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "ADD_LIABILITY",
+  "description": "User records a liability / debt / recurring commitment (loan, EMI, credit card).",
+  "supported_actions": ["CREATE", "UPDATE", "DELETE", "SUMMARY"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["LIABILITYTYPE", "LENDER", "INTERESTRATE", "TENUREMONTHS", "FREQUENCY", "DATE"],
+  "backend_route": "ADD_COMMITMENT",
+  "advisory_intent": "ANALYZE_LOAN",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "CREATE": [
+      "took a {LIABILITYTYPE} of {AMOUNT} from {LENDER}",
+      "new EMI of {AMOUNT} {FREQUENCY}",
+      "add liability {AMOUNT} at {INTERESTRATE}",
+      "started a {LIABILITYTYPE} of {AMOUNT} for {TENUREMONTHS}",
+      "I owe {AMOUNT} to {LENDER}"
+    ],
+    "UPDATE": [
+      "update my {LIABILITYTYPE} balance to {AMOUNT}",
+      "my EMI changed to {AMOUNT}",
+      "correct the loan amount to {AMOUNT}",
+      "the interest rate is now {INTERESTRATE}"
+    ],
+    "DELETE": [
+      "remove my {LIABILITYTYPE}",
+      "delete the {AMOUNT} loan entry",
+      "I cleared the {LENDER} loan, remove it"
+    ],
+    "SUMMARY": [
+      "show my liabilities",
+      "list my loans and EMIs",
+      "what do I owe {DATE}"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "SAVINGS_ADVICE",
+  "description": "User asks how to save more / improve savings behavior. Read-only advisory intent. NOTE: production label is SAVINGS_ADVICE (matches app labels.json and INTENT_ROUTE_MAP).",
+  "supported_actions": ["ANALYSIS", "INSIGHTS", "SUMMARY"],
+  "required_entities": [],
+  "optional_entities": ["CATEGORY", "AMOUNT", "PERIOD", "DATE"],
+  "backend_route": "BEHAVIOR_ANALYSIS",
+  "advisory_intent": "BEHAVIOR_ANALYSIS",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "ANALYSIS": [
+      "why am I not saving enough",
+      "how can I save more {PERIOD}",
+      "what is stopping me from saving",
+      "how do I reduce my {CATEGORY} spending to save"
+    ],
+    "INSIGHTS": [
+      "give me tips to save money",
+      "where can I cut back to save",
+      "saving suggestions for {PERIOD}"
+    ],
+    "SUMMARY": [
+      "how much am I saving {PERIOD}",
+      "show my savings rate",
+      "what is my savings trend"
+    ]
+  }
+}

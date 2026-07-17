@@ -1,0 +1,38 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "GOAL_PLANNING",
+  "description": "User creates or reasons about a savings goal (target amount by a target date).",
+  "supported_actions": ["CREATE", "UPDATE", "ANALYSIS", "SUMMARY"],
+  "required_entities": [],
+  "optional_entities": ["GOALNAME", "TARGETAMOUNT", "TARGETDATE", "AMOUNT", "DATE"],
+  "backend_route": "ADD_GOAL",
+  "advisory_intent": "ANALYZE_GOAL",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "CREATE": [
+      "I want to save {TARGETAMOUNT} for {GOALNAME}",
+      "create a goal for {GOALNAME} by {TARGETDATE}",
+      "new savings goal {GOALNAME} of {TARGETAMOUNT}",
+      "set a target of {TARGETAMOUNT} for {GOALNAME}"
+    ],
+    "UPDATE": [
+      "change my {GOALNAME} target to {TARGETAMOUNT}",
+      "move my {GOALNAME} deadline to {TARGETDATE}",
+      "update the goal amount to {TARGETAMOUNT}"
+    ],
+    "ANALYSIS": [
+      "will I reach my {GOALNAME} goal by {TARGETDATE}",
+      "how much should I save monthly for {GOALNAME}",
+      "am I on track for {GOALNAME}",
+      "how long to reach {TARGETAMOUNT} for {GOALNAME}"
+    ],
+    "SUMMARY": [
+      "show my {GOALNAME} goal",
+      "how is my {GOALNAME} goal progressing",
+      "list my savings targets {DATE}",
+      "progress on my {GOALNAME} target of {TARGETAMOUNT}",
+      "status of my {GOALNAME} goal by {TARGETDATE}",
+      "how close am I to {TARGETAMOUNT} for {GOALNAME}"
+    ]
+  }
+}

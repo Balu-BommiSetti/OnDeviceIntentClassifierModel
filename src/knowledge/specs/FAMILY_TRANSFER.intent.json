@@ -1,0 +1,39 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "FAMILY_TRANSFER",
+  "description": "User moves money to or from a family member (remittance, family support). Logged as a transaction. NOTE: the app currently drafts this as INCOME (recipient side) in CognitionFacade, but real user phrasings are predominantly OUTGOING ('sent money to parents'). Recipient-side drafting should be reconciled with direction detection during app adoption.",
+  "supported_actions": ["CREATE", "UPDATE", "DELETE", "SUMMARY"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["SPLITWITH", "CATEGORY", "DATE", "PAYMENT_METHOD"],
+  "backend_route": "LOG_TRANSACTION",
+  "advisory_intent": "RECORD_EXPENSE",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "CREATE": [
+      "sent {AMOUNT} to {SPLITWITH}",
+      "transferred {AMOUNT} to {SPLITWITH} {DATE}",
+      "gave {AMOUNT} to {SPLITWITH} via {PAYMENT_METHOD}",
+      "family support of {AMOUNT} to {SPLITWITH}",
+      "sent {AMOUNT} home to {SPLITWITH}",
+      "money shared with {SPLITWITH} {AMOUNT}"
+    ],
+    "UPDATE": [
+      "change the transfer to {SPLITWITH} to {AMOUNT}",
+      "correct my {SPLITWITH} transfer to {AMOUNT}",
+      "actually I sent {AMOUNT} to {SPLITWITH}"
+    ],
+    "DELETE": [
+      "remove the transfer to {SPLITWITH}",
+      "delete the {AMOUNT} family transfer from {DATE}",
+      "cancel the duplicate transfer to {SPLITWITH}"
+    ],
+    "SUMMARY": [
+      "show my transfers to {SPLITWITH}",
+      "how much did I send to {SPLITWITH} {DATE}",
+      "list my family transfers {DATE}",
+      "total sent to {SPLITWITH} {DATE}",
+      "my transfer history with {SPLITWITH}",
+      "show family transfers via {PAYMENT_METHOD}"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "../knowledge.schema.json",
+  "intent": "REFUND",
+  "description": "User received a refund / money back (logged as income).",
+  "supported_actions": ["CREATE", "UPDATE", "DELETE", "SUMMARY"],
+  "required_entities": ["AMOUNT"],
+  "optional_entities": ["MERCHANT", "CATEGORY", "DATE", "PAYMENT_METHOD"],
+  "backend_route": "LOG_TRANSACTION",
+  "advisory_intent": "RECORD_INCOME",
+  "validation": { "min_distinct_utterances_per_action": 20 },
+  "utterance_patterns": {
+    "CREATE": [
+      "got a refund of {AMOUNT} from {MERCHANT}",
+      "{AMOUNT} refunded {DATE}",
+      "received cashback of {AMOUNT} on {CATEGORY}",
+      "money returned {AMOUNT} from {MERCHANT} via {PAYMENT_METHOD}",
+      "log refund {AMOUNT} for {CATEGORY}"
+    ],
+    "UPDATE": [
+      "change the refund from {MERCHANT} to {AMOUNT}",
+      "correct my {DATE} refund to {AMOUNT}",
+      "actually the refund was {AMOUNT}"
+    ],
+    "DELETE": [
+      "remove the {MERCHANT} refund",
+      "delete the {AMOUNT} refund from {DATE}",
+      "cancel the duplicate refund entry"
+    ],
+    "SUMMARY": [
+      "show my refunds {DATE}",
+      "how much was refunded {DATE}",
+      "list refunds from {MERCHANT}"
+    ]
+  }
+}
