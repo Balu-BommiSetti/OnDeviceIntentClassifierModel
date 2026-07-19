@@ -24,3 +24,28 @@ public/*.json
 !dataset_metadata.json
 !metadata.json
 !audit_report.json
+
+# ---------------------------------------------------------------------------
+# 2026-07-19 — corrections.
+#
+# (a) Python virtualenvs. These were untracked but NOT ignored: 4.1 GB across
+#     .venv/ and a venv copied from another machine. One `git add -A` would
+#     have committed them.
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+
+# (b) Re-include SOURCE-OF-TRUTH json that the blanket `*.json` rule above
+#     swallowed. These are inputs, not generated artifacts, and a fresh clone
+#     without them does not run: grammarFillers.ts reads period.grammar.json
+#     at generation time, every *.intent.json declares $schema against
+#     knowledge.schema.json, and buildQaScenarios.ts reads the QA source.
+!src/knowledge/knowledge.schema.json
+!src/knowledge/entities/period.grammar.json
+!src/knowledge/qa/qa_scenarios.source.json
+!src/knowledge/patterns/patterns.candidate.json
+
+# (c) Regression baseline is pass/fail HISTORY, not a build artifact — without
+#     it the suite cannot tell a new failure from a known one on a fresh clone.
+!v6/training_pipeline/benchmarks/regression_baseline.json

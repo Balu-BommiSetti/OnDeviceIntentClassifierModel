@@ -1,0 +1,369 @@
+{
+  "$comment": "PERIOD entity grammar — THE single source of truth for every time-range expression the system must understand. Consumed by: (1) generateFromSpec.ts entity fillers, (2) the QA scenario builder (src/knowledge/qa/), (3) the app's TemporalResolver test suite (WealthPilot utils/ai/nlp/resolvers/). Any period expression not representable here is out of contract. resolver_status/generator_status record CURRENT support as of 2026-07-18 — 'missing' entries are the implementation backlog, not aspirations. DATE vs PERIOD boundary rule: DATE is a POINT (a single day: 'yesterday', 'on Monday', 'June 5'); PERIOD is a RANGE ('last week', 'May', 'Q2'). A surface form must appear in exactly ONE of the two grammars — the previous overlap ('last week' in both DATE and PERIOD fillers) taught the NER head contradictory tags for identical text.",
+  "version": "1.0.0",
+  "entity": "PERIOD",
+  "lexicons": {
+    "UNITS": [
+      "day",
+      "days",
+      "week",
+      "weeks",
+      "month",
+      "months",
+      "year",
+      "years",
+      "quarter",
+      "quarters"
+    ],
+    "WORD_NUMBERS": {
+      "two": 2,
+      "three": 3,
+      "four": 4,
+      "five": 5,
+      "six": 6,
+      "seven": 7,
+      "eight": 8,
+      "nine": 9,
+      "ten": 10,
+      "eleven": 11,
+      "twelve": 12,
+      "couple of": 2,
+      "few": 3
+    },
+    "MONTHS": [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december"
+    ],
+    "MONTH_ABBREVIATIONS": [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "sept",
+      "oct",
+      "nov",
+      "dec"
+    ]
+  },
+  "categories": [
+    {
+      "id": "relative_this",
+      "meaning": "The current unit, as a range.",
+      "surface_forms": [
+        "this {UNIT}",
+        "the current {UNIT}",
+        "current {UNIT}"
+      ],
+      "examples": [
+        "this month",
+        "this quarter",
+        "the current year"
+      ],
+      "normalization": {
+        "type": "RELATIVE_RANGE",
+        "startOffset": 0,
+        "endOffset": 0,
+        "unit": "{UNIT}"
+      },
+      "resolver_status": "supported",
+      "generator_status": "in_fillers"
+    },
+    {
+      "id": "relative_last",
+      "meaning": "The immediately previous unit.",
+      "surface_forms": [
+        "last {UNIT}",
+        "previous {UNIT}",
+        "the past {UNIT}"
+      ],
+      "examples": [
+        "last month",
+        "last quarter",
+        "previous week"
+      ],
+      "normalization": {
+        "type": "RELATIVE_RANGE",
+        "startOffset": -1,
+        "endOffset": -1,
+        "unit": "{UNIT}"
+      },
+      "resolver_status": "supported (incl. previous/the past variants; tested)",
+      "generator_status": "in_fillers"
+    },
+    {
+      "id": "numeric_range",
+      "meaning": "The last/past N units as one contiguous range. THIS IS A SUMMARY RANGE, NOT A COMPARISON — see ambiguity_rules.",
+      "surface_forms": [
+        "last {N} {UNIT}",
+        "past {N} {UNIT}",
+        "in the last {N} {UNIT}",
+        "over the past {N} {UNIT}"
+      ],
+      "examples": [
+        "last 2 months",
+        "past 3 weeks",
+        "in the last 6 months"
+      ],
+      "normalization": {
+        "type": "RELATIVE_RANGE",
+        "startOffset": "-{N}",
+        "endOffset": -1,
+        "unit": "{UNIT}"
+      },
+      "resolver_status": "supported (digit + lead-in variants; tested)",
+      "generator_status": "missing"
+    },
+    {
+      "id": "word_number_range",
+      "meaning": "numeric_range with the count spelled as a word. Identical semantics to numeric_range.",
+      "surface_forms": [
+        "last {WORD_N} {UNIT}",
+        "past {WORD_N} {UNIT}",
+        "last couple of {UNIT}",
+        "past few {UNIT}"
+      ],
+      "examples": [
+        "last two months",
+        "past three weeks",
+        "last couple of months",
+        "past few days"
+      ],
+      "normalization": {
+        "type": "RELATIVE_RANGE",
+        "startOffset": "-{WORD_N}",
+        "endOffset": -1,
+        "unit": "{UNIT}"
+      },
+      "resolver_status": "supported (2026-07-18, WealthPilot TemporalResolver + tests)",
+      "generator_status": "missing"
+    },
+    {
+      "id": "absolute_month",
+      "meaning": "A named calendar month of the current (or most recent past) year.",
+      "surface_forms": [
+        "{MONTH}",
+        "in {MONTH}",
+        "for {MONTH}",
+        "during {MONTH}"
+      ],
+      "examples": [
+        "May",
+        "in June",
+        "for December"
+      ],
+      "normalization": {
+        "type": "ABSOLUTE_RANGE",
+        "month": "{MONTH_INDEX}",
+        "year": null
+      },
+      "resolver_status": "supported (prefixed AND bare month; tested)",
+      "generator_status": "in_fillers"
+    },
+    {
+      "id": "absolute_month_year",
+      "meaning": "A named month of an explicit year.",
+      "surface_forms": [
+        "{MONTH} {YEAR}",
+        "in {MONTH} {YEAR}",
+        "{MONTH} of {YEAR}"
+      ],
+      "examples": [
+        "May 2025",
+        "in June 2024",
+        "March of 2023"
+      ],
+      "normalization": {
+        "type": "ABSOLUTE_RANGE",
+        "month": "{MONTH_INDEX}",
+        "year": "{YEAR}"
+      },
+      "resolver_status": "supported (2026-07-18; tested)",
+      "generator_status": "missing"
+    },
+    {
+      "id": "fiscal_quarter",
+      "meaning": "A calendar quarter, absolute (Q1–Q4) or relative (this/last quarter).",
+      "surface_forms": [
+        "Q{1-4}",
+        "q{1-4}",
+        "this quarter",
+        "last quarter",
+        "the quarter before last"
+      ],
+      "examples": [
+        "Q2",
+        "last quarter",
+        "the quarter before last"
+      ],
+      "normalization": {
+        "type": "FISCAL_QUARTER",
+        "quarter": "{1-4} | relative offset"
+      },
+      "resolver_status": "supported (Q1-Q4, this/last quarter, 'quarter before last'; tested)",
+      "generator_status": "in_fillers (Q1-Q4 only)"
+    },
+    {
+      "id": "half_year",
+      "meaning": "Half of a calendar year. H1 = Jan–Jun, H2 = Jul–Dec.",
+      "surface_forms": [
+        "first half of the year",
+        "second half of the year",
+        "first half of {YEAR}",
+        "H1",
+        "H2",
+        "first six months of the year"
+      ],
+      "examples": [
+        "first half of this year",
+        "H1",
+        "second half of 2025"
+      ],
+      "normalization": {
+        "type": "ABSOLUTE_RANGE",
+        "startMonth": "1 | 7",
+        "endMonth": "6 | 12",
+        "year": "{YEAR} | current"
+      },
+      "resolver_status": "supported (2026-07-18; tested)",
+      "generator_status": "missing"
+    },
+    {
+      "id": "between_range",
+      "meaning": "An explicit month-to-month (or date-to-date) span.",
+      "surface_forms": [
+        "between {MONTH} and {MONTH}",
+        "from {MONTH} to {MONTH}",
+        "{MONTH} to {MONTH}",
+        "{MONTH} through {MONTH}"
+      ],
+      "examples": [
+        "between March and June",
+        "from Jan to March",
+        "April through August"
+      ],
+      "normalization": {
+        "type": "ABSOLUTE_RANGE",
+        "startMonth": "{MONTH_INDEX_1}",
+        "endMonth": "{MONTH_INDEX_2}",
+        "year": null
+      },
+      "resolver_status": "supported (2026-07-18; tested)",
+      "generator_status": "missing"
+    },
+    {
+      "id": "calendar_year",
+      "meaning": "A whole year, absolute or relative.",
+      "surface_forms": [
+        "this year",
+        "last year",
+        "in {YEAR}",
+        "for the year",
+        "last fiscal year",
+        "annually"
+      ],
+      "examples": [
+        "this year",
+        "in 2023",
+        "last fiscal year"
+      ],
+      "normalization": {
+        "type": "RELATIVE_RANGE | ABSOLUTE_RANGE",
+        "unit": "year"
+      },
+      "resolver_status": "supported (explicit year, for-the-year; fiscal-year at LOW confidence by design; tested)",
+      "generator_status": "in_fillers"
+    },
+    {
+      "id": "to_date",
+      "meaning": "From the start of the current unit until today.",
+      "surface_forms": [
+        "so far this {UNIT}",
+        "{UNIT} to date",
+        "MTD",
+        "YTD"
+      ],
+      "examples": [
+        "so far this month",
+        "year to date",
+        "MTD"
+      ],
+      "normalization": {
+        "type": "TO_DATE_RANGE",
+        "unit": "{UNIT}",
+        "end": "today"
+      },
+      "resolver_status": "supported (2026-07-18; tested)",
+      "generator_status": "missing"
+    },
+    {
+      "id": "vague",
+      "meaning": "Non-specific recency. MUST resolve to low confidence and trigger a default window or clarification — never a guessed exact range.",
+      "surface_forms": [
+        "recently",
+        "lately",
+        "these days",
+        "a while ago",
+        "off late"
+      ],
+      "examples": [
+        "recently",
+        "lately"
+      ],
+      "normalization": {
+        "type": "UNKNOWN",
+        "confidence": "low"
+      },
+      "resolver_status": "supported (falls through to UNKNOWN, which is the correct behavior)",
+      "generator_status": "in_fillers (as VAGUE date ranges)"
+    }
+  ],
+  "comparison": {
+    "$comment": "Comparison ROLES (period1 vs period2) are NOT model labels. The NER head tags every period span as PERIOD; a deterministic role assigner in the app (EntityExtractor) orders spans into period1/period2 using these markers. implicit_second: comparative phrasings with ONE explicit period imply the current unit as period1. IMPLEMENTED 2026-07-18: WealthPilot utils/ai/nlp/resolvers/periodRoles.ts (assignPeriodRoles, 12 tests) — wired via EntityExtractor.applySpanExtras (TFJS spans path) AND FinanceDispatcher single-period derivation (LLM path); R4 enforced by an orchestrator clarification gate.",
+    "markers": [
+      "vs",
+      "vs.",
+      "versus",
+      "compared to",
+      "compared with",
+      "against",
+      "than",
+      "over",
+      "relative to"
+    ],
+    "implicit_comparative_cues": [
+      "more than",
+      "less than",
+      "up from",
+      "down from",
+      "higher than",
+      "lower than",
+      "increase from",
+      "drop since"
+    ],
+    "role_rules": [
+      "Two PERIOD spans + a marker between them: span BEFORE marker = period1, span AFTER = period2.",
+      "Two PERIOD spans, no marker: first span in token order = period1.",
+      "One PERIOD span + an implicit_comparative_cue: period1 = current unit of the found span's granularity, period2 = the found span.",
+      "Zero PERIOD spans on a COMPARISON taskType: DO NOT default silently — emit needsClarification (fixes SpendingEngine.ts:130's invented 'last month')."
+    ]
+  },
+  "ambiguity_rules": [
+    "'spending last two months' (no comparison verb/marker) = ONE numeric_range SUMMARY.",
+    "'compare last two months' / 'last month vs the month before' = COMPARISON of two adjacent months. The verb/marker decides; the taskType head must be trained on minimal pairs (see QA class T5).",
+    "A bare month name ('May') in a comparison context ('May vs June') is absolute_month; the SAME token in 'spent 500 in May' is also absolute_month — but 'may' as a modal verb ('it may help') must stay O-tagged. Include modal-verb negative patterns in training."
+  ]
+}

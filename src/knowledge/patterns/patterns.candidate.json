@@ -1,0 +1,4793 @@
+{
+  "generatedAt": "2026-07-19T05:23:52.420Z",
+  "provider": "ollama",
+  "model": "gpt-oss:20b-cloud",
+  "target": 40,
+  "summary": [
+    {
+      "bucket": "ADD_INCOME|CREATE",
+      "had": 8,
+      "need": 32,
+      "accepted": 45,
+      "rejected": 0
+    },
+    {
+      "bucket": "ADD_INCOME|UPDATE",
+      "had": 4,
+      "need": 36,
+      "accepted": 40,
+      "rejected": 4
+    },
+    {
+      "bucket": "ADD_INCOME|DELETE",
+      "had": 4,
+      "need": 36,
+      "accepted": 45,
+      "rejected": 0
+    },
+    {
+      "bucket": "ADD_ASSET|CREATE",
+      "had": 11,
+      "need": 29,
+      "accepted": 29,
+      "rejected": 1
+    },
+    {
+      "bucket": "ADD_ASSET|UPDATE",
+      "had": 7,
+      "need": 33,
+      "accepted": 35,
+      "rejected": 10
+    },
+    {
+      "bucket": "ADD_ASSET|DELETE",
+      "had": 3,
+      "need": 37,
+      "accepted": 45,
+      "rejected": 0
+    },
+    {
+      "bucket": "ADD_LIABILITY|CREATE",
+      "had": 5,
+      "need": 35,
+      "accepted": 40,
+      "rejected": 5
+    },
+    {
+      "bucket": "ADD_LIABILITY|UPDATE",
+      "had": 4,
+      "need": 36,
+      "accepted": 38,
+      "rejected": 7
+    },
+    {
+      "bucket": "ADD_LIABILITY|DELETE",
+      "had": 3,
+      "need": 37,
+      "accepted": 44,
+      "rejected": 1
+    },
+    {
+      "bucket": "REFUND|CREATE",
+      "had": 7,
+      "need": 33,
+      "accepted": 37,
+      "rejected": 8
+    },
+    {
+      "bucket": "REFUND|UPDATE",
+      "had": 3,
+      "need": 37,
+      "accepted": 41,
+      "rejected": 4
+    },
+    {
+      "bucket": "REFUND|DELETE",
+      "had": 3,
+      "need": 37,
+      "accepted": 43,
+      "rejected": 2
+    },
+    {
+      "bucket": "INCOME_DECLARATION|CREATE",
+      "had": 5,
+      "need": 35,
+      "accepted": 45,
+      "rejected": 0
+    },
+    {
+      "bucket": "INCOME_DECLARATION|UPDATE",
+      "had": 4,
+      "need": 36,
+      "accepted": 40,
+      "rejected": 5
+    },
+    {
+      "bucket": "GOAL_PLANNING|CREATE",
+      "had": 4,
+      "need": 36,
+      "accepted": 39,
+      "rejected": 6
+    },
+    {
+      "bucket": "GOAL_PLANNING|UPDATE",
+      "had": 5,
+      "need": 35,
+      "accepted": 42,
+      "rejected": 3
+    },
+    {
+      "bucket": "GOAL_PLANNING|ANALYSIS",
+      "had": 4,
+      "need": 36,
+      "accepted": 36,
+      "rejected": 24
+    }
+  ],
+  "candidates": [
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I log {AMOUNT} received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I add {AMOUNT} earned today to my records",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "How do I bill {AMOUNT} that I got from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "May I enter {AMOUNT} that I was paid on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to record {AMOUNT} received via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do I need to track the {AMOUNT} from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I register the {AMOUNT} I just received",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I log the {AMOUNT} from the {MERCHANT} today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do I input {AMOUNT} income from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is it correct to record a {AMOUNT} received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I add {AMOUNT} that was paid to me by {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "May I mark {AMOUNT} received during {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I update my income with {AMOUNT} from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do I log the {AMOUNT} from the {MERCHANT} I got",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is it okay to register {AMOUNT} earned via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I add a new entry of {AMOUNT} I got today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I log that I received {AMOUNT} from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do you help me record {AMOUNT} earned via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "How do I log {AMOUNT} into {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "I just got {AMOUNT} should I update my records",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Would it be okay to add {AMOUNT} from {MERCHANT} to my income",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Please add {AMOUNT} I earned from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to input {AMOUNT} received on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I note {AMOUNT} that came from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do I need to add {AMOUNT} I received from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I record {AMOUNT} paid to me via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "May I enter {AMOUNT} that I got from {MERCHANT} today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Add {AMOUNT} I received from {MERCHANT} to my balance",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I log {AMOUNT} that was credited on {DATE} via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is it allowed to capture {AMOUNT} from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "May I record {AMOUNT} that I received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I add {AMOUNT} as income from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Could I log a receipt of {AMOUNT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I enter {AMOUNT} that came in via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is there a way to note {AMOUNT} earned today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do I need to capture {AMOUNT} from {MERCHANT} in my logs",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Will you allow me to insert {AMOUNT} received on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Could I register a new entry for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to add {AMOUNT} from {MERCHANT} as an income record",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Do I have to log {AMOUNT} that I got through {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Can I document {AMOUNT} earned from {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Should I input {AMOUNT} I received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Will I be able to enter {AMOUNT} received on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Could I note {AMOUNT} that entered my account from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "CREATE",
+      "pattern": "Could I add {AMOUNT} that I received on {DATE} to my budget",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Could I update the {MERCHANT} payment to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I need to correct my {CATEGORY} income; should it be {AMOUNT} instead",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "How do I change the {DATE} entry to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to adjust the {MERCHANT} transaction to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I entered {AMOUNT} for the {MERCHANT} payment, but it should be different; can it be updated",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Do I have to modify the {CATEGORY} receipt to reflect {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can you amend the {DATE} income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Would you mind revising the {MERCHANT} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Could I swap the {CATEGORY} entry to show {AMOUNT} instead",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I need to reclassify the {DATE} income as {AMOUNT}—how do I do that?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to edit the {MERCHANT} receipt to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I realize the {CATEGORY} entry should be {AMOUNT}; can I correct it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "How can I adjust the {DATE} payment to {AMOUNT} in the app",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can I replace the {MERCHANT} amount with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I need to fix the entry for {CATEGORY} to reflect {AMOUNT}—what’s the process?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can you help me change the amount in my {MERCHANT} transaction to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Would you let me update the {DATE} income I logged to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Where can I correct the amount I noted for {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Where can I adjust the {CATEGORY} revenue to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can you guide me through adjusting the {MERCHANT} payment I made to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is there a setting to replace the {DATE} income with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I need to adjust the {CATEGORY} income I logged; can it be set to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Would it be possible to swap the {MERCHANT} amount I recorded for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "How do I correct the amount I entered for {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I think I typed the wrong amount for {MERCHANT}; how can I update it to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "What is the process to change my {CATEGORY} income from the current value to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I noticed my {DATE} entry wasn't accurate; can I set it to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can I easily change the {CATEGORY} receipt to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is there a shortcut for replacing the {DATE} revenue I logged with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "How can I adjust the {MERCHANT} receipt to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can I modify the {CATEGORY} income I logged to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to update the {MERCHANT} payment to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Could I replace the {CATEGORY} entry with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "What steps do I need to change my {DATE} income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I need to correct the amount for {MERCHANT}—can it be set to {AMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can I swap the {CATEGORY} entry to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "How do I edit the {MERCHANT} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to adjust the {DATE} transaction to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Could you tell me where to change the {CATEGORY} revenue to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Could you show me how to change the {MERCHANT} payment to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "I entered {AMOUNT} for the {MERCHANT} receipt—can I modify it",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Do I have to replace the {CATEGORY} entry with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Can someone help me revise the {DATE} income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to edit my {MERCHANT} transaction amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Can I remove the {MERCHANT} income entry",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Please delete the {AMOUNT} income from {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Could you cancel the {CATEGORY} income that I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I want to erase the {PAYMENT_METHOD} income dated {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Help me get rid of the {CATEGORY} income I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I need to cancel the income I noted on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Will it be possible to remove the {MERCHANT} income I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Is there a way to delete the {AMOUNT} I receive from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Show me how to cancel the {CATEGORY} income entry",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I wish to delete the {AMOUNT} earned on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How do I remove the {PAYMENT_METHOD} income I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Can I delete the {CATEGORY} income that shows up on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How do I cancel the {MERCHANT} income record",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Help me erase the {AMOUNT} income I logged in {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Will you delete the {CATEGORY} income I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How can I delete the {AMOUNT} income I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Could you please erase the {PAYMENT_METHOD} income from {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "What steps can I take to remove the {CATEGORY} income I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to cancel the {MERCHANT} income entry I made",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I want to delete the {AMOUNT} income that I recorded on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Can you help me delete the {PAYMENT_METHOD} income received",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Please show me how to get rid of the {CATEGORY} income I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How do I erase the {MERCHANT} income entry from my records",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I need to remove the {AMOUNT} income I noted on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Will you delete the {PAYMENT_METHOD} income that I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Could you cancel the {CATEGORY} income that I entered earlier",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How do I get rid of the {MERCHANT} income I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I want to wipe the {AMOUNT} income from {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Is there a way to remove the {PAYMENT_METHOD} income I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Please delete the {CATEGORY} income I recorded on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Can I delete the {MERCHANT} income I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to remove the {AMOUNT} received from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How do I erase the {CATEGORY} income entry I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I want to cancel the income I noted on {DATE} what should I do",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Could you show me how to delete the {PAYMENT_METHOD} income I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Please help me get rid of the {MERCHANT} salary entry I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I need to erase the {AMOUNT} credit I received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "What steps can I take to remove the {CATEGORY} income I logged on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Do you know how to delete the {AMOUNT} I received via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I want to delete the {MERCHANT} income that was added by mistake",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "How can I get rid of the {CATEGORY} income I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I would like to undo the {AMOUNT} received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Is there a way to remove the {PAYMENT_METHOD} income I recorded on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "Could you instruct me to delete the {MERCHANT} income entry I made",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_INCOME",
+      "taskType": "DELETE",
+      "pattern": "I am looking to erase the {CATEGORY} income I logged with {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Could you log my new {ASSETTYPE} acquisition worth {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "I just bought a {ASSETTYPE} for {AMOUNT}; should I add it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Add a {ASSETTYPE} I got on {DATE} valued at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Please record my {ASSETTYPE} purchase of {AMOUNT} for the {CATEGORY} category",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Did you add a {ASSETTYPE} I bought on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Can I log the {ASSETTYPE} I acquired for {AMOUNT} today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Help me track a new {ASSETTYPE} valued at {AMOUNT} under {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "I'm adding a {ASSETTYPE} worth {AMOUNT}; is that correct",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to record a {ASSETTYPE} I purchased for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Should I add a {ASSETTYPE} bought on {DATE} with a value of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "I want to log a new {ASSETTYPE} acquisition for {AMOUNT}; how do I do it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Could you insert a {ASSETTYPE} I own worth {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Please note a {ASSETTYPE} I got for {AMOUNT} in the {CATEGORY} group",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Add a new {ASSETTYPE} asset with a price of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Do you record a {ASSETTYPE} I bought on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Should I log a new {ASSETTYPE} I acquired for {AMOUNT} today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Can you add the {ASSETTYPE} I bought for {AMOUNT} as a new entry",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "What steps do I need to take to record a recent purchase of {ASSETTYPE} valued at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Is there a way to track my newly obtained {ASSETTYPE} worth {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Help me input a new {ASSETTYPE} asset totaling {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "I just came into a {ASSETTYPE} for {AMOUNT}. How do I log this",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Could you register my latest {ASSETTYPE} acquisition amounting to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Do I need to manually add the {ASSETTYPE} I earned for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "How can I record a new investment in {ASSETTYPE} for {AMOUNT}?",
+      "status": "rejected",
+      "reason": "literal \"investment\" should be a {CATEGORY} placeholder, not baked into the skeleton"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Would you add my newest {ASSETTYPE} at {AMOUNT} to the portfolio",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "I received a {ASSETTYPE} that cost {AMOUNT}. Can it be noted",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Should I create an entry for the {ASSETTYPE} I purchased with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Please log the {ASSETTYPE} I acquired on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "Need to enter a new {ASSETTYPE} worth {AMOUNT}. How do I do that",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "CREATE",
+      "pattern": "How do I add the {ASSETTYPE} I got for {AMOUNT} into my records",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Could you change my {ASSETTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I need to modify the {ASSETTYPE} entry to {AMOUNT}—how do I do that?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "How can I revise the {ASSETTYPE} value to {AMOUNT} in the app",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to update my {ASSETTYPE} with a new amount of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "What steps should I follow to adjust the {ASSETTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Can I re-enter my {ASSETTYPE} at {AMOUNT} instead of the current value",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I'd like to set the {ASSETTYPE} amount to {AMOUNT}—how can I edit it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Would you help me replace the {ASSETTYPE} figure with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I want to swap out the {ASSETTYPE} amount for {AMOUNT}—what's the process?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Could you show me how to press the {ASSETTYPE} field to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "What's the way to update the {ASSETTYPE} to reflect {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "May I change my {ASSETTYPE} from its current value to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "If I want to set my {ASSETTYPE} to {AMOUNT}, what's the quickest method",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Please instruct me on how to correct my {ASSETTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I wish to overwrite the {ASSETTYPE} with {AMOUNT}; could you guide me",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "How do I update my {ASSETTYPE} value to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I need to change my {ASSETTYPE} record to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "What steps will let me set my {ASSETTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Can I edit my {ASSETTYPE} amount to {AMOUNT} now",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Show me how to replace the {ASSETTYPE} acquired on {DATE} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I want my {ASSETTYPE} to read {AMOUNT} – how do I make that",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Please guide me to enter a new value of {AMOUNT} for my {ASSETTYPE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "What's the quickest way to swap the current {ASSETTYPE} figure for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I'd like to correct my {ASSETTYPE} in {CATEGORY} to {AMOUNT} – what do I do",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Could you help me set {AMOUNT} for the existing {ASSETTYPE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Tell me how to overwrite the {ASSETTYPE} entry with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I am looking to revise my {ASSETTYPE} to {AMOUNT} – where do I start",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to adjust the {ASSETTYPE} record to {AMOUNT} in the app",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I need to set my {ASSETTYPE} to {AMOUNT} – what steps are required",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "How do I modify the {ASSETTYPE} entry to show {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Can I set my {ASSETTYPE} to {AMOUNT} instead of the current value",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Could you help me change the amount listed for my {ASSETTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "How can I edit my existing {ASSETTYPE} entry to reflect {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to replace the current value of my {ASSETTYPE} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "What steps should I take to update my {ASSETTYPE} record to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I’d like to adjust my {ASSETTYPE} value to {AMOUNT} – how do I do that",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "How do I replace the amount shown for my {ASSETTYPE} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Can the app let me overwrite the {ASSETTYPE} figure with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I want to refresh the {ASSETTYPE} valuation to {AMOUNT} – what’s the process",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to enter a new amount of {AMOUNT} for the {ASSETTYPE} already logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Where can I modify the {ASSETTYPE} value to {AMOUNT} in the system",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "What is the quickest way to set my {ASSETTYPE} to {AMOUNT} now that I have a new price",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "How do I go about altering the {ASSETTYPE} amount currently displayed to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "I need to update my {ASSETTYPE} record to {AMOUNT} – can you show me how",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "UPDATE",
+      "pattern": "Is there a feature to change the existing {ASSETTYPE} value to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could you delete the {AMOUNT} {ASSETTYPE} I purchased on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "I want to get rid of my {ASSETTYPE} that cost {AMOUNT} bought on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Remove the {ASSETTYPE} I logged on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Please take away the {AMOUNT} {ASSETTYPE} entry from my records",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "How do I delete the {ASSETTYPE} I added on {DATE} with a value of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Erase the {ASSETTYPE} I noted yesterday for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Delete the entry for my {ASSETTYPE} that was acquired on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "I need to remove my {ASSETTYPE} that costs {AMOUNT} and was bought on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Please discard the {AMOUNT} {ASSETTYPE} I stored on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Take out the {ASSETTYPE} entry I entered on {DATE} with a price of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could you wipe the {ASSETTYPE} logged on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "I want to erase the {ASSETTYPE} I added on {DATE} worth {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Drop the {ASSETTYPE} I recorded on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Would you remove the {AMOUNT} {ASSETTYPE} entry dated {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Let me delete the {ASSETTYPE} I listed on {DATE} having a value of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Can I remove the {ASSETTYPE} I entered on {DATE} with a value of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could you delete the {ASSETTYPE} I logged on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Do I need to erase the {AMOUNT} {ASSETTYPE} that I added on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "How can I get rid of the {ASSETTYPE} I recorded on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to delete the {ASSETTYPE} entry I stored on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Can you wipe the {ASSETTYPE} I noted on {DATE} that cost {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Would you take away the {AMOUNT} {ASSETTYPE} asset I logged on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could I remove the {ASSETTYPE} entry I added on {DATE} worth {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "How do I delete the {ASSETTYPE} I entered on {DATE} with a price of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Can I delete the {ASSETTYPE} I added on {DATE} that was valued at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Is there a way to erase the {ASSETTYPE} I listed on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could you help me drop the {ASSETTYPE} entry I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Do I need to remove the {ASSETTYPE} I logged on {DATE} with a cost of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Would you delete the {ASSETTYPE} I recorded on {DATE} with a value of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Can I get rid of the {ASSETTYPE} I noted on {DATE} that cost {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Can you erase the {ASSETTYPE} I added on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Should I delete the {ASSETTYPE} I noted on {DATE} that cost {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "How do I get rid of the {ASSETTYPE} entry I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could you remove the {ASSETTYPE} I listed on {DATE} with a value of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "I no longer own the {ASSETTYPE} I logged on {DATE}. Can you delete it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to wipe the {ASSETTYPE} record I added on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Do I remove the {ASSETTYPE} that I registered with a value of {AMOUNT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "I don't need the {ASSETTYPE} I recorded on {DATE} anymore. Could you take it out",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Is there a way to erase the {ASSETTYPE} I entered on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Can you delete the {ASSETTYPE} I bought on {DATE} with amount {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "I sold my {ASSETTYPE} that I listed on {DATE}. Could you remove the entry",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "How might I delete the {ASSETTYPE} that I tracked on {DATE} for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Could you take away the {ASSETTYPE} I logged on {DATE} with a price of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Would you delete the {ASSETTYPE} I input on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_ASSET",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to erase the {ASSETTYPE} I captured on {DATE} costing {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can I record a new {LIABILITYTYPE} of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How do I add a {LIABILITYTYPE} with a balance of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I want to log a {LIABILITYTYPE} of {AMOUNT} where to start",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Please add a {LIABILITYTYPE} of {AMOUNT} with {INTERESTRATE} interest rate",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I just took a loan of {AMOUNT} from {LENDER} can you add it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Add a credit card debt of {AMOUNT} due on {DATE}",
+      "status": "rejected",
+      "reason": "literal \"credit card debt\" should be a {LIABILITYTYPE} placeholder, not baked into the skeleton"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I need to record a new recurring payment of {AMOUNT} {FREQUENCY} how",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Could you log a new {LIABILITYTYPE} of {AMOUNT} with a tenure of {TENUREMONTHS} months",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I want to enter an EMI of {AMOUNT} each {FREQUENCY} can you do that",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How to add a new {LIABILITYTYPE} of {AMOUNT} from {LENDER} at {INTERESTRATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Please record a loan of {AMOUNT} with a monthly payment of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can you log a new {LIABILITYTYPE} of {AMOUNT} that starts on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I need to record a new debt of {AMOUNT} with an interest rate of {INTERESTRATE} how",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Add a {LIABILITYTYPE} of {AMOUNT} due {DATE} with a frequency of {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I just got a new loan of {AMOUNT} from {LENDER} can you add that as an entry",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How do I log a new {LIABILITYTYPE} of {AMOUNT} from {LENDER}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can you help me record a liability of {AMOUNT} that starts on {DATE} and pays {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "What steps do I need to add a loan of {AMOUNT} with an interest rate of {INTERESTRATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to create a new EMI of {AMOUNT} each {FREQUENCY} beginning on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I need to add a credit card debt of {AMOUNT} - how can I log that?",
+      "status": "rejected",
+      "reason": "literal \"credit card debt\" should be a {LIABILITYTYPE} placeholder, not baked into the skeleton"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Could you add a liability of {AMOUNT} for {TENUREMONTHS} months at {INTERESTRATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How do I record a recurring payment of {AMOUNT} each {FREQUENCY} for a new loan",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How can I set up a new debt of {AMOUNT} at {INTERESTRATE} rate",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can I enter a loan of {AMOUNT} starting on {DATE} with a monthly payment of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "What is the quickest way to register a new {LIABILITYTYPE} of {AMOUNT} from {LENDER}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Help me add an installment plan of {AMOUNT} per {FREQUENCY} for a loan",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Where can I log a debt of {AMOUNT} with a tenure of {TENUREMONTHS} months and {INTERESTRATE} interest",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How do I set up a credit card balance of {AMOUNT} that I need to pay off each {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Is there a feature to record a new loan of {AMOUNT} dated {DATE} with an interest of {INTERESTRATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can I log a monthly obligation of {AMOUNT} for my newly taken loan",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "May I log a new {LIABILITYTYPE} of {AMOUNT} that starts on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How can I add a recurring debt of {AMOUNT} every {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Could you log a loan of {AMOUNT} from {LENDER} at {INTERESTRATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Could you enter a new {LIABILITYTYPE} of {AMOUNT} due on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "What steps are required to log a new EMI of {AMOUNT} each {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Is there a way to add a liability of {AMOUNT} that has a tenure of {TENUREMONTHS} months",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Help me record a new {LIABILITYTYPE} of {AMOUNT} with a repayment plan that starts today",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can I input a new debt of {AMOUNT} that will be paid {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Could you record a {LIABILITYTYPE} of {AMOUNT} having an interest rate of {INTERESTRATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I’d like to log a new loan of {AMOUNT} from {LENDER} with a duration of {TENUREMONTHS} months",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "How do I capture a recurring credit card payment of {AMOUNT} on a {FREQUENCY} basis",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Could you record a new {LIABILITYTYPE} of {AMOUNT} that begins on {DATE} and repeats {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "I want to add a debt of {AMOUNT} that will be paid monthly—can you log it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "What’s the process to enter a new {LIABILITYTYPE} of {AMOUNT} with an interest rate of {INTERESTRATE} ?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "CREATE",
+      "pattern": "Can you log a new loan of {AMOUNT} with a repayment frequency of {FREQUENCY} starting on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I need to modify the amount on my {LIABILITYTYPE} – can it be updated to {AMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to alter my existing {LIABILITYTYPE} balance to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could you adjust my current {LIABILITYTYPE} figure to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "How do I change the amount for my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I want to set my {LIABILITYTYPE} to {AMOUNT} now – can we edit it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Can we edit the current {LIABILITYTYPE} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Would it be possible to update the {LIABILITYTYPE} balance to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I’d like to revise my {LIABILITYTYPE} value to {AMOUNT}; how do I do that?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Need to correct my {LIABILITYTYPE} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could you change the existing {LIABILITYTYPE} figure to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Please help me update my {LIABILITYTYPE} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Can I set my current {LIABILITYTYPE} debt to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to modify my {LIABILITYTYPE} balance to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "How can I adjust the {LIABILITYTYPE} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I’d like the {LIABILITYTYPE} amount to read {AMOUNT} – can you change it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could you adjust the balance of my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I need to revise my {LIABILITYTYPE} amount to {AMOUNT}—how can I do it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "What steps do I need to take to update my {LIABILITYTYPE} entry to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Want to change the recorded {LIABILITYTYPE} value to {AMOUNT}—can you help?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to edit my {LIABILITYTYPE} so it reflects {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Please update my {LIABILITYTYPE} record to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Can I alter the {LIABILITYTYPE} figure to {AMOUNT} within the app",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "How should I replace my existing {LIABILITYTYPE} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could I re-enter my {LIABILITYTYPE} balance as {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I have a new figure for my {LIABILITYTYPE}, {AMOUNT}. How do I reflect that",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to adjust the {LIABILITYTYPE} to {AMOUNT} after it's entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Can I correct my {LIABILITYTYPE} to {AMOUNT} once it's saved",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Need to set my existing {LIABILITYTYPE} figure to {AMOUNT}, what should I do",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could you help me change the {LIABILITYTYPE} amount to {AMOUNT} correctly",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "How do I modify my {LIABILITYTYPE} value to {AMOUNT} in the system",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could I modify my existing {LIABILITYTYPE} entry to reflect a new amount, {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I want to update the amount I recorded for my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "How would I change my current {LIABILITYTYPE} figure to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to replace the amount I logged for my {LIABILITYTYPE} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Would I be able to adjust the recorded balance of my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Can I swap the amount I entered for my {LIABILITYTYPE} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I need to edit my {LIABILITYTYPE} debt to {AMOUNT}. How do I do it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Please help me modify my {LIABILITYTYPE} record to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Could I change the current amount I entered for my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to alter the amount of my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I’d like to correct the {LIABILITYTYPE} amount I logged to {AMOUNT}. What steps should I follow?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Can I adjust the balance of my {LIABILITYTYPE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Where can I edit my {LIABILITYTYPE} amount to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible for me to replace my previous {LIABILITYTYPE} figure with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "UPDATE",
+      "pattern": "I realized I entered the wrong amount for my {LIABILITYTYPE}. Can I update it to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can you delete the {LIABILITYTYPE} I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I need to remove the {AMOUNT} loan I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "How do I get rid of the {LENDER} loan I listed",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Please erase the {INTERESTRATE} {TENUREMONTHS} month loan",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I want to take out the {FREQUENCY} {LIABILITYTYPE} I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could you remove the {DATE} credit card debt I saved",
+      "status": "rejected",
+      "reason": "literal \"credit card debt\" should be a {LIABILITYTYPE} placeholder, not baked into the skeleton"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Do I have to delete the {LIABILITYTYPE} I set up",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Should I delete the {AMOUNT} loan with {INTERESTRATE} interest",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I added a {LIABILITYTYPE} and want to erase it",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "What is the best way to delete the {LENDER} debt I noted",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I would like to get rid of a {FREQUENCY} {LIABILITYTYPE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can you help me wipe out the loan I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I need to eliminate the {LIABILITYTYPE} I previously logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could you clear the {AMOUNT} loan I added for the {LENDER}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Will you delete the {INTERESTRATE} {LIABILITYTYPE} I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "How can I remove the {LIABILITYTYPE} I saved",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "What steps do I need to take to delete the {AMOUNT} {LIABILITYTYPE} I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can you tell me how to wipe out the {LENDER} debt I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to erase the {INTERESTRATE} % loan I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I want to delete the {FREQUENCY} payment commitment I added how",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could you help me delete the {TENUREMONTHS} month loan I set up",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "What happens if I delete the {LIABILITYTYPE} I made earlier",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could I remove the {AMOUNT} credit card liability I captured",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Do I have a way to cancel the {LENDER} loan I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "How do I drop the {INTERESTRATE} interest loan I documented",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can I delete the {DATE} loan I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Help me get rid of the {AMOUNT} {LIABILITYTYPE} I captured",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "How can I clear the {LENDER} credit line I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I want to drop the {FREQUENCY} {LIABILITYTYPE} I logged how",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could you show me how to remove the {INTERESTRATE} {LIABILITYTYPE} I created",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can I remove the {AMOUNT} loan I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "How do I delete the {LIABILITYTYPE} I added last week",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Is there a way to erase the {FREQUENCY} {LIABILITYTYPE} I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could you help me wipe out the {LENDER} loan I listed",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "What steps do I take to eliminate the {INTERESTRATE} % {LIABILITYTYPE} I saved",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Do I need to delete the {LIABILITYTYPE} I entered on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I want to take off the {TENUREMONTHS} month loan I noted",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can you show me how to remove the {INTERESTRATE} interest {LIABILITYTYPE} I added",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to clear the {AMOUNT} debt I recorded from {LENDER}",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "How can I get rid of the {FREQUENCY} payment commitment I logged",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I need to drop the {LIABILITYTYPE} I set up recently",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Could you explain how to delete the {TENUREMONTHS} month loan I entered",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "What happens if I want to erase the {LIABILITYTYPE} I recorded",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "I would like to delete the {AMOUNT} loan I added with {INTERESTRATE} interest",
+      "status": "approved"
+    },
+    {
+      "intent": "ADD_LIABILITY",
+      "taskType": "DELETE",
+      "pattern": "Can I remove the {LENDER} credit card liability I noted",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Did I receive a refund of {AMOUNT} from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can you add the {AMOUNT} I got back from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Should I record the {AMOUNT} refunded on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I got {AMOUNT} back via {PAYMENT_METHOD}—can I log that?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "What about the {AMOUNT} returned from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Should I add the {AMOUNT} cashback I earned on {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I received {AMOUNT} back from {MERCHANT}. How do I log that",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Is there a way to log the {AMOUNT} refund I got on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Did I get a money back of {AMOUNT} from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Would you please log the {AMOUNT} I was refunded from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Do I need to add the {AMOUNT} I was reimbursed for",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Should I record the {AMOUNT} I got back under {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can I log the {AMOUNT} returned to me from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I was refunded {AMOUNT} by {MERCHANT}. How do I log that",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "What’s the best way to add the {AMOUNT} I received back from {MERCHANT}?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "How do I log a {AMOUNT} refund from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can I enter the {AMOUNT} I got back from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Where should I record the {AMOUNT} that I received back from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I was refunded {AMOUNT} by {MERCHANT} how do I add that to my account",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "How to add {AMOUNT} returned from {MERCHANT} as income",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Please show me how to log the {AMOUNT} I was refunded by {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I received a refund of {AMOUNT} from {MERCHANT} how do I enter it",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can you help me record the {AMOUNT} returned by {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Where do I put the {AMOUNT} I was refunded from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I'd like to add a {AMOUNT} income for a refund from {MERCHANT} how do I do it",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "How can I add the {AMOUNT} I got back from {MERCHANT} to my finances",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Do I need to input the {AMOUNT} refunded by {MERCHANT} into the app",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Show me how to record the {AMOUNT} I received from {MERCHANT} after a refund",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "How to log the {AMOUNT} I was refunded on {DATE} from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I'm looking to log a refund of {AMOUNT} from {MERCHANT} can you guide me",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Did I receive {AMOUNT} as a refund from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Should I log {AMOUNT} that I got back from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I got {AMOUNT} back after a return – how do I add it to my account?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Is there a way to record the {AMOUNT} refund I received for {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can I add the {AMOUNT} refunded on {DATE} as income",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I was reimbursed {AMOUNT} by {MERCHANT} – what’s the best way to log this?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "How can I enter the {AMOUNT} I received back from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I got a refund of {AMOUNT} from {MERCHANT} – should I input it in the app?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Would you help me record the {AMOUNT} I got back for {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can I add the {AMOUNT} returned from {MERCHANT} via {PAYMENT_METHOD} as income",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I received a refund of {AMOUNT} – how do I log it against {CATEGORY}?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Is the {AMOUNT} I got back from {MERCHANT} considered income in the system",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I was given {AMOUNT} back by {MERCHANT} – how to capture that in my expenses?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "Can I record the {AMOUNT} received from {MERCHANT} as income on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "CREATE",
+      "pattern": "I was refunded {AMOUNT} by {MERCHANT} – what’s the procedure to log it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I adjust the refund I received from {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I need to change the refund entry dated {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to correct the refund amount I logged to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Would you be able to modify my refund from {MERCHANT} into {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I update the refund I recorded with {PAYMENT_METHOD} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I would like to alter the amount of my refund dated {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to adjust the refund I entered as {CATEGORY} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Could you change my refund entry from {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "How can I modify the refund I logged for {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I need to fix the refund amount I recorded on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I edit the refund I claimed from {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Would you adjust the refund entry I made on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to correct the refund amount I got from {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I change the income entry from my refund on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I want to modify the refund I got via {PAYMENT_METHOD} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Could I correct the refund I reported from {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "How do I adjust the refund I received on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I need to revise the income entry labeled {CATEGORY} for a refund to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is there a method to edit the refund recorded via {PAYMENT_METHOD} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Would you help me change the refund I logged for {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I update the refund I noted on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I want to modify the money back entry I entered for {CATEGORY} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "How can I replace the refund amount I recorded from {MERCHANT} with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to fix the refund entry logged on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Could you assist me in altering the refund I noted via {PAYMENT_METHOD} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Do I have a way to re-enter the refund I documented for {CATEGORY} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Would you adjust the income recorded from {MERCHANT} as a refund to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I need to correct the refund amount I captured on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is there a process to change the refund entry I made under {CATEGORY} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I modify the refund I logged for {MERCHANT} by changing it to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I modify the refund I logged from {MERCHANT} dated {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I recorded a refund of {AMOUNT} from {MERCHANT} but I need to adjust it—how can I do that?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "What steps should I take to edit the refund amount I entered on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "How do I update the refund entry I made for {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I entered a refund of {AMOUNT} on {DATE} but it needs correction—can I change it?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I flip the refund I logged for {MERCHANT} into {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Do I need to edit the refund I recorded with {PAYMENT_METHOD} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "How can I revise the refund I claimed from {MERCHANT} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is there a method to alter the refund entry I entered on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Can I correct the amount of the refund I logged on {DATE} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I want to tweak the refund I received from {MERCHANT}—how can I change it to {AMOUNT}?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to transform the refund entry I made on {DATE} into {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "How do I change the refund I logged via {PAYMENT_METHOD} to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "I need to adjust the refund I recorded for {CATEGORY} to {AMOUNT}—what is the process?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "UPDATE",
+      "pattern": "Could I re-enter the refund I logged on {DATE} with a new amount {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "could you delete the {AMOUNT} refund from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I need to remove the refund I received from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "can you cancel the {AMOUNT} money back logged on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Please delete the {AMOUNT} refund I got via {PAYMENT_METHOD} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I'd like to remove the income entry for the refund from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "How can I delete the {AMOUNT} comeback from {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "help me remove the {AMOUNT} refund entry for {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I want to delete the {AMOUNT} refund I got on {DATE} via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "delete the {AMOUNT} refund from {MERCHANT} that was logged as income",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "remove the {AMOUNT} cash back from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "cancel the refund income entry of {AMOUNT} received on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I need to erase the {AMOUNT} refund transaction in {CATEGORY}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "can I remove the {AMOUNT} refund I received from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "please delete the money back entry of {AMOUNT} from {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "how can I delete the refund of {AMOUNT} I got from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Can I delete the {AMOUNT} refund I received from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "How do I remove the {AMOUNT} money back logged on {DATE} via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Could you erase the refund entry of {AMOUNT} from {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I want to cancel the {AMOUNT} returned by {MERCHANT} on {DATE}—can you help?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Please take out the {AMOUNT} refund recorded as income on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "What steps do I need to eliminate the {AMOUNT} cash back entry from {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Help me delete the {AMOUNT} refund that came from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Is it possible to wipe the {AMOUNT} money back entry for {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Could you remove the {AMOUNT} refund we logged on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "How can I delete the {AMOUNT} refund made by {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I need to erase the {AMOUNT} income entry for the refund from {MERCHANT} on {DATE}—what to do?",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"—\" — use plain ASCII"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Can you delete the {AMOUNT} refund that was recorded via {PAYMENT_METHOD} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Please take out the {AMOUNT} refund entry from {MERCHANT} that showed up on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Help me remove the {AMOUNT} money back logged on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Could you cancel the {AMOUNT} refund entry from {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "can you remove the {AMOUNT} refund recorded for {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "please delete the {AMOUNT} money back logged on {DATE} via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I'd like to erase the {AMOUNT} refund entry from {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "how to take out the {AMOUNT} refund I received from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "delete the {AMOUNT} cash back entry linked to {MERCHANT} that shows as income",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "can you wipe the {AMOUNT} refund logged as income on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I need to remove the {AMOUNT} refund posted for {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "remove the {AMOUNT} refund that was entered under {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "could you get rid of the {AMOUNT} refund I got from {MERCHANT} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "delete the {AMOUNT} money back transaction that appears in {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "Please delete the {AMOUNT} refund I received from {MERCHANT} on {DATE} via {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "I want to remove the {AMOUNT} refund entry logged as income for {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "how can I erase the {AMOUNT} refund transaction recorded on {DATE} with {PAYMENT_METHOD}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "could you take out the {AMOUNT} refund entry from {CATEGORY} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "REFUND",
+      "taskType": "DELETE",
+      "pattern": "can you cancel the {AMOUNT} refund entry that appeared on {DATE} for {MERCHANT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How can I record my salary as {AMOUNT} per month",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Should I log my new base pay of {AMOUNT} each month",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I just got a raise; can I set my salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What's the best way to enter my recurring income of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I update my annual income to {AMOUNT} in the app",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Can I set my monthly base salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Is there a way to add a new salary entry of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I'd like to set my salary to {AMOUNT} each pay period, how do I do that",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Could you show me how to input my new pay of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Where do I enter my updated base salary of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to log my salary as {AMOUNT} every month",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I register my new recurring income of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Can I update my planned income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What's the process to record a salary of {AMOUNT} each month",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How would I make a note of my new base salary at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How can I enter my recurring salary amount of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Can I add a new monthly base income of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What steps do I need to take to register my base pay at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I need to update my planned salary how do I set it to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Where would I input my new recurring gross income of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Is there a feature to log a new base income of {AMOUNT} per pay period",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Could you guide me on how to record my new base salary of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What's the process for adding a new recurring salary entry of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Would you help me log my base salary amount of {AMOUNT} starting next month",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I update my regular income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Can I set my upcoming base pay to {AMOUNT} for each month",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Where do I put my new salary figure of {AMOUNT} in the app",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What is the quickest way to record my base income as {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I input a recurring salary of {AMOUNT} in my budget",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I'd like to enter a new salary amount of {AMOUNT} as my base income how can I do that",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I set my base salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What do I do to log my new income of {AMOUNT} each {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How can I enter my monthly base pay amounting to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I want to record a new salary of {AMOUNT} every pay period how should I proceed",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What steps should I follow to add my new recurring income of {AMOUNT} per {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I capture the fact that my new base salary is {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Please show me how to note that my monthly income will be {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I just got promoted how to log my updated salary of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "Where do I input a new planned income level of {AMOUNT} per {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I register an increase to my base pay of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I need to record my new yearly base salary of {AMOUNT} how do I do it",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "What is the method to set my recurring base income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How do I add a new salary figure of {AMOUNT} to my budget",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "I would like to declare my base salary as {AMOUNT} per month how do I do that",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "CREATE",
+      "pattern": "How can I log the amount of {AMOUNT} as my new recurring payment",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Could you adjust my salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "I need to update my base income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Please set my recurring salary at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can I change my monthly earnings to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Would you update my weekly wage to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to correct my bi‑weekly pay to {AMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"‑\" — use plain ASCII"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How do I set my new salary of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "I’d like to change my salary figure to {AMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Could you reset my regular income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "I'm getting a raise, can I set my salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can my base pay be updated to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Please change my planned earnings to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "What’s the procedure to alter my salary to {AMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Help me revise my recurring income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can I set my salary to {AMOUNT} {FREQUENCY}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to switch my base salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How do I change my planned wages to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can I set my recurring earnings at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Would you allow me to alter my regular pay to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Could I rework my current income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Am I able to replace my existing salary with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "What’s the process to configure my base earnings at {AMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Should I update my income projection to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can I restructure my monthly pay to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How do I refresh my annual salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to swap my recurring wage for {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "May I change my base compensation to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Could you help me reestablish my planned income at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Do I need to adjust my standard salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "I’d like to replace my current base pay with {AMOUNT} how do I do that",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "What's the process to change my base salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How should I adjust my regular income to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can I update my yearly earnings to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Where do I specify my new salary level of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "What steps do I need to take to revise my monthly pay to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How can I modify my current wage to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Could I alter my planned earnings to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "What do I need to do for a new salary set at {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to enter a new base pay of {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How do I replace my existing salary with {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Can I edit my recurring income to reflect {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "What would I do to reset my base pay to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "To update my wage, what information should I provide about {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "Where can I modify my periodic earnings to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "INCOME_DECLARATION",
+      "taskType": "UPDATE",
+      "pattern": "How do I recalculate my budget after setting my salary to {AMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Can I record that I saved {AMOUNT} toward {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Should I log adding {AMOUNT} to my {GOALNAME} today",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Do I need to note that I deposited {AMOUNT} into {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Could you track the {AMOUNT} I just put into {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Will recording {AMOUNT} toward {GOALNAME} today help me reach {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Is it okay to add {AMOUNT} to {GOALNAME} for the {TARGETAMOUNT} goal by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Do you think I should record my {AMOUNT} deposit for {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Should I update my {GOALNAME} with {AMOUNT} saved today",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Do I have to log that I contributed {AMOUNT} to {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Will logging {AMOUNT} toward {GOALNAME} help me hit {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Can you capture the {AMOUNT} I saved for {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Should I note the {AMOUNT} added to my {GOALNAME} goal today",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Do I need to register my {AMOUNT} deposit into {GOALNAME} on {DATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Could I log that I put {AMOUNT} toward {GOALNAME} for the {TARGETAMOUNT} target by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Is adding {AMOUNT} into {GOALNAME} today a good way to reach {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How can I log a new goal to save {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Is it possible to record a fresh savings target of {TARGETAMOUNT} for {GOALNAME} that ends on {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What steps do I need to take to register a new goal for {GOALNAME} with dollar amount {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Can I input a new savings plan for {GOALNAME} aiming to reach {TARGETAMOUNT} before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How do I create a brand-new savings goal of {TARGETAMOUNT} for {GOALNAME} that closes on {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What’s the quickest way to add a savings target of {TARGETAMOUNT} for {GOALNAME} due by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "I want to set up a new goal for {GOALNAME} that I need to hit {TARGETAMOUNT} by {TARGETDATE} – how do I log that",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"–\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Could you help me note a new savings goal for {GOALNAME} with target {TARGETAMOUNT} set for {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How do I mark a new settlement for {GOALNAME} where I plan to save {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "I’d like to register a new goal for {GOALNAME} to gather {TARGETAMOUNT} before {TARGETDATE} – how do I do that",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How can I log a fresh savings objective for {GOALNAME} aiming at {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What’s the best way to document a new goal for {GOALNAME} with amount {TARGETAMOUNT} due on {TARGETDATE}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Can I add a new savings target of {TARGETAMOUNT} for {GOALNAME} that I want to finish by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How do I capture a new goal for {GOALNAME} to reach {TARGETAMOUNT} before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "I’m interested in setting a brand-new savings target for {GOALNAME} at {TARGETAMOUNT} with deadline {TARGETDATE} – what’s the procedure for logging that",
+      "status": "rejected",
+      "reason": "too long (>120 chars) — not a realistic utterance"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How do I initiate a new savings plan to reach {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Which steps do I need to follow to record a new goal of {TARGETAMOUNT} for {GOALNAME} concluding on {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What is the best way for me to set up a savings goal targeting {TARGETAMOUNT} for {GOALNAME} before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Can I begin a new savings target of {TARGETAMOUNT} for {GOALNAME} that ends on {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How can I create an entry for a new goal to save {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What steps should I take to establish a brand new savings objective for {GOALNAME} with a target of {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "too long (>120 chars) — not a realistic utterance"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Which approach works best to add a fresh savings goal of {TARGETAMOUNT} for {GOALNAME} closing on {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How do I log a new savings milestone aiming at {TARGETAMOUNT} for {GOALNAME} that expires on {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What would be the correct way to start a new savings target for {GOALNAME} at {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Which method should I use to set up a new goal to reach {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Can I establish a fresh savings plan of {TARGETAMOUNT} toward {GOALNAME} to be completed by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How can I register a new savings objective of {TARGETAMOUNT} for {GOALNAME} before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "What steps do I need to take to record a new goal of saving {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "Which steps are required to create a new savings target for {GOALNAME} set to reach {TARGETAMOUNT} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "CREATE",
+      "pattern": "How do I add a new savings plan aiming to accumulate {TARGETAMOUNT} for {GOALNAME} on or before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How can I update the target amount for my {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "I want to change the date for my {GOALNAME} goal, can you set it to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Is it possible to modify the {GOALNAME} target to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "What steps do I need to take to adjust my {GOALNAME} deadline to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "I'd like to alter the target amount of my {GOALNAME} to {TARGETAMOUNT}, how do I do that",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Could you help me change the goal date for {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "I need to revise the amount I’m saving toward {GOALNAME}. Can it be set to {TARGETAMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How do I set a new deadline for my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "What do I do to update my {GOALNAME} goal to a new target of {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Can you adjust the target date for my {GOALNAME} goal to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "I’d like to change the target amount for {GOALNAME}—is it possible to set it to {TARGETAMOUNT}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How can I reschedule my {GOALNAME} goal to finish by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "I want the new target amount for {GOALNAME} set at {TARGETAMOUNT}, how can that be done",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "What’s the process to edit the deadline of my {GOALNAME} goal to {TARGETDATE}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Can I fix the target amount of {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "how do i modify my {GOALNAME} target amount to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "can i set a new target date for my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "i would like to adjust the target amount for my {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "whats the process to change the deadline of my {GOALNAME} goal to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "could you help me shift the target amount of my {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "how can i update the end date of my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "i want to reset the target amount of my {GOALNAME} to {TARGETAMOUNT} can you show me how",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "is there a way to change the goal deadline for {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "i'd like to alter the target amount for my {GOALNAME} goal to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "how should i change the target date of my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "can i reconfigure the target amount of {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "what steps are needed to shift my {GOALNAME} goal's deadline to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "i want to revise the target amount for {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "how do i set a new target amount for my {GOALNAME} goal to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "could you shift the deadline of my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Can I modify my {GOALNAME} target to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "What do I need to do to set a new target amount for {GOALNAME} at {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to update my {GOALNAME} deadline to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How can I shift the date for {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Could I edit the goal amount for {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "What steps are needed to alter my {GOALNAME} goal target to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How do I modify the end date of my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Can I set a new target amount for {GOALNAME} at {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Would it be possible to change the deadline of {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How should I change my {GOALNAME} savings target to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "What is the process to update the date for my {GOALNAME} goal to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Could I adjust the target amount of {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "How do I set a new deadline for my {GOALNAME} goal at {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Is there a way to fix the goal amount for my {GOALNAME} to {TARGETAMOUNT}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "UPDATE",
+      "pattern": "Can I modify the finish date of my {GOALNAME} to {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "can you explain why my spending is high for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which merchants are causing my budget to slip for {GOALNAME} before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why do I see higher expenses in the food category while aiming for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which categories are pulling my savings down for {GOALNAME} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "can you show me which merchants are driving my spending against {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what’s fueling my overspend on groceries while targeting {GOALNAME}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "how are my recurring payments affecting my path to {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my spending on entertainment higher than expected for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which shopping categories are affecting my progress toward {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "can you identify which merchants are responsible for my current spend on {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what causes my expenses to surge in the travel category for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why are my utility bills exceeding the plan for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which high‑spending merchants are hindering my {GOALNAME} goal by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"‑\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "can you trace which categories are dragging my savings below {TARGETAMOUNT}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what’s the root cause of my current spend pattern for {GOALNAME}",
+      "status": "rejected",
+      "reason": "non-ASCII punctuation \"’\" — use plain ASCII"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what causes my car maintenance bills to rise as I try to hit my {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which spending categories are pulling my savings below the target amount for {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my dining out frequency higher than usual while targeting {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "can you identify the merchants that are most responsible for my budget being tight for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what factors are contributing to my credit card debt during my {GOALNAME} plan",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which recurring payments are eroding my {GOALNAME} progress as of {DATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why do my utility bills make me miss my {GOALNAME} savings target",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what is driving my spending spikes on travel as I work toward {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which categories are eating into my emergency fund while I pursue {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my subscription service spend higher than expected during my {GOALNAME} plan",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what merchants are contributing most to my overspending in the entertainment category while aiming for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which types of purchases are preventing me from saving enough for my {GOALNAME} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "how are my grocery expenses affecting my ability to reach {TARGETAMOUNT} for {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what spending habits are keeping me from meeting my {GOALNAME} goal by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which places do I shop most often that are undermining my {GOALNAME} target",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my grocery spending exceeding expectations as I aim for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which category is most responsible for my spending spike while pursuing {GOALNAME} through {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what is the main driver behind my unexpected dining out costs as I target {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "how much of my monthly expenses are coming from entertainment as I plan for {GOALNAME} before {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my subscription service spending higher than predicted during my effort toward {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which merchant group is contributing most to my higher spending in the transport category while working toward {GOALNAME} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "too long (>120 chars) — not a realistic utterance"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what factors explain the surge in my healthcare costs as I set a goal for {GOALNAME} to be reached by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why do my clothing purchases keep driving up my budget as I aim for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which category is causing my budget to tighten as I try to hit {GOALNAME} goal by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what is making my utility bills climb as I attempt to achieve {GOALNAME} before {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my food delivery spending higher than usual while targeting {GOALNAME} to be achieved by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which merchant patterns are inflating my car maintenance spend as I aim to meet {GOALNAME} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "what explains the increase in my travel expenses as I set a savings goal of {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "too long (>120 chars) — not a realistic utterance"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "why is my entertainment subscription spending rising during my plan to reach {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "which category is pulling the bulk of my discretionary spend as I work toward {GOALNAME} by {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "What categories are pushing my expenses up as I chase {GOALNAME} before {TARGETDATE}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Why does my food budget keep spiking while I aim for {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Which merchants are the biggest contributors to my spending against {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Which category is taking the biggest hit on my savings plan for {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "How does my discretionary spending affect my path to {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "What are the main drivers of my monthly outlay as I work toward {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Can you show me the merchants that are pulling my budget down during the {GOALNAME} period",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Why are my transportation costs rising as I target {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Which category is eating into my goal of {GOALNAME} the most",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "What explains the high grocery spending while pushing toward {GOALNAME}",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Which stores make my savings rate fall short of {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "What kind of spending is holding me back from {GOALNAME}",
+      "status": "rejected",
+      "reason": "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Why do my subscription payments cut into my {GOALNAME} plan",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "Which merchant categories are responsible for the excess spend on my {GOALNAME} trajectory",
+      "status": "approved"
+    },
+    {
+      "intent": "GOAL_PLANNING",
+      "taskType": "ANALYSIS",
+      "pattern": "What activities are causing my savings to lag as I plan for {GOALNAME} by {TARGETDATE}",
+      "status": "approved"
+    }
+  ]
+}

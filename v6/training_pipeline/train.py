@@ -24,8 +24,24 @@ EMBEDDING_DIM = 300  # FastText uses 300d vectors
 LSTM_UNITS = 64
 DROPOUT_RATE = 0.3
 BATCH_SIZE = 128
-EPOCHS = 10
-RANDOM_SEED = 42
+# EPOCHS is a CEILING, not a target — EarlyStopping(patience=4,
+# restore_best_weights=True) decides when to stop. It was 10, which at
+# ~23 steps/epoch gave only ~230 gradient steps for stage 1: the model
+# plateaued at 0.42 TRAIN accuracy, i.e. it could not fit its own training
+# data. Early stopping never fired because training ended before convergence.
+EPOCHS = 120
+# Stage 2 fine-tunes unfrozen embeddings at a 10x lower LR, so it needs room too.
+# Raised from 40 after run 4 consumed the entire ceiling (40/40) without
+# EarlyStopping(patience=3) ever firing — i.e. it stopped because it ran out
+# of epochs, not because it converged. Stage 1 by contrast halted naturally at
+# 19/120, so only stage 2 was ceiling-bound.
+FINETUNE_EPOCHS = 150
+# Overridable for the seed-spread experiment (BACKLOG: run-to-run variance).
+# NOTE a fixed seed did NOT give reproducible runs: B-PERIOD recall moved
+# 0.895 -> 0.795 between runs 15 and 16 under seed 42 (dataset edits plus TF
+# op-level nondeterminism on this hardware). The spread across seeds is the
+# honest error bar for ANY single-run comparison.
+RANDOM_SEED = int(os.environ.get("SEED", "42"))
 BOUNDARY_PERCENTILE = 95
 BOUNDARY_RADIUS_MULTIPLIER = 1.15
 TEMPERATURE_GRID = np.linspace(0.5, 5.0, 46)
@@ -35,15 +51,23 @@ np.random.seed(RANDOM_SEED)
 
 
 def load_dataset():
-    """Reads JSONL dataset from disk."""
-    dataset_file = "../exported_dataset/combinatorial_dataset.jsonl"
-            
+    """Reads JSONL dataset from disk.
+
+    spec_dataset.jsonl (src/knowledge/generateFromSpec.ts) is the current,
+    actively-maintained dataset — spec-driven, validated by validate.ts's
+    quality gate, versioned via manifest.ts. combinatorial_dataset.jsonl
+    (the legacy v6/dataset_generator/combinatorial_generate.py pipeline) is
+    kept only for reference; it is no longer regenerated or extended.
+    """
+    dataset_file = "../../exported_dataset/spec_dataset.jsonl"
+
     if not os.path.exists(dataset_file):
         raise FileNotFoundError(
             f"Could not locate {dataset_file}. "
-            "Please run the v6 generator script first."
+            "Run `npm run dataset:build` in the repo root first (generates, "
+            "validates, and manifests spec_dataset.jsonl)."
         )
-        
+
     print(f"[*] Loading dataset file: {dataset_file}")
     samples = []
     with open(dataset_file, "r") as f:
@@ -332,6 +356,81 @@ def build_intent_decision_boundary(model, X_reference, Y_reference, intents_list
     }
 
 
+def template_aware_split(samples, train_frac=0.8, val_frac=0.1, seed=RANDOM_SEED):
+    """
+    Splits by SOURCE TEMPLATE (sample["sourcePattern"]), not by individual
+    utterance — every row generated from the same template (e.g.
+    "spent {AMOUNT} on {CATEGORY}", with different entity fills) lands in the
+    same split. This prevents the near-guaranteed leakage of a naive random
+    split over a template-generated corpus, where the model can see the same
+    sentence skeleton (just different entity values) in both train and eval
+    and appear to generalize when it has actually memorized the skeleton.
+
+    Falls back to a per-sample random split for any row missing
+    sourcePattern (e.g. hand-authored rows added outside generateFromSpec.ts)
+    so this never silently drops data.
+    """
+    import random
+    from collections import defaultdict
+    rng = random.Random(seed)
+
+    with_pattern = [s for s in samples if s.get("sourcePattern")]
+    without_pattern = [s for s in samples if not s.get("sourcePattern")]
+
+    # STRATIFIED per (intent, taskType). A GLOBAL template shuffle let an entire
+    # intent land in one split — measured live on 2026-07-18: SIP_VS_PREPAY went
+    # 27 -> 0 test rows and SPENDING_ANALYSIS 0 -> 50 between two runs, which
+    # made per-intent F1 incomparable across runs (an F1 of 0.000 could mean
+    # "broken" or "never tested"). Splitting WITHIN each bucket guarantees every
+    # bucket contributes to train, val and test, so deltas are real.
+    by_bucket = defaultdict(set)
+    for smp in with_pattern:
+        by_bucket[(smp["intent"], smp["taskType"])].add(smp["sourcePattern"])
+
+    train_patterns, val_patterns, test_patterns = set(), set(), set()
+    thin_buckets = []
+    for bucket, pats in sorted(by_bucket.items()):
+        pl = sorted(pats)
+        rng.shuffle(pl)
+        n_b = len(pl)
+        if n_b < 3:
+            # Too few templates to hold any out without emptying training for
+            # this bucket. Keep them all in train and record it — a bucket that
+            # cannot be evaluated should be visible, not silently absent.
+            train_patterns.update(pl)
+            thin_buckets.append(f"{bucket[0]}|{bucket[1]}({n_b})")
+            continue
+        # At least one template each to val and test, remainder to train.
+        n_val = max(1, int(n_b * val_frac))
+        n_test = max(1, int(n_b * (1.0 - train_frac - val_frac)))
+        if n_val + n_test >= n_b:
+            n_val, n_test = 1, 1
+        val_patterns.update(pl[:n_val])
+        test_patterns.update(pl[n_val:n_val + n_test])
+        train_patterns.update(pl[n_val + n_test:])
+
+    train_samples = [s for s in with_pattern if s["sourcePattern"] in train_patterns]
+    val_samples = [s for s in with_pattern if s["sourcePattern"] in val_patterns]
+    test_samples = [s for s in with_pattern if s["sourcePattern"] in test_patterns]
+
+    n = len(train_patterns) + len(val_patterns) + len(test_patterns)
+
+    if without_pattern:
+        rng.shuffle(without_pattern)
+        wp_train_end = int(len(without_pattern) * train_frac)
+        wp_val_end = int(len(without_pattern) * (train_frac + val_frac))
+        train_samples += without_pattern[:wp_train_end]
+        val_samples += without_pattern[wp_train_end:wp_val_end]
+        test_samples += without_pattern[wp_val_end:]
+        print(f"[*] Stratified split: {len(without_pattern)} sample(s) had no sourcePattern — random-split as a fallback.")
+
+    print(f"[*] Stratified over {len(by_bucket)} (intent,taskType) buckets.")
+    if thin_buckets:
+        print(f"[!] {len(thin_buckets)} bucket(s) with <3 templates are TRAIN-ONLY (not evaluable): {', '.join(thin_buckets[:8])}{' ...' if len(thin_buckets) > 8 else ''}")
+    print(f"[*] Split: {n} distinct templates -> {len(train_patterns)} train / {len(val_patterns)} val / {len(test_patterns)} test")
+    return train_samples, val_samples, test_samples
+
+
 def main():
     print("="*60)
     print("   ON-DEVICE PRODUCTION AI TRAINING PIPELINE FOR LOCAL EXPORT")
@@ -350,16 +449,10 @@ def main():
     train_samples = [s for s in samples if s.get("split") == "train"]
     val_samples = [s for s in samples if s.get("split") == "val"]
     test_samples = [s for s in samples if s.get("split") == "test"]
-    
+
     if not train_samples:
-        import random
-        random.shuffle(samples)
-        train_end = int(len(samples) * 0.8)
-        val_end = int(len(samples) * 0.9)
-        train_samples = samples[:train_end]
-        val_samples = samples[train_end:val_end]
-        test_samples = samples[val_end:]
-    
+        train_samples, val_samples, test_samples = template_aware_split(samples)
+
     print(f"\n[*] Processing data splits (Total samples):")
     print(f"    - Training Split:   {len(train_samples)} samples")
     print(f"    - Validation Split: {len(val_samples)} samples")
@@ -393,6 +486,38 @@ def main():
         }
     )
 
+    # ── CLASS WEIGHTING ────────────────────────────────────────────────────
+    # Measured on run 7: with SPENDING_ANALYSIS at 255 templates and
+    # NET_WORTH_CHECK at 10, the loss was dominated by the populated classes and
+    # the model STOPPED PREDICTING the minority intents entirely — REFUND,
+    # INCOME_DECLARATION, NET_WORTH_CHECK and SIP_VS_PREPAY all went to exactly
+    # 0.000 F1 (precision AND recall zero = never guessed). That is an imbalance
+    # artefact, not evidence those intents are unlearnable.
+    #
+    # Keras multi-output models do not take a per-output class_weight reliably,
+    # so this is expressed as per-SAMPLE weights, which is equivalent. Weights
+    # are inverse-frequency, normalised to mean 1.0 so the effective learning
+    # rate is unchanged, and capped so a 3-template class cannot dominate the
+    # gradient the way the majority classes currently do.
+    def class_sample_weights(labels, cap=8.0):
+        counts = np.bincount(labels, minlength=int(labels.max()) + 1).astype(np.float64)
+        counts[counts == 0] = 1.0                  # unseen class: neutral weight
+        w = counts.sum() / (len(counts) * counts)   # inverse frequency
+        w = np.clip(w, 1.0 / cap, cap)
+        sw = w[labels]
+        # Normalise over SAMPLES, not classes. Normalising the per-class array
+        # left the per-sample mean at 0.28 (majority classes carry low weights
+        # and appear most often), which silently scaled the whole loss down
+        # ~3.5x — an unintended learning-rate cut on top of the reweighting.
+        return sw / sw.mean()
+
+    sw_train = {
+        "intent": class_sample_weights(Y_intent_train),
+        "taskType": class_sample_weights(Y_task_train),
+    }
+    _iw = sw_train["intent"]
+    print(f"[*] Class weighting ON — intent sample weights range {_iw.min():.2f}..{_iw.max():.2f} (mean {_iw.mean():.2f})")
+
     early_stopping = tf.keras.callbacks.EarlyStopping(
         monitor="val_loss",
         patience=4,
@@ -407,6 +532,7 @@ def main():
         epochs=EPOCHS,
         batch_size=BATCH_SIZE,
         callbacks=[early_stopping],
+        sample_weight=sw_train,
         verbose=1
     )
     
@@ -443,9 +569,10 @@ def main():
             X_train,
             {"intent": Y_intent_train, "taskType": Y_task_train, "slots": Y_slots_train},
             validation_data=(X_val, {"intent": Y_intent_val, "taskType": Y_task_val, "slots": Y_slots_val}),
-            epochs=5,
+            epochs=FINETUNE_EPOCHS,
             batch_size=BATCH_SIZE,
             callbacks=[early_stopping_ft],
+            sample_weight=sw_train,
             verbose=1
         )
     
@@ -458,6 +585,7 @@ def main():
 
     Y_pred_raw = model.predict(X_test, batch_size=BATCH_SIZE)
     Y_intent_pred = np.argmax(Y_pred_raw[0], axis=-1)
+    Y_task_pred = np.argmax(Y_pred_raw[1], axis=-1)
     Y_slots_pred = np.argmax(Y_pred_raw[2], axis=-1)
 
     print("\n[*] Calibrating intent confidence and decision boundaries...")
@@ -478,6 +606,28 @@ def main():
         zero_division=0
     )
     print(intent_report)
+    intent_report_dict = classification_report(
+        Y_intent_test, Y_intent_pred, labels=range(len(intents_list)),
+        target_names=intents_list, digits=4, zero_division=0, output_dict=True
+    )
+    intent_confusion = confusion_matrix(Y_intent_test, Y_intent_pred, labels=range(len(intents_list))).tolist()
+
+    # Compile taskType Classification Metrics (previously computed but never
+    # reported — see on_device_nlp_implementation_roadmap.md Phase 3 item 3)
+    print("\n[B] TaskType Head Classifier Evaluation:")
+    task_report = classification_report(
+        Y_task_test, Y_task_pred,
+        labels=range(len(tasks_list)),
+        target_names=tasks_list,
+        digits=4,
+        zero_division=0
+    )
+    print(task_report)
+    task_report_dict = classification_report(
+        Y_task_test, Y_task_pred, labels=range(len(tasks_list)),
+        target_names=tasks_list, digits=4, zero_division=0, output_dict=True
+    )
+    task_confusion = confusion_matrix(Y_task_test, Y_task_pred, labels=range(len(tasks_list))).tolist()
 
     # Compile Sequence Tag slot-level metrics
     print("\n[C] Slot Head Entity Sequence Classification (Slot Tag Tokens):")
@@ -507,6 +657,7 @@ def main():
     )
     print(slot_report)
 
+    entity_report_dict = None
     if labels_without_O:
         o_idx = slot2idx.get("O")
         print("\n[C.2] Slot Head - ENTITY TAGS ONLY (excludes 'O', which is "
@@ -521,9 +672,19 @@ def main():
             zero_division=0
         )
         print(entity_report)
+        entity_report_dict = classification_report(
+            flat_test_slots, flat_pred_slots, labels=labels_without_O,
+            target_names=target_names_without_O, digits=4, zero_division=0, output_dict=True
+        )
 
     # 8. Package Outputs & Export directory structures
     output_dir = "exported_model"
+    # Regenerate the intent->taskType mask from the specs on EVERY export. A
+    # stale hand-built mask once forced SIP_VS_PREPAY to SUMMARY through two
+    # training runs after the spec gained COMPARISON/WHAT_IF (see
+    # build_action_mask.py). Spec-derived artifacts must never outlive a run.
+    from build_action_mask import build as build_action_mask
+    build_action_mask(output_dir)
     os.makedirs(output_dir, exist_ok=True)
     
     # Save standard JSON vocabulary and labels map
@@ -547,6 +708,48 @@ def main():
             "decision_boundary": decision_boundary
         }, f, indent=2)
 
+    # Structured evaluation report — the single source of truth for "how good
+    # is this model," replacing "read stdout" as the only way to know. See
+    # on_device_nlp_implementation_roadmap.md Phase 3 item 3.
+    eval_report = {
+        "trainedAt": __import__("datetime").datetime.utcnow().isoformat() + "Z",
+        "datasetSize": {"train": len(train_samples), "val": len(val_samples), "test": len(test_samples)},
+        "overallTestLoss": float(overall_loss),
+        "calibration": {
+            "temperature": temperature_scaling["temperature"],
+            "validationNll": temperature_scaling.get("validation_nll"),
+        },
+        "decisionBoundary": {
+            "enabled": decision_boundary["enabled"],
+            "boundaryClasses": len(decision_boundary["centroids"]),
+        },
+        "intent": {
+            "accuracy": intent_report_dict["accuracy"],
+            "macroF1": intent_report_dict["macro avg"]["f1-score"],
+            "weightedF1": intent_report_dict["weighted avg"]["f1-score"],
+            "perClass": {k: v for k, v in intent_report_dict.items() if k in intents_list},
+            "confusionMatrix": intent_confusion,
+            "labels": intents_list,
+        },
+        "taskType": {
+            "accuracy": task_report_dict["accuracy"],
+            "macroF1": task_report_dict["macro avg"]["f1-score"],
+            "weightedF1": task_report_dict["weighted avg"]["f1-score"],
+            "perClass": {k: v for k, v in task_report_dict.items() if k in tasks_list},
+            "confusionMatrix": task_confusion,
+            "labels": tasks_list,
+        },
+        "entities": {
+            "tokenLevelF1": entity_report_dict["weighted avg"]["f1-score"] if entity_report_dict else None,
+            "perType": {k: v for k, v in entity_report_dict.items() if k not in ("accuracy", "macro avg", "weighted avg")} if entity_report_dict else {},
+            "note": "Token-level F1, not span-level — a partially-tagged multi-token entity (e.g. only B-AMOUNT correct, I-AMOUNT missed) counts as a partial success here, not a full span failure. Span-level F1 is a documented future improvement, not computed today.",
+        },
+    }
+    eval_report_path = os.path.join(output_dir, "eval_report.json")
+    with open(eval_report_path, "w") as f:
+        json.dump(eval_report, f, indent=2)
+    print(f"[*] Wrote structured evaluation report to: {eval_report_path}")
+
     import shutil
     try:
         shutil.copy("../../category_mapping.json", os.path.join(output_dir, "category_mapping.json"))
@@ -559,19 +762,63 @@ def main():
     print(f"[*] Compiling HDF5/Keras binary weights checkpoint: {keras_model_path}")
     model.save(keras_model_path)
 
-    # 9. Trigger TensorFlow.js convert pipeline inside Python script
+    # 9. TensorFlow.js export — delegates to convert.py, the single canonical
+    # exporter (Phase 4 item 1: this used to be a second, unpatched inline
+    # tfjs.converters.save_keras_model() call here; convert.py's Keras-3
+    # compatibility patching is what the real deployed model needs).
     tfjs_output_path = os.path.join(output_dir, "tfjs")
-    print(f"[*] Initiating TensorFlow.js converter bundle at: {tfjs_output_path}")
-    
+    print(f"[*] Converting to TensorFlow.js via convert.py: {tfjs_output_path}")
     try:
-        import tensorflowjs as tfjs
-        tfjs.converters.save_keras_model(model, tfjs_output_path)
+        import convert
+        convert.convert(model=model, tfjs_dir=tfjs_output_path)
         print("[+] TFJS converter completed successfully! Compiled model.json and shard.bin")
-    except ImportError:
-        print("[!] Warning: tensorflowjs package not fully installed or registered in environment.")
+        convert.check_export_integrity(output_dir)
+    except ImportError as e:
+        print(f"[!] Warning: convert.py's dependencies not available: {e}")
         print("[*] Local conversion command bypass: ")
-        print(f"    tensorflowjs_converter --input_format=keras {keras_model_path} {tfjs_output_path}")
-        
+        print(f"    python convert.py")
+    except convert.IntegrityError as e:
+        print(f"[!] EXPORT INTEGRITY CHECK FAILED: {e}")
+        print("[!] This export MUST NOT be promoted to the app repo until fixed.")
+        raise
+
+    # 10. Hard-example benchmark — measures real-world performance on the
+    # specific failure classes already observed in production, not just
+    # in-distribution test accuracy. See run_benchmark.py.
+    try:
+        import run_benchmark
+        print("\n[*] Running hard-example benchmark against the freshly-exported model...")
+        benchmark_summary = run_benchmark.run(
+            output_dir, os.path.join(os.path.dirname(__file__), "benchmarks", "hard_cases.jsonl")
+        )
+        eval_report["hardExampleBenchmark"] = {
+            "intentAccuracy": benchmark_summary["intentAccuracy"],
+            "intentTaskAccuracy": benchmark_summary["intentTaskAccuracy"],
+            "byCategory": benchmark_summary["byCategory"],
+        }
+        with open(eval_report_path, "w") as f:
+            json.dump(eval_report, f, indent=2)
+        print(f"[*] Hard-example benchmark results merged into: {eval_report_path}")
+    except Exception as e:
+        print(f"[!] Warning: hard-example benchmark failed to run: {e}")
+
+    # 11. Regression suite — a fixed, versioned set of canonical utterances
+    # that must classify correctly above a confidence floor. Fails loudly
+    # (non-zero exit further down) if this training run regressed on a case
+    # a prior run got right. See regression_suite.py.
+    try:
+        import regression_suite
+        print("\n[*] Running regression suite against the freshly-exported model...")
+        regression_ok, regression_summary = regression_suite.run(output_dir)
+        eval_report["regressionSuite"] = regression_summary
+        with open(eval_report_path, "w") as f:
+            json.dump(eval_report, f, indent=2)
+        if not regression_ok:
+            print(f"\n[!] REGRESSION SUITE FAILED — {regression_summary['regressionCount']} case(s) regressed. "
+                  f"See {eval_report_path} for details.")
+    except Exception as e:
+        print(f"[!] Warning: regression suite failed to run: {e}")
+
     print("\n" + "="*50)
     print("   AI TRAINING PIPELINE COMPLETE! ALL TARGETED ASSETS COMPILED.")
     print("="*50)

@@ -33,8 +33,13 @@ if (!APP || !fs.existsSync(APP)) {
   process.exit(1);
 }
 
-const LABELS_PATH = path.join(APP, "src/ai/model/assets/labels.json");
-const OUT_LABELS = path.join(APP, "src/ai/model/assets/labels.generated.json");
+// assets/nlp/ is the path the app ACTUALLY loads at runtime — ModelLoader.ts,
+// IntentClassifier.ts, and VocabularyTokenizer.ts all require() from here.
+// src/ai/model/assets/ is a stale, unused duplicate (confirmed via grep: no
+// require() of its model.json/vocabulary.json/labels.json anywhere in the app)
+// with a mismatched vocabulary/model pair — do not target it again.
+const LABELS_PATH = path.join(APP, "assets/nlp/labels.json");
+const OUT_LABELS = path.join(APP, "assets/nlp/labels.generated.json");
 const OUT_ROUTEMAP = path.join(APP, "utils/ai/nlp/intentRouteMap.generated.ts");
 
 function buildLabels() {

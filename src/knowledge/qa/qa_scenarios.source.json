@@ -1,0 +1,1978 @@
+{
+  "$comment": "QA scenario suite SOURCE — parametrized test cases for the full NLP contract (intent + taskType + entities). Expanded by buildQaScenarios.ts into v6/training_pipeline/benchmarks/qa_scenarios.jsonl. RULES: (1) These cases must NEVER enter training data — validate.ts leakage check enforces this. (2) status_today records the verified 2026-07-18 state so progress is measurable per release: PASS_EXPECTED | PARTIAL | FAIL_D1_NO_PERIOD_ROLES | FAIL_D2_DECODER_COLLAPSE | FAIL_D3_RESOLVER_GAP | FAIL_D4_SILENT_DEFAULT | FAIL_UNTRAINED_PATTERN | FAIL_UNMODELED. (3) Roles (period1/period2) and normalized values follow src/knowledge/entities/period.grammar.json.",
+  "version": "1.0.0",
+  "classes": [
+    {
+      "id": "T1",
+      "name": "single_period_canonical",
+      "description": "Baseline: one intent, one period, common phrasing. If these fail, nothing else matters.",
+      "cases": [
+        {
+          "template": "{verb} {period}",
+          "slots": {
+            "verb": [
+              "how much did I spend",
+              "show my spending",
+              "what did I spend",
+              "total expenses",
+              "spending report",
+              "give me my expense breakdown"
+            ],
+            "period": [
+              "last month",
+              "this month",
+              "in May",
+              "this week",
+              "last week",
+              "this year",
+              "last year"
+            ]
+          },
+          "sample": 24,
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "{period}"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "In-template for the model but intent accuracy is 21% overall."
+        },
+        {
+          "utterance": "why is my food spending so high this month",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "ANALYSIS",
+            "entities": [
+              {
+                "type": "CATEGORY",
+                "value": "food"
+              },
+              {
+                "type": "PERIOD",
+                "value": "this month"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "Q2 expense summary",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "Q2"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "where did my money go last quarter",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "ANALYSIS",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last quarter"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "budget status for this month",
+          "expected": {
+            "intent": "BUDGET_PLANNING",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "this month"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "range_periods",
+      "description": "Numeric, word-number, half-year, between, month+year, to-date ranges. grammar categories: numeric_range, word_number_range, half_year, between_range, absolute_month_year, to_date.",
+      "cases": [
+        {
+          "template": "{verb} for last {n} {unit}",
+          "slots": {
+            "verb": [
+              "show my spending",
+              "total expenses",
+              "how much did I spend"
+            ],
+            "n": [
+              "2",
+              "3",
+              "6"
+            ],
+            "unit": [
+              "months",
+              "weeks"
+            ]
+          },
+          "sample": 10,
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last {n} {unit}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "TemporalResolver supports digit ranges; the model has never seen one — no range filler in DATE_RANGES."
+        },
+        {
+          "template": "{verb} for last {w} {unit}",
+          "slots": {
+            "verb": [
+              "show my spending",
+              "how much did I spend",
+              "expense report"
+            ],
+            "w": [
+              "two",
+              "three",
+              "six"
+            ],
+            "unit": [
+              "months",
+              "weeks"
+            ]
+          },
+          "sample": 10,
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last {w} {unit}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Word-number: TemporalResolver regex requires \\d+. 'last two months' is the user-reported case. [2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "utterance": "spending over the past few weeks",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "past few weeks"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "utterance": "how much did I spend in the last couple of months",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last couple of months"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "template": "{verb} {half}",
+          "slots": {
+            "verb": [
+              "spending summary for the",
+              "total expenses in the",
+              "how did I do in the"
+            ],
+            "half": [
+              "first half of this year",
+              "second half of 2025",
+              "first six months of the year"
+            ]
+          },
+          "sample": 6,
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "{half}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "template": "expenses {range}",
+          "slots": {
+            "range": [
+              "between March and June",
+              "from Jan to March",
+              "April through August",
+              "between January and April"
+            ]
+          },
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "{range}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "template": "spending in {my}",
+          "slots": {
+            "my": [
+              "May 2025",
+              "June 2024",
+              "December 2023"
+            ]
+          },
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "{my}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "spending so far this month",
+              "expenses year to date",
+              "MTD spend",
+              "how much have I spent this month so far"
+            ]
+          },
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "__CONTAINS_TO_DATE__"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "to_date category. Entity span assertion is fuzzy (__CONTAINS_TO_DATE__) because the span boundary is part of the design decision. [2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        }
+      ]
+    },
+    {
+      "id": "T3",
+      "name": "comparisons_two_roles",
+      "description": "Two-period comparisons, explicit and implicit. Roles per period.grammar.json#comparison. ALL currently fail: no PERIOD1/PERIOD2 reaches the dispatcher from the on-device path (D1) and the decoder collapses the two spans (D2).",
+      "cases": [
+        {
+          "template": "{verb} {pair.0} {marker} {pair.1}",
+          "slots": {
+            "verb": [
+              "compare my spending",
+              "compare expenses",
+              "how does my spending look"
+            ],
+            "marker": [
+              "vs",
+              "versus",
+              "compared to",
+              "against"
+            ],
+            "pair": [
+              [
+                "June",
+                "May"
+              ],
+              [
+                "this month",
+                "last month"
+              ],
+              [
+                "Q1",
+                "Q2"
+              ],
+              [
+                "this year",
+                "last year"
+              ]
+            ]
+          },
+          "sample": 16,
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "{pair.0}"
+              },
+              {
+                "type": "PERIOD",
+                "value": "{pair.1}"
+              }
+            ],
+            "roles": {
+              "period1": "{pair.0}",
+              "period2": "{pair.1}"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "May 2025 vs May 2024 spending",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "May 2025"
+              },
+              {
+                "type": "PERIOD",
+                "value": "May 2024"
+              }
+            ],
+            "roles": {
+              "period1": "May 2025",
+              "period2": "May 2024"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Also needs absolute_month_year (D3). [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "am I spending more than last month",
+              "is my spending up from last year",
+              "did my expenses drop since March",
+              "are my costs higher than last quarter"
+            ]
+          },
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "__IMPLICIT_SECOND__"
+              }
+            ],
+            "roles": {
+              "period1": "__CURRENT_UNIT__",
+              "period2": "__EXPLICIT_SPAN__"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Implicit comparative: ONE explicit period; period1 is the current unit at the same granularity. [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "compare groceries vs dining out this month",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "CATEGORY",
+                "value": "groceries"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "dining out"
+              },
+              {
+                "type": "PERIOD",
+                "value": "this month"
+              }
+            ],
+            "comparison_dimension": "CATEGORY"
+          },
+          "status_today": "FAIL_UNMODELED",
+          "notes": "Category-dimension comparison — no concept exists anywhere in the pipeline today."
+        },
+        {
+          "utterance": "this quarter vs last quarter for travel",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "this quarter"
+              },
+              {
+                "type": "PERIOD",
+                "value": "last quarter"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "travel"
+              }
+            ],
+            "roles": {
+              "period1": "this quarter",
+              "period2": "last quarter"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "net worth now vs last year",
+          "expected": {
+            "intent": "NET_WORTH_CHECK",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last year"
+              }
+            ],
+            "roles": {
+              "period1": "now",
+              "period2": "last year"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "should I do a SIP or prepay my loan",
+          "expected": {
+            "intent": "SIP_VS_PREPAY",
+            "taskType": "COMPARISON",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "No periods needed; intent-level comparison. App-side: PolicyGuard blocks the 'mutual funds' phrasing of this same question."
+        }
+      ]
+    },
+    {
+      "id": "T4",
+      "name": "multi_value_entities",
+      "description": "Multiple entities of the SAME type in one query. All fail at IntentClassifier.ts:120-127 decoder collapse (D2) regardless of model quality.",
+      "cases": [
+        {
+          "template": "spending on {pair.0} and {pair.1} {period}",
+          "slots": {
+            "pair": [
+              [
+                "food",
+                "travel"
+              ],
+              [
+                "groceries",
+                "rent"
+              ],
+              [
+                "shopping",
+                "fuel"
+              ],
+              [
+                "utilities",
+                "entertainment"
+              ]
+            ],
+            "period": [
+              "last month",
+              "this month",
+              "this year"
+            ]
+          },
+          "sample": 8,
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "CATEGORY",
+                "value": "{pair.0}"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "{pair.1}"
+              },
+              {
+                "type": "PERIOD",
+                "value": "{period}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: decoder fixed (bioSpanDecoder, 13 tests) — spans now survive to ConfidenceResult.tfjsSpans; status retained because EntityExtractor wire-through (arrays + role assigner) has not landed, so end-to-end still fails.] [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "how much on food, travel and shopping last month",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "CATEGORY",
+                "value": "food"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "travel"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "shopping"
+              },
+              {
+                "type": "PERIOD",
+                "value": "last month"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: decoder fixed (bioSpanDecoder, 13 tests) — spans now survive to ConfidenceResult.tfjsSpans; status retained because EntityExtractor wire-through (arrays + role assigner) has not landed, so end-to-end still fails.] [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "template": "{pair.0} and {pair.1} spends this month",
+          "slots": {
+            "pair": [
+              [
+                "Swiggy",
+                "Zomato"
+              ],
+              [
+                "Amazon",
+                "Flipkart"
+              ],
+              [
+                "Uber",
+                "Ola"
+              ]
+            ]
+          },
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "MERCHANT",
+                "value": "{pair.0}"
+              },
+              {
+                "type": "MERCHANT",
+                "value": "{pair.1}"
+              },
+              {
+                "type": "PERIOD",
+                "value": "this month"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "[2026-07-18: decoder fixed (bioSpanDecoder, 13 tests) — spans now survive to ConfidenceResult.tfjsSpans; status retained because EntityExtractor wire-through (arrays + role assigner) has not landed, so end-to-end still fails.] [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "compare food and travel spending for June vs May",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "CATEGORY",
+                "value": "food"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "travel"
+              },
+              {
+                "type": "PERIOD",
+                "value": "June"
+              },
+              {
+                "type": "PERIOD",
+                "value": "May"
+              }
+            ],
+            "roles": {
+              "period1": "June",
+              "period2": "May"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "The hardest realistic case: 2 categories x 2 period roles. Renders via COMPARISON_LIST widget. [2026-07-18: decoder fixed (bioSpanDecoder, 13 tests) — spans now survive to ConfidenceResult.tfjsSpans; status retained because EntityExtractor wire-through (arrays + role assigner) has not landed, so end-to-end still fails.] [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        }
+      ]
+    },
+    {
+      "id": "T5",
+      "name": "ambiguity_minimal_pairs",
+      "description": "Same or near-same words, different correct reading. The taskType head must learn the verb/marker distinction; these are paired so a regression in either direction is caught.",
+      "cases": [
+        {
+          "utterance": "spending last two months",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last two months"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-A: no comparison cue -> ONE range. [2026-07-18: resolver support landed in WealthPilot TemporalResolver (19 tests); remaining blocker is training coverage.]"
+        },
+        {
+          "utterance": "compare the last two months",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last two months"
+              }
+            ],
+            "roles": {
+              "period1": "last month",
+              "period2": "the month before last"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-A: 'compare' + a 2-unit range -> decompose into the two units. Decomposition rule lives in the role assigner. [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "spending this quarter",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "this quarter"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "PAIR-B"
+        },
+        {
+          "utterance": "this quarter vs last quarter",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "COMPARISON",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "this quarter"
+              },
+              {
+                "type": "PERIOD",
+                "value": "last quarter"
+              }
+            ],
+            "roles": {
+              "period1": "this quarter",
+              "period2": "last quarter"
+            }
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-B [2026-07-18: full app-side chain landed — span decoder + periodRoles assigner (R1-R4 + decomposition) + Layer1Entities arrays + CognitionFacade passthrough + SpendingEngine multi-value OR-filters + orchestrator zero-period clarification gate. Remaining blockers: model training coverage AND re-enabling IntentClassifier.predict (currently zero call sites).]"
+        },
+        {
+          "utterance": "how did last month go",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last month"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Vague verb, still a summary."
+        },
+        {
+          "utterance": "it may help to set a budget",
+          "expected": {
+            "intent": "BUDGET_PLANNING",
+            "taskType": "INSIGHTS",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "'may' is a MODAL here — must NOT be tagged PERIOD. grammar ambiguity_rules #3."
+        }
+      ]
+    },
+    {
+      "id": "T6",
+      "name": "bare_replies_slot_filling",
+      "description": "Follow-up turns answering a clarification. context.pendingIntent simulates the slot-filling state (specs' short_reply_patterns). Currently the worst hard-case category (2/6).",
+      "cases": [
+        {
+          "utterance": "500",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": "amount"
+          },
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "500"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "about 2000",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": "amount"
+          },
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "about 2000"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "yesterday",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": "date"
+          },
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "DATE",
+                "value": "yesterday"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "for food",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": "category"
+          },
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "CATEGORY",
+                "value": "food"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "at Costco",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": "merchant"
+          },
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "MERCHANT",
+                "value": "Costco"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "[value chosen to avoid generator overlap — the suite must stay disjoint from training data]"
+        },
+        {
+          "utterance": "no cancel that",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": "amount"
+          },
+          "expected": {
+            "flow": "CANCELLED"
+          },
+          "status_today": "PARTIAL",
+          "notes": "slotEngine CANCEL_PATTERN handles this deterministically — assert it stays working."
+        },
+        {
+          "utterance": "make it 700 instead",
+          "context": {
+            "pendingIntent": "ADD_EXPENSE",
+            "missingSlot": null
+          },
+          "expected": {
+            "flow": "CORRECTION",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "700"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "platinum",
+          "context": {
+            "pendingIntent": "ADD_ASSET",
+            "missingSlot": "assetType"
+          },
+          "expected": {
+            "intent": "ADD_ASSET",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "ASSETTYPE",
+                "value": "platinum"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "[value chosen to avoid generator overlap — the suite must stay disjoint from training data]"
+        }
+      ]
+    },
+    {
+      "id": "T7",
+      "name": "stacked_entity_writes",
+      "description": "Write intents with 3-5 entities in one utterance. Partial extraction must be measured per-entity, not pass/fail per utterance.",
+      "cases": [
+        {
+          "utterance": "spent 1200 at Amazon on electronics via credit card yesterday",
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "1200"
+              },
+              {
+                "type": "MERCHANT",
+                "value": "Amazon"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "electronics"
+              },
+              {
+                "type": "PAYMENT_METHOD",
+                "value": "credit card"
+              },
+              {
+                "type": "DATE",
+                "value": "yesterday"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "add 50000 salary income for June",
+          "expected": {
+            "intent": "ADD_INCOME",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "50000"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "salary"
+              },
+              {
+                "type": "DATE",
+                "value": "for June"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "paid 3500 rent to the landlord via UPI",
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "3500"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "rent"
+              },
+              {
+                "type": "MERCHANT",
+                "value": "the landlord"
+              },
+              {
+                "type": "PAYMENT_METHOD",
+                "value": "UPI"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "got 800 refund from Flipkart yesterday",
+          "expected": {
+            "intent": "REFUND",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "800"
+              },
+              {
+                "type": "MERCHANT",
+                "value": "Flipkart"
+              },
+              {
+                "type": "DATE",
+                "value": "yesterday"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "took a 200000 personal loan from HDFC at 9.5% for 5 years",
+          "expected": {
+            "intent": "ADD_LIABILITY",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "200000"
+              },
+              {
+                "type": "LIABILITYTYPE",
+                "value": "personal loan"
+              },
+              {
+                "type": "LENDER",
+                "value": "HDFC"
+              },
+              {
+                "type": "INTERESTRATE",
+                "value": "9.5%"
+              },
+              {
+                "type": "TENUREMONTHS",
+                "value": "5 years"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "save 500000 for a car by December 2026",
+          "expected": {
+            "intent": "GOAL_PLANNING",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "TARGETAMOUNT",
+                "value": "500000"
+              },
+              {
+                "type": "GOALNAME",
+                "value": "a car"
+              },
+              {
+                "type": "TARGETDATE",
+                "value": "by December 2026"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "sent 10000 to my brother for the family function",
+          "expected": {
+            "intent": "FAMILY_TRANSFER",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "10000"
+              },
+              {
+                "type": "SPLITWITH",
+                "value": "my brother"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "bought gold worth 75000 last week",
+          "expected": {
+            "intent": "ADD_ASSET",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "75000"
+              },
+              {
+                "type": "ASSETTYPE",
+                "value": "gold"
+              },
+              {
+                "type": "DATE",
+                "value": "last week"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "DATE vs PERIOD boundary: 'last week' as a transaction date reference. Boundary rule needs a decision for write intents."
+        },
+        {
+          "utterance": "can I afford a 80000 phone",
+          "expected": {
+            "intent": "AFFORDABILITY_CHECK",
+            "taskType": "ANALYSIS",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "80000"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "phone"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "what if I pay 5000 extra on my home loan every month",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": [
+              {
+                "type": "EXTRAPAYMENT",
+                "value": "5000"
+              },
+              {
+                "type": "LIABILITYTYPE",
+                "value": "home loan"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "T8",
+      "name": "market_speech",
+      "description": "IN-market phrasing: lakh/crore, k-suffix, currency glyphs, light Hinglish. Utterances are RAW user input; expected values are POST-MarketNormalizer (the app normalizes before predict — dataset must match that distribution).",
+      "cases": [
+        {
+          "utterance": "spent 2 lakh on the wedding",
+          "requires_market_normalization": true,
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "200000"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "wedding"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "MarketNormalizer converts '2 lakh' -> 200000 pre-predict."
+        },
+        {
+          "utterance": "₹1.5L on groceries this month",
+          "requires_market_normalization": true,
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "150000"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "groceries"
+              },
+              {
+                "type": "PERIOD",
+                "value": "this month"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "50k rent last month",
+          "requires_market_normalization": true,
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "50000"
+              },
+              {
+                "type": "CATEGORY",
+                "value": "rent"
+              },
+              {
+                "type": "PERIOD",
+                "value": "last month"
+              }
+            ]
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "I blew 10k at Swiggy this week",
+          "expected": {
+            "intent": "ADD_EXPENSE",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "10000"
+              },
+              {
+                "type": "MERCHANT",
+                "value": "Swiggy"
+              },
+              {
+                "type": "PERIOD",
+                "value": "this week"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "'blew' is regional-slang style already in the style pass."
+        },
+        {
+          "utterance": "kharcha kitna hua last month",
+          "expected": {
+            "intent": "SPENDING_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "last month"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Hinglish. MarketVocabulary has transliteration support; training data has almost none."
+        },
+        {
+          "utterance": "mera budget kaisa chal raha hai",
+          "expected": {
+            "intent": "BUDGET_PLANNING",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "utterance": "1.2 cr ka home loan hai",
+          "requires_market_normalization": true,
+          "expected": {
+            "intent": "ADD_LIABILITY",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "12000000"
+              },
+              {
+                "type": "LIABILITYTYPE",
+                "value": "home loan"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "T9",
+      "name": "negatives_and_traps",
+      "description": "Out-of-domain, chit-chat, and near-miss finance queries. Expected Layer1 intent is UNKNOWN — the app layers (FinanceRouter education regex, PolicyGuard) own the finer routing. A guessed finance intent here is a hard failure.",
+      "cases": [
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "what's the weather today",
+              "crack a joke for me",
+              "wake me up at 7 tomorrow",
+              "put on a podcast",
+              "who won the match yesterday",
+              "translate hello to French"
+            ]
+          },
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "'yesterday'/'7am' must NOT drag these into finance intents via entity bait."
+        },
+        {
+          "utterance": "how do credit cards work",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "Education question — app-side FinanceRouter education regex owns it; Layer1 must not claim LOAN_ANALYSIS."
+        },
+        {
+          "utterance": "which stock should I buy",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "Restricted advice — PolicyGuard's territory; Layer1 must not route it to a finance intent."
+        },
+        {
+          "utterance": "delete my account",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "'delete' must not trigger ADD_EXPENSE|DELETE without a transaction referent."
+        },
+        {
+          "utterance": "hello",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "thanks that's all",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL"
+        },
+        {
+          "utterance": "my friend spent 5000 on food yesterday",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Third-person trap: perfect ADD_EXPENSE surface shape, wrong subject. Hard negative worth training explicitly."
+        }
+      ]
+    },
+    {
+      "id": "D1",
+      "name": "debt_free_core",
+      "description": "SUMMARY baseline — the payoff-date question in its most common forms. If these fail, nothing downstream matters.",
+      "cases": [
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "when will I be debt free",
+              "how long until my loans are paid off",
+              "when do my loans end",
+              "am I close to being debt free",
+              "what is my debt free date",
+              "how many months of EMIs do I have left",
+              "when will I finish paying my loans",
+              "how much debt do I still have",
+              "what is my total outstanding debt",
+              "give me my debt freedom plan",
+              "show my loan payoff roadmap",
+              "how long till I clear everything I owe"
+            ]
+          },
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "utterance": "total EMI burden across all my loans",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "utterance": "how much interest will I pay before I am debt free",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "prepay_what_if",
+      "description": "WHAT_IF + EXTRAPAYMENT extraction. The money question — a wrong amount means a wrong projection, so entity accuracy matters as much as intent here.",
+      "cases": [
+        {
+          "template": "what if I pay {amt} extra {cadence}",
+          "slots": {
+            "amt": [
+              "5000",
+              "10000",
+              "2000",
+              "50000",
+              "1 lakh",
+              "25k"
+            ],
+            "cadence": [
+              "every month",
+              "monthly",
+              "each month",
+              "per month"
+            ]
+          },
+          "sample": 12,
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": [
+              {
+                "type": "EXTRAPAYMENT",
+                "value": "{amt}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "template": "{verb} {amt} extra on my {liab}",
+          "slots": {
+            "verb": [
+              "if I put",
+              "suppose I pay",
+              "what if I add",
+              "imagine I throw"
+            ],
+            "amt": [
+              "5000",
+              "15000",
+              "20000"
+            ],
+            "liab": [
+              "home loan",
+              "car loan",
+              "personal loan"
+            ]
+          },
+          "sample": 10,
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": [
+              {
+                "type": "EXTRAPAYMENT",
+                "value": "{amt}"
+              },
+              {
+                "type": "LIABILITYTYPE",
+                "value": "{liab}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "utterance": "how much sooner would I be debt free if I paid 10000 more each month",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": [
+              {
+                "type": "EXTRAPAYMENT",
+                "value": "10000"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "utterance": "if I get a bonus of 2 lakh and put it on my loans what happens",
+          "requires_market_normalization": true,
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": [
+              {
+                "type": "EXTRAPAYMENT",
+                "value": "200000"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "utterance": "can I be debt free by {TARGETDATE} if I pay more",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": [
+              {
+                "type": "TARGETDATE",
+                "value": "__ANY__"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Reverse what-if: user fixes the DATE and asks for the required payment. Engine does not solve this direction yet — see D9."
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "strategy_choice",
+      "description": "STRATEGY (new) — avalanche vs snowball. The engine computes all three strategies with interestSavedWithStrategy today and the AI discards it.",
+      "cases": [
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "should I pay off the smallest loan first or the highest interest one",
+              "which loan should I clear first",
+              "what order should I pay my loans in",
+              "is snowball or avalanche better for me",
+              "which debt should I attack first",
+              "what is the fastest way to clear my debts",
+              "best strategy to pay off my loans",
+              "should I focus on the expensive loan or the small one",
+              "how should I prioritise my loan repayments",
+              "which loan costs me the most to keep"
+            ]
+          },
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "STRATEGY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNMODELED"
+        },
+        {
+          "utterance": "how much interest would I save by clearing high rate loans first",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "STRATEGY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNMODELED"
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "name": "amortization_split",
+      "description": "SCHEDULE (new) — principal vs interest breakdown. Highest financial-literacy value; users are routinely shocked that early EMIs are mostly interest.",
+      "cases": [
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "how much of my EMI is interest",
+              "how much of my payment goes to principal",
+              "show me my loan amortization schedule",
+              "what is my interest vs principal split",
+              "how much interest am I paying each month",
+              "break down my EMI",
+              "when does most of my EMI start going to principal",
+              "show my repayment schedule"
+            ]
+          },
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SCHEDULE",
+            "entities": []
+          },
+          "status_today": "FAIL_UNMODELED"
+        },
+        {
+          "utterance": "how much of my {LIABILITYTYPE} EMI is interest right now",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SCHEDULE",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "__ANY__"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNMODELED"
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "name": "risk_grade",
+      "description": "RISK (new) — debtRatio + riskLevel + wealthDelta. The emotional entry point; often the first debt question a worried user asks.",
+      "cases": [
+        {
+          "template": "{q}",
+          "slots": {
+            "q": [
+              "is my debt level dangerous",
+              "am I over leveraged",
+              "is my EMI burden too high",
+              "how risky is my debt situation",
+              "am I borrowing too much",
+              "what percent of my income goes to EMIs",
+              "is my debt under control",
+              "should I be worried about my loans",
+              "how healthy is my debt ratio"
+            ]
+          },
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "RISK",
+            "entities": []
+          },
+          "status_today": "FAIL_UNMODELED"
+        }
+      ]
+    },
+    {
+      "id": "D6",
+      "name": "loan_targeting",
+      "description": "Debt questions scoped to ONE loan by type or lender. The entity must survive so the engine can filter.",
+      "cases": [
+        {
+          "template": "when will my {liab} be paid off",
+          "slots": {
+            "liab": [
+              "home loan",
+              "car loan",
+              "personal loan",
+              "bike loan",
+              "education loan",
+              "credit card debt"
+            ]
+          },
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "{liab}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN"
+        },
+        {
+          "template": "when does my {lender} loan finish",
+          "slots": {
+            "lender": [
+              "HDFC",
+              "SBI",
+              "ICICI",
+              "the bank"
+            ]
+          },
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LENDER",
+                "value": "{lender}"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "LENDER is not in DEBT_FREEDOM_ANALYSIS's optional_entities today — spec needs it added."
+        }
+      ]
+    },
+    {
+      "id": "D7",
+      "name": "intent_boundary",
+      "description": "THE CRITICAL CLASS. Minimal pairs against LOAN_ANALYSIS (state of one loan NOW) and ADD_LIABILITY (recording a new loan). Same nouns, different intent — this is where the model will actually fail.",
+      "cases": [
+        {
+          "utterance": "what is my car loan balance",
+          "expected": {
+            "intent": "LOAN_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "car loan"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "PAIR-A / LOAN side: state NOW."
+        },
+        {
+          "utterance": "when will my car loan balance be zero",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "car loan"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-A / DEBT side: trajectory. Nearly identical wording."
+        },
+        {
+          "utterance": "what is the interest rate on my home loan",
+          "expected": {
+            "intent": "LOAN_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "home loan"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "PAIR-B / LOAN side: a stored attribute."
+        },
+        {
+          "utterance": "how much interest will my home loan cost me in total",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "home loan"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-B / DEBT side: projected total."
+        },
+        {
+          "utterance": "I took a 500000 personal loan from HDFC at 11%",
+          "expected": {
+            "intent": "ADD_LIABILITY",
+            "taskType": "CREATE",
+            "entities": [
+              {
+                "type": "AMOUNT",
+                "value": "500000"
+              },
+              {
+                "type": "LIABILITYTYPE",
+                "value": "personal loan"
+              },
+              {
+                "type": "LENDER",
+                "value": "HDFC"
+              },
+              {
+                "type": "INTERESTRATE",
+                "value": "11%"
+              }
+            ]
+          },
+          "status_today": "PARTIAL",
+          "notes": "PAIR-C / WRITE side: recording."
+        },
+        {
+          "utterance": "how long will my 500000 personal loan take to clear",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "LIABILITYTYPE",
+                "value": "personal loan"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-C / DEBT side: same amount present, but asking a projection."
+        },
+        {
+          "utterance": "what is my EMI",
+          "expected": {
+            "intent": "LOAN_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "PAIR-D / LOAN side."
+        },
+        {
+          "utterance": "how many EMIs are left",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "PAIR-D / DEBT side. 'EMI' in both; 'left' makes it a trajectory."
+        },
+        {
+          "utterance": "should I prepay my loan or invest in a SIP",
+          "expected": {
+            "intent": "SIP_VS_PREPAY",
+            "taskType": "COMPARISON",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "PAIR-E: prepay language but the answer is an allocation comparison, NOT a debt-freedom plan."
+        }
+      ]
+    },
+    {
+      "id": "D8",
+      "name": "commitment_semantics",
+      "description": "Questions generated by OUR OWN product rules (BR_locks, BR_amount_forward, BR_today_paid, close/reopen). No generic LLM would invent these, but users hit them constantly because the product behaves this way.",
+      "cases": [
+        {
+          "utterance": "did this month's EMI already go out",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "BR_today_paid: a payment dated today is already history."
+        },
+        {
+          "utterance": "my EMI went up what does that do to my payoff date",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "BR_amount_forward: new amount applies to upcoming cycles only."
+        },
+        {
+          "utterance": "if I close this loan early what happens to my plan",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "WHAT_IF",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "BR_close_lifecycle: close preserves history, stamps endDate."
+        },
+        {
+          "utterance": "which of my commitments are actually loans",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Debt is a VIEW over commitments (category LOAN|CREDIT_CARD) — users don't know that boundary."
+        },
+        {
+          "utterance": "what EMIs do I have coming up next month",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": [
+              {
+                "type": "PERIOD",
+                "value": "next month"
+              }
+            ]
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Upcoming bucket. Borderline with a commitments listing — worth watching."
+        }
+      ]
+    },
+    {
+      "id": "D9",
+      "name": "incomplete_data",
+      "description": "The engine WITHHOLDS interest projections when interestRate is missing (RATE_MISSING — never fabricated). The model must still classify these correctly so the app can ask for the missing input instead of failing.",
+      "cases": [
+        {
+          "utterance": "why can't you tell me my payoff date",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Triggered after a withheld projection. Answer should name the missing rate."
+        },
+        {
+          "utterance": "I don't know my interest rate can you still estimate",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Must NOT fabricate a rate — engine contract."
+        },
+        {
+          "utterance": "how accurate is this debt projection",
+          "expected": {
+            "intent": "DEBT_FREEDOM_ANALYSIS",
+            "taskType": "SUMMARY",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Maps to hasEstimatedValues / estimatedReasons."
+        }
+      ]
+    },
+    {
+      "id": "D10",
+      "name": "debt_negatives",
+      "description": "Debt-flavoured traps. Loan vocabulary present, but the correct answer is NOT a debt-freedom plan — either another intent or a refusal.",
+      "cases": [
+        {
+          "utterance": "should I take a loan to invest in stocks",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "PolicyGuard territory — leveraged investing advice, must not be answered as debt planning."
+        },
+        {
+          "utterance": "what is the best home loan interest rate in the market",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Product shopping — we have no market data. Must not be answered from the user's own loans."
+        },
+        {
+          "utterance": "how do EMIs work",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "PARTIAL",
+          "notes": "Education, not personal analysis. FinanceRouter's education regex owns it."
+        },
+        {
+          "utterance": "my friend wants to know when he will be debt free",
+          "expected": {
+            "intent": "UNKNOWN",
+            "taskType": "NONE",
+            "entities": []
+          },
+          "status_today": "FAIL_UNTRAINED_PATTERN",
+          "notes": "Third-person trap — perfect debt surface shape, wrong subject."
+        }
+      ]
+    }
+  ]
+}

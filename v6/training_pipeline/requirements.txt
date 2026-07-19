@@ -1,7 +1,82 @@
-# Python Dependencies for On-Device Core NLP Pipeline
-tensorflow>=2.14.0
-tensorflowjs>=4.15.0
-numpy>=1.24.0
-pandas>=1.5.0
-scikit-learn>=1.2.0
-smart-open>=6.3.0
+# Python environment for the v6 training pipeline.
+# Frozen 2026-07-19 from the venv that produced run 22 (the deployed model).
+# Python 3.11.15 on macOS arm64.
+#
+# TWO PINS THAT MATTER — do not "upgrade" them casually:
+#   tensorflow==2.21.0  — the pipeline trains under tf_keras (legacy) but the
+#                         .h5 it writes must be READ back by Keras 3; both are
+#                         satisfied by this pairing (see convert_tfjs.py).
+#   protobuf==7.35.1    — the `tensorflowjs` package is deliberately NOT a
+#                         dependency here. It pulls tensorflow-decision-forests
+#                         -> ydf, which needs protobuf >=6.31.1 while the TF it
+#                         pins needs <6.0.0 — an unsatisfiable cycle on this
+#                         platform. convert_tfjs.py replaces it using only TF.
+#
+# Setup:
+#   cd v6/training_pipeline
+#   python3.11 -m venv .venv
+#   ./.venv/bin/python -m pip install -r requirements.txt
+absl-py==2.5.0
+aiofiles==25.1.0
+astunparse==1.6.3
+certifi==2026.6.17
+charset-normalizer==3.4.9
+etils==1.14.0
+flatbuffers==25.12.19
+flax==0.12.7
+fsspec==2026.6.0
+gast==0.7.0
+google-pasta==0.2.0
+grpcio==1.82.1
+h5py==3.14.0
+humanize==4.16.0
+idna==3.18
+importlib_resources==7.1.0
+jax==0.10.2
+jaxlib==0.10.2
+joblib==1.5.3
+keras==3.15.0
+libclang==18.1.1
+Markdown==3.10.2
+markdown-it-py==4.2.0
+MarkupSafe==3.0.3
+mdurl==0.1.2
+ml_dtypes==0.5.4
+msgpack==1.2.1
+namex==0.1.0
+narwhals==2.24.0
+numpy==2.4.6
+opt_einsum==3.4.0
+optax==0.2.8
+optree==0.19.1
+orbax-checkpoint==0.12.1
+packaging==26.2
+pandas==3.0.3
+prometheus_client==0.25.0
+protobuf==7.35.1
+psutil==7.2.2
+Pygments==2.20.0
+python-dateutil==2.9.0.post0
+PyYAML==6.0.3
+requests==2.34.2
+rich==15.0.0
+scikit-learn==1.9.0
+scipy==1.17.1
+simplejson==4.1.1
+six==1.17.0
+tensorboard==2.19.0
+tensorboard-data-server==0.7.2
+tensorflow==2.21.0
+tensorflow-io-gcs-filesystem==0.37.1
+tensorstore==0.1.84
+termcolor==3.3.0
+tf_keras==2.19.0
+threadpoolctl==3.6.0
+treescope==0.1.10
+typing_extensions==4.16.0
+urllib3==2.7.0
+uvloop==0.22.1
+Werkzeug==3.1.8
+wrapt==2.2.2
+wurlitzer==3.1.1
+zipp==4.1.0

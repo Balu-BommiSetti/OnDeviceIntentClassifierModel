@@ -26,6 +26,20 @@ export interface IntentSpec {
   /** Natural-language patterns keyed by Action. Each Action MUST have its own
    *  distinct phrasings — the same utterance must never appear under two actions. */
   utterance_patterns: Record<string, string[]>;
+  /**
+   * Optional. Bare/short conversational-fragment replies — the shape a user's
+   * answer takes when responding to a clarification prompt for a single
+   * required entity ("Mutual Funds", "500", "yes"), as opposed to
+   * utterance_patterns' full-sentence phrasings. Keyed by entity type (not
+   * Action), since a clarification reply is answering "what's the value of
+   * X", not performing a CREATE/UPDATE/etc. operation in its own right.
+   * Generated at low volume (see generateFromSpec.ts's SHORT_REPLY_COUNT) —
+   * this is about covering the SHAPE of a bare reply, not exhaustive phrasing.
+   * Introduced to close the exact gap that caused the ADD_ASSET clarification-
+   * loop bug (backlog #5): TFJS never saw a bare one-word entity-only reply in
+   * training, so it never learned to tag one.
+   */
+  short_reply_patterns?: Record<string, string[]>;
 }
 
 const SPECS_DIR = path.resolve(__dirname, "specs");

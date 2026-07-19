@@ -1,0 +1,371 @@
+{
+  "Groceries": [
+    "groceries",
+    "grocereis",
+    "d-mart",
+    "supermarket",
+    "grocery store",
+    "food mart",
+    "mandi",
+    "food shop",
+    "grocery run",
+    "shopping spree"
+  ],
+  "Food": [
+    "food",
+    "kharcha"
+  ],
+  "Tea & Coffee": [
+    "coffee",
+    "coffe",
+    "tea",
+    "chai",
+    "chai & coffee",
+    "brew",
+    "hot drinks",
+    "coffee shop",
+    "tea time"
+  ],
+  "Transport": [
+    "transportation",
+    "transit"
+  ],
+  "Entertainment": [
+    "entertainment",
+    "concert tickets",
+    "movie theater",
+    "movies",
+    "cinema",
+    "shows",
+    "concerts",
+    "fun",
+    "theater"
+  ],
+  "Subscriptions": [
+    "subscriptions",
+    "netflix",
+    "spotify",
+    "prime",
+    "subscription",
+    "membership",
+    "gym subscription",
+    "magazine subscription",
+    "streaming service",
+    "newsletter subscription"
+  ],
+  "Utilities": [
+    "utilities",
+    "utlities",
+    "bijli bill",
+    "paani block"
+  ],
+  "Fuel": [
+    "gas",
+    "petrol",
+    "diesel",
+    "fuel",
+    "gasoline",
+    "fuel cost",
+    "petrol expense",
+    "fuel charge"
+  ],
+  "Rent": [
+    "rent",
+    "house rent",
+    "rental",
+    "lease",
+    "monthly rent",
+    "flat rent",
+    "rent payment"
+  ],
+  "Travel": [
+    "travel",
+    "flight",
+    "airbnb",
+    "hotel",
+    "car rent",
+    "trip",
+    "vacation",
+    "tour",
+    "journey",
+    "trip expense"
+  ],
+  "Dining Out": [
+    "dining out",
+    "restaurant",
+    "restuarant",
+    "eating out",
+    "dinner",
+    "lunch",
+    "eat out",
+    "dinner out",
+    "dine out",
+    "food at restaurant",
+    "eating at a restaurant"
+  ],
+  "Fitness": [
+    "fitness",
+    "gym",
+    "workout"
+  ],
+  "Clothing": [
+    "clothing",
+    "clothes",
+    "apparel",
+    "shopping",
+    "attire",
+    "wardrobe",
+    "shirt",
+    "dress"
+  ],
+  "Education": [
+    "education",
+    "tuition",
+    "school fees"
+  ],
+  "Hobbies": [
+    "hobbies"
+  ],
+  "Healthcare": [
+    "health",
+    "dawa",
+    "medicine"
+  ],
+  "Insurance": [
+    "insurance",
+    "premium"
+  ],
+  "Gifts & Donations": [
+    "gifts",
+    "charity",
+    "donation",
+    "donations",
+    "present",
+    "gifts and donations",
+    "present expenses"
+  ],
+  "Investment": [
+    "investments",
+    "mutual funds",
+    "stocks",
+    "crypto"
+  ],
+  "Electronics / Gadgets": [
+    "gadgets",
+    "electronics",
+    "laptop",
+    "phone",
+    "tech",
+    "appliances",
+    "tech gadgets",
+    "electronic devices"
+  ],
+  "Parking & Toll": [
+    "parking",
+    "toll",
+    "parking fee",
+    "parking charges",
+    "highway toll"
+  ],
+  "Doctor / Consultation": [
+    "dentistry",
+    "doctor",
+    "consultation",
+    "doctor visit",
+    "medical advice",
+    "doctor appointment",
+    "physician visit"
+  ],
+  "Books": [
+    "books"
+  ],
+  "Home Maintenance": [
+    "hardware",
+    "maintenance",
+    "repairs",
+    "home repairs",
+    "house maintenance",
+    "fixes",
+    "house upkeep",
+    "repair work",
+    "maintenance works"
+  ],
+  "Pet Care": [
+    "pet care",
+    "vet",
+    "dog food",
+    "pet expenses",
+    "pet bill",
+    "pet allowance",
+    "pet grooming"
+  ],
+  "Food Delivery": [
+    "fast food",
+    "swiggy",
+    "zomato",
+    "doordash",
+    "uber eats",
+    "takeaway",
+    "takeout",
+    "food delivery",
+    "food courier",
+    "delivery food",
+    "order food",
+    "food order"
+  ],
+  "Other Expense": [
+    "kharcha",
+    "miscellaneous",
+    "other expenses",
+    "misc",
+    "other costs",
+    "other"
+  ],
+  "Snacks": [
+    "munchies",
+    "bites",
+    "finger foods",
+    "chips",
+    "sweets",
+    "nosh",
+    "snackies"
+  ],
+  "Society / Maintenance": [
+    "society maintenance",
+    "condominium fees",
+    "home society charges",
+    "hall maintenance",
+    "community charges",
+    "society charges"
+  ],
+  "Property Tax": [
+    "property tax",
+    "council tax",
+    "estate tax",
+    "land tax",
+    "annual tax",
+    "real estate tax"
+  ],
+  "Public Transport": [
+    "public transport",
+    "bus fare",
+    "train fare",
+    "metro",
+    "subway",
+    "public commute"
+  ],
+  "Electricity Bill": [
+    "electricity bill",
+    "power bill",
+    "electric bill",
+    "electricity payment",
+    "electricity charge"
+  ],
+  "Water Bill": [
+    "water bill",
+    "water charges",
+    "water payment",
+    "municipal water bill"
+  ],
+  "Gas Bill": [
+    "gas bill",
+    "gas expense",
+    "gas charges",
+    "gas payment"
+  ],
+  "Internet / Broadband": [
+    "internet",
+    "broadband",
+    "net bill",
+    "internet bill",
+    "broadband fee"
+  ],
+  "Mobile / Phone Bill": [
+    "mobile bill",
+    "phone bill",
+    "sms bill",
+    "call bill",
+    "mobile charge"
+  ],
+  "DTH / Cable": [
+    "dth",
+    "cable",
+    "tv subscription",
+    "satellite tv",
+    "cable bill"
+  ],
+  "Personal Care": [
+    "personal care",
+    "self care",
+    "beauty",
+    "cosmetics",
+    "spa",
+    "grooming"
+  ],
+  "Kids / Family": [
+    "kids",
+    "family",
+    "childcare",
+    "kids expenses",
+    "family cost",
+    "parenting expenses"
+  ],
+  "Pharmacy": [
+    "pharmacy",
+    "drugstore",
+    "pharmacy shop",
+    "medical store",
+    "rx",
+    "medicine shop"
+  ],
+  "School / Tuition Fees": [
+    "school fees",
+    "tuition fees",
+    "education fees",
+    "class fees",
+    "college fees",
+    "school charges"
+  ],
+  "EMI": [
+    "emi",
+    "emi payment",
+    "loan installment",
+    "emi schedule",
+    "emi due"
+  ],
+  "Tax": [
+    "tax",
+    "income tax",
+    "tax payment",
+    "tax dues",
+    "tax obligation"
+  ],
+  "Credit Card Bill": [
+    "credit card bill",
+    "cc bill",
+    "credit card payment",
+    "credit card statement",
+    "cc statement"
+  ],
+  "SIP": [
+    "sip",
+    "systematic investment plan",
+    "mutual fund",
+    "investment plan",
+    "sip contribution"
+  ],
+  "Goal Funding": [
+    "goal funding",
+    "savings goal",
+    "target saving",
+    "goal plan",
+    "goal saving"
+  ],
+  "Savings Transfer": [
+    "savings transfer",
+    "savings",
+    "transfer",
+    "transfer savings",
+    "savings movement"
+  ]
+}

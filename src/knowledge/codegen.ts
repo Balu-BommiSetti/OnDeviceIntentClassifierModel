@@ -12,8 +12,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  */
 export function codegen(outDir: string) {
   const specs = loadIntentSpecs();
-  const intents = [...allIntents(specs), "UNKNOWN"];
-  const tasks = [...allActions(specs), "UNKNOWN"];
+  // Append the UNKNOWN sentinel only if no spec already declares it — UNKNOWN
+  // is now a real spec (src/knowledge/specs/UNKNOWN.intent.json), so appending
+  // unconditionally would duplicate it in `intents`/`tasks` and corrupt
+  // intent2idx/task2idx's index-to-name mapping for that slot.
+  const specIntents = allIntents(specs);
+  const specTasks = allActions(specs);
+  const intents = specIntents.includes("UNKNOWN") ? specIntents : [...specIntents, "UNKNOWN"];
+  const tasks = specTasks.includes("UNKNOWN") ? specTasks : [...specTasks, "UNKNOWN"];
 
   const labels = {
     intents,

@@ -1,0 +1,41 @@
+{"utterance": "bought gold worth 500", "intent": "ADD_ASSET", "taskType": "CREATE"}
+{"utterance": "update my gold value to 500", "intent": "ADD_ASSET", "taskType": "UPDATE"}
+{"utterance": "remove my gold asset", "intent": "ADD_ASSET", "taskType": "DELETE"}
+{"utterance": "spent 500 on food", "intent": "ADD_EXPENSE", "taskType": "CREATE"}
+{"utterance": "change yesterday food expense to 500", "intent": "ADD_EXPENSE", "taskType": "UPDATE"}
+{"utterance": "remove the food expense", "intent": "ADD_EXPENSE", "taskType": "DELETE"}
+{"utterance": "received 500 from Amazon", "intent": "ADD_INCOME", "taskType": "CREATE"}
+{"utterance": "change yesterday income to 500", "intent": "ADD_INCOME", "taskType": "UPDATE"}
+{"utterance": "remove the Amazon income entry", "intent": "ADD_INCOME", "taskType": "DELETE"}
+{"utterance": "took a home loan of 500 from the bank", "intent": "ADD_LIABILITY", "taskType": "CREATE"}
+{"utterance": "update my home loan balance to 500", "intent": "ADD_LIABILITY", "taskType": "UPDATE"}
+{"utterance": "remove my home loan", "intent": "ADD_LIABILITY", "taskType": "DELETE"}
+{"utterance": "can I afford food for 500", "intent": "AFFORDABILITY_CHECK", "taskType": "ANALYSIS"}
+{"utterance": "what if I buy food for 500", "intent": "AFFORDABILITY_CHECK", "taskType": "WHAT_IF"}
+{"utterance": "show my budget this month", "intent": "BUDGET_PLANNING", "taskType": "SUMMARY"}
+{"utterance": "show my cashflow this month", "intent": "CASHFLOW_WARNING", "taskType": "SUMMARY"}
+{"utterance": "what if I pay 1000 extra towards debt", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "show my debt payoff plan for my home loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "sent 500 to my roommate", "intent": "FAMILY_TRANSFER", "taskType": "CREATE"}
+{"utterance": "change the transfer to my roommate to 500", "intent": "FAMILY_TRANSFER", "taskType": "UPDATE"}
+{"utterance": "remove the transfer to my roommate", "intent": "FAMILY_TRANSFER", "taskType": "DELETE"}
+{"utterance": "I want to save 50000 for a car", "intent": "GOAL_PLANNING", "taskType": "CREATE"}
+{"utterance": "change my a car target to 50000", "intent": "GOAL_PLANNING", "taskType": "UPDATE"}
+{"utterance": "will I reach my a car goal by next year", "intent": "GOAL_PLANNING", "taskType": "ANALYSIS"}
+{"utterance": "my monthly salary is 500", "intent": "INCOME_DECLARATION", "taskType": "CREATE"}
+{"utterance": "update my salary to 500", "intent": "INCOME_DECLARATION", "taskType": "UPDATE"}
+{"utterance": "how much of my salary goes to EMI", "intent": "LOAN_ANALYSIS", "taskType": "ANALYSIS"}
+{"utterance": "show my home loan details", "intent": "LOAN_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "what if I pay 1000 extra on my loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF", "note": "2026-07-19: expectation updated LOAN_ANALYSIS->DEBT_FREEDOM_ANALYSIS. The iter-17 boundary rule moved ALL prepay/extra-payment what-ifs to DEBT_FREEDOM; this case encoded the pre-rule ownership and was failing a CORRECT prediction."}
+{"utterance": "what is my net worth", "intent": "NET_WORTH_CHECK", "taskType": "SUMMARY"}
+{"utterance": "got a refund of 500 from Amazon", "intent": "REFUND", "taskType": "CREATE"}
+{"utterance": "change the refund from Amazon to 500", "intent": "REFUND", "taskType": "UPDATE"}
+{"utterance": "remove the Amazon refund", "intent": "REFUND", "taskType": "DELETE"}
+{"utterance": "how much am I saving this month", "intent": "SAVINGS_ADVICE", "taskType": "SUMMARY"}
+{"utterance": "why is my food spending so high", "intent": "SPENDING_ANALYSIS", "taskType": "ANALYSIS"}
+{"utterance": "show my spending report this month", "intent": "SPENDING_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "compare my food spend this month vs last", "intent": "SPENDING_ANALYSIS", "taskType": "COMPARISON"}
+{"utterance": "give me insights on my spending", "intent": "SPENDING_ANALYSIS", "taskType": "INSIGHTS"}
+{"utterance": "asdfgh", "intent": "UNKNOWN", "taskType": "NONE"}
+{"utterance": "compare investing 500 vs prepaying my loan", "intent": "SIP_VS_PREPAY", "taskType": "COMPARISON"}
+{"utterance": "what if I invest 500 instead of prepaying", "intent": "SIP_VS_PREPAY", "taskType": "WHAT_IF"}

@@ -2,28 +2,72 @@
   "$schema": "../knowledge.schema.json",
   "intent": "NET_WORTH_CHECK",
   "description": "User asks for their net worth / overall financial position. Read-only advisory intent.",
-  "supported_actions": ["SUMMARY", "ANALYSIS", "COMPARISON"],
+  "supported_actions": [
+    "SUMMARY"
+  ],
   "required_entities": [],
-  "optional_entities": ["DATE", "PERIOD"],
+  "optional_entities": [
+    "DATE",
+    "PERIOD"
+  ],
   "backend_route": "WEALTH_SUMMARY",
   "advisory_intent": "WEALTH_SUMMARY",
-  "validation": { "min_distinct_utterances_per_action": 20 },
+  "validation": {
+    "min_distinct_utterances_per_action": 80
+  },
   "utterance_patterns": {
     "SUMMARY": [
       "what is my net worth",
-      "show my wealth {DATE}",
-      "how much am I worth",
-      "total assets minus liabilities"
-    ],
-    "ANALYSIS": [
-      "why did my net worth drop {PERIOD}",
-      "what is affecting my net worth",
-      "analyze my financial position {DATE}"
-    ],
-    "COMPARISON": [
-      "how has my net worth changed {PERIOD}",
-      "compare my wealth this month vs last",
-      "is my net worth growing"
+      "how much am I worth overall",
+      "show my total wealth {DATE}",
+      "what is my overall financial position",
+      "how much do I own after debts",
+      "what are my assets minus liabilities worth",
+      "how much does my net worth amount to",
+      "what is the total value of my assets minus debts",
+      "can you calculate my overall financial standing",
+      "can you tell me my total net worth",
+      "what is my wealth level considering liabilities",
+      "can you give me my consolidated net assets",
+      "what's the sum of my holdings after liabilities",
+      "how would you rate my overall financial position",
+      "what does my net worth look like right now",
+      "can you calculate my assets minus loans",
+      "how do my assets compare to my debts",
+      "what is my total portfolio value minus obligations",
+      "can you provide my current net equity",
+      "what is my financial balance sheet value",
+      "can you show me my overall monetary standing",
+      "how do my assets stack up against my debts",
+      "what's the total value after accounting for my debts",
+      "can you give me my overall net asset figure",
+      "what does my net liquidity look like",
+      "how much wealth do I actually hold",
+      "can you calculate my total assets minus liabilities",
+      "what's the result of my assets minus debts",
+      "can you crunch my total holdings against my obligations",
+      "how much do I own after paying all my debts",
+      "can you tell me my final net worth for {PERIOD}",
+      "what's my net worth as of {DATE}",
+      "give me my total wealth after liabilities",
+      "what is my total balance of assets minus loans",
+      "can you evaluate my net assets today",
+      "what would my balance sheet read today",
+      "show me my net worth as of {DATE}",
+      "what's my net worth for the {PERIOD}",
+      "give me a quick estimate of what I own minus what I owe",
+      "tell me my overall financial health",
+      "provide my consolidated net assets",
+      "display my total value if I add all assets and subtract debts",
+      "give me my net equity balance",
+      "what's the total value of my possessions after debts",
+      "tell me my current net financial position",
+      "how do my holdings compare to my liabilities overall",
+      "give me a summary of my wealth after liabilities",
+      "what's my total portfolio value minus obligations",
+      "can you show me my financial picture as a net figure",
+      "calculate my total wealth after considering liabilities",
+      "list my net worth figure for this month"
     ]
   }
 }

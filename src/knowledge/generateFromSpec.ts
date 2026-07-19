@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { loadIntentSpecs, IntentSpec } from "./index";
 import { AMOUNTS, CATEGORIES, DATE_RANGES, FREQUENCIES, INTEREST_RATES, REGIONS, STYLE_MODIFIERS } from "../config/generationConfig";
+import { buildPeriodFillers, buildDateFillers, buildTargetDateFillers, assertNoDatePeriodOverlap } from "./entities/grammarFillers";
 import { seededShuffle, mulberry32 } from "./rng";
 import { applyRegionalSlang } from "../utils/regionalization";
 import { injectTypo, generateGrammarMistake } from "../utils/typoGenerator";
@@ -23,13 +24,20 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SEED = 1337;
 const OUTPUT = path.resolve(__dirname, "../../exported_dataset/spec_dataset.jsonl");
 
+// PERIOD/DATE/TARGETDATE come from period.grammar.json (Phase 1) — the same
+// contract the app's TemporalResolver is tested against. DATE_RANGES is no
+// longer used for these three slots; see entities/grammarFillers.ts.
+const PERIOD_FILLERS = buildPeriodFillers();
+const DATE_FILLERS = buildDateFillers();
+assertNoDatePeriodOverlap(DATE_FILLERS, PERIOD_FILLERS);
+
 // Entity slot -> candidate fillers. Entities carry their own type for the NER head.
 const SLOT_VALUES: Record<string, string[]> = {
   AMOUNT: AMOUNTS,
   CATEGORY: CATEGORIES,
   MERCHANT: ["Amazon", "Netflix", "Uber", "Swiggy", "Starbucks", "the landlord", "Walmart", "the clinic"],
-  DATE: [...DATE_RANGES.RELATIVE, ...DATE_RANGES.MONTHLY, ...DATE_RANGES.WEEKLY],
-  PERIOD: [...DATE_RANGES.MONTHLY, ...DATE_RANGES.YEARLY, ...DATE_RANGES.WEEKLY],
+  DATE: DATE_FILLERS,
+  PERIOD: PERIOD_FILLERS,
   PAYMENT_METHOD: ["credit card", "UPI", "cash", "debit card", "bank transfer"],
   FREQUENCY: FREQUENCIES,
   INTERESTRATE: INTEREST_RATES,
@@ -38,12 +46,85 @@ const SLOT_VALUES: Record<string, string[]> = {
   LENDER: ["the bank", "HDFC", "SBI", "my friend", "the credit union", "ICICI", "a relative"],
   GOALNAME: ["a car", "a house", "vacation", "emergency fund", "retirement", "an iphone", "wedding", "a laptop"],
   TARGETAMOUNT: AMOUNTS,
-  TARGETDATE: [...DATE_RANGES.YEARLY, "next year", "in 3 years", "by December", "in 6 months", "by 2027"],
-  EXTRAPAYMENT: AMOUNTS,
+  TARGETDATE: buildTargetDateFillers(),
+  // EXTRAPAYMENT is a RECURRING monthly extra on a loan. It shared the full
+  // AMOUNTS pool, which offers "50 paisa" and "2.5 crores" as monthly extras —
+  // implausible values that dilute the context signal separating EXTRAPAYMENT
+  // from generic AMOUNT (B-EXTRAPAYMENT f1 was 0.500, the weakest slot
+  // family, despite 329 training rows). Plausible-magnitude pool only.
+  EXTRAPAYMENT: ["1000", "2000", "500", "5000", "3000", "1500", "10000", "7500", "2500", "5k", "2 thousand", "four thousand"],
+  // LUMPSUM is a ONE-TIME windfall — its own pool of windfall-shaped values so
+  // the model learns the distinction from EXTRAPAYMENT by context AND by the
+  // kind of number that appears. Conflating the two makes the engine model a
+  // one-off bonus as a recurring payment (see DebtScenario).
+  LUMPSUM: ["50000", "100000", "2 lakh", "1.5 lakhs", "200000", "75000", "3 lakh", "5 lakhs", "25000", "10 lakhs"],
   TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months"],
+  // SHORT-FORM pools. The generic pools are diversity-weighted toward long
+  // forms ("July through October", "in the last 6 weeks", "2.5 lakhs"), so
+  // the SHORT regime QA actually tests — bare noun + short relative period,
+  // clean numeric amounts — was sampled almost never (5 rows total across 10
+  // dedicated patterns in run 21). These slots let a pattern OPT INTO the
+  // short regime deterministically; SLOT_TYPE_ALIASES maps them back to the
+  // real entity types so the model's tag set is unchanged.
+  PERIODSHORT: [
+    "last month", "this month", "this year", "last year", "this week",
+    "last week", "this quarter", "last quarter", "May", "June", "March",
+    "last two months", "last 3 months", "past week", "October",
+  ],
+  PLAINAMOUNT: ["500", "2000", "1200", "300", "1500", "250", "800", "5000", "100", "750"],
+  // SPLITWITH — the person a FAMILY_TRANSFER is sent to or shared with.
+  // Declared in FAMILY_TRANSFER's spec but MISSING from this map, so fill()
+  // returned null for every pattern using it and the bucket silently produced
+  // ZERO rows: 92 of its 140 patterns generated nothing and the intent stayed
+  // unmeasurable (0 test rows) across four training runs while appearing
+  // "populated" in the spec.
+  SPLITWITH: ["my brother", "my sister", "mom", "dad", "my parents", "my wife", "my husband",
+              "my son", "my daughter", "my cousin", "my friend", "my roommate", "my flatmate"],
+  // DOWNPAYMENT is read by FinanceDispatcher's AFFORDABILITY_CHECK branch
+  // (downPaymentPercent) but was never declared in the spec, so the model had
+  // no way to emit it. Both percentage and absolute phrasings appear in real
+  // questions ("20% down" / "2 lakh down").
+  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "1 lakh", "200000", "50000", "5 lakhs", "2 lakh"],
+  // PERIOD1/PERIOD2 exist so COMPARISON patterns can carry two DISTINCT period
+  // spans. Both draw from the same grammar pool; fill() de-duplicates within a
+  // single pattern so "June vs June" can't be generated. The NER head tags both
+  // as PERIOD (roles are assigned downstream by the app's periodRoles.ts) —
+  // see remapComparisonSlots() below.
+  PERIOD1: PERIOD_FILLERS,
+  PERIOD2: PERIOD_FILLERS,
 };
 
-const PLACEHOLDER = /\{([A-Z_]+)\}/g;
+/**
+ * COMPARISON patterns use {PERIOD1}/{PERIOD2} for readability and to let
+ * fill() guarantee two DIFFERENT values, but the model's tag set has only
+ * PERIOD — comparison ROLES are assigned deterministically in the app
+ * (periodRoles.ts), never learned. This collapses the entity types back to
+ * PERIOD before tagging.
+ */
+const SLOT_TYPE_ALIASES: Record<string, string> = {
+  PERIODSHORT: "PERIOD",
+  PLAINAMOUNT: "AMOUNT",
+};
+
+function remapComparisonSlots(entities: { type: string; value: string }[]): { type: string; value: string }[] {
+  // Strip the role digit from ANY numbered slot, not just PERIOD1/PERIOD2.
+  // Hardcoding the pair meant a new numbered slot (e.g. {INTERESTRATE2} in a
+  // two-rate refinance comparison) would emit a tag outside the model's tag
+  // set — same silent-failure class as the SPLITWITH missing-pool bug.
+  // Then resolve short-form slot aliases to their REAL entity type, so
+  // {PERIODSHORT} rows train the PERIOD tag, not a new one.
+  return entities.map((e) => {
+    let t = /\d$/.test(e.type) ? e.type.replace(/\d+$/, "") : e.type;
+    t = SLOT_TYPE_ALIASES[t] ?? t;
+    return t === e.type ? e : { ...e, type: t };
+  });
+}
+
+// Digits are REQUIRED in the character class: comparison slots are named
+// {PERIOD1}/{PERIOD2}, and with [A-Z_]+ they silently failed to match — the
+// literal text "{PERIOD1}" was emitted into utterances and no PERIOD entity
+// was ever produced for COMPARISON rows.
+const PLACEHOLDER = /\{([A-Z_0-9]+)\}/g;
 
 interface Row {
   utterance: string;
@@ -51,25 +132,212 @@ interface Row {
   taskType: string;
   backendAction: string;
   entities: { type: string; value: string }[];
+  tokens: string[];
+  tags: string[];
+  /**
+   * The raw, unfilled template string this row was generated from (e.g.
+   * "spent {AMOUNT} on {CATEGORY}"). Enables a template-aware train/eval
+   * split in train.py — holding out entire templates rather than random
+   * utterance instances, so eval measures generalization to unseen phrasing
+   * rather than memorization of a skeleton seen (with different entity
+   * fills) during training. See on_device_nlp_system_review.md's leakage
+   * finding for why a random split over a template-heavy corpus overstates
+   * accuracy.
+   */
+  sourcePattern: string;
 }
 
-function fill(pattern: string, rng: () => number): { utterance: string; entities: { type: string; value: string }[] } | null {
+// Mirrors train.py's clean_tokenize() exactly (see v6/training_pipeline/train.py)
+// so vocabulary/tag alignment matches what the trainer expects.
+const CURRENCY_SYMBOLS = /[$₹£€₨]/g;
+const SENTENCE_PUNCT = /(?<!\d)[.,](?!\d)|[?!]/g;
+
+function cleanTokenize(text: string): string[] {
+  const cleaned = text.toLowerCase().replace(CURRENCY_SYMBOLS, "").replace(SENTENCE_PUNCT, " ");
+  return cleaned.split(/\s+/).map((t) => t.trim()).filter(Boolean);
+}
+
+/**
+ * Locates each entity's value as a token-aligned span within the FINAL
+ * (post regional-slang/style/typo) utterance and emits BIO tags. Entities are
+ * matched against the mutated text directly, rather than tracked through each
+ * mutation step, so a typo landing inside an entity's own tokens correctly
+ * fails to tag (a mangled value shouldn't be trained as if it were clean) —
+ * an honest degradation, not a bug, and it self-limits to the ~15%/10% of
+ * rows the typo/grammar passes actually touch.
+ */
+function buildTags(finalUtterance: string, entities: { type: string; value: string }[]): { tokens: string[]; tags: string[] } {
+  const tokens = cleanTokenize(finalUtterance);
+  const tags = new Array(tokens.length).fill("O");
+
+  for (const entity of entities) {
+    const entityTokens = cleanTokenize(entity.value);
+    if (entityTokens.length === 0) continue;
+    for (let i = 0; i <= tokens.length - entityTokens.length; i++) {
+      if (tags[i] !== "O") continue; // don't re-tag a span already claimed by an earlier entity
+      let matches = true;
+      for (let j = 0; j < entityTokens.length; j++) {
+        if (tokens[i + j] !== entityTokens[j]) { matches = false; break; }
+      }
+      if (matches) {
+        tags[i] = `B-${entity.type}`;
+        for (let j = 1; j < entityTokens.length; j++) tags[i + j] = `I-${entity.type}`;
+        break; // tag only the first occurrence per entity, matching typical span extraction
+      }
+    }
+  }
+
+  return { tokens, tags };
+}
+
+/**
+ * Per-intent filler overrides.
+ *
+ * WHY: SLOT_VALUES is global, but a slot's PLAUSIBLE VALUES are not. CATEGORY
+ * holds spending categories (groceries, rent, fuel) and MERCHANT holds payees
+ * (Amazon, Netflix, Swiggy). Those are correct for ADD_EXPENSE and
+ * SPENDING_ANALYSIS and wrong for an income intent, where the same two slots
+ * mean "income source" and "who paid me". Generating INCOME_ANALYSIS off the
+ * global pools yields "how much did I earn from groceries" and "what did
+ * Netflix pay me" — grammatical, correctly tagged, and semantically nonsense.
+ *
+ * That failure mode is invisible downstream: validate counts rows, the NER
+ * head learns the span boundaries fine, and every gate reports success while
+ * the model is trained on utterances no user would ever type. It is the same
+ * shape as the SPLITWITH bug below, except it produces bad rows instead of
+ * zero rows — which is harder to notice, not easier.
+ *
+ * The ENTITY TYPE is deliberately unchanged (still CATEGORY / MERCHANT) so the
+ * app side needs no new slot handling; only the values differ.
+ */
+const SLOT_VALUES_BY_INTENT: Record<string, Record<string, string[]>> = {
+  INCOME_ANALYSIS: {
+    CATEGORY: [
+      "salary", "freelance work", "consulting", "rent received", "dividends",
+      "interest", "my side business", "bonus", "commission", "overtime",
+      "royalties", "capital gains", "my part time job", "tuition fees",
+    ],
+    MERCHANT: [
+      "my employer", "my client", "the company", "my tenant", "the agency",
+      "my main client", "the bank", "my previous employer", "the startup",
+    ],
+  },
+};
+
+/**
+ * Locative prepositions that sit OUTSIDE a PERIOD/DATE span.
+ *
+ * WHY: fillers carry preposition-prefixed variants ("in May", "on Monday") so
+ * bare "{PERIOD}" patterns read naturally — but patterns ALSO embed
+ * prepositions ("for {PERIOD}", "on {DATE}"). Substituting verbatim did two
+ * kinds of damage at once:
+ *
+ *   1. 767 of 14,560 rows were ungrammatical double-preposition junk:
+ *      "on on Sunday" (356 rows), "for in May", "for during October".
+ *   2. Span boundaries were CONTRADICTORY: the same surface text trained as
+ *      both "in may"=PERIOD and "may"=PERIOD depending on which template drew
+ *      which filler. B-PERIOD recall was 0.745 in-distribution — the weakest
+ *      common tag — and collapsed to all-O off-template.
+ *
+ * The rule now: a locative preposition stays in the UTTERANCE (context
+ * diversity is the point of those filler variants) but never inside the
+ * TAGGED SPAN, and it is dropped entirely when the pattern already supplies
+ * one. Range markers ("between", "from", "since") are NOT stripped — they are
+ * meaning-bearing ("from March to June" is one range, not a preposition plus
+ * a range), and TARGETDATE keeps its prefixes because "by December" (deadline)
+ * and "in December" (during) differ semantically.
+ */
+const LEAD_PREP = /^(?:in|on|for|during|over|at)\s+/i;
+const PREP_BEFORE = /\b(?:in|on|for|during|over|at|from|by|since|to|between|of)\s*$/i;
+const PREP_STRIP_SLOTS = new Set(["PERIOD", "DATE"]);
+
+function fill(pattern: string, rng: () => number, intent?: string): { utterance: string; entities: { type: string; value: string }[] } | null {
   const entities: { type: string; value: string }[] = [];
+  const used = new Set<string>();
   let ok = true;
-  const utterance = pattern.replace(PLACEHOLDER, (_m, slot) => {
-    const pool = SLOT_VALUES[slot];
+  const utterance = pattern.replace(PLACEHOLDER, (_m, slot, offset) => {
+    // Numbered slots ({PERIOD2}, {INTERESTRATE2}) fall back to their base
+    // pool so a new comparison pattern can never silently generate nothing.
+    const baseSlot = slot.replace(/\d+$/, "");
+    const pool =
+      (intent && (SLOT_VALUES_BY_INTENT[intent]?.[slot] ?? SLOT_VALUES_BY_INTENT[intent]?.[baseSlot])) ??
+      SLOT_VALUES[slot] ?? SLOT_VALUES[baseSlot];
     if (!pool || pool.length === 0) { ok = false; return _m; }
-    const value = pool[Math.floor(rng() * pool.length)];
-    entities.push({ type: slot, value });
-    return value;
+    // Distinct-value draw: a pattern with two slots of the same semantic type
+    // (PERIOD1/PERIOD2, or two {CATEGORY}s in a multi-category pattern) must
+    // not fill both with the same value — "June vs June" and "food and food"
+    // are degenerate training rows. Bounded retries, then give up on this fill.
+    let value = "";
+    for (let attempt = 0; attempt < 8; attempt++) {
+      value = pool[Math.floor(rng() * pool.length)];
+      if (!used.has(value.toLowerCase().replace(LEAD_PREP, ""))) break;
+      value = "";
+    }
+    if (!value) { ok = false; return _m; }
+
+    // Externalize the leading preposition (see LEAD_PREP above).
+    let lead = "";
+    let span = value;
+    if (PREP_STRIP_SLOTS.has(slot.replace(/\d+$/, ""))) {
+      const m = value.match(LEAD_PREP);
+      if (m && m[0].length < value.length) {
+        lead = m[0];
+        span = value.slice(m[0].length);
+      }
+    }
+
+    used.add(span.toLowerCase());
+    entities.push({ type: slot, value: span });
+
+    // Pattern already ends in a preposition here -> drop the filler's own.
+    if (lead && PREP_BEFORE.test(pattern.slice(0, offset))) return span;
+    return lead ? lead + span : span;
   });
   if (!ok) return null;
   return { utterance: utterance.replace(/\s+/g, " ").trim(), entities };
 }
 
+// Bare/short replies are generated at a lower volume than full utterance_patterns
+// — the goal is teaching the model the SHAPE of a fragment reply, not exhaustive
+// phrasing coverage (unlike utterance_patterns, which target min_distinct_
+// utterances_per_action for genuine diversity).
+// 24, up from 8 (2026-07-19): UNKNOWN holds ~85 rows of <=3 tokens, so at 8
+// rows per entity the model learned "short fragment -> UNKNOWN" and bare
+// clarification replies ("500", "yesterday") died in the slot-filling flow
+// (QA bare_replies class 0/8). Bare replies must be numerous enough to
+// out-vote UNKNOWN in the short-utterance regime — their vocabularies barely
+// overlap (amounts/dates vs greetings/junk), so volume is what decides it.
+const SHORT_REPLY_COUNT = 24;
+
 function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
   const rows: Row[] = [];
-  const target = spec.validation.min_distinct_utterances_per_action;
+  // Row target per bucket.
+  //
+  // A FIXED 80 rows regardless of template count made the evaluation unfair in
+  // favour of starved buckets: a 4-template bucket produced ~20 near-identical
+  // rows per skeleton, so holding out one template gave ~20 test rows that were
+  // all the SAME sentence shape (get it right, score ~1.0). A 45-template
+  // bucket spread the same 80 rows across 45 shapes — 1.8 rows each — and its
+  // test set contained many DIFFERENT shapes. Measured live on run 5:
+  // SPENDING_ANALYSIS had 255 templates at 1.6 rows/template and scored 0.602,
+  // while SIP_VS_PREPAY had 10 templates at 24.0 rows/template and scored
+  // 0.862 — an artefact of exam difficulty, not model skill.
+  //
+  // ROWS_PER_TEMPLATE keeps the fills-per-skeleton ratio constant across
+  // buckets so per-intent F1 is comparable. The spec's
+  // min_distinct_utterances_per_action stays the FLOOR (a well-populated
+  // bucket never drops below the volume it had before).
+  const ROWS_PER_TEMPLATE = 6;
+  // A LOW floor on purpose. The spec's min_distinct_utterances_per_action (80)
+  // was applied to every bucket regardless of how many skeletons it had, so a
+  // 4-template bucket still emitted 80 rows — 20 near-identical copies of each
+  // shape. That is padding, not data: it inflated starved buckets' apparent
+  // volume AND made their held-out test set a single repeated shape. A bucket
+  // with 4 skeletons genuinely HAS little data; the honest fix is to say so and
+  // let class weighting handle the resulting imbalance, not to pad it.
+  const MIN_ROWS = 12;
+  const patternCountForAction = (a: string) => (spec.utterance_patterns[a] ?? []).length;
+  const floor = MIN_ROWS;
 
   // Fail loud on spec authoring mistakes rather than silently dropping data:
   //  - a supported action with no patterns would generate nothing;
@@ -87,21 +355,33 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
 
   for (const action of spec.supported_actions) {
     const patterns = spec.utterance_patterns[action] || [];
+    // Scale rows with template count, never below the spec floor.
+    const target = Math.max(floor, patternCountForAction(action) * ROWS_PER_TEMPLATE);
     const seen = new Set<string>();
     let attempts = 0;
     const maxAttempts = target * 40; // generous ceiling; dedup drives the real count
 
+    // Coverage-first draw: every pattern is used at least once BEFORE random
+    // sampling begins. Purely random selection left patterns unused whenever a
+    // bucket had more patterns than its row budget (43 patterns / 80 rows
+    // covered only ~36 — the coupon-collector limit), so the dataset silently
+    // contained fewer SKELETONS than the spec declared, and validate.ts's
+    // pattern-diversity gate failed a bucket whose spec was actually fine.
+    let coverageIdx = 0;
+
     while (seen.size < target && attempts < maxAttempts) {
       attempts++;
-      const pattern = patterns[Math.floor(rng() * patterns.length)];
-      const filled = fill(pattern, rng);
+      const pattern = coverageIdx < patterns.length
+        ? patterns[coverageIdx++]
+        : patterns[Math.floor(rng() * patterns.length)];
+      const filled = fill(pattern, rng, spec.intent);
       if (!filled) continue;
       
       let finalUtterance = filled.utterance;
 
       // Apply Region Slang
       const region = REGIONS[Math.floor(rng() * REGIONS.length)];
-      finalUtterance = applyRegionalSlang(finalUtterance, region);
+      finalUtterance = applyRegionalSlang(finalUtterance, region, rng);
 
       // Apply Conversational/Informal Styles
       const styleKeys = Object.keys(STYLE_MODIFIERS);
@@ -119,7 +399,7 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
         const words = finalUtterance.split(' ');
         if (words.length > 2) {
           const wIdx = Math.floor(rng() * words.length);
-          words[wIdx] = injectTypo(words[wIdx]);
+          words[wIdx] = injectTypo(words[wIdx], rng);
           finalUtterance = words.join(' ');
         }
       }
@@ -130,20 +410,100 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
       const key = finalUtterance.toLowerCase();
       if (seen.has(key)) continue;
       seen.add(key);
+      const taggedEntities = remapComparisonSlots(filled.entities);
+      const { tokens, tags } = buildTags(finalUtterance, taggedEntities);
       rows.push({
         utterance: finalUtterance,
         intent: spec.intent,
         taskType: action,
         backendAction: `${spec.intent}_${action}`,
-        entities: filled.entities,
+        entities: taggedEntities,
+        tokens,
+        tags,
+        sourcePattern: pattern,
       });
     }
   }
+
+  // Bare/short-reply rows — a clarification reply always answers a required
+  // entity for a CREATE-style flow in practice (the only path slotEngine.ts's
+  // clarification loop triggers from), so these are tagged with the first
+  // supported action that actually requires the entity being answered
+  // (CREATE when the spec supports it, else the spec's first action).
+  if (spec.short_reply_patterns) {
+    for (const [entityType, patterns] of Object.entries(spec.short_reply_patterns)) {
+      const requiringAction =
+        spec.required_entities.includes(entityType) && spec.supported_actions.includes("CREATE")
+          ? "CREATE"
+          : spec.supported_actions[0];
+      if (!requiringAction) continue;
+
+      const seen = new Set<string>();
+      let attempts = 0;
+      const maxAttempts = SHORT_REPLY_COUNT * 40;
+
+      while (seen.size < SHORT_REPLY_COUNT && attempts < maxAttempts) {
+        attempts++;
+        const pattern = patterns[Math.floor(rng() * patterns.length)];
+        const filled = fill(pattern, rng, spec.intent);
+        if (!filled) continue;
+
+        const finalUtterance = filled.utterance;
+        const key = finalUtterance.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+
+        const taggedEntities = remapComparisonSlots(filled.entities);
+        const { tokens, tags } = buildTags(finalUtterance, taggedEntities);
+        rows.push({
+          utterance: finalUtterance,
+          intent: spec.intent,
+          taskType: requiringAction,
+          backendAction: `${spec.intent}_${requiringAction}`,
+          entities: taggedEntities,
+          tokens,
+          tags,
+          sourcePattern: pattern,
+        });
+      }
+    }
+  }
+
   return rows;
+}
+
+/**
+ * Every entity a spec declares must have a filler pool. Without this check a
+ * missing pool makes fill() return null for every pattern using that slot, the
+ * bucket silently emits ZERO rows, and the spec still LOOKS populated —
+ * FAMILY_TRANSFER lost 92 of 140 patterns this way and stayed unmeasurable
+ * across four training runs before anyone noticed.
+ */
+function assertAllSlotsHaveFillers(specs: IntentSpec[]): void {
+  const missing: string[] = [];
+  for (const spec of specs) {
+    const declared = new Set([...spec.required_entities, ...spec.optional_entities]);
+    for (const slot of declared) {
+      // Numbered slots ({INTERESTRATE2}) resolve through their base pool in
+      // fill() — the guard must mirror that fallback or it rejects specs the
+      // generator actually handles.
+      const base = slot.replace(/\d+$/, "");
+      const hasPool = SLOT_VALUES[slot] || SLOT_VALUES[base] ||
+        SLOT_VALUES_BY_INTENT[spec.intent]?.[slot] || SLOT_VALUES_BY_INTENT[spec.intent]?.[base];
+      if (!hasPool) missing.push(`${spec.intent}.${slot}`);
+    }
+  }
+  if (missing.length > 0) {
+    throw new Error(
+      `Spec entities with no filler pool in SLOT_VALUES: ${missing.join(", ")}. ` +
+      `Patterns using these slots would silently generate NOTHING. Add a pool or remove the entity from the spec.`
+    );
+  }
 }
 
 export function generate(): { rows: Row[]; outPath: string } {
   const specs = loadIntentSpecs();
+  assertAllSlotsHaveFillers(specs);
   const rng = mulberry32(SEED);
   let rows: Row[] = [];
   for (const spec of specs) rows = rows.concat(generateForSpec(spec, rng));

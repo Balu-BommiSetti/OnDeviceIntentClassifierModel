@@ -1,0 +1,20 @@
+{"utterance": "show my assets", "intent": "ADD_ASSET", "taskType": "SUMMARY"}
+{"utterance": "show my logged food expenses yesterday", "intent": "ADD_EXPENSE", "taskType": "SUMMARY"}
+{"utterance": "why is my food spending increasing", "intent": "ADD_EXPENSE", "taskType": "ANALYSIS"}
+{"utterance": "show my income yesterday", "intent": "ADD_INCOME", "taskType": "SUMMARY"}
+{"utterance": "why is my income lower yesterday", "intent": "ADD_INCOME", "taskType": "ANALYSIS"}
+{"utterance": "show my liabilities", "intent": "ADD_LIABILITY", "taskType": "SUMMARY"}
+{"utterance": "help me plan a budget for this month", "intent": "BUDGET_PLANNING", "taskType": "ANALYSIS"}
+{"utterance": "where can I cut my budget", "intent": "BUDGET_PLANNING", "taskType": "INSIGHTS"}
+{"utterance": "will I run out of money this month", "intent": "CASHFLOW_WARNING", "taskType": "ANALYSIS"}
+{"utterance": "warn me if I am overspending", "intent": "CASHFLOW_WARNING", "taskType": "INSIGHTS"}
+{"utterance": "when will I become debt free", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "ANALYSIS"}
+{"utterance": "show my transfers to my roommate", "intent": "FAMILY_TRANSFER", "taskType": "SUMMARY"}
+{"utterance": "show my a car goal", "intent": "GOAL_PLANNING", "taskType": "SUMMARY"}
+{"utterance": "what is my declared income", "intent": "INCOME_DECLARATION", "taskType": "SUMMARY"}
+{"utterance": "why did my net worth drop this month", "intent": "NET_WORTH_CHECK", "taskType": "ANALYSIS"}
+{"utterance": "how has my net worth changed this month", "intent": "NET_WORTH_CHECK", "taskType": "COMPARISON"}
+{"utterance": "show my refunds yesterday", "intent": "REFUND", "taskType": "SUMMARY"}
+{"utterance": "why am I not saving enough", "intent": "SAVINGS_ADVICE", "taskType": "ANALYSIS"}
+{"utterance": "give me tips to save money", "intent": "SAVINGS_ADVICE", "taskType": "INSIGHTS"}
+{"utterance": "should I invest or prepay my home loan", "intent": "SIP_VS_PREPAY", "taskType": "ANALYSIS"}

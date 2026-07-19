@@ -1,7 +1,7 @@
 import json
 from collections import Counter
 
-dataset_file = "../exported_dataset/combinatorial_dataset.jsonl"
+dataset_file = "../exported_dataset/legacy/combinatorial_dataset.jsonl"  # RETIRED — see legacy/README.md
 print(f"Loading {dataset_file}...")
 intents = Counter()
 tasks = Counter()

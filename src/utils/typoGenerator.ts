@@ -12,19 +12,19 @@ const TYPO_MAP: Record<string, string[]> = {
   "n": ["b", "m", "h", "j"]
 };
 
-export function injectTypo(word: string): string {
+export function injectTypo(word: string, rng: () => number = Math.random): string {
   if (word.length <= 3) return word;
-  
+
   const chars = word.split('');
-  const numTypos = chance(0.8) ? 1 : 2;
-  
+  const numTypos = chance(0.8, rng) ? 1 : 2;
+
   for (let i = 0; i < numTypos; i++) {
-    const idx = randomInt(1, chars.length - 2); // Avoid first/last char
+    const idx = randomInt(1, chars.length - 2, rng); // Avoid first/last char
     const char = chars[idx].toLowerCase();
-    
-    if (chance(0.5) && TYPO_MAP[char]) {
+
+    if (chance(0.5, rng) && TYPO_MAP[char]) {
       // Substitution
-      chars[idx] = randomItem(TYPO_MAP[char]);
+      chars[idx] = randomItem(TYPO_MAP[char], rng);
     } else {
       // Transposition
       if (idx < chars.length - 1) {

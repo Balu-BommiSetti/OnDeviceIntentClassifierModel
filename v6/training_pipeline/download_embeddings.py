@@ -4,7 +4,7 @@ import zipfile
 import sys
 
 URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip"
-TARGET_DIR = "/Users/balubommisetti/Documents/Personal/on-device-nlp-workspace/v6/training_pipeline/embeddings"
+TARGET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "embeddings")
 ZIP_PATH = os.path.join(TARGET_DIR, "fasttext.zip")
 VEC_FILE = os.path.join(TARGET_DIR, "wiki-news-300d-1M.vec")
 

@@ -1,5 +1,11 @@
 # On-Device Intent Classifier Model Pipeline
 
+> **⚠️ START WITH [ONBOARDING.md](ONBOARDING.md).** The sections below describe
+> the **retired V3/V4** generators and a `training_pipeline/` path that is no
+> longer live. The current pipeline is `src/knowledge/` (dataset, spec-driven)
+> plus `v6/training_pipeline/` (training, validation, deployment).
+> `BACKLOG.md` is the live task list.
+
 This repository contains the end-to-end pipeline for generating personalized finance intent datasets, training an on-device NLP model (Intent Classification & Entity Slot Tracking), and exporting the trained model to TensorFlow.js for web and mobile (React Native) deployments.
 
 ## Project Structure

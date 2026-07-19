@@ -13,9 +13,14 @@
     "dataset:validate": "tsx src/knowledge/validate.ts ./exported_dataset/spec_dataset.jsonl",
     "dataset:codegen": "tsx src/knowledge/codegen.ts",
     "dataset:codegen:app": "tsx src/knowledge/codegenApp.ts",
-    "dataset:build": "npm run dataset:generate && npm run dataset:validate && npm run dataset:codegen",
+    "dataset:manifest": "tsx src/knowledge/manifest.ts",
+    "dataset:regression-suite": "tsx src/knowledge/buildRegressionSuite.ts",
+    "qa:build": "tsx src/knowledge/qa/buildQaScenarios.ts",
+    "dataset:build": "npm run dataset:generate && npm run dataset:validate && npm run dataset:manifest && npm run dataset:codegen",
     "pipeline": "./run_pipeline.sh",
-    "pipeline:no-train": "./run_pipeline.sh --no-train"
+    "pipeline:no-train": "./run_pipeline.sh --no-train",
+    "patterns:expand": "tsx src/knowledge/patterns/expandPatterns.ts",
+    "patterns:merge": "tsx src/knowledge/patterns/mergePatterns.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
