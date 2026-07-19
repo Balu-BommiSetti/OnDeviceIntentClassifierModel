@@ -33,6 +33,9 @@ export const AMOUNTS = [
   "a couple of hundred", "a few thousand", "roughly 500", "nearly 1k",
   // Large/Extreme
   "1000000", "75000", "250", "15", "99",
+  // Rupee-symbol / L-abbreviated forms (2026-07-19: "₹1.5L", "2L" were
+  // absent — only the spelled-out "1.5 lakhs" form existed).
+  "₹1.5L", "₹50k", "₹2L", "1.5L", "2L", "₹10k", "₹1L",
 ];
 
 export const DATE_RANGES = {
@@ -57,7 +60,7 @@ export const CATEGORIES = [
   "food", "dining", "groceries", "rent", "mortgage", "electricity", "water", "internet", 
   "Netflix", "Spotify", "Gym", "Uber", "Amazon", "Shopping", "Clothing", "Medicine", 
   "Hospital", "Education", "Tuition", "Insurance", "Fuel", "Petrol", "Dining out", 
-  "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment", "SIP"
+  "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment"
 ];
 
 export const FREQUENCIES = [

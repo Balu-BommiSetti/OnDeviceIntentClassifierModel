@@ -72,7 +72,16 @@
       "I took out {AMOUNT} for a purchase at {MERCHANT} how do I record that",
       "Can I log that I spent {AMOUNT} at {MERCHANT} with {PAYMENT_METHOD}",
       "Please add a new cost of {AMOUNT} for {CATEGORY} from {MERCHANT}",
-      "How do I set an entry for {AMOUNT} spent at {MERCHANT} today"
+      "How do I set an entry for {AMOUNT} spent at {MERCHANT} today",
+      "{AMOUNT} on {CATEGORY}",
+      "{AMOUNT} at {MERCHANT}",
+      "{AMOUNT} on {CATEGORY} {DATE}",
+      "I blew {AMOUNT} at {MERCHANT} {DATE}",
+      "{AMOUNT} rent {DATE}",
+      "blew {AMOUNT} on {CATEGORY}",
+      "spent {AMOUNT} at {MERCHANT} on {CATEGORY} via {PAYMENT_METHOD} {DATE}",
+      "paid {AMOUNT} to {MERCHANT} for {CATEGORY} using {PAYMENT_METHOD} {DATE}",
+      "{AMOUNT} spent on {CATEGORY} at {MERCHANT} via {PAYMENT_METHOD}, {DATE}"
     ],
     "UPDATE": [
       "change {DATE} {CATEGORY} expense to {AMOUNT}",
@@ -121,7 +130,15 @@
       "Could you help me change the {MERCHANT} payment I logged on {DATE} to an amount of {AMOUNT}",
       "Is it possible to revise the {CATEGORY} expense I recorded on {DATE} and set it to {AMOUNT}",
       "How can I adjust the {MERCHANT} expense I registered on {DATE} to the new amount {AMOUNT}",
-      "What should I do to update the {CATEGORY} transaction I noted on {DATE} to {AMOUNT}"
+      "What should I do to update the {CATEGORY} transaction I noted on {DATE} to {AMOUNT}",
+      "make it {PLAINAMOUNT} instead",
+      "change it to {PLAINAMOUNT}",
+      "actually it was {PLAINAMOUNT}",
+      "update the {CATEGORY} expense to {PLAINAMOUNT}",
+      "correct that to {PLAINAMOUNT}",
+      "no, {PLAINAMOUNT} not {PLAINAMOUNT2}",
+      "change the {MERCHANT} one to {PLAINAMOUNT}",
+      "that should be {PLAINAMOUNT}"
     ],
     "DELETE": [
       "remove the {CATEGORY} expense",
@@ -172,7 +189,14 @@
       "How do I eliminate the {CATEGORY} entry I recorded with {PAYMENT_METHOD}",
       "Is there a way to get rid of the {AMOUNT} spent on {DATE} at {MERCHANT}",
       "Can I erase the {CATEGORY} purchase I made yesterday",
-      "How would I delete the {AMOUNT} expense from my records for {MERCHANT}"
+      "How would I delete the {AMOUNT} expense from my records for {MERCHANT}",
+      "remove the {CATEGORY} expense",
+      "delete the {MERCHANT} one",
+      "no cancel that expense",
+      "scrap the {CATEGORY} entry",
+      "undo that expense",
+      "drop the {MERCHANT} charge",
+      "take out the {CATEGORY} one"
     ]
   },
   "short_reply_patterns": {

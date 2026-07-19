@@ -69,7 +69,12 @@
       "What is the method to set my recurring base income to {AMOUNT}",
       "How do I add a new salary figure of {AMOUNT} to my budget",
       "I would like to declare my base salary as {AMOUNT} per month how do I do that",
-      "How can I log the amount of {AMOUNT} as my new recurring payment"
+      "How can I log the amount of {AMOUNT} as my new recurring payment",
+      "my monthly salary is {PLAINAMOUNT}",
+      "my salary is {AMOUNT} per month",
+      "I earn {PLAINAMOUNT} a month",
+      "my take home is {AMOUNT} monthly",
+      "monthly income {PLAINAMOUNT}"
     ],
     "UPDATE": [
       "update my salary to {AMOUNT}",

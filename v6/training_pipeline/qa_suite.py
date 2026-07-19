@@ -62,13 +62,31 @@ def decode_bio_spans(tokens, tags):
 
 
 def predict_full(text, model, word2idx, labels):
+    """
+    WHY THE TASK ARGMAX IS MASKED
+    load_artifacts (run_benchmark.py) already populates labels["_allowed_tasks"]
+    from action_mask.json. Until 2026-07-19 this function ignored it and took
+    a raw argmax over the task head — inconsistent with regression_suite.py
+    (which reuses run_benchmark.predict(), masked) and with the app
+    (IntentClassifier.ts applies the same mask). Every QA number reported
+    before this fix — the whole 29.1% -> 46.2% arc — was measured against
+    behaviour the deployed model does not exhibit: unmasked task predictions
+    the mask would have corrected are silently graded as failures (or, worse,
+    an unmasked lucky guess could pass where the real masked model would not).
+    """
     tokens = clean_tokenize(text)
     X = np.zeros((1, MAX_SEQ_LENGTH), dtype=np.int32)
     for j, tok in enumerate(tokens[:MAX_SEQ_LENGTH]):
         X[0, j] = word2idx.get(numeric_vocab_key(tok), word2idx.get("<UNK>", 1))
 
     intent_out, task_out, slots_out = model.predict(X, verbose=0)
-    i_idx, t_idx = int(np.argmax(intent_out[0])), int(np.argmax(task_out[0]))
+    i_idx = int(np.argmax(intent_out[0]))
+    intent_name = labels["intents"][i_idx]
+
+    task_probs = task_out[0]
+    allowed = (labels.get("_allowed_tasks") or {}).get(intent_name)
+    allowed_idx = [i for i, t in enumerate(labels["tasks"]) if t in allowed] if allowed else None
+    t_idx = max(allowed_idx, key=lambda i: task_probs[i]) if allowed_idx else int(np.argmax(task_probs))
 
     slot_ids = np.argmax(slots_out[0], axis=-1)
     tags = [labels["slots"][int(s)] for s in slot_ids[: len(tokens)]]

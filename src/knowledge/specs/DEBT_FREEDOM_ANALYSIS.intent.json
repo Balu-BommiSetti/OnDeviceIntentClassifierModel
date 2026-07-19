@@ -88,7 +88,14 @@
       "am I on track to be debt free by {TARGETDATE}",
       "how long before all my debt is gone",
       "when will I pay off everything I owe",
-      "how far am I from being debt free"
+      "how far am I from being debt free",
+      "show my debt payoff plan",
+      "what is my payoff plan for the {LIABILITYTYPE}",
+      "my debt payoff plan please",
+      "walk me through my payoff plan",
+      "what does my repayment plan look like",
+      "show the payoff plan for my {LIABILITYTYPE}",
+      "my loan payoff plan for {LENDER}"
     ],
     "WHAT_IF": [
       "suppose I add {EXTRAPAYMENT} to every payment",

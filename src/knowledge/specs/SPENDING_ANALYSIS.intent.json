@@ -141,14 +141,26 @@
       "my spends {PERIODSHORT}",
       "my spending on {CATEGORY1} and {CATEGORY2} {PERIODSHORT}",
       "how much did I spend on {CATEGORY1} and {CATEGORY2} {PERIODSHORT}",
-      "{CATEGORY1} and {CATEGORY2} spending {PERIODSHORT}",
+      "total {CATEGORY1} and {CATEGORY2} spending {PERIODSHORT}",
       "total for {CATEGORY1} and {CATEGORY2} {PERIODSHORT}",
       "what went to {CATEGORY1} and {CATEGORY2} {PERIODSHORT}",
       "combined {CATEGORY1} and {CATEGORY2} costs {PERIODSHORT}",
       "spend across {CATEGORY1} and {CATEGORY2} for {PERIODSHORT}",
       "show {CATEGORY1} plus {CATEGORY2} expenses {PERIODSHORT}",
       "my {CATEGORY1} and {CATEGORY2} bills {PERIODSHORT}",
-      "sum up {CATEGORY1} and {CATEGORY2} {PERIODSHORT}"
+      "sum up {CATEGORY1} and {CATEGORY2} {PERIODSHORT}",
+      "{PERIODSHORT} spending on {CATEGORY1} and {CATEGORY2}",
+      "in {PERIODSHORT}, what did I spend on {CATEGORY1} and {CATEGORY2}",
+      "for {PERIODSHORT} show {CATEGORY1} and {CATEGORY2} costs",
+      "my {CATEGORY1} and {CATEGORY2} spend, {PERIODSHORT}",
+      "breakdown of {CATEGORY1} and {CATEGORY2} for {PERIODSHORT}",
+      "how much on {CATEGORY1}, {CATEGORY2} and {CATEGORY3} {PERIODSHORT}",
+      "spending on {CATEGORY1}, {CATEGORY2} and {CATEGORY3} {PERIODSHORT}",
+      "{MERCHANT1} and {MERCHANT2} spends {PERIODSHORT}",
+      "{MERCHANT1} and {MERCHANT2} spending {PERIODSHORT}",
+      "how much on {MERCHANT1} and {MERCHANT2} {PERIODSHORT}",
+      "my {MERCHANT1} and {MERCHANT2} spend {PERIODSHORT}",
+      "total spent on {MERCHANT1} and {MERCHANT2} {PERIODSHORT}"
     ],
     "COMPARISON": [
       "compare my {CATEGORY} spend this month vs last",
@@ -209,7 +221,10 @@
       "compare {PERIODSHORT1} with {PERIODSHORT2}",
       "{PERIODSHORT1} vs {PERIODSHORT2}",
       "how do {PERIODSHORT1} and {PERIODSHORT2} compare",
-      "was {PERIODSHORT1} higher than {PERIODSHORT2}"
+      "was {PERIODSHORT1} higher than {PERIODSHORT2}",
+      "compare {MERCHANT1} and {MERCHANT2} spending {PERIODSHORT}",
+      "{MERCHANT1} vs {MERCHANT2} spending {PERIODSHORT}",
+      "which costs more {MERCHANT1} or {MERCHANT2}"
     ],
     "INSIGHTS": [
       "give me insights on my spending",
@@ -252,7 +267,13 @@
       "spot any hidden patterns in my monthly {CATEGORY} expenses",
       "find any recurring fees I may have missed in my {CATEGORY} ledger",
       "check if my {CATEGORY} spending aligns with the budget I set",
-      "highlight any surprise increases in my {CATEGORY} costs over the last {PERIOD}"
+      "highlight any surprise increases in my {CATEGORY} costs over the last {PERIOD}",
+      "any insights on my spending {PERIODSHORT}",
+      "what insights do you have about my expenses",
+      "insights into my {CATEGORY} spending",
+      "spending insights for {PERIODSHORT}",
+      "show me some insights about my money habits",
+      "got any insights on where my money went {PERIODSHORT}"
     ],
     "TREND": [
       "is my spending going up over the last {PERIOD}",

@@ -66,7 +66,8 @@
       "Would you help me record the {AMOUNT} I got back for {CATEGORY}",
       "Can I add the {AMOUNT} returned from {MERCHANT} via {PAYMENT_METHOD} as income",
       "Is the {AMOUNT} I got back from {MERCHANT} considered income in the system",
-      "Can I record the {AMOUNT} received from {MERCHANT} as income on {DATE}"
+      "Can I record the {AMOUNT} received from {MERCHANT} as income on {DATE}",
+      "got {AMOUNT} refund from {MERCHANT} {DATE}"
     ],
     "UPDATE": [
       "change the refund from {MERCHANT} to {AMOUNT}",

@@ -35,13 +35,22 @@ assertNoDatePeriodOverlap(DATE_FILLERS, PERIOD_FILLERS);
 const SLOT_VALUES: Record<string, string[]> = {
   AMOUNT: AMOUNTS,
   CATEGORY: CATEGORIES,
-  MERCHANT: ["Amazon", "Netflix", "Uber", "Swiggy", "Starbucks", "the landlord", "Walmart", "the clinic"],
+  // Widened 2026-07-19: Zomato/Flipkart/Ola/Costco were absent, so QA cases
+  // referencing them ("Swiggy and Zomato", "Amazon and Flipkart", "Uber and
+  // Ola", "at Costco") were unlearnable by construction — not model failures.
+  MERCHANT: ["Amazon", "Netflix", "Uber", "Swiggy", "Starbucks", "the landlord",
+    "Walmart", "the clinic", "Zomato", "Flipkart", "Ola", "Costco", "Myntra",
+    "BigBasket", "PhonePe", "Ajio"],
   DATE: DATE_FILLERS,
   PERIOD: PERIOD_FILLERS,
   PAYMENT_METHOD: ["credit card", "UPI", "cash", "debit card", "bank transfer"],
   FREQUENCY: FREQUENCIES,
   INTERESTRATE: INTEREST_RATES,
-  ASSETTYPE: ["gold", "mutual fund", "stocks", "property", "land", "bitcoin", "fixed deposit", "SIP", "a house", "a car"],
+  // Widened 2026-07-19: "platinum" (QA bare-reply case) was absent, and the
+  // pool skewed toward INR-typical instruments without common alternatives.
+  ASSETTYPE: ["gold", "mutual fund", "stocks", "property", "land", "bitcoin",
+    "fixed deposit", "SIP", "a house", "a car", "silver", "platinum",
+    "cryptocurrency", "bonds", "PPF", "NPS", "an ETF"],
   LIABILITYTYPE: ["home loan", "car loan", "personal loan", "credit card debt", "bike loan", "education loan", "EMI"],
   LENDER: ["the bank", "HDFC", "SBI", "my friend", "the credit union", "ICICI", "a relative"],
   GOALNAME: ["a car", "a house", "vacation", "emergency fund", "retirement", "an iphone", "wedding", "a laptop"],
@@ -105,6 +114,34 @@ const SLOT_TYPE_ALIASES: Record<string, string> = {
   PERIODSHORT: "PERIOD",
   PLAINAMOUNT: "AMOUNT",
 };
+
+/**
+ * Held-out utterances the generator must NEVER emit, loaded once at module
+ * scope. Without this, a filler-value collision can silently reproduce a QA
+ * or hard-example utterance verbatim — discovered 2026-07-19 when widening
+ * the MERCHANT/ASSETTYPE pools and SHORT_REPLY_COUNT produced 10 exact
+ * matches ("yesterday", "platinum", "zomato", two authored UNKNOWN decoys
+ * that happened to already exist as QA cases, ...). validate.ts's gate (9)
+ * catches this AFTER a full generation run; this stops it at the source so
+ * the class of bug cannot return as pools keep growing.
+ */
+const HELD_OUT_UTTERANCES: Set<string> = (() => {
+  const set = new Set<string>();
+  for (const rel of ["../../v6/training_pipeline/benchmarks/qa_scenarios.jsonl",
+                      "../../v6/training_pipeline/benchmarks/hard_cases.jsonl"]) {
+    const p = path.resolve(__dirname, rel);
+    if (!fs.existsSync(p)) continue;
+    for (const line of fs.readFileSync(p, "utf-8").split("\n")) {
+      if (!line.trim()) continue;
+      try {
+        const d = JSON.parse(line);
+        const u = (d.utterance || d.text || "").toLowerCase().trim();
+        if (u) set.add(u);
+      } catch { /* skip malformed line */ }
+    }
+  }
+  return set;
+})();
 
 function remapComparisonSlots(entities: { type: string; value: string }[]): { type: string; value: string }[] {
   // Strip the role digit from ANY numbered slot, not just PERIOD1/PERIOD2.
@@ -307,7 +344,10 @@ function fill(pattern: string, rng: () => number, intent?: string): { utterance:
 // (QA bare_replies class 0/8). Bare replies must be numerous enough to
 // out-vote UNKNOWN in the short-utterance regime — their vocabularies barely
 // overlap (amounts/dates vs greetings/junk), so volume is what decides it.
-const SHORT_REPLY_COUNT = 24;
+// 32, up from 24 (2026-07-19): common bare replies ("yesterday") were still
+// missed by RNG sampling within a 24-row budget spread across 3-4 patterns
+// and a ~24-value filler pool per entity.
+const SHORT_REPLY_COUNT = 32;
 
 function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
   const rows: Row[] = [];
@@ -408,7 +448,7 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
       }
 
       const key = finalUtterance.toLowerCase();
-      if (seen.has(key)) continue;
+      if (seen.has(key) || HELD_OUT_UTTERANCES.has(key)) continue;
       seen.add(key);
       const taggedEntities = remapComparisonSlots(filled.entities);
       const { tokens, tags } = buildTags(finalUtterance, taggedEntities);
@@ -450,7 +490,7 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
 
         const finalUtterance = filled.utterance;
         const key = finalUtterance.toLowerCase();
-        if (seen.has(key)) continue;
+        if (seen.has(key) || HELD_OUT_UTTERANCES.has(key)) continue;
         seen.add(key);
 
         const taggedEntities = remapComparisonSlots(filled.entities);

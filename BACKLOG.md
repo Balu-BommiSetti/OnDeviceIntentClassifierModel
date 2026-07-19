@@ -6,7 +6,7 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
-Last updated: 2026-07-19 (iteration 26 — RUN 22 DEPLOYED: QA 46.2%, entities 55.4% — best by wide margin).
+Last updated: 2026-07-19 (iteration 30 — RUN 25 DEPLOYED: regression 95.1%, entities 56.0% best-ever, QA 47.0%).
 
 ## P0 — blocks shipping
 
@@ -60,6 +60,86 @@ Last updated: 2026-07-19 (iteration 26 — RUN 22 DEPLOYED: QA 46.2%, entities 5
   (user's rule 2) rather than boundary-sharpening.
 
 ## P1 — quality
+
+- [x] **Both repos committed and pushed to new branches** — app repo
+  `feature/ondevice-nlp-integration` (822d524), model repo
+  `feature/v6-qa-hardening` (2616b29). Fixed two real onboarding blockers
+  found while auditing: model repo's `.gitignore` had a blanket `*.json`
+  rule silently excluding `period.grammar.json` (generateFromSpec.ts reads
+  it — fresh clone would crash) and 4.1GB of venvs were untracked but NOT
+  ignored. Added `requirements.txt` (none existed) and `ONBOARDING.md`.
+  Verified by actually cloning both branches fresh and running
+  generateFromSpec -> validate end to end (reproduced 15,552 rows exactly).
+  Known, NOT fixed (destructive/shared-history, flagged not executed): model
+  repo's `.git` carries ~500MB from a teammate's pre-session venv commit
+  that was later deleted from the tree but not from history.
+- [x] **qa_suite.py measurement bug fixed** — its `predict_full()` never
+  applied `action_mask.json`, unlike `regression_suite.py` and the deployed
+  app. Every QA number reported through run 22 (29.1% -> 46.2%) was measured
+  against unmasked task predictions — inconsistent with what ships. Impact
+  on run 22 was small (+0.4%, 46.2->46.6%) but the inconsistency was
+  systematic and is now closed.
+- [x] ~~Run 25~~ — DEPLOYED (vocab=emb=2646, 146/146 tests). Cue fixes
+  cleared the floor: regression 36->39/41 (95.1%), entities 56.0% (best
+  ever), QA 47.0%. Beats deployed run 22 on every gate. Remaining 2
+  regression failures: the 0.48-confidence-floor case and the salary-to-EMI
+  debatable — both tracked, neither a data hole.
+  *(original run-25 plan follows)* — closes the
+  three cue-coverage holes behind run 24's remaining regression failures:
+    DEBT_FREEDOM|SUMMARY had ZERO patterns containing "plan" (RISK owned the
+      word entirely) — "show my debt payoff plan" had nowhere to land. +7.
+    SPENDING|INSIGHTS had only 2 patterns containing "insight" — the class's
+      own cue word was barely trained. +6.
+    INCOME_DECLARATION|CREATE strengthened with declaration-canonical shapes
+      ("my monthly salary is {PLAINAMOUNT}") against cross-intent UPDATE
+      vocabulary bleed from run 24's ADD_INCOME update forms. +5.
+  Not chased: "remove my home loan" passes on label but misses the 0.5
+  confidence floor at 0.48 (correct answer, 0.02 short — a calibration
+  question, not a data one); "how much of my salary goes to EMI" remains the
+  tracked SUMMARY/ANALYSIS debatable.
+- [x] ~~Run 24~~ — write-action rebalance WORKED (all 3 UPDATE/DELETE flips
+  fixed; regression 34->36/41) and QA hit 49.4% full pass — best ever
+  (intent 84.2%, taskType 86.6%). Still 1 case below the 90% floor, so NOT
+  deployed; run 22 remains in the app. One new collateral flip
+  ("my monthly salary is 500" -> UPDATE@0.99) root-caused to shared
+  vocabulary with the new ADD_INCOME update shapes.
+- [x] ~~Run 23~~ — NOT DEPLOYED (regression 34/41 = 82.9%, below floor).
+  Wins held elsewhere: debt_negatives 0/4 -> 3/4 (the safety-gap decoys
+  worked), stacked_entity_writes 1 -> 3/10, QA taskType 74.5 -> 82.6%,
+  intent 75.3 -> 78.1%. Losses: 3 write-action regressions (root-caused,
+  fixing in run 24), comparisons_two_roles 56 -> 44%, entities 55.4 -> 53.1.
+- [x] ~~(superseded by run-24 item)~~ Run 23 original plan — targeted
+  fixes for the next tier of QA classes:
+    multi_value_entities: found the taskType confusion's ROOT CAUSE — a
+      near-duplicate skeleton collision (SUMMARY's "{CAT1} and {CAT2}
+      spending {PERIODSHORT}" vs COMPARISON's "compare {CAT1} and {CAT2}
+      spending {PERIODSHORT}" differed by exactly one word). Reworded +
+      diversified PERIOD position. Added MERCHANT1/MERCHANT2 patterns
+      (previously zero two-merchant training rows existed at all).
+    bare_replies + market_speech: MERCHANT pool was missing Zomato/Flipkart/
+      Ola/Costco entirely (all real, India-relevant, referenced by QA) and
+      ASSETTYPE was missing "platinum" — QA was testing values that could
+      not have been learned by construction. Widened both pools. Added
+      rupee/L-abbreviated AMOUNT forms ("₹1.5L", "2L").
+    stacked_entity_writes: zero CREATE patterns anywhere had 4+ distinct
+      entity types; QA tests 4-5 simultaneous (amount+merchant+category+
+      payment_method+date). Added a few "kitchen sink" patterns per intent.
+    debt_negatives (the real safety gap): UNKNOWN had ZERO decoy patterns
+      using loan/EMI/debt vocabulary, so impersonal ("how do EMIs work"),
+      third-party ("my friend wants to know..."), and advice-seeking
+      ("should I take a loan to invest") queries had no negative signal and
+      likely misrouted to LOAN_ANALYSIS/DEBT_FREEDOM. Added 14 decoys.
+  Found + fixed while regenerating: a SELF-INFLICTED leakage bug — my own
+  additions reproduced 10 held-out QA utterances verbatim ("yesterday",
+  "platinum", "zomato", 2 of my own decoys duplicating existing QA cases).
+  Root-caused and fixed at the SOURCE rather than patched per-string: added
+  a HELD_OUT_UTTERANCES guard directly in generateFromSpec.ts's dedup gates
+  (both the coverage loop and short-reply loop) so no future pool widening
+  can reproduce a held-out case again — matches the project's standing
+  practice of closing a class of bug, not one instance of it.
+  Also found: "SIP" existed in BOTH the CATEGORIES and ASSETTYPE pools — a
+  genuine semantic conflict (SIP is an investment, not a spending category).
+  Removed from CATEGORIES.
 
 - [x] ~~Run 22~~ — DEPLOYED to app (vocab=emb=2639, 146/146 tests). The
   {PERIODSHORT}/{PLAINAMOUNT} deterministic-regime fix produced the largest

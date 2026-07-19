@@ -75,7 +75,8 @@
       "Should I input {AMOUNT} I received from {MERCHANT}",
       "Will I be able to enter {AMOUNT} received on {DATE}",
       "Could I note {AMOUNT} that entered my account from {MERCHANT}",
-      "Could I add {AMOUNT} that I received on {DATE} to my budget"
+      "Could I add {AMOUNT} that I received on {DATE} to my budget",
+      "add {AMOUNT} {CATEGORY} income for {DATE}"
     ],
     "UPDATE": [
       "change {DATE} income to {AMOUNT}",
@@ -127,7 +128,11 @@
       "fix my {CATEGORY} income to {AMOUNT}",
       "edit the {DATE} salary entry to {AMOUNT}",
       "the income I logged {DATE} should be {AMOUNT}",
-      "set my {DATE} income amount to {AMOUNT}"
+      "set my {DATE} income amount to {AMOUNT}",
+      "make that income {PLAINAMOUNT} instead",
+      "change it to {PLAINAMOUNT}",
+      "actually the income was {PLAINAMOUNT}",
+      "correct my {DATE} income to {PLAINAMOUNT}"
     ],
     "DELETE": [
       "remove the {MERCHANT} income entry",
