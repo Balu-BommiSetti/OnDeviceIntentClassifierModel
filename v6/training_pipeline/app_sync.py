@@ -69,6 +69,22 @@ def sync(app_dir: str, export_dir: str = "exported_model"):
             os.remove(os.path.join(tfjs_dst_dir, fname))
             print(f"[*] Removed orphaned {fname}")
 
+    # HARD GATE: load the just-synced export with the app's own TFJS library
+    # and run a prediction. Structural checks (vocab==input_dim, manifest
+    # sizes) once passed an export that TFJS could not deserialize at all
+    # (Keras-3 vs Keras-2 JSON schema); only an actual load catches that
+    # class. Failing here REVERTS nothing but exits nonzero so the sync is
+    # never reported as success.
+    import subprocess
+    smoke = subprocess.run(
+        ["node", "scripts/tfjs_smoke_test.mjs", os.path.join("assets", "nlp", "tfjs")],
+        cwd=app_dir, capture_output=True, text=True,
+    )
+    print(smoke.stdout.strip())
+    if smoke.returncode != 0:
+        print(smoke.stderr.strip(), file=sys.stderr)
+        raise IntegrityError("TFJS smoke test failed on the synced export — do not ship this model.")
+
     print(f"\n✅ App model assets synced to {app_nlp_dir}")
     print("   Note: labels.json + route map are synced separately via codegenApp.ts —")
     print("   run both (or use run_pipeline.sh --app) to keep the app repo fully in sync.")

@@ -30,21 +30,48 @@ import argparse
 import json
 import os
 
-# Load with KERAS 3, not tf_keras. train.py builds under TF_USE_LEGACY_KERAS=1,
-# but the .h5 it writes carries a Keras-3 field ('optional' on InputLayer) that
-# legacy Keras cannot deserialize on read-back. Keras 3 reads it fine.
-os.environ["TF_USE_LEGACY_KERAS"] = "0"
+# Load with tf_keras (LEGACY Keras 2), NOT Keras 3 — reversing the 2026-07-19
+# morning decision, for a reason discovered only when the export was finally
+# loaded by an actual TFJS runtime: tfjs-layers implements the KERAS 2 JSON
+# schema. A Keras-3 to_json() emits `batch_shape` (TFJS needs
+# `batch_input_shape`), class_name "Functional", and dict-style inbound_nodes
+# with __keras_tensor__ args — three incompatibilities, and the first alone
+# throws "An InputLayer should be passed either a batchInputShape or an
+# inputShape" in the app. Every export produced by the Keras-3 load path was
+# structurally self-consistent and UNLOADABLE by TFJS; no gate caught it
+# because every harness loads the .h5 with Python, never the TFJS artifact
+# (that gap is now closed by tfjs_smoke_test.mjs, run from app_sync.py).
+#
+# The reason Keras 3 was chosen originally: tf_keras refuses the .h5's
+# InputLayer 'optional' kwarg (a Keras-3-only field train.py's save path
+# emits). The shim below strips that one kwarg, which is metadata tf_keras
+# doesn't need, letting the LEGACY loader read the file and emit a topology
+# in the exact schema TFJS consumes.
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
 import numpy as np
 import tensorflow as tf
+import tf_keras
+
+
+def _patch_inputlayer_for_keras3_h5() -> None:
+    """Let tf_keras deserialize an InputLayer saved by Keras 3 ('optional')."""
+    orig = tf_keras.layers.InputLayer.__init__
+
+    def patched(self, *args, **kwargs):
+        kwargs.pop("optional", None)
+        orig(self, *args, **kwargs)
+
+    tf_keras.layers.InputLayer.__init__ = patched
 
 
 def convert(model_path: str, out_dir: str) -> None:
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"No Keras model at {model_path} — run train.py first.")
 
-    model = tf.keras.models.load_model(model_path, compile=False)
+    _patch_inputlayer_for_keras3_h5()
+    model = tf_keras.models.load_model(model_path, compile=False)
     os.makedirs(out_dir, exist_ok=True)
 
     # Weight order MUST match the manifest order exactly; TFJS reads the .bin
@@ -54,8 +81,8 @@ def convert(model_path: str, out_dir: str) -> None:
         for w in layer.weights:
             arr = np.asarray(w.numpy(), dtype=np.float32)
             # Strip the ":0" tensor suffix — TFJS uses the bare variable path.
-            # Keras 3 exposes `.path` (layer/var) where Keras 2 used `.name`
-            # with a ":0" suffix. TFJS wants the bare variable path.
+            # tf_keras (Keras 2) names variables with a ":0" tensor suffix;
+            # TFJS wants the bare variable path.
             raw = getattr(w, "path", None) or w.name
             name = raw[:-2] if raw.endswith(":0") else raw
             weights.append(arr)
@@ -74,10 +101,10 @@ def convert(model_path: str, out_dir: str) -> None:
 
     model_json = {
         "format": "layers-model",
-        "generatedBy": f"keras v{tf.keras.__version__}",
+        "generatedBy": f"keras v{tf_keras.__version__} (tf_keras legacy schema)",
         "convertedBy": "convert_tfjs.py (local, dependency-free)",
         "modelTopology": {
-            "keras_version": tf.keras.__version__,
+            "keras_version": tf_keras.__version__,
             "backend": "tensorflow",
             "model_config": json.loads(model.to_json()),
         },
@@ -93,7 +120,7 @@ def convert(model_path: str, out_dir: str) -> None:
 
     # The check the integrity gate performs, done here so a mismatch surfaces
     # at conversion time rather than at deploy time.
-    emb = next((l for l in model.layers if isinstance(l, tf.keras.layers.Embedding)), None)
+    emb = next((l for l in model.layers if isinstance(l, tf_keras.layers.Embedding)), None)
     if emb is not None:
         print(f"[*] Embedding input_dim = {emb.input_dim} (must equal vocabulary.json size)")
 

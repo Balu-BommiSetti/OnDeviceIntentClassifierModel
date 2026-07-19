@@ -160,7 +160,8 @@
       "{MERCHANT1} and {MERCHANT2} spending {PERIODSHORT}",
       "how much on {MERCHANT1} and {MERCHANT2} {PERIODSHORT}",
       "my {MERCHANT1} and {MERCHANT2} spend {PERIODSHORT}",
-      "total spent on {MERCHANT1} and {MERCHANT2} {PERIODSHORT}"
+      "total spent on {MERCHANT1} and {MERCHANT2} {PERIODSHORT}",
+      "spending on {CATEGORY1} and {CATEGORY2} {PERIODSHORT}"
     ],
     "COMPARISON": [
       "compare my {CATEGORY} spend this month vs last",

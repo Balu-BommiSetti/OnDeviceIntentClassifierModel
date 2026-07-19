@@ -95,7 +95,12 @@
       "walk me through my payoff plan",
       "what does my repayment plan look like",
       "show the payoff plan for my {LIABILITYTYPE}",
-      "my loan payoff plan for {LENDER}"
+      "my loan payoff plan for {LENDER}",
+      "can you estimate my payoff even without the interest rate",
+      "I do not know my loan rate, estimate my payoff anyway",
+      "why can you not calculate my payoff date",
+      "estimate my debt free date with whatever data you have",
+      "work out my payoff date even if some details are missing"
     ],
     "WHAT_IF": [
       "suppose I add {EXTRAPAYMENT} to every payment",

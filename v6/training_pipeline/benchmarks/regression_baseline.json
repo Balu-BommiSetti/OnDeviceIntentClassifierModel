@@ -1,6 +1,6 @@
 {
   "ADD_ASSET|CREATE|bought gold worth 500": {
-    "passed": false,
+    "passed": true,
     "utterance": "bought gold worth 500"
   },
   "ADD_ASSET|UPDATE|update my gold value to 500": {
@@ -44,11 +44,11 @@
     "utterance": "update my home loan balance to 500"
   },
   "ADD_LIABILITY|DELETE|remove my home loan": {
-    "passed": true,
+    "passed": false,
     "utterance": "remove my home loan"
   },
   "AFFORDABILITY_CHECK|ANALYSIS|can I afford food for 500": {
-    "passed": false,
+    "passed": true,
     "utterance": "can I afford food for 500"
   },
   "AFFORDABILITY_CHECK|WHAT_IF|what if I buy food for 500": {
@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": true,
+    "passed": false,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {

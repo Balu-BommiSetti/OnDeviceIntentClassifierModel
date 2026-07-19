@@ -14,7 +14,8 @@
     "MERCHANT",
     "CATEGORY",
     "DATE",
-    "PAYMENT_METHOD"
+    "PAYMENT_METHOD",
+    "PERIOD"
   ],
   "backend_route": "LOG_TRANSACTION",
   "advisory_intent": "RECORD_EXPENSE",
@@ -81,7 +82,12 @@
       "blew {AMOUNT} on {CATEGORY}",
       "spent {AMOUNT} at {MERCHANT} on {CATEGORY} via {PAYMENT_METHOD} {DATE}",
       "paid {AMOUNT} to {MERCHANT} for {CATEGORY} using {PAYMENT_METHOD} {DATE}",
-      "{AMOUNT} spent on {CATEGORY} at {MERCHANT} via {PAYMENT_METHOD}, {DATE}"
+      "{AMOUNT} spent on {CATEGORY} at {MERCHANT} via {PAYMENT_METHOD}, {DATE}",
+      "spent {AMOUNT} on {CATEGORY} {PERIODSHORT}",
+      "{AMOUNT} {CATEGORY} {PERIODSHORT}",
+      "I spent {AMOUNT} at {MERCHANT} {PERIODSHORT}",
+      "blew {AMOUNT} on {CATEGORY} {PERIODSHORT}",
+      "{AMOUNT} at {MERCHANT} {PERIODSHORT}"
     ],
     "UPDATE": [
       "change {DATE} {CATEGORY} expense to {AMOUNT}",

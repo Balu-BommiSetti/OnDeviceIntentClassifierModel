@@ -10,9 +10,11 @@ cd "$(dirname "$0")"
 OUT=benchmarks/seed_spread
 mkdir -p "$OUT"
 
-# Preserve the current (run 16) model
-rm -rf "$OUT/run16_backup"
-cp -R exported_model "$OUT/run16_backup"
+# Preserve the CURRENT model, whatever run it is. (Was hardcoded
+# "run16_backup" from the first use — rerunning later would have restored
+# run 16 over the then-current model.)
+rm -rf "$OUT/current_backup"
+cp -R exported_model "$OUT/current_backup"
 
 for SEED in 101 202 303; do
   echo "=== SEED $SEED: training ==="
@@ -21,11 +23,16 @@ for SEED in 101 202 303; do
   ./.venv/bin/python qa_suite.py || true
   cp exported_model/eval_report.json "$OUT/eval_seed${SEED}.json"
   cp benchmarks/qa_report.json "$OUT/qa_seed${SEED}.json"
+  # Archive the WEIGHTS too. First run archived only reports, so the
+  # best-scoring seed's model was overwritten and — with TF op-level
+  # nondeterminism — a same-seed rerun is a fresh draw, not a reproduction.
+  rm -rf "$OUT/model_seed${SEED}"
+  cp -R exported_model "$OUT/model_seed${SEED}"
   echo "=== SEED $SEED: done ==="
 done
 
-# Restore run 16 as the current model (the experiment measures, it does not ship)
+# Restore the pre-experiment model (the experiment measures, it does not ship)
 rm -rf exported_model
-cp -R "$OUT/run16_backup" exported_model
+cp -R "$OUT/current_backup" exported_model
 
 echo "ALL SEEDS DONE"

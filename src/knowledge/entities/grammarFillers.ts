@@ -125,6 +125,7 @@ export function buildDateFillers(): string[] {
 export function buildTargetDateFillers(): string[] {
   return [...new Set([
     "next year", "in 3 years", "in 5 years", "by December", "in 6 months", "by 2027", "by 2030",
+    "by December 2026", "by March 2027", "by June 2026",
     "by next March", "in 18 months", "before I turn 40", "by the end of the year", "in 2 years",
   ])];
 }

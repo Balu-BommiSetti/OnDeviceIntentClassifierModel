@@ -76,7 +76,10 @@
       "Will I be able to enter {AMOUNT} received on {DATE}",
       "Could I note {AMOUNT} that entered my account from {MERCHANT}",
       "Could I add {AMOUNT} that I received on {DATE} to my budget",
-      "add {AMOUNT} {CATEGORY} income for {DATE}"
+      "add {AMOUNT} {CATEGORY} income for {DATE}",
+      "log {AMOUNT} {CATEGORY} income for {DATE}",
+      "add {AMOUNT} income for {DATE}",
+      "record {AMOUNT} {CATEGORY} income {DATE}"
     ],
     "UPDATE": [
       "change {DATE} income to {AMOUNT}",

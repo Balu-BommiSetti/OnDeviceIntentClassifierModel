@@ -100,14 +100,49 @@ def predict_full(text, model, word2idx, labels):
     }
 
 
+import re as _re
+
+_AMOUNT_UNITS = {
+    "k": 1_000, "l": 100_000, "lakh": 100_000, "lakhs": 100_000,
+    "cr": 10_000_000, "crore": 10_000_000, "crores": 10_000_000,
+    "m": 1_000_000, "grand": 1_000,
+}
+
+
+def _canon_amount(s):
+    """Vernacular amount -> canonical integer string, else None.
+
+    WHY: QA expectations for market_speech assert NORMALIZED amounts
+    ("150000") because in the APP, marketNormalize() runs BEFORE the
+    classifier — the model never sees "₹1.5L", it sees "150000". The harness
+    feeds raw text, so the model correctly extracts the SURFACE span
+    ("1.5l", "50k", "12 cr") and was being graded wrong for not performing a
+    normalization step that lives in a different component. Canonicalising
+    BOTH sides grades the model on its actual job: finding the span.
+    Handles: 50k / 1.5l / 2 lakh / 12 cr / ₹1.5L / two-token "2 lakh".
+    """
+    t = s.lower().replace("₹", "").replace(",", "").strip()
+    m = _re.fullmatch(r"([0-9]+(?:\.[0-9]+)?)\s*(k|l|lakhs?|crores?|cr|m|grand)?", t)
+    if not m:
+        return None
+    value = float(m.group(1)) * _AMOUNT_UNITS.get(m.group(2) or "", 1)
+    if value != int(value):
+        return None  # sub-unit precision ("45.50") — compare as text
+    return str(int(value))
+
+
 def norm(s):
     """Compare on content words only.
 
     Expected values are written the way a human reads them ("in May"), while
     the decoder emits what it tagged ("may"). Grading those as unequal would
     report entity failures that are purely notational, hiding the real ones.
-    Leading prepositions and case are therefore stripped from both sides.
+    Leading prepositions and case are stripped from both sides, and
+    vernacular amounts are canonicalised (see _canon_amount).
     """
+    amt = _canon_amount(s)
+    if amt is not None:
+        return amt
     s = "".join(ch for ch in s.lower() if ch.isalnum() or ch.isspace()).strip()
     words = [w for w in s.split() if w not in {"in", "on", "for", "of", "the", "a", "my", "at"}]
     return " ".join(words)

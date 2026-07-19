@@ -58,9 +58,14 @@ export const REGIONAL_SLANG: Record<Region, { expensive: string, cheap: string, 
 
 export const CATEGORIES = [
   "food", "dining", "groceries", "rent", "mortgage", "electricity", "water", "internet", 
-  "Netflix", "Spotify", "Gym", "Uber", "Amazon", "Shopping", "Clothing", "Medicine", 
+  // Brand names REMOVED from categories 2026-07-19 (Netflix/Spotify/Uber/
+  // Amazon): they also live in the MERCHANT pool, so the NER head trained
+  // "Amazon"=CATEGORY in some rows and =MERCHANT in others — the SIP-class
+  // cross-pool conflict. QA's contract is unanimous: brands are MERCHANT.
+  "subscriptions", "streaming", "Gym", "ride hailing", "online shopping", "Shopping", "Clothing", "Medicine", 
   "Hospital", "Education", "Tuition", "Insurance", "Fuel", "Petrol", "Dining out", 
-  "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment"
+  "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment",
+  "the wedding", "a birthday party", "vacation", "festival shopping", "electronics", "a phone", "furniture"
 ];
 
 export const FREQUENCIES = [

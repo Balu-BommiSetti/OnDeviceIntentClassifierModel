@@ -6,7 +6,7 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
-Last updated: 2026-07-19 (iteration 30 — RUN 25 DEPLOYED: regression 95.1%, entities 56.0% best-ever, QA 47.0%).
+Last updated: 2026-07-19 (iteration 35 — TFJS SCHEMA BUG fixed + smoke-test gate added; run 28 shipped to app out of necessity).
 
 ## P0 — blocks shipping
 
@@ -25,10 +25,17 @@ Last updated: 2026-07-19 (iteration 30 — RUN 25 DEPLOYED: regression 95.1%, en
   (b) the debt-fix recovery (0→8/14 etc.) is far outside noise — real;
   (c) run 16 (seed 42) was an UNLUCKY entity draw: 42.9% vs all three seeds
   at 46.9–48.0. Run 17 (seed 101) training now to replace it.
-- [ ] **Per-seed model weights not saved** — seed_spread.sh archived reports
-  only; the seed-101 weights that scored best were overwritten. With TF
-  nondeterminism a SEED=101 rerun is a fresh draw, not a reproduction.
-  Amend the script to archive weights per seed.
+- [x] ~~Per-seed model weights not saved~~ — seed_spread.sh now archives
+  each seed's full exported_model/ directory alongside its reports.
+- [x] **Confidence floor: resolved by ANALYSIS, kept at 0.50** — empirical
+  sweep on QA confidences (run 26): correct-p10 0.67 vs wrong-median 0.60,
+  distributions overlap with no clean separator. Floor 0.50 keeps 96.0% of
+  correct and blocks 34.8% of wrong; 0.45 would recover 2pt of correct but
+  HALVE wrong-blocking (34.8->17.4%). In a finance product a blocked-correct
+  costs a clarification prompt, a passed-wrong costs a confidently wrong
+  answer — the asymmetry favors 0.50. The 0.48 regression case is an
+  unlucky borderline, not a calibration defect. Real lever remains model
+  accuracy, not floor tuning.
 - [x] ~~Retrain against new taxonomy + fixed spans~~ — run 15 done. RESULT:
   B-PERIOD recall 0.745→0.895, QA entities 32.0→42.3%, single_period 11→32%,
   comparisons 4→32%. Boundary-noise theory CONFIRMED. But QA intent fell
@@ -60,6 +67,51 @@ Last updated: 2026-07-19 (iteration 30 — RUN 25 DEPLOYED: regression 95.1%, en
   (user's rule 2) rather than boundary-sharpening.
 
 ## P1 — quality
+
+- [x] **TFJS export schema bug (CRITICAL, user-found)** — the converter
+  serialized topology from Keras 3; tfjs-layers implements the Keras 2
+  schema (batch_shape vs batch_input_shape + dict inbound_nodes). Every
+  export since the converter existed was self-consistent and UNLOADABLE; no
+  gate loaded the TFJS artifact with a TFJS runtime. Fixed: converter now
+  serializes via tf_keras (with an 'optional'-kwarg shim), and
+  scripts/tfjs_smoke_test.mjs (app repo) loads the export with the app's own
+  @tensorflow/tfjs and predicts — wired into app_sync.py as a HARD gate.
+  Run 28 shipped (QA 51.4%, entities 62.9%, regression 39/41, smoke PASS);
+  run 25 was NOT restorable — its .h5 was overwritten and only the broken
+  export survived. LESSON: "verified" must mean the artifact was exercised
+  by the runtime that consumes it, not that its structure is self-consistent.
+- [ ] **Archive per-run .h5 weights** — run 25/27 weights are gone (each
+  train.py run overwrites exported_model/), which forced shipping run 28
+  during the schema fix instead of restoring the deployed model. Keep dated
+  copies of nlp_multitask_model.h5 (or the whole exported_model/) per run.
+
+- [ ] **USER LIVE-TESTING IN PROGRESS** — flag ON in the app. DEPLOYMENT
+  RULE (user-set, 2026-07-19): model updates to the app happen ONLY when the
+  user explicitly asks; gates keep running per train run and results are
+  staged. Currently staged: run 27 (READY — QA 55.1% FIRST >50%, entities 63.4%,
+  regression 38/41; the brand/category cross-pool fix paid broadly, since
+  Amazon/Uber/Netflix appear throughout the QA suite). App runs 25. Fixed during their session:
+  ModelLoader.ts hardcoded the old 2-shard filenames and crashed warmup the
+  moment the flag went on (b614b3c).
+- [x] **Grader amount-normalization fix** — QA market_speech expectations
+  assert NORMALIZED amounts ("150000") because the APP runs marketNormalize
+  BEFORE the classifier; the harness feeds raw text, so the model correctly
+  extracted surface spans ("1.5l","50k","12 cr") and was graded wrong for a
+  normalization step that lives in a different component. Grader now
+  canonicalises both sides. Same model re-measured: 47.0->47.8% full pass,
+  entities 56.0->56.6%, market_speech 1/7->3/7. Also re-adjudicated the
+  Hindi budget case SUMMARY->STATUS ("kaisa chal raha hai" asks
+  on-track-ness — the model's answer was the better product answer).
+- [ ] **Run 26 training** *(in flight, seed 101, 16,122 rows)* — remaining
+  genuine gaps from market_speech/incomplete_data:
+    "wedding" existed ONLY in GOALNAME pool, so "spent 2 lakh on the
+      wedding" routed to GOAL_PLANNING — added life-event expense categories
+      (the verb disambiguates once both sides are trained).
+    ADD_EXPENSE never declared PERIOD — "50k rent last month" could not
+      learn the trailing period span in expense contexts. Declared + 5
+      {PERIODSHORT} patterns.
+    DEBT_FREEDOM: +5 incomplete-data/meta variants ("estimate my payoff
+      even without the interest rate" — previously routed to UNKNOWN).
 
 - [x] **Both repos committed and pushed to new branches** — app repo
   `feature/ondevice-nlp-integration` (822d524), model repo
@@ -240,6 +292,24 @@ Last updated: 2026-07-19 (iteration 30 — RUN 25 DEPLOYED: regression 95.1%, en
   state.monthlyIncome but unwired).
 - [ ] **Hard-example benchmark gap** — 60.0% vs test 95.3%. Same root shape
   as the QA gap (off-template generalization). Re-measure after retraining.
+
+- [ ] **Run 28 training** *(in flight, seed 101, 16,176 rows)* — the
+  stacked_entity_writes batch (2/10):
+    CATEGORIES: +electronics/a phone/furniture (QA purchase items absent);
+    TARGETDATE: +month+year deadline forms ("by December 2026" untrainable);
+    ADD_INCOME write-with-date family +3 (INCOME_ANALYSIS was stealing
+      "add 50000 salary income for June");
+    ADD_LIABILITY stacked loan-record patterns +3 ("took a 200000 personal
+      loan from HDFC at 9.5% for 5 years" routed to LOAN_ANALYSIS|WHAT_IF);
+    REFUND receive-refund CREATE +2 (task flipped to DELETE).
+  Also re-adjudicated 2 QA entity expectations that CONTRADICTED the grammar
+  contract: "June" and "last week" as DATE — the contract (enforced by
+  assertNoDatePeriodOverlap) says bare month and last-week are RANGES
+  (PERIOD); those cases predate the boundary rule. Notes in the cases.
+- [x] Fixed latent footgun found in passing: seed_spread.sh's restore step
+  hardcoded "run16_backup" — rerunning it would have rolled the current
+  model back to run 16. Now backs up/restores the CURRENT model generically,
+  and archives per-seed weights.
 
 ## P2 — debt / hygiene
 

@@ -69,7 +69,10 @@
       "Could you record a {LIABILITYTYPE} of {AMOUNT} having an interest rate of {INTERESTRATE}",
       "How do I capture a recurring credit card payment of {AMOUNT} on a {FREQUENCY} basis",
       "Could you record a new {LIABILITYTYPE} of {AMOUNT} that begins on {DATE} and repeats {FREQUENCY}",
-      "Can you log a new loan of {AMOUNT} with a repayment frequency of {FREQUENCY} starting on {DATE}"
+      "Can you log a new loan of {AMOUNT} with a repayment frequency of {FREQUENCY} starting on {DATE}",
+      "took a {AMOUNT} {LIABILITYTYPE} from {LENDER} at {INTERESTRATE} for {TENUREMONTHS}",
+      "I took a {LIABILITYTYPE} of {AMOUNT} from {LENDER}",
+      "new {LIABILITYTYPE}: {AMOUNT} at {INTERESTRATE} over {TENUREMONTHS}"
     ],
     "UPDATE": [
       "update my {LIABILITYTYPE} balance to {AMOUNT}",
