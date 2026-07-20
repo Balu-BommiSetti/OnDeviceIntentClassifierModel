@@ -697,6 +697,32 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 
 ## P2 — debt / hygiene
 
+- [~] **Shared-pool audit** — done systematically; run 37 measuring.
+  Method: cross-reference IDENTICAL filler values against per-type F1, so only
+  collisions that actually HURT get fixed. Found and fixed:
+    B-LUMPSUM f1 0.111 / recall 0.059 — the worst tag in the model. 8 of its
+      10 values also appeared as DOWNPAYMENT ("2 lakh", "200000", "5 lakhs",
+      "50000"), AMOUNT or TARGETAMOUNT, so it had almost no unique signal.
+      Rebuilt as odd-magnitude windfall values.
+    B-LENDER f1 0.578 / recall 0.433 — shared its two most generic values with
+      other slots ("my friend" with SPLITWITH, "the bank" with ADD_INCOME's
+      MERCHANT pool). Lenders are now INSTITUTIONS; informal person-lending is
+      FAMILY_TRANSFER's territory.
+  PERMANENT GUARD ADDED: assertNoSlotValueCollisions() fails generation when
+  two slots DECLARED BY THE SAME INTENT share filler values. Only same-intent
+  overlap is an error — cross-intent sharing is harmless. It caught a
+  collision I had missed on its very first run (TARGETAMOUNT/AMOUNT both
+  containing "1000000" in GOAL_PLANNING).
+  WHY A HARD GATE: this defect has now appeared THREE times (EXTRAPAYMENT
+  0.500->0.737, TARGETAMOUNT 0.148->0.857, LUMPSUM 0.111->?) and each time was
+  found only after a training run plus a per-type F1 investigation. It is
+  invisible to every count-based gate — rows, diversity and validation all
+  pass happily while the NER head is being taught two labels for one string.
+- [ ] **FREQUENCY tags weak** (I-FREQUENCY f1 0.000 n=2, B-FREQUENCY 0.286
+  n=6) — very low support, so this may be a sample-size artefact rather than a
+  real defect. Measure support before treating it as a bug.
+
+
 - [ ] **Residual double-preposition rows** — 26 of 14,560 (0.18%, was 767).
   Pattern-level compositions like "over the next {PERIOD}" drawing a range
   filler ("from July to October"). Fix is a pattern lint, not a fill() change.

@@ -61,7 +61,12 @@ const SLOT_VALUES: Record<string, string[]> = {
   // presence here taught the NER head to emit spurious LIABILITYTYPE=emi in
   // any EMI-containing sentence (QA commitment_semantics/risk_grade).
   LIABILITYTYPE: ["home loan", "car loan", "personal loan", "credit card debt", "bike loan", "education loan", "gold loan"],
-  LENDER: ["the bank", "HDFC", "SBI", "my friend", "the credit union", "ICICI", "a relative"],
+  // "my friend" also lived in SPLITWITH and "the bank" in ADD_INCOME's MERCHANT
+  // pool, so LENDER shared its two most generic values with two other slots —
+  // B-LENDER f1 0.578 / recall 0.433. Lenders are INSTITUTIONS here; informal
+  // person-lending is FAMILY_TRANSFER's territory, not a LENDER value.
+  LENDER: ["HDFC", "SBI", "ICICI", "Axis Bank", "Kotak", "Bajaj Finance",
+           "the credit union", "LIC", "IDFC", "Yes Bank"],
   GOALNAME: ["a car", "a house", "vacation", "emergency fund", "retirement", "an iphone", "wedding", "a laptop"],
   // TARGETAMOUNT was AMOUNTS — the SAME pool as AMOUNT, and GOAL_PLANNING
   // declares BOTH slots. The model saw "45.50" and "roughly 500" labelled as
@@ -78,7 +83,7 @@ const SLOT_VALUES: Record<string, string[]> = {
   TARGETAMOUNT: [
     "5 lakh", "10 lakh", "15 lakh", "20 lakh", "25 lakh", "50 lakh",
     "1 crore", "2 crore", "5 lakhs", "12 lakhs", "30 lakh",
-    "500000", "1000000", "1500000", "2500000", "75 lakh",
+    "500000", "1050000", "1500000", "2500000", "75 lakh",
   ],
   TARGETDATE: buildTargetDateFillers(),
   // EXTRAPAYMENT is a RECURRING monthly extra on a loan. It shared the full
@@ -91,7 +96,18 @@ const SLOT_VALUES: Record<string, string[]> = {
   // the model learns the distinction from EXTRAPAYMENT by context AND by the
   // kind of number that appears. Conflating the two makes the engine model a
   // one-off bonus as a recurring payment (see DebtScenario).
-  LUMPSUM: ["50000", "100000", "2 lakh", "1.5 lakhs", "200000", "75000", "3 lakh", "5 lakhs", "25000", "10 lakhs"],
+  // REBUILT 2026-07-20 (shared-pool audit). 8 of the 10 previous values also
+  // appeared as DOWNPAYMENT ("2 lakh", "200000", "5 lakhs", "50000"), AMOUNT
+  // or TARGETAMOUNT — so LUMPSUM had almost no unique signal and collapsed to
+  // B-LUMPSUM f1 0.111 / recall 0.059, the worst tag in the model. Same
+  // structural bug as TARGETAMOUNT (0.148 -> 0.857) and EXTRAPAYMENT
+  // (0.500 -> 0.737): two slots drawing from overlapping values inside the
+  // same intent leave only context to separate them, and context is not enough.
+  // A LUMPSUM is a one-off windfall — bonus, maturity, sale proceeds — so the
+  // values are deliberately "odd" magnitudes that a DOWNPAYMENT (round, often
+  // a percentage) and an everyday AMOUNT never take.
+  LUMPSUM: ["1.2 lakh", "3.5 lakh", "8 lakh", "12 lakh", "6.5 lakh",
+            "90000", "65000", "1.8 lakh", "4.2 lakh", "7 lakh"],
   TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months"],
   // SHORT-FORM pools. The generic pools are diversity-weighted toward long
   // forms ("July through October", "in the last 6 weeks", "2.5 lakhs"), so
@@ -585,6 +601,55 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
  * FAMILY_TRANSFER lost 92 of 140 patterns this way and stayed unmeasurable
  * across four training runs before anyone noticed.
  */
+/**
+ * Fail the build when two slots DECLARED BY THE SAME INTENT draw overlapping
+ * filler values.
+ *
+ * WHY THIS IS A HARD GATE
+ * This exact defect has now been found three times, each time only after a
+ * training run and a per-type F1 investigation:
+ *   EXTRAPAYMENT vs AMOUNT      f1 0.500 -> 0.737
+ *   TARGETAMOUNT vs AMOUNT      f1 0.148 -> 0.857  (worst tag in the model)
+ *   LUMPSUM vs DOWNPAYMENT      f1 0.111 -> ?      (8 of 10 values shared)
+ * When one intent declares both slots and they share values, the NER head sees
+ * the same string labelled two ways in the same context and only surrounding
+ * words can separate them — which is not enough. It is invisible in every
+ * count-based gate: row totals, diversity, and validation all pass happily.
+ *
+ * Only SAME-INTENT overlap is an error. AMOUNT and TARGETAMOUNT sharing a
+ * value across two intents that never co-declare them is harmless.
+ */
+function assertNoSlotValueCollisions(specs: IntentSpec[]): void {
+  const problems: string[] = [];
+  for (const spec of specs) {
+    const declared = [...spec.required_entities, ...spec.optional_entities];
+    for (let i = 0; i < declared.length; i++) {
+      for (let j = i + 1; j < declared.length; j++) {
+        const a = declared[i], b = declared[j];
+        const poolA = SLOT_VALUES_BY_INTENT[spec.intent]?.[a] ?? SLOT_VALUES[a];
+        const poolB = SLOT_VALUES_BY_INTENT[spec.intent]?.[b] ?? SLOT_VALUES[b];
+        if (!poolA || !poolB) continue;
+        const setB = new Set(poolB.map((v) => v.toLowerCase()));
+        const shared = poolA.filter((v) => setB.has(v.toLowerCase()));
+        if (shared.length > 0) {
+          problems.push(
+            `${spec.intent}: {${a}} and {${b}} share ${shared.length} value(s) ` +
+            `[${shared.slice(0, 4).join(", ")}${shared.length > 4 ? ", …" : ""}]`
+          );
+        }
+      }
+    }
+  }
+  if (problems.length > 0) {
+    throw new Error(
+      `Slot-value collisions inside a single intent (the NER head cannot learn ` +
+      `to separate these):\n  ${problems.join("\n  ")}\n` +
+      `Give one of each pair its own filler pool — see LUMPSUM/TARGETAMOUNT ` +
+      `for the shape of the fix.`
+    );
+  }
+}
+
 function assertAllSlotsHaveFillers(specs: IntentSpec[]): void {
   const missing: string[] = [];
   for (const spec of specs) {
@@ -610,6 +675,7 @@ function assertAllSlotsHaveFillers(specs: IntentSpec[]): void {
 export function generate(): { rows: Row[]; outPath: string } {
   const specs = loadIntentSpecs();
   assertAllSlotsHaveFillers(specs);
+  assertNoSlotValueCollisions(specs);
   const rng = mulberry32(SEED);
   let rows: Row[] = [];
   for (const spec of specs) rows = rows.concat(generateForSpec(spec, rng));
