@@ -6,7 +6,7 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
-Last updated: 2026-07-20 (iteration 37 — run 29 CRASHED MID-EXPORT (my archive-block bug), caught by gates, export restored from archive; run 29b training).
+Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests MET, QA 53.4%, risk_grade 3/9->7/9, zero spurious EMI tags. App still runs 28.)
 
 ## P0 — blocks shipping
 
@@ -318,7 +318,14 @@ Last updated: 2026-07-20 (iteration 37 — run 29 CRASHED MID-EXPORT (my archive
   model back to run 16. Now backs up/restores the CURRENT model generically,
   and archives per-seed weights.
 
-- [ ] **Run 29 training** *(in flight, seed 101, 16,296 rows)* — the
+- [x] ~~Run 29b~~ — STAGED (not deployed; user-request rule). ALL FOUR
+  success tests met: commitment_semantics 1->2/5 (>1 ✓), risk_grade
+  3/9->7/9 (>5 ✓), spurious LIABILITYTYPE=emi failures 0 ✓, regression
+  92.7% (>=90 ✓). QA 51.4->53.4%, taskType 84.2%, entities 60.0%.
+  Export coherence verified BEFORE scoring (all artifacts within 1s,
+  archive written, TFJS smoke PASS) — the check that would have caught the
+  run-29 corruption immediately.
+  *(original plan below)* — the
   commitment_semantics (1/5) + risk_grade (3/9) batch:
     "EMI" REMOVED from the LIABILITYTYPE filler pool — it is a payment, not
       a liability, and taught spurious LIABILITYTYPE=emi tags in any
