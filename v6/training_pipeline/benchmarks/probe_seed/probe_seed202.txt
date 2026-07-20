@@ -1,0 +1,46 @@
+/Users/balubommisetti/Downloads/OnDeviceIntentClassifierModel/v6/training_pipeline/.venv/lib/python3.11/site-packages/keras/src/layers/core/embedding.py:123: UserWarning: Argument `input_length` is deprecated. Just remove it.
+  warnings.warn(
+/Users/balubommisetti/Downloads/OnDeviceIntentClassifierModel/v6/training_pipeline/.venv/lib/python3.11/site-packages/keras/src/layers/core/embedding.py:126: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(**kwargs)
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:absl:Error in loading the saved optimizer state. As a result, your model is starting with a freshly initialized optimizer.
+
+PROBE SET: 741 labelled queries across 50 buckets
+  intent accuracy      86.6%
+  intent+taskType      80.6%
+
+WEAKEST BUCKETS (intent+taskType):
+  ❌ DEBT_FREEDOM_ANALYSIS|SUMMARY                0/1     0.0%   (intent alone  0.0%)
+  ⚠  DEBT_FREEDOM_ANALYSIS|STRATEGY               4/10   40.0%   (intent alone 50.0%)
+  ⚠  GOAL_PLANNING|ANALYSIS                       6/14   42.9%   (intent alone 57.1%)
+  ⚠  ADD_INCOME|UPDATE                            3/7    42.9%   (intent alone 42.9%)
+  ⚠  SPENDING_ANALYSIS|ANALYSIS                   4/9    44.4%   (intent alone 44.4%)
+  ⚠  ADD_ASSET|UPDATE                             8/17   47.1%   (intent alone 82.4%)
+  ⚠  INCOME_DECLARATION|UPDATE                    1/2    50.0%   (intent alone 100.0%)
+  ⚠  ADD_LIABILITY|UPDATE                        10/19   52.6%   (intent alone 84.2%)
+  ⚠  INCOME_ANALYSIS|COMPARISON                  10/18   55.6%   (intent alone 66.7%)
+  ⚠  FAMILY_TRANSFER|UPDATE                      11/19   57.9%   (intent alone 84.2%)
+  ⚠  ADD_ASSET|DELETE                            12/19   63.2%   (intent alone 68.4%)
+  ⚠  DEBT_FREEDOM_ANALYSIS|RISK                   6/9    66.7%   (intent alone 88.9%)
+  ⚠  LOAN_ANALYSIS|ANALYSIS                      10/15   66.7%   (intent alone 86.7%)
+  ✅ CASHFLOW_WARNING|ANALYSIS                   11/16   68.8%   (intent alone 68.8%)
+  ✅ FAMILY_TRANSFER|CREATE                      14/20   70.0%   (intent alone 70.0%)
+  ✅ INCOME_ANALYSIS|ANALYSIS                    14/20   70.0%   (intent alone 80.0%)
+  ✅ INCOME_ANALYSIS|SUMMARY                     13/18   72.2%   (intent alone 100.0%)
+  ✅ GOAL_PLANNING|CREATE                        14/19   73.7%   (intent alone 78.9%)
+
+TOP INTENT CONFUSIONS:
+    10  FAMILY_TRANSFER -> ADD_EXPENSE
+     8  LOAN_ANALYSIS -> DEBT_FREEDOM_ANALYSIS
+     6  ADD_ASSET -> ADD_EXPENSE
+     5  SPENDING_ANALYSIS -> INCOME_ANALYSIS
+     4  ADD_INCOME -> ADD_EXPENSE
+     4  ADD_INCOME -> INCOME_DECLARATION
+     3  ADD_ASSET -> ADD_LIABILITY
+     3  BUDGET_PLANNING -> SPENDING_ANALYSIS
+     3  GOAL_PLANNING -> BUDGET_PLANNING
+     3  SAVINGS_ADVICE -> GOAL_PLANNING
+     3  INCOME_ANALYSIS -> ADD_INCOME
+     2  ADD_LIABILITY -> ADD_EXPENSE
+
+📊 /Users/balubommisetti/Downloads/OnDeviceIntentClassifierModel/v6/training_pipeline/benchmarks/probe_report.json

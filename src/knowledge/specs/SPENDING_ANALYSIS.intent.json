@@ -76,7 +76,19 @@
       "analyse my {CATEGORY} spend {PERIODSHORT}",
       "give me an analysis of my expenses {PERIODSHORT}",
       "do an analysis on my {CATEGORY} costs",
-      "analyze where my money went {PERIODSHORT}"
+      "analyze where my money went {PERIODSHORT}",
+      "why did my {CATEGORY} bill jump {PERIODSHORT}",
+      "why did my {CATEGORY} bill increase {PERIODSHORT}",
+      "why is my {CATEGORY} bill so high {PERIODSHORT}",
+      "what made my {CATEGORY} bill spike",
+      "why did my {CATEGORY} charges go up {PERIODSHORT}",
+      "why is my {MERCHANT} bill higher {PERIODSHORT}",
+      "what is driving my {CATEGORY} bills",
+      "why did my {CATEGORY} fee increase",
+      "why are my {CATEGORY} charges up {PERIODSHORT}",
+      "what is behind my {CATEGORY} orders {PERIODSHORT}",
+      "why did my {MERCHANT} orders go up",
+      "explain the jump in my {CATEGORY} bill"
     ],
     "SUMMARY": [
       "show my spending report {PERIOD}",

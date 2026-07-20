@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": true,
+    "passed": false,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {
@@ -112,7 +112,7 @@
     "utterance": "show my home loan details"
   },
   "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra on my loan": {
-    "passed": false,
+    "passed": true,
     "utterance": "what if I pay 1000 extra on my loan"
   },
   "NET_WORTH_CHECK|SUMMARY|what is my net worth": {

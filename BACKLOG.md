@@ -125,7 +125,26 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   taxonomy signal in their own right: SIP_VS_PREPAY|SUMMARY 20/20 disputed,
   DEBT_FREEDOM|SCHEDULE 20, DEBT_FREEDOM|SUMMARY 19, INCOME_DECLARATION|
   UPDATE 18 — buckets an LLM cannot reliably separate from their siblings.
-- [~] **PARTIAL: direction-confusion cluster** — run 30 result is MIXED, not
+- [x] **PROBE SET IS THE BETTER RULER** — seed-repeat measured its noise at
+  intent range 0.8pt / bucket 1.0pt across 3 seeds, versus the QA suite's
+  +/-3.7pt intent band. 741 labelled rows beats 247. Use probe_eval deltas
+  for decisions; QA-suite deltas under ~4pt remain meaningless.
+- [~] **RESOLVED-WITH-TRADEOFF: direction-confusion cluster** — seed-repeat
+  (3 seeds on the run-30 dataset) settles it:
+    intent  86.5% mean (range 0.8) vs 29b 87.2%  -> 29b above ALL 3 seeds
+    bucket  80.4% mean (range 1.0) vs 29b 81.1%  -> 29b above ALL 3 seeds
+    DIRECTION ERRORS 15.3 mean (16/17/13) vs 29b 20 -> ALL 3 seeds below
+  Verdict: the fix WORKED on its target (~23% fewer direction errors, outside
+  noise) but TRADED — roughly 5 direction errors fixed, ~4 new errors created
+  elsewhere (GOAL_PLANNING->AFFORDABILITY_CHECK, ADD_LIABILITY->ADD_EXPENSE,
+  BUDGET_PLANNING->SPENDING_ANALYSIS). Net accuracy ~0.7pt down, errors
+  RELOCATED from the highest-stakes category (wrong-signed transactions on
+  write intents) to read-path misroutes. That is a defensible trade but a
+  JUDGEMENT CALL, not a clear win — flagged for the product owner rather than
+  decided silently.
+  CAUTION: FAMILY_TRANSFER->ADD_EXPENSE is unstable across seeds (4/10/4) —
+  do not read a single measurement of it.
+- [~] ~~(superseded)~~ direction-confusion cluster — run 30 result is MIXED, not
   a win. Targeted pairs improved: ADD_INCOME->ADD_EXPENSE 7->5,
   FAMILY_TRANSFER->ADD_INCOME 7->4. But overall moved DOWN slightly
   (intent 87.2->86.0, bucket 81.1->80.8) — WITHIN the measured +/-3.7pt intent
