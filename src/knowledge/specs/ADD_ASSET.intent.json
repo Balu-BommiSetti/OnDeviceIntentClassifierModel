@@ -55,7 +55,9 @@
       "Should I create an entry for the {ASSETTYPE} I purchased with {AMOUNT}",
       "Please log the {ASSETTYPE} I acquired on {DATE} for {AMOUNT}",
       "Need to enter a new {ASSETTYPE} worth {AMOUNT}. How do I do that",
-      "How do I add the {ASSETTYPE} I got for {AMOUNT} into my records"
+      "How do I add the {ASSETTYPE} I got for {AMOUNT} into my records",
+      "record my {AMOUNT} {ASSETTYPE} investment",
+      "add {AMOUNT} {ASSETTYPE} to my portfolio"
     ],
     "UPDATE": [
       "update my {ASSETTYPE} value to {AMOUNT}",
@@ -99,7 +101,11 @@
       "Where can I modify the {ASSETTYPE} value to {AMOUNT} in the system",
       "What is the quickest way to set my {ASSETTYPE} to {AMOUNT} now that I have a new price",
       "How do I go about altering the {ASSETTYPE} amount currently displayed to {AMOUNT}",
-      "Is there a feature to change the existing {ASSETTYPE} value to {AMOUNT}"
+      "Is there a feature to change the existing {ASSETTYPE} value to {AMOUNT}",
+      "update my {ASSETTYPE} to {AMOUNT}",
+      "my {ASSETTYPE} is {AMOUNT} now",
+      "i realized my {ASSETTYPE} are {AMOUNT} now",
+      "change my {ASSETTYPE} value to {AMOUNT}"
     ],
     "DELETE": [
       "remove my {ASSETTYPE} asset",
@@ -149,7 +155,12 @@
       "How might I delete the {ASSETTYPE} that I tracked on {DATE} for {AMOUNT}",
       "Could you take away the {ASSETTYPE} I logged on {DATE} with a price of {AMOUNT}",
       "Would you delete the {ASSETTYPE} I input on {DATE}",
-      "Is it possible to erase the {ASSETTYPE} I captured on {DATE} costing {AMOUNT}"
+      "Is it possible to erase the {ASSETTYPE} I captured on {DATE} costing {AMOUNT}",
+      "delete the {AMOUNT} {ASSETTYPE} i had",
+      "please delete my {AMOUNT} {ASSETTYPE}",
+      "i want to delete the {AMOUNT} {ASSETTYPE}",
+      "remove the {ASSETTYPE} worth {AMOUNT}",
+      "delete my {ASSETTYPE} holding"
     ]
   },
   "short_reply_patterns": {

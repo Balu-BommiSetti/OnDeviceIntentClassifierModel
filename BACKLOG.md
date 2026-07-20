@@ -68,6 +68,34 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 
 ## P1 — quality
 
+- [x] **RUN 31 DEPLOYED to the app** (2026-07-20, app repo afbe04b) — best
+  model to date: probe intent 87.7% / bucket 82.2%, QA 56.3% full pass /
+  62.9% entities, regression 39/41, TFJS smoke PASS, vocab=emb=2705,
+  146/146 tests.
+- [ ] **Run 32 training** — the three weakest buckets, diagnosed together and
+  fixed in ONE run (they are distinct COVERAGE gaps, not boundary shifts, so
+  unlike run 30 they should not trade against each other; probe_eval can
+  attribute each independently afterwards):
+   1. ADD_INCOME|UPDATE (2/7) — 3 of 5 failures went to INCOME_DECLARATION.
+      The real discriminator is a DATE: "change 12th jan salary to 60k" edits
+      one logged TRANSACTION, "my salary is 60k" declares a standing level.
+      Date-anchored edit shapes were missing, so "salary" alone pulled the
+      query to declaration. +7 patterns.
+   2. GOAL_PLANNING|ANALYSIS (5/14) — failures scattered to BUDGET|STATUS,
+      AFFORDABILITY_CHECK and DEBT_FREEDOM|SUMMARY because "am i on track" is
+      STATUS vocabulary and "how long till i reach" is payoff vocabulary.
+      GOAL_PLANNING owned neither, despite progress-tracking BEING the point
+      of its ANALYSIS action. +12 patterns.
+   3. ADD_ASSET (9 misroutes to ADD_EXPENSE/ADD_LIABILITY) — "real estate",
+      "a plot", "shares", "savings bonds", startup investments were absent
+      from the ASSETTYPE pool, so amount + unrecognised noun read as a
+      purchase. Pool 17->23, plus DELETE/UPDATE/CREATE shapes (+11).
+   NOTE: my first attempt at fix 3 asserted against a STALE copy of the
+   ASSETTYPE line and failed silently-ish — the run continued and generated
+   16,662 rows carrying only fixes 1+2. Caught it because the assertion
+   printed a traceback while generation still reported success. Re-applied
+   against the real line; final dataset 16,728 rows.
+
 - [ ] **FIELD REPORT: isolated run, 449 cases** (2026-07-20) — first
   UNCONTAMINATED run; see
   `benchmarks/field_reports/2026-07-20-harness-isolated-449.md`.

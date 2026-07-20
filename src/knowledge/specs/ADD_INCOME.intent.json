@@ -143,7 +143,14 @@
       "make that income {PLAINAMOUNT} instead",
       "change it to {PLAINAMOUNT}",
       "actually the income was {PLAINAMOUNT}",
-      "correct my {DATE} income to {PLAINAMOUNT}"
+      "correct my {DATE} income to {PLAINAMOUNT}",
+      "change {DATE} salary to {AMOUNT}",
+      "change my {DATE} {CATEGORY} income to {AMOUNT}",
+      "correct the {DATE} income entry to {AMOUNT}",
+      "i got {AMOUNT} from {MERCHANT} {DATE}, change it to {PLAINAMOUNT}",
+      "update the {DATE} {CATEGORY} to {AMOUNT}",
+      "the {CATEGORY} i logged {DATE} should be {AMOUNT}",
+      "fix my {DATE} income to {AMOUNT}"
     ],
     "DELETE": [
       "remove the {MERCHANT} income entry",

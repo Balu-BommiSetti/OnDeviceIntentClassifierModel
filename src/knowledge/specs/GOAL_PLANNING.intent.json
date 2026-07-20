@@ -155,7 +155,19 @@
       "What explains the high grocery spending while pushing toward {GOALNAME}",
       "Why do my subscription payments cut into my {GOALNAME} plan",
       "Which merchant categories are responsible for the excess spend on my {GOALNAME} trajectory",
-      "What activities are causing my savings to lag as I plan for {GOALNAME} by {TARGETDATE}"
+      "What activities are causing my savings to lag as I plan for {GOALNAME} by {TARGETDATE}",
+      "am i on track for my {GOALNAME}",
+      "am i on track for my {TARGETAMOUNT} {GOALNAME}",
+      "by {TARGETDATE} am i on target for my {GOALNAME}",
+      "will i meet my {TARGETAMOUNT} {GOALNAME} by {TARGETDATE}",
+      "how long till i reach {TARGETAMOUNT} for my {GOALNAME}",
+      "how long to reach {TARGETAMOUNT} for my {GOALNAME}",
+      "am i getting close to my {GOALNAME} target",
+      "how much should i save monthly for my {GOALNAME}",
+      "what is my progress on the {GOALNAME}",
+      "how far am i from my {TARGETAMOUNT} {GOALNAME}",
+      "is my {GOALNAME} on schedule",
+      "will i hit {TARGETAMOUNT} by {TARGETDATE}"
     ]
   }
 }

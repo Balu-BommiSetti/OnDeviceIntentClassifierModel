@@ -50,7 +50,13 @@ const SLOT_VALUES: Record<string, string[]> = {
   // pool skewed toward INR-typical instruments without common alternatives.
   ASSETTYPE: ["gold", "mutual fund", "stocks", "property", "land", "bitcoin",
     "fixed deposit", "SIP", "a house", "a car", "silver", "platinum",
-    "cryptocurrency", "bonds", "PPF", "NPS", "an ETF"],
+    "cryptocurrency", "bonds", "PPF", "NPS", "an ETF",
+    // Added 2026-07-20: probe sweep showed ADD_ASSET losing 9 cases to
+    // ADD_EXPENSE/ADD_LIABILITY. "real estate", "a plot", "savings bonds",
+    // "shares" and startup investments were absent, so an amount plus an
+    // unrecognised noun read as a purchase rather than an asset.
+    "real estate", "a plot", "shares", "savings bonds",
+    "an investment in a startup", "a recurring deposit"],
   // "EMI" removed 2026-07-19: it is a PAYMENT, not a liability type, and its
   // presence here taught the NER head to emit spurious LIABILITYTYPE=emi in
   // any EMI-containing sentence (QA commitment_semantics/risk_grade).
