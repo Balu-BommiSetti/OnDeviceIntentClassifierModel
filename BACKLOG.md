@@ -91,7 +91,26 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   Also: NAVIGATE was emitted once — a Layer1Intent with no model label and
   no action-mask entry; the app can emit an intent the mask/route map do not
   cover. Add a guard.
-- [ ] **Harness has no ground truth** — records what the model said, never
+- [x] ~~Harness has no ground truth~~ — SOLVED by the probe loop (below).
+  Probes are labelled BY CONSTRUCTION (generated one bucket at a time), so
+  probe_eval.py is a measurement, not a judgement call.
+- [ ] **PROBE LOOP — the new working method (2026-07-20)**
+  `src/knowledge/bucketProbe.ts` + `v6/training_pipeline/probe_eval.py`.
+  Replaces: generate -> TRAIN(25min) -> QA -> read failures -> repeat.
+  With:     generate probes -> SCORE CURRENT MODEL(2min) -> fix only the
+            confirmed-weak buckets -> train ONCE.
+  Every gap we ever hit (ALLOCATION verbs, loan reads, category synonyms) was
+  a coverage problem knowable without training; training was needed to FIX
+  them, never to FIND them.
+  Proven on BUDGET_PLANNING|ALLOCATION in ~90s, no retraining: 58.3%
+  bucket accuracy, confusions BUDGET_PLANNING -> AFFORDABILITY_CHECK (x2),
+  -> INCOME_DECLARATION, -> SAVINGS_ADVICE. Confirms the isolated-run finding
+  that the allocate/distribute verb family is the biggest cheap win.
+  Token cost: ~300 in / ~400 out per bucket; full 55-bucket sweep ~20k tokens.
+  Model: gpt-oss:20b-cloud via the existing provider abstraction (worked
+  first try, realistic + Hinglish). --provider openai available if needed.
+  NEXT: run the full sweep to get a 55-bucket heatmap before any more training.
+- [ ] ~~(superseded)~~ Harness ground-truth note — records what the model said, never
   what it should have said, so NO accuracy figure is computable from any run;
   all findings are inspection-based judgement. Highest-value harness change:
   accept `query | EXPECTED_INTENT | EXPECTED_TASKTYPE` and self-grade, so a
