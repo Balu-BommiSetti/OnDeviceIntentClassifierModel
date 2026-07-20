@@ -1,0 +1,3768 @@
+# NLP Harness Run — 2026-07-20T07:17:37.769Z
+
+## Model provenance
+
+| field | value |
+|---|---|
+| on-device model active | **YES** |
+| vocab size | 2689 |
+| embedding input_dim | 2689 |
+| paired | YES |
+| intents / taskTypes / slots | 19 / 15 / 39 |
+| action-mask intents | 19 |
+| weight shards | group1-shard1of1.bin |
+| isolated mode (no multi-turn carry-over) | **ON** |
+
+## Summary
+
+- cases: **449**
+- errors: **0**
+- below 0.5 confidence floor (would ask user to clarify): **66**
+- zero entities extracted: **123**
+- avg latency: **191 ms**
+
+### Intent distribution
+
+| intent | cases |
+|---|---|
+| SPENDING_ANALYSIS | 120 |
+| BUDGET_PLANNING | 84 |
+| UNKNOWN | 66 |
+| INCOME_ANALYSIS | 53 |
+| ADD_EXPENSE | 50 |
+| DEBT_FREEDOM_ANALYSIS | 25 |
+| LOAN_ANALYSIS | 8 |
+| CASHFLOW_WARNING | 6 |
+| REFUND | 6 |
+| AFFORDABILITY_CHECK | 5 |
+| SIP_VS_PREPAY | 4 |
+| ADD_ASSET | 4 |
+| ADD_LIABILITY | 4 |
+| GOAL_PLANNING | 4 |
+| INCOME_DECLARATION | 3 |
+| ADD_INCOME | 2 |
+| SAVINGS_ADVICE | 2 |
+| NAVIGATE | 1 |
+| FAMILY_TRANSFER | 1 |
+| NET_WORTH_CHECK | 1 |
+
+## Cases
+
+### ADD_ASSET (4)
+
+**201. `gold 3.5l krdo actualy`**
+
+- intent: `ADD_ASSET` @ 0.63 · taskType: `CREATE` @ 0.89
+- model spans: `{"amount":"3.5l"}`
+- mapped: `{"amount":3.5,"date":"2026-07-20"}`
+- route: `ADD_ASSET_CREATE`
+- sources: tfjs-intent-classifier
+
+**318. `add a fixed deposit worth ₹2 lakh today`**
+
+- intent: `ADD_ASSET` @ 1.00 · taskType: `CREATE` @ 0.96
+- model spans: `{"assettype":"fixed deposit","amount":"200000"}`
+- mapped: `{"amount":200000,"date":"2026-07-20"}`
+- route: `ADD_ASSET_CREATE`
+- sources: tfjs-intent-classifier
+
+**319. `update my gold investment to ₹3.5 lakh`**
+
+- intent: `ADD_ASSET` @ 0.84 · taskType: `UPDATE` @ 0.72
+- model spans: `{"liabilitytype":"gold","amount":"350000"}`
+- mapped: `{"amount":350000,"date":"2026-07-20"}`
+- route: `ADD_ASSET_UPDATE`
+- sources: tfjs-intent-classifier
+
+**320. `delete the stocks asset I added yesterday`**
+
+- intent: `ADD_ASSET` @ 1.00 · taskType: `DELETE` @ 1.00
+- model spans: `{"assettype":"stocks"}`
+- mapped: `{"date":"2026-07-19"}`
+- route: `ADD_ASSET_DELETE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: What amount should I record for this asset?
+
+### ADD_EXPENSE (50)
+
+**109. `groceries spend today`**
+
+- intent: `ADD_EXPENSE` @ 0.82 · taskType: `CREATE` @ 0.40
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**185. `swigy pe 560 kharch kiya aaj`**
+
+- intent: `ADD_EXPENSE` @ 0.63 · taskType: `CREATE` @ 0.64
+- model spans: `{"amount":"560"}`
+- mapped: `{"amount":560,"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**186. `zomto se food order 890 kal`**
+
+- intent: `ADD_EXPENSE` @ 0.88 · taskType: `CREATE` @ 0.44
+- model spans: `{"category":"food","amount":"890"}`
+- mapped: `{"amount":890,"category":"Food","date":"2026-07-20","categories":["Food"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**189. `actully swiggy wala 560 nhi 650 tha`**
+
+- intent: `ADD_EXPENSE` @ 0.61 · taskType: `CREATE` @ 0.51
+- model spans: `{"merchant":"swiggy","amount":"560"}`
+- mapped: `{"amount":560,"merchant":"Swiggy","date":"2026-07-20","merchants":["Swiggy"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**190. `wo uber ka expnse hata do`**
+
+- intent: `ADD_EXPENSE` @ 0.86 · taskType: `CREATE` @ 0.44
+- model spans: `{"merchant":"uber"}`
+- mapped: `{"merchant":"Uber","date":"2026-07-20","merchants":["Uber"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**191. `flipkart se 1.5l ka laptop liya`**
+
+- intent: `ADD_EXPENSE` @ 0.67 · taskType: `CREATE` @ 0.92
+- model spans: `{"merchant":"flipkart","amount":"1.5l","goalname":"laptop"}`
+- mapped: `{"amount":1.5,"merchant":"Flipkart","date":"2026-07-20","merchants":["Flipkart"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**200. `2 lakh fd add krdo`**
+
+- intent: `ADD_EXPENSE` @ 0.73 · taskType: `CREATE` @ 0.82
+- model spans: `{"amount":"200000"}`
+- mapped: `{"amount":200000,"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**205. `rahul ko 2500 bheja rent ke liye`**
+
+- intent: `ADD_EXPENSE` @ 0.80 · taskType: `CREATE` @ 0.74
+- model spans: `{"extrapayment":"2500","category":"rent"}`
+- mapped: `{"category":"Rent","date":"2026-07-20","categories":["Rent"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**209. `can i affrd iphone 16 pro`**
+
+- intent: `ADD_EXPENSE` @ 0.66 · taskType: `CREATE` @ 0.74
+- model spans: `{"goalname":"iphone","amount":"16"}`
+- mapped: `{"amount":16,"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**212. `food aur travel me kaha jyda uda diya`**
+
+- intent: `ADD_EXPENSE` @ 0.78 · taskType: `CREATE` @ 0.19
+- model spans: `{"category":"food"}`
+- mapped: `{"category":"Food","date":"2026-07-20","categories":["Food","Travel"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**270. `paid ₹2,450 to Swiggy for food delivery today`**
+
+- intent: `ADD_EXPENSE` @ 0.90 · taskType: `CREATE` @ 0.97
+- model spans: `{"extrapayment":"2,450","merchant":"swiggy","category":"food"}`
+- mapped: `{"merchant":"Swiggy","category":"Food","date":"2026-07-20","categories":["Food"],"merchants":["Swiggy"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**271. `spent 1.5k on groceries at DMart yesterday`**
+
+- intent: `ADD_EXPENSE` @ 0.98 · taskType: `CREATE` @ 0.89
+- model spans: `{"extrapayment":"1500","category":"groceries","date":"yesterday"}`
+- mapped: `{"amount":1500,"category":"Groceries","date":"2026-07-19","categories":["Groceries"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: I can log that expense once you tell me the amount.
+- ⚠️ warnings: Merchant not detected
+
+**272. `blew ₹850 on Uber rides this week`**
+
+- intent: `ADD_EXPENSE` @ 0.96 · taskType: `CREATE` @ 0.90
+- model spans: `{"amount":"850","merchant":"uber","period":"week"}`
+- mapped: `{"amount":850,"merchant":"Uber","period":"this week","merchants":["Uber"],"periods":["week"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**273. `paid 2 lakh for furniture today`**
+
+- intent: `ADD_EXPENSE` @ 0.89 · taskType: `CREATE` @ 0.97
+- model spans: `{"amount":"200000","category":"furniture"}`
+- mapped: `{"amount":200000,"category":"Furniture","date":"2026-07-20","categories":["Furniture"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**274. `dropped ₹3,500 at Amazon for electronics`**
+
+- intent: `ADD_EXPENSE` @ 0.97 · taskType: `CREATE` @ 0.81
+- model spans: `{"targetdate":"3,500","merchant":"amazon","category":"electronics"}`
+- mapped: `{"merchant":"Amazon","category":"Electronics / Gadgets","date":"2026-07-20","categories":["Electronics / Gadgets"],"merchants":["Amazon"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**275. `spent 50k on travel bookings through IRCTC`**
+
+- intent: `ADD_EXPENSE` @ 0.98 · taskType: `CREATE` @ 0.79
+- model spans: `{"amount":"50000","category":"travel"}`
+- mapped: `{"amount":50000,"category":"Travel","date":"2026-07-20","categories":["Travel"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**276. `paid ₹799 for Netflix subscription today`**
+
+- intent: `ADD_EXPENSE` @ 0.94 · taskType: `CREATE` @ 0.97
+- model spans: `{"amount":"799","merchant":"netflix"}`
+- mapped: `{"amount":799,"merchant":"netflix","date":"2026-07-20","merchants":["netflix"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**278. `spent ₹4,250 on Myntra for clothing yesterday`**
+
+- intent: `ADD_EXPENSE` @ 0.96 · taskType: `CREATE` @ 0.90
+- model spans: `{"extrapayment":"4,250","merchant":"myntra","category":"clothing"}`
+- mapped: `{"merchant":"myntra","category":"Clothing","date":"2026-07-19","categories":["Clothing"],"merchants":["myntra"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**279. `fuel bharwaya ₹2,300 today`**
+
+- intent: `ADD_EXPENSE` @ 0.86 · taskType: `CREATE` @ 0.77
+- model spans: `{"category":"fuel","targetdate":"2,300"}`
+- mapped: `{"category":"Fuel","date":"2026-07-20","categories":["Fuel"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**280. `paid ₹18,500 school fees this month`**
+
+- intent: `ADD_EXPENSE` @ 0.68 · taskType: `CREATE` @ 0.73
+- model spans: `{"amount":"18,500"}`
+- mapped: `{"amount":18500,"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**281. `spent ₹650 on medicines at Apollo Pharmacy`**
+
+- intent: `ADD_EXPENSE` @ 0.98 · taskType: `CREATE` @ 0.74
+- model spans: `{"amount":"650"}`
+- mapped: `{"amount":650,"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**282. `paid ₹5,200 electricity bill yesterday`**
+
+- intent: `ADD_EXPENSE` @ 0.88 · taskType: `CREATE` @ 0.84
+- model spans: `{"extrapayment":"5,200","category":"electricity"}`
+- mapped: `{"category":"Electricity Bill","date":"2026-07-19","categories":["Electricity Bill"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**283. `spent ₹1.2L on home renovation last week`**
+
+- intent: `ADD_EXPENSE` @ 0.75 · taskType: `CREATE` @ 0.78
+- model spans: `{"amount":"1.2l","period":"last week"}`
+- mapped: `{"amount":1.2,"period":"last week","periods":["last week"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**284. `coffee at Starbucks ₹480 today`**
+
+- intent: `ADD_EXPENSE` @ 0.95 · taskType: `CREATE` @ 0.69
+- model spans: `{"merchant":"starbucks"}`
+- mapped: `{"merchant":"Starbucks","date":"2026-07-20","merchants":["Starbucks"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**285. `paid ₹950 for broadband bill this month`**
+
+- intent: `ADD_EXPENSE` @ 0.76 · taskType: `CREATE` @ 0.84
+- model spans: `{"amount":"950"}`
+- mapped: `{"amount":950,"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**286. `burnt through ₹7,800 on Zomato and Swiggy this weekend`**
+
+- intent: `ADD_EXPENSE` @ 0.78 · taskType: `CREATE` @ 0.63
+- model spans: `{"extrapayment":"7,800","merchant":"zomato"}`
+- mapped: `{"merchant":"Zomato","date":"2026-07-20","merchants":["Zomato","Swiggy"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**287. `spent ₹11,500 on a new phone from Flipkart`**
+
+- intent: `ADD_EXPENSE` @ 0.95 · taskType: `CREATE` @ 0.99
+- model spans: `{"amount":"11,500","merchant":"flipkart"}`
+- mapped: `{"amount":11500,"merchant":"Flipkart","date":"2026-07-20","merchants":["Flipkart"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**289. `parking and toll ₹540 yesterday`**
+
+- intent: `ADD_EXPENSE` @ 0.68 · taskType: `CREATE` @ 0.77
+- model spans: `{"amount":"540"}`
+- mapped: `{"amount":540,"date":"2026-07-19"}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**290. `actually make the Swiggy expense ₹620 instead`**
+
+- intent: `ADD_EXPENSE` @ 0.97 · taskType: `UPDATE` @ 0.87
+- model spans: `{"merchant":"swiggy","amount":"620"}`
+- mapped: `{"amount":620,"merchant":"Swiggy","date":"2026-07-20","merchants":["Swiggy"]}`
+- route: `ADD_EXPENSE_UPDATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**291. `change my grocery expense to ₹2,850`**
+
+- intent: `ADD_EXPENSE` @ 0.70 · taskType: `UPDATE` @ 0.92
+- model spans: `{"category":"grocery","targetdate":"2,850"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `ADD_EXPENSE_UPDATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**292. `that Uber ride was ₹430 not ₹380`**
+
+- intent: `ADD_EXPENSE` @ 0.84 · taskType: `CREATE` @ 0.55
+- model spans: `{"merchant":"uber","amount":"430"}`
+- mapped: `{"amount":430,"merchant":"Uber","date":"2026-07-20","merchants":["Uber"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**293. `update the Amazon purchase to ₹4,999`**
+
+- intent: `ADD_EXPENSE` @ 0.88 · taskType: `UPDATE` @ 0.62
+- model spans: `{"merchant":"amazon","amount":"4,999"}`
+- mapped: `{"amount":4999,"merchant":"Amazon","date":"2026-07-20","merchants":["Amazon"]}`
+- route: `ADD_EXPENSE_UPDATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**294. `actually rent was ₹28k`**
+
+- intent: `ADD_EXPENSE` @ 0.74 · taskType: `CREATE` @ 0.50
+- model spans: `{"category":"rent","amount":"28000"}`
+- mapped: `{"amount":28000,"category":"Rent","date":"2026-07-20","categories":["Rent"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**295. `make the fuel expense ₹2,750`**
+
+- intent: `ADD_EXPENSE` @ 0.98 · taskType: `CREATE` @ 0.43
+- model spans: `{"category":"fuel","amount":"2,750"}`
+- mapped: `{"amount":2750,"category":"Fuel","date":"2026-07-20","categories":["Fuel"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**298. `update yesterday's electricity bill to ₹4,850`**
+
+- intent: `ADD_EXPENSE` @ 0.76 · taskType: `UPDATE` @ 0.57
+- model spans: `{"category":"electricity","amount":"4,850"}`
+- mapped: `{"amount":4850,"category":"Electricity Bill","date":"2026-07-19","categories":["Electricity Bill"]}`
+- route: `ADD_EXPENSE_UPDATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**299. `actually I spent ₹1.75L on furniture not ₹2 lakh`**
+
+- intent: `ADD_EXPENSE` @ 0.94 · taskType: `CREATE` @ 0.37
+- model spans: `{"category":"furniture","amount":"200000"}`
+- mapped: `{"amount":200000,"category":"Furniture","date":"2026-07-20","categories":["Furniture"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ⚠️ warnings: Merchant not detected
+
+**300. `delete the Netflix subscription payment`**
+
+- intent: `ADD_EXPENSE` @ 0.97 · taskType: `DELETE` @ 0.79
+- model spans: `{"merchant":"netflix"}`
+- mapped: `{"merchant":"netflix","date":"2026-07-20","merchants":["netflix"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**301. `remove today's Swiggy expense`**
+
+- intent: `ADD_EXPENSE` @ 0.99 · taskType: `DELETE` @ 0.80
+- model spans: `{"merchant":"swiggy"}`
+- mapped: `{"merchant":"Swiggy","date":"2026-07-20","merchants":["Swiggy"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**302. `cancel the Amazon electronics purchase`**
+
+- intent: `ADD_EXPENSE` @ 0.99 · taskType: `DELETE` @ 0.60
+- model spans: `{"merchant":"amazon","category":"electronics"}`
+- mapped: `{"merchant":"Amazon","category":"Electronics / Gadgets","date":"2026-07-20","categories":["Electronics / Gadgets"],"merchants":["Amazon"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**303. `delete my Uber expense from yesterday`**
+
+- intent: `ADD_EXPENSE` @ 0.99 · taskType: `DELETE` @ 0.91
+- model spans: `{"merchant":"uber","date":"yesterday"}`
+- mapped: `{"merchant":"Uber","date":"2026-07-19","merchants":["Uber"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**304. `remove the grocery transaction at DMart`**
+
+- intent: `ADD_EXPENSE` @ 0.87 · taskType: `DELETE` @ 0.97
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected; Category not determined — using fallback
+
+**305. `cancel the house rent entry`**
+
+- intent: `ADD_EXPENSE` @ 0.71 · taskType: `DELETE` @ 0.92
+- model spans: `{"category":"rent"}`
+- mapped: `{"category":"Rent","date":"2026-07-20","categories":["Rent"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**306. `delete the fuel expense I logged today`**
+
+- intent: `ADD_EXPENSE` @ 1.00 · taskType: `DELETE` @ 0.99
+- model spans: `{"category":"fuel"}`
+- mapped: `{"category":"Fuel","date":"2026-07-20","categories":["Fuel"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**307. `remove the Starbucks coffee payment`**
+
+- intent: `ADD_EXPENSE` @ 0.87 · taskType: `DELETE` @ 0.95
+- model spans: `{"merchant":"starbucks"}`
+- mapped: `{"merchant":"Starbucks","date":"2026-07-20","merchants":["Starbucks"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**308. `forget the IRCTC travel expense`**
+
+- intent: `ADD_EXPENSE` @ 0.93 · taskType: `CREATE` @ 0.24
+- model spans: `{"category":"travel"}`
+- mapped: `{"category":"Travel","date":"2026-07-20","categories":["Travel"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**309. `delete the electricity bill transaction from this month`**
+
+- intent: `ADD_EXPENSE` @ 0.88 · taskType: `DELETE` @ 0.87
+- model spans: `{"category":"electricity","merchant":"this","period":"month"}`
+- mapped: `{"merchant":"this","category":"Electricity Bill","period":"this month","categories":["Electricity Bill"],"merchants":["this"],"periods":["month"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+**310. `spent ₹450 on Swiggy for dinner today`**
+
+- intent: `ADD_EXPENSE` @ 0.92 · taskType: `CREATE` @ 0.96
+- model spans: `{"amount":"450","merchant":"swiggy"}`
+- mapped: `{"amount":450,"merchant":"Swiggy","date":"2026-07-20","merchants":["Swiggy"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**311. `yesterday paid 1200 rent by UPI`**
+
+- intent: `ADD_EXPENSE` @ 0.92 · taskType: `CREATE` @ 0.98
+- model spans: `{"extrapayment":"1200","category":"rent"}`
+- mapped: `{"category":"Rent","date":"2026-07-19","categories":["Rent"]}`
+- route: `ADD_EXPENSE_CREATE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected
+
+**312. `actually the Amazon gadget expense was ₹3200 not ₹2800`**
+
+- intent: `ADD_EXPENSE` @ 0.96 · taskType: `UPDATE` @ 0.86
+- model spans: `{"merchant":"amazon","targetdate":"3200","amount":"2800"}`
+- mapped: `{"amount":2800,"merchant":"Amazon","date":"2026-07-20","merchants":["Amazon"]}`
+- route: `ADD_EXPENSE_UPDATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**313. `delete the Starbucks coffee expense from last week`**
+
+- intent: `ADD_EXPENSE` @ 0.96 · taskType: `DELETE` @ 0.93
+- model spans: `{"merchant":"starbucks","period":"last week"}`
+- mapped: `{"merchant":"Starbucks","period":"last week","merchants":["Starbucks"],"periods":["last week"]}`
+- route: `ADD_EXPENSE_DELETE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected
+
+### ADD_INCOME (2)
+
+**315. `got 15000 from freelance work via bank transfer yesterday`**
+
+- intent: `ADD_INCOME` @ 0.96 · taskType: `CREATE` @ 0.96
+- model spans: `{"amount":"15000","payment_method":"bank transfer","date":"yesterday"}`
+- mapped: `{"amount":15000,"date":"2026-07-19"}`
+- route: `ADD_INCOME_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: Who was this payment to or for?
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**328. `actually make the transfer to Priya ₹1800`**
+
+- intent: `ADD_INCOME` @ 0.70 · taskType: `UPDATE` @ 0.70
+- model spans: `{"targetdate":"1800"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `ADD_INCOME_UPDATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: How much was it?
+- ⚠️ warnings: Amount not detected; Merchant not detected; Category not determined — using fallback
+
+### ADD_LIABILITY (4)
+
+**202. `bike loan 95000 liya hdfc se`**
+
+- intent: `ADD_LIABILITY` @ 0.61 · taskType: `CREATE` @ 0.64
+- model spans: `{"liabilitytype":"bike loan","amount":"95000"}`
+- mapped: `{"amount":95000,"date":"2026-07-20"}`
+- route: `ADD_LIABILITY_CREATE`
+- sources: tfjs-intent-classifier
+
+**321. `took a home loan of ₹45 lakh from SBI at 8.4% for 20 years`**
+
+- intent: `ADD_LIABILITY` @ 0.98 · taskType: `CREATE` @ 0.99
+- model spans: `{"liabilitytype":"home loan","amount":"4500000","tenuremonths":"20 years"}`
+- mapped: `{"amount":4500000,"date":"2026-07-20"}`
+- route: `ADD_LIABILITY_CREATE`
+- sources: tfjs-intent-classifier
+
+**322. `actually the personal loan amount is ₹4 lakh not ₹5 lakh`**
+
+- intent: `ADD_LIABILITY` @ 0.94 · taskType: `UPDATE` @ 0.95
+- model spans: `{"liabilitytype":"loan","amount":"400000"}`
+- mapped: `{"amount":400000,"date":"2026-07-20"}`
+- route: `ADD_LIABILITY_UPDATE`
+- sources: tfjs-intent-classifier
+
+**323. `remove the bike loan entry`**
+
+- intent: `ADD_LIABILITY` @ 0.91 · taskType: `DELETE` @ 0.96
+- model spans: `{"liabilitytype":"bike loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `ADD_LIABILITY_DELETE`
+- sources: tfjs-intent-classifier
+- ❓ clarification: What monthly or one-time amount should I use for this liability?
+
+### AFFORDABILITY_CHECK (5)
+
+**56. `plan a ₹70000 monthly budget`**
+
+- intent: `AFFORDABILITY_CHECK` @ 0.70 · taskType: `ANALYSIS` @ 0.12
+- model spans: `{"amount":"70000"}`
+- mapped: `{"amount":70000,"date":"2026-07-20"}`
+- route: `AFFORDABILITY_CHECK_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**93. `help me allocate ₹10000 just for groceries entertainment and transport`**
+
+- intent: `AFFORDABILITY_CHECK` @ 0.61 · taskType: `ANALYSIS` @ 0.14
+- model spans: `{"amount":"10000","category":"groceries"}`
+- mapped: `{"amount":10000,"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `AFFORDABILITY_CHECK_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**252. `what if I make a lump sum prepayment of ₹2 lakh`**
+
+- intent: `AFFORDABILITY_CHECK` @ 0.77 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"amount":"200000"}`
+- mapped: `{"amount":200000,"date":"2026-07-20"}`
+- route: `AFFORDABILITY_CHECK_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**353. `can I afford an iPhone worth ₹90000 right now`**
+
+- intent: `AFFORDABILITY_CHECK` @ 0.91 · taskType: `ANALYSIS` @ 0.38
+- model spans: `{"goalname":"an iphone","amount":"90000"}`
+- mapped: `{"amount":90000,"date":"2026-07-20"}`
+- route: `AFFORDABILITY_CHECK_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**354. `what if I buy a bike for ₹1.5 lakh next month`**
+
+- intent: `AFFORDABILITY_CHECK` @ 0.99 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"goalname":"bike","amount":"150000"}`
+- mapped: `{"amount":150000,"date":"2026-07-20"}`
+- route: `AFFORDABILITY_CHECK_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+### BUDGET_PLANNING (84)
+
+**2. `show my current budget summary`**
+
+- intent: `BUDGET_PLANNING` @ 0.98 · taskType: `SUMMARY` @ 0.97
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**4. `budget summary for this quarter`**
+
+- intent: `BUDGET_PLANNING` @ 0.95 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**5. `what's my monthly budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.69 · taskType: `SUMMARY` @ 0.45
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**6. `budget overview for last month`**
+
+- intent: `BUDGET_PLANNING` @ 0.88 · taskType: `SUMMARY` @ 0.95
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","periods":["last month"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**8. `this year's budget summary`**
+
+- intent: `BUDGET_PLANNING` @ 0.92 · taskType: `SUMMARY` @ 0.96
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","periods":["year"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**9. `budget details for the last 30 days`**
+
+- intent: `BUDGET_PLANNING` @ 0.74 · taskType: `SUMMARY` @ 0.93
+- model spans: `{"period":"30 days"}`
+- mapped: `{"period":"30 days","periods":["30 days"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**10. `how much is my total planned budget`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.90
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**14. `show budget for March 2024`**
+
+- intent: `BUDGET_PLANNING` @ 0.81 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"period":"march 2024"}`
+- mapped: `{"period":"march 2024","periods":["march 2024"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**15. `budget summary between March and June`**
+
+- intent: `BUDGET_PLANNING` @ 0.86 · taskType: `SUMMARY` @ 0.93
+- model spans: `{"period":"march and june"}`
+- mapped: `{"period":"march and june","periods":["march and june"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**16. `what budget did i set for groceries`**
+
+- intent: `BUDGET_PLANNING` @ 0.91 · taskType: `STATUS` @ 0.56
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**19. `budget summary for H1`**
+
+- intent: `BUDGET_PLANNING` @ 0.93 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"period":"h1"}`
+- mapped: `{"period":"h1","periods":["h1"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**21. `how much budget is left this month`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.69
+- model spans: `{"date":"this"}`
+- mapped: `{"date":"this"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**22. `am i over my grocery budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.94 · taskType: `STATUS` @ 0.95
+- model spans: `{"category":"grocery"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**23. `am i within my food budget this week`**
+
+- intent: `BUDGET_PLANNING` @ 0.92 · taskType: `STATUS` @ 0.96
+- model spans: `{"category":"food","period":"week"}`
+- mapped: `{"category":"Food","period":"this week","categories":["Food"],"periods":["week"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**24. `budget status for dining out`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `SUMMARY` @ 0.80
+- model spans: `{"category":"dining"}`
+- mapped: `{"category":"Dining Out","date":"2026-07-20","categories":["Dining Out"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**25. `did i exceed my travel budget last month`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `STATUS` @ 0.98
+- model spans: `{"category":"travel","period":"last"}`
+- mapped: `{"category":"Travel","period":"last","categories":["Travel"],"periods":["last"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**26. `is my rent budget on track`**
+
+- intent: `BUDGET_PLANNING` @ 0.95 · taskType: `SUMMARY` @ 0.64
+- model spans: `{"category":"rent"}`
+- mapped: `{"category":"Rent","date":"2026-07-20","categories":["Rent"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**27. `how is my entertainment budget doing`**
+
+- intent: `BUDGET_PLANNING` @ 0.72 · taskType: `SUMMARY` @ 0.65
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**28. `am i close to crossing my fuel budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `STATUS` @ 0.99
+- model spans: `{"category":"fuel"}`
+- mapped: `{"category":"Fuel","date":"2026-07-20","categories":["Fuel"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**29. `check my budget status for this quarter`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `SUMMARY` @ 0.99
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**30. `which budget am i overspending`**
+
+- intent: `BUDGET_PLANNING` @ 0.89 · taskType: `STATUS` @ 0.88
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**31. `is my healthcare budget still safe`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.67
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**32. `how much budget remains for groceries`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.70
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**33. `have i crossed my shopping budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.90 · taskType: `STATUS` @ 0.98
+- model spans: `{"category":"shopping"}`
+- mapped: `{"category":"Clothing","date":"2026-07-20","categories":["Clothing"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**34. `budget status for March 2024`**
+
+- intent: `BUDGET_PLANNING` @ 0.96 · taskType: `SUMMARY` @ 0.96
+- model spans: `{"period":"march 2024"}`
+- mapped: `{"period":"march 2024","periods":["march 2024"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**35. `am i under budget this year`**
+
+- intent: `BUDGET_PLANNING` @ 0.87 · taskType: `STATUS` @ 0.57
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","periods":["year"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**36. `how much of my budget have i used`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `STATUS` @ 0.55
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**39. `kitna budget bacha is mahine`**
+
+- intent: `BUDGET_PLANNING` @ 0.85 · taskType: `SUMMARY` @ 0.45
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**40. `mera grocery budget cross hua kya`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `STATUS` @ 0.60
+- model spans: `{"category":"grocery"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**41. `help me split a ₹50000 monthly budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.96 · taskType: `ALLOCATION` @ 0.72
+- model spans: `{"amount":"50000"}`
+- mapped: `{"amount":50000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**43. `how should i divide ₹1 lakh every month`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 1.00
+- model spans: `{"amount":"100000"}`
+- mapped: `{"amount":100000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**44. `suggest a budget for groceries dining out and travel`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.95
+- model spans: `{"category":"groceries dining out"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries","Travel"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**45. `split my monthly budget across all major categories`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.80
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**48. `help me budget ₹2 lakh for the next 6 months`**
+
+- intent: `BUDGET_PLANNING` @ 0.96 · taskType: `SUMMARY` @ 0.96
+- model spans: `{"period":"6 months"}`
+- mapped: `{"amount":200000,"period":"6 months","periods":["6 months"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**49. `budget allocation for a family of four`**
+
+- intent: `BUDGET_PLANNING` @ 0.92 · taskType: `ALLOCATION` @ 0.70
+- model spans: `{"goalname":"a"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**50. `suggest category wise budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.98 · taskType: `SUMMARY` @ 0.57
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**51. `how should i split ₹30000 between groceries and bills`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `ALLOCATION` @ 1.00
+- model spans: `{"amount":"30000","category":"groceries"}`
+- mapped: `{"amount":30000,"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**52. `divide ₹5000 between tea coffee and snacks`**
+
+- intent: `BUDGET_PLANNING` @ 0.64 · taskType: `ALLOCATION` @ 0.27
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**53. `allocate budget for travel next quarter`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.86
+- model spans: `{"category":"travel","period":"quarter"}`
+- mapped: `{"category":"Travel","period":"quarter","categories":["Travel"],"periods":["quarter"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**54. `create a monthly spending allocation of ₹45000`**
+
+- intent: `BUDGET_PLANNING` @ 0.78 · taskType: `ALLOCATION` @ 0.12
+- model spans: `{"amount":"45000"}`
+- mapped: `{"amount":45000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**55. `how much should i budget for healthcare`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.57
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**57. `suggest a balanced budget for this year`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.98
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","periods":["year"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**58. `split ₹1.5 lakh across rent groceries travel and savings`**
+
+- intent: `BUDGET_PLANNING` @ 0.71 · taskType: `ALLOCATION` @ 0.74
+- model spans: `{"amount":"150000","category":"rent groceries"}`
+- mapped: `{"amount":150000,"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**59. `budget allocation between March and June`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.65
+- model spans: `{"period":"march and june"}`
+- mapped: `{"period":"march and june","periods":["march and june"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**60. `how should i distribute my budget this quarter`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.76
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**62. `help me prioritize my monthly budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `SUMMARY` @ 0.64
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**63. `give me a 50k budget split`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.84
+- model spans: `{}`
+- mapped: `{"amount":50000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**64. `i have ₹90000 this month how should i allocate it`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.96
+- model spans: `{"amount":"90000"}`
+- mapped: `{"amount":90000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**65. `how much should go to food if my budget is ₹40000`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.95
+- model spans: `{"category":"food","amount":"40000"}`
+- mapped: `{"amount":40000,"category":"Food","date":"2026-07-20","categories":["Food"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**66. `budget allocation for groceries fuel and utilities`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.88
+- model spans: `{"category":"groceries fuel"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**67. `plan my budget for last quarter`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.96
+- model spans: `{"period":"last quarter"}`
+- mapped: `{"period":"last quarter","periods":["last quarter"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**68. `suggest a budget for someone earning ₹1 lakh`**
+
+- intent: `BUDGET_PLANNING` @ 0.96 · taskType: `ALLOCATION` @ 0.80
+- model spans: `{"amount":"100000"}`
+- mapped: `{"amount":100000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**69. `help me allocate ₹120000 for Q2`**
+
+- intent: `BUDGET_PLANNING` @ 0.97 · taskType: `ALLOCATION` @ 0.45
+- model spans: `{"amount":"120000","period":"q2"}`
+- mapped: `{"amount":120000,"period":"q2","periods":["q2"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**70. `how should i divide ₹25000 this month`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.97
+- model spans: `{"amount":"25000"}`
+- mapped: `{"amount":25000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**71. `budget split for groceries rent and entertainment`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.96
+- model spans: `{"category":"groceries rent"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**72. `allocate ₹55000 with higher healthcare budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.82 · taskType: `SUMMARY` @ 0.53
+- model spans: `{"amount":"55000"}`
+- mapped: `{"amount":55000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**73. `plan my budget for H2`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.94
+- model spans: `{"period":"h2"}`
+- mapped: `{"period":"h2","periods":["h2"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**74. `how should i split ₹65000 between categories`**
+
+- intent: `BUDGET_PLANNING` @ 0.99 · taskType: `ALLOCATION` @ 0.96
+- model spans: `{"amount":"65000"}`
+- mapped: `{"amount":65000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**75. `give me a budget allocation for March 2024`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.87
+- model spans: `{"period":"march 2024"}`
+- mapped: `{"period":"march 2024","periods":["march 2024"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**77. `budget planning for the next 3 months`**
+
+- intent: `BUDGET_PLANNING` @ 0.86 · taskType: `SUMMARY` @ 0.85
+- model spans: `{"period":"3 months"}`
+- mapped: `{"period":"3 months","periods":["3 months"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**79. `suggest a realistic budget for bills and groceries`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.89
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**81. `allocate only ₹15000 for discretionary spending`**
+
+- intent: `BUDGET_PLANNING` @ 0.86 · taskType: `SUMMARY` @ 0.31
+- model spans: `{"amount":"15000"}`
+- mapped: `{"amount":15000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**82. `i need a budget plan for ₹45000 this month`**
+
+- intent: `BUDGET_PLANNING` @ 0.98 · taskType: `ALLOCATION` @ 0.60
+- model spans: `{"targetamount":"45000"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**83. `how should i allocate ₹3000 for food this week`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 1.00
+- model spans: `{"extrapayment":"3000","category":"food","period":"week"}`
+- mapped: `{"category":"Food","period":"this week","categories":["Food"],"periods":["week"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**84. `budget allocation for last 30 days`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.50
+- model spans: `{"period":"last 30 days"}`
+- mapped: `{"period":"last 30 days","periods":["last 30 days"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**85. `plan my category budgets for year to date`**
+
+- intent: `BUDGET_PLANNING` @ 0.93 · taskType: `SUMMARY` @ 0.85
+- model spans: `{"period":"year to date"}`
+- mapped: `{"period":"year to date","periods":["year to date"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**86. `help me divide my budget between groceries and dining out`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 1.00
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries","Dining Out"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**90. `budget ₹50000 with separate fuel and travel allocation`**
+
+- intent: `BUDGET_PLANNING` @ 0.69 · taskType: `SUMMARY` @ 0.66
+- model spans: `{"amount":"50000","category":"fuel"}`
+- mapped: `{"amount":50000,"category":"Fuel","date":"2026-07-20","categories":["Fuel","Travel"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**91. `plan a budget for groceries from Jan to April`**
+
+- intent: `BUDGET_PLANNING` @ 0.98 · taskType: `SUMMARY` @ 0.65
+- model spans: `{"category":"groceries","period":"jan to april"}`
+- mapped: `{"category":"Groceries","period":"jan to april","categories":["Groceries"],"periods":["jan to april"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**92. `split ₹35000 for essentials and non essentials`**
+
+- intent: `BUDGET_PLANNING` @ 0.77 · taskType: `ALLOCATION` @ 0.23
+- model spans: `{"amount":"35000"}`
+- mapped: `{"amount":35000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**94. `suggest budget percentages for all categories`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.49
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**95. `budget planning for the next quarter`**
+
+- intent: `BUDGET_PLANNING` @ 0.92 · taskType: `SUMMARY` @ 0.89
+- model spans: `{"period":"next quarter"}`
+- mapped: `{"period":"next quarter","periods":["next quarter"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**96. `allocate ₹6000 for food delivery and dining out`**
+
+- intent: `BUDGET_PLANNING` @ 0.82 · taskType: `SUMMARY` @ 0.48
+- model spans: `{"category":"food"}`
+- mapped: `{"category":"Food","date":"2026-07-20","categories":["Food","Dining Out"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**97. `plan my monthly budget with ₹75000 available`**
+
+- intent: `BUDGET_PLANNING` @ 0.96 · taskType: `SUMMARY` @ 0.38
+- model spans: `{"amount":"75000"}`
+- mapped: `{"amount":75000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**98. `how should i allocate ₹500000 this year`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.91
+- model spans: `{"amount":"500000","period":"year"}`
+- mapped: `{"amount":500000,"period":"this year","periods":["year"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**99. `suggest a weekly budget for groceries and fuel`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.86
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries","Fuel"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**100. `help me allocate my budget better`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.95
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**102. `budget allocation for rent electricity and internet`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.97
+- model spans: `{"category":"rent"}`
+- mapped: `{"category":"Rent","date":"2026-07-20","categories":["Rent","Electricity Bill","Internet / Broadband"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**103. `suggest category wise budget for H1`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `SUMMARY` @ 0.61
+- model spans: `{"period":"h1"}`
+- mapped: `{"period":"h1","periods":["h1"]}`
+- route: `BUDGET_PLANNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**105. `how should i budget ₹2500 for this weekend`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 0.57
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+**106. `plan a monthly budget around ₹55000`**
+
+- intent: `BUDGET_PLANNING` @ 0.96 · taskType: `STATUS` @ 0.28
+- model spans: `{"amount":"55000"}`
+- mapped: `{"amount":55000,"date":"2026-07-20"}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**342. `how much budget is left for groceries this month`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `STATUS` @ 0.63
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**343. `am I over my dining out budget`**
+
+- intent: `BUDGET_PLANNING` @ 0.98 · taskType: `STATUS` @ 0.98
+- model spans: `{"category":"dining out"}`
+- mapped: `{"category":"Dining Out","date":"2026-07-20","categories":["Dining Out"]}`
+- route: `BUDGET_PLANNING_STATUS`
+- sources: tfjs-intent-classifier
+
+**344. `suggest how to split my monthly budget across rent food and savings`**
+
+- intent: `BUDGET_PLANNING` @ 1.00 · taskType: `ALLOCATION` @ 1.00
+- model spans: `{"category":"rent"}`
+- mapped: `{"category":"Rent","date":"2026-07-20","categories":["Rent"]}`
+- route: `BUDGET_PLANNING_ALLOCATION`
+- sources: tfjs-intent-classifier
+
+### CASHFLOW_WARNING (6)
+
+**112. `where did my money go this month`**
+
+- intent: `CASHFLOW_WARNING` @ 0.96 · taskType: `SUMMARY` @ 0.66
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `CASHFLOW_WARNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**332. `this month where did all my money go`**
+
+- intent: `CASHFLOW_WARNING` @ 0.97 · taskType: `SUMMARY` @ 0.95
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `CASHFLOW_WARNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**347. `am I likely to run short of cash before month end`**
+
+- intent: `CASHFLOW_WARNING` @ 1.00 · taskType: `SUMMARY` @ 0.97
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `CASHFLOW_WARNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**348. `analyze my cashflow for the last 30 days`**
+
+- intent: `CASHFLOW_WARNING` @ 1.00 · taskType: `ANALYSIS` @ 0.67
+- model spans: `{"period":"30 days"}`
+- mapped: `{"period":"30 days","periods":["30 days"]}`
+- route: `CASHFLOW_WARNING_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**389. `Where did my money go last year?`**
+
+- intent: `CASHFLOW_WARNING` @ 0.89 · taskType: `SUMMARY` @ 0.73
+- model spans: `{"period":"last year"}`
+- mapped: `{"period":"last year","periods":["last year"]}`
+- route: `CASHFLOW_WARNING_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**444. `Man, I feel like I'm burning cash too fast. How much did I waste on Zomato this week?`**
+
+- intent: `CASHFLOW_WARNING` @ 0.98 · taskType: `SUMMARY` @ 0.94
+- model spans: `{"merchant":"zomato","period":"week"}`
+- mapped: `{"merchant":"Zomato","period":"this week","merchants":["Zomato"],"periods":["week"]}`
+- route: `CASHFLOW_WARNING_SUMMARY`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+### DEBT_FREEDOM_ANALYSIS (25)
+
+**87. `allocate ₹250000 over the next 12 months`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.65 · taskType: `SCHEDULE` @ 0.45
+- model spans: `{"amount":"250000","targetdate":"12","tenuremonths":"months"}`
+- mapped: `{"amount":250000,"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SCHEDULE`
+- sources: tfjs-intent-classifier
+
+**241. `how much EMI am I paying every month across all loans`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.92 · taskType: `SCHEDULE` @ 0.84
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SCHEDULE`
+- sources: tfjs-intent-classifier
+
+**247. `loan summary for all my active loans`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.60
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**250. `when will I become debt free at my current EMI`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.91 · taskType: `SUMMARY` @ 0.85
+- model spans: `{"liabilitytype":"loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**251. `if I pay ₹5,000 extra every month when will I clear my home loan`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.99 · taskType: `WHAT_IF` @ 0.99
+- model spans: `{"extrapayment":"5,000","liabilitytype":"home loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**253. `which loan should I pay off first to become debt free faster`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.99 · taskType: `STRATEGY` @ 1.00
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_STRATEGY`
+- sources: tfjs-intent-classifier
+
+**254. `give me a debt payoff strategy`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.95 · taskType: `SCHEDULE` @ 0.60
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SCHEDULE`
+- sources: tfjs-intent-classifier
+
+**255. `show me my debt payoff schedule`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.88 · taskType: `SUMMARY` @ 0.76
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**256. `how much sooner will I finish if I increase my EMI by ₹10k`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.91 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"amount":"10000"}`
+- mapped: `{"amount":10000,"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**257. `is it risky to keep paying only the minimum EMI`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.96 · taskType: `RISK` @ 0.99
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_RISK`
+- sources: tfjs-intent-classifier
+
+**258. `what happens if I add an extra ₹2,000 every month towards my loan`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.97 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"extrapayment":"2,000"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**259. `how many years left until all my loans are cleared`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.88
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**260. `if I get a ₹1 lakh bonus where should I put it to become debt free sooner`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.68 · taskType: `STRATEGY` @ 0.75
+- model spans: `{"amount":"100000","liabilitytype":"loan"}`
+- mapped: `{"amount":100000,"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_STRATEGY`
+- sources: tfjs-intent-classifier
+
+**262. `what's the fastest way to close all my loans`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.96 · taskType: `STRATEGY` @ 0.92
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_STRATEGY`
+- sources: tfjs-intent-classifier
+
+**263. `how much extra should I pay each month to finish my loan in 5 years`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.78 · taskType: `WHAT_IF` @ 0.46
+- model spans: `{"liabilitytype":"loan","targetdate":"5 years"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**264. `if I skip one EMI will it delay my debt freedom by much`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.79 · taskType: `STRATEGY` @ 0.76
+- model spans: `{"liabilitytype":"loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_STRATEGY`
+- sources: tfjs-intent-classifier
+
+**265. `does extending my tenure reduce my financial stress`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.61 · taskType: `RISK` @ 0.93
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_RISK`
+- sources: tfjs-intent-classifier
+
+**269. `extra payment karu ya current EMI continue karu to jaldi debt free hoga`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.69 · taskType: `SCHEDULE` @ 0.73
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SCHEDULE`
+- sources: tfjs-intent-classifier
+
+**355. `is my home loan EMI too high for my income`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.88 · taskType: `RISK` @ 1.00
+- model spans: `{"liabilitytype":"home loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_RISK`
+- sources: tfjs-intent-classifier
+
+**357. `loan summary for all active loans`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.82 · taskType: `SUMMARY` @ 0.36
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**358. `if I increase my EMI by ₹5000 how soon will I become debt free`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.73 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"extrapayment":"5000"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**359. `when will I clear all my loans`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.95
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**360. `best strategy to become debt free faster`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.68 · taskType: `STRATEGY` @ 0.55
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_STRATEGY`
+- sources: tfjs-intent-classifier
+
+**361. `what are the risks if I pay only the minimum EMI`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 0.79 · taskType: `WHAT_IF` @ 0.85
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**362. `give me a payoff schedule with ₹10000 extra every month`**
+
+- intent: `DEBT_FREEDOM_ANALYSIS` @ 1.00 · taskType: `WHAT_IF` @ 0.36
+- model spans: `{"extrapayment":"10000"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `DEBT_FREEDOM_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+### FAMILY_TRANSFER (1)
+
+**329. `remove the money I sent to Amit yesterday`**
+
+- intent: `FAMILY_TRANSFER` @ 0.83 · taskType: `DELETE` @ 1.00
+- model spans: `{"date":"yesterday"}`
+- mapped: `{"date":"2026-07-19"}`
+- route: `FAMILY_TRANSFER_DELETE`
+- sources: tfjs-intent-classifier → fallback-category
+- ⚠️ warnings: Amount not detected; Merchant not detected; Category not determined — using fallback
+
+### GOAL_PLANNING (4)
+
+**210. `trip ke liye 3l save krna h goal bnao`**
+
+- intent: `GOAL_PLANNING` @ 0.68 · taskType: `ANALYSIS` @ 0.77
+- model spans: `{"amount":"3l"}`
+- mapped: `{"amount":3,"date":"2026-07-20"}`
+- route: `GOAL_PLANNING_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**350. `create a goal to save ₹5 lakh for a car in 3 years`**
+
+- intent: `GOAL_PLANNING` @ 1.00 · taskType: `CREATE` @ 0.50
+- model spans: `{"targetamount":"500000","goalname":"a car","targetdate":"3 years"}`
+- mapped: `{"amount":500000,"date":"2026-07-20"}`
+- route: `GOAL_PLANNING_CREATE`
+- sources: tfjs-intent-classifier
+
+**351. `increase my vacation goal to ₹2 lakh`**
+
+- intent: `GOAL_PLANNING` @ 1.00 · taskType: `UPDATE` @ 0.84
+- model spans: `{"goalname":"vacation","targetamount":"200000"}`
+- mapped: `{"amount":200000,"date":"2026-07-20"}`
+- route: `GOAL_PLANNING_UPDATE`
+- sources: tfjs-intent-classifier
+
+**352. `am I on track to reach my house down payment goal`**
+
+- intent: `GOAL_PLANNING` @ 1.00 · taskType: `ANALYSIS` @ 0.94
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `GOAL_PLANNING_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+### INCOME_ANALYSIS (53)
+
+**139. `snacks vs tea and coffee last month`**
+
+- intent: `INCOME_ANALYSIS` @ 0.88 · taskType: `COMPARISON` @ 0.91
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","period1":"2026-07","period2":"2026-06","periods":["last month"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**147. `how much income did i receive this month`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `SUMMARY` @ 0.48
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**148. `last month total income`**
+
+- intent: `INCOME_ANALYSIS` @ 0.93 · taskType: `SUMMARY` @ 0.70
+- model spans: `{"period":"month"}`
+- mapped: `{"period":"last month","periods":["month"]}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**149. `salary received this month`**
+
+- intent: `INCOME_ANALYSIS` @ 0.83 · taskType: `TREND` @ 0.15
+- model spans: `{"period":"month"}`
+- mapped: `{"period":"this month","periods":["month"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**150. `freelance income this quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `TREND` @ 0.66
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**151. `bonus received this year`**
+
+- intent: `INCOME_ANALYSIS` @ 0.65 · taskType: `SUMMARY` @ 0.18
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","periods":["year"]}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**152. `interest income last month`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `TREND` @ 0.75
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","periods":["last month"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**153. `rental income this quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 0.98 · taskType: `TREND` @ 0.63
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**156. `why is my income lower this month`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `ANALYSIS` @ 0.93
+- model spans: `{"period":"this month"}`
+- mapped: `{"period":"this month","periods":["this month"]}`
+- route: `INCOME_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**157. `why did my salary drop compared to last month`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `ANALYSIS` @ 0.96
+- model spans: `{"period":"last"}`
+- mapped: `{"period":"last","period1":"2026-07","period2":"last","periods":["last"]}`
+- route: `INCOME_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**158. `income insights for the last 6 months`**
+
+- intent: `INCOME_ANALYSIS` @ 0.74 · taskType: `TREND` @ 0.71
+- model spans: `{"period":"last 6 months"}`
+- mapped: `{"period":"last 6 months","periods":["last 6 months"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**159. `anything unusual in my income recently`**
+
+- intent: `INCOME_ANALYSIS` @ 0.98 · taskType: `TREND` @ 0.58
+- model spans: `{"period":"recently"}`
+- mapped: `{"date":"2026-07-18","periods":["recently"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**160. `salary vs freelance income this year`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.82
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","period1":"2026-07","period2":"year","periods":["year"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**161. `this month vs last month income`**
+
+- intent: `INCOME_ANALYSIS` @ 0.87 · taskType: `COMPARISON` @ 0.96
+- model spans: `{"period":"month"}`
+- mapped: `{"period":"this month","period1":"month","period2":"2026-06","periods":["month","last month"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**162. `Q1 vs Q2 income`**
+
+- intent: `INCOME_ANALYSIS` @ 0.97 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"q1"}`
+- mapped: `{"period":"q1","period1":"2026-01-01","period2":"2026-04-01","periods":["q1","q2"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**163. `H1 vs H2 income`**
+
+- intent: `INCOME_ANALYSIS` @ 0.96 · taskType: `COMPARISON` @ 0.95
+- model spans: `{"period":"h2"}`
+- mapped: `{"period":"h2","period1":"2026-07","period2":"2026-07-01","periods":["h2"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**164. `January vs February salary`**
+
+- intent: `INCOME_ANALYSIS` @ 0.94 · taskType: `COMPARISON` @ 0.79
+- model spans: `{"period":"january"}`
+- mapped: `{"period":"january","period1":"2026-01","period2":"2026-02","periods":["january","february"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**165. `interest income this year compared to last year`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.92
+- model spans: `{"period":"this year"}`
+- mapped: `{"period":"this year","period1":"2026-01-01","period2":"2025-01-01","periods":["this year","last year"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**166. `income trend over the last 6 months`**
+
+- intent: `INCOME_ANALYSIS` @ 0.98 · taskType: `TREND` @ 1.00
+- model spans: `{"period":"last 6 months"}`
+- mapped: `{"period":"last 6 months","periods":["last 6 months"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**167. `salary trend from Jan to April`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `TREND` @ 0.92
+- model spans: `{"period":"jan to april"}`
+- mapped: `{"period":"jan to april","periods":["jan to april"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**168. `freelance earnings trend this year`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `TREND` @ 1.00
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**169. `bonus trend over the last 3 years`**
+
+- intent: `INCOME_ANALYSIS` @ 0.73 · taskType: `TREND` @ 1.00
+- model spans: `{"period":"last 3 years"}`
+- mapped: `{"period":"last 3 years","periods":["last 3 years"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**170. `compare rental income between March and June`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.98
+- model spans: `{"period":"march and june"}`
+- mapped: `{"period":"march and june","period1":"2026-07","period2":"2026-03-01","periods":["march and june"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**171. `salary and bonus received this quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.35
+- model spans: `{"period":"quarter"}`
+- mapped: `{"period":"this quarter","periods":["quarter"]}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**173. `freelance income from April to June`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.68
+- model spans: `{"period":"april to june"}`
+- mapped: `{"period":"april to june","period1":"2026-07","period2":"2026-04-01","periods":["april to june"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**174. `which income source paid me the most this year`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `TREND` @ 0.33
+- model spans: `{"period":"this year"}`
+- mapped: `{"period":"this year","periods":["this year"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**175. `income by category for last month`**
+
+- intent: `INCOME_ANALYSIS` @ 0.73 · taskType: `SUMMARY` @ 0.34
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","periods":["last month"]}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**176. `payer wise income this quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 0.97 · taskType: `TREND` @ 0.68
+- model spans: `{"period":"quarter"}`
+- mapped: `{"period":"this quarter","periods":["quarter"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**177. `compare salary in June and July`**
+
+- intent: `INCOME_ANALYSIS` @ 0.98 · taskType: `COMPARISON` @ 0.93
+- model spans: `{"period":"june and july"}`
+- mapped: `{"period":"june and july","period1":"2026-07","period2":"2026-06-01","periods":["june and july"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**178. `year to date income vs last year to date`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"last year to date"}`
+- mapped: `{"period":"last year to date","period1":"2026-07","period2":"last year to date","periods":["last year to date"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**179. `last 30 days income vs previous 30 days`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"tenuremonths":"30","period":"days"}`
+- mapped: `{"period":"days","period1":"days","period2":"previous 30 days","periods":["days","previous 30 days"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**180. `monthly salary comparison for H1`**
+
+- intent: `INCOME_ANALYSIS` @ 0.98 · taskType: `COMPARISON` @ 0.51
+- model spans: `{"period":"h1"}`
+- mapped: `{"period":"h1","period1":"2026-07","period2":"2026-01-01","periods":["h1"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**181. `freelance income this week compared to last week`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.95
+- model spans: `{"period":"this week"}`
+- mapped: `{"period":"this week","period1":"2026-07-20","period2":"2026-07-13","periods":["this week","last week"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**183. `income received between January and March`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.68
+- model spans: `{"period":"january and march"}`
+- mapped: `{"period":"january and march","period1":"2026-07","period2":"2026-01-01","periods":["january and march"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**184. `mera income is mahine kitna hua`**
+
+- intent: `INCOME_ANALYSIS` @ 0.86 · taskType: `TREND` @ 0.93
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**195. `mera income q kam hua pichle mnth`**
+
+- intent: `INCOME_ANALYSIS` @ 0.92 · taskType: `TREND` @ 0.93
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**217. `salary received this quarter compared to last quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 0.94 · taskType: `COMPARISON` @ 0.97
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","period1":"2026-07-01","period2":"2026-04-01","periods":["this quarter","last quarter"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**220. `freelance income March 2024 vs April 2024`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.97
+- model spans: `{"period":"march 2024"}`
+- mapped: `{"period":"march 2024","period1":"2024-03","period2":"2024-04","periods":["march 2024","april 2024"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**222. `bonus income this year vs last year`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","period1":"year","period2":"2025-01-01","periods":["year","last year"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**224. `rental income H1 vs H2`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.98
+- model spans: `{"period":"h1"}`
+- mapped: `{"period":"h1","period1":"2026-01-01","period2":"2026-07-01","periods":["h1","h2"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**226. `salary from Jan to April vs May to August`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 1.00
+- model spans: `{"period":"from jan to april"}`
+- mapped: `{"period":"from jan to april","period1":"2026-01-01","period2":"may to","periods":["from jan to april","may to","august"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**228. `interest income this month compared to last month`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.84
+- model spans: `{"period":"this month"}`
+- mapped: `{"period":"this month","period1":"2026-07","period2":"last","periods":["this month","last"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**230. `cashback earned this quarter vs last quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 0.84 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"quarter"}`
+- mapped: `{"period":"this quarter","period1":"quarter","period2":"2026-04-01","periods":["quarter","last quarter"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**233. `income received in January vs December`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.97
+- model spans: `{"period":"january"}`
+- mapped: `{"period":"january","period1":"2026-01","period2":"2026-12","periods":["january","december"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**235. `freelance earnings this week vs last week`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.97
+- model spans: `{"period":"this week"}`
+- mapped: `{"period":"this week","period1":"2026-07-20","period2":"2026-07-13","periods":["this week","last week"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**237. `salary comparison H1 vs last year's H1`**
+
+- intent: `INCOME_ANALYSIS` @ 0.87 · taskType: `COMPARISON` @ 1.00
+- model spans: `{"period":"h1"}`
+- mapped: `{"period":"h1","period1":"2026-01-01","period2":"2025-01-01","periods":["h1","last year","h1"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**239. `interest income over the last 6 months vs the previous 6 months`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"the last 6 months"}`
+- mapped: `{"period":"the last 6 months","period1":"2026-01","period2":"previous 6 months","periods":["the last 6 months","previous 6 months"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**338. `income trend for the last 6 months`**
+
+- intent: `INCOME_ANALYSIS` @ 0.99 · taskType: `TREND` @ 1.00
+- model spans: `{"period":"last 6 months"}`
+- mapped: `{"period":"last 6 months","periods":["last 6 months"]}`
+- route: `INCOME_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**339. `salary vs freelance income this year`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.82
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","period1":"2026-07","period2":"year","periods":["year"]}`
+- route: `INCOME_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**340. `why is my income lower than last quarter`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `ANALYSIS` @ 0.86
+- model spans: `{"period":"last quarter"}`
+- mapped: `{"period":"last quarter","period1":"2026-07-01","period2":"2026-04-01","periods":["last quarter"]}`
+- route: `INCOME_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**341. `summarize all income received in H1`**
+
+- intent: `INCOME_ANALYSIS` @ 1.00 · taskType: `SUMMARY` @ 0.42
+- model spans: `{"period":"h1"}`
+- mapped: `{"period":"h1","periods":["h1"]}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**387. `How much did I blow on coffee this month?`**
+
+- intent: `INCOME_ANALYSIS` @ 0.67 · taskType: `SUMMARY` @ 0.96
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**417. `What did my grocery bill look like in June?`**
+
+- intent: `INCOME_ANALYSIS` @ 0.71 · taskType: `SUMMARY` @ 0.60
+- model spans: `{"category":"grocery","period":"june"}`
+- mapped: `{"category":"Groceries","period":"june","categories":["Groceries"],"periods":["june"]}`
+- route: `INCOME_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+### INCOME_DECLARATION (3)
+
+**207. `monthly income 1 lakh set krdo`**
+
+- intent: `INCOME_DECLARATION` @ 0.75 · taskType: `CREATE` @ 0.79
+- model spans: `{"amount":"100000"}`
+- mapped: `{"amount":100000,"date":"2026-07-20"}`
+- route: `INCOME_DECLARATION_CREATE`
+- sources: tfjs-intent-classifier
+
+**330. `my monthly salary is ₹95000`**
+
+- intent: `INCOME_DECLARATION` @ 1.00 · taskType: `CREATE` @ 0.67
+- model spans: `{"amount":"95000"}`
+- mapped: `{"amount":95000,"date":"2026-07-20"}`
+- route: `INCOME_DECLARATION_CREATE`
+- sources: tfjs-intent-classifier
+
+**331. `update my declared monthly income to ₹1.1 lakh`**
+
+- intent: `INCOME_DECLARATION` @ 1.00 · taskType: `UPDATE` @ 0.73
+- model spans: `{"amount":"110000"}`
+- mapped: `{"amount":110000,"date":"2026-07-20"}`
+- route: `INCOME_DECLARATION_UPDATE`
+- sources: tfjs-intent-classifier
+
+### LOAN_ANALYSIS (8)
+
+**243. `should I refinance my car loan`**
+
+- intent: `LOAN_ANALYSIS` @ 0.92 · taskType: `WHAT_IF` @ 0.62
+- model spans: `{"liabilitytype":"car loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**244. `compare my personal loan and home loan interest rates`**
+
+- intent: `LOAN_ANALYSIS` @ 0.93 · taskType: `SUMMARY` @ 0.06
+- model spans: `{"liabilitytype":"loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**245. `what if I reduce my home loan tenure from 20 years to 15 years`**
+
+- intent: `LOAN_ANALYSIS` @ 1.00 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"liabilitytype":"home loan","tenuremonths":"20 years"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**249. `if I switch to a lower interest rate how much will I save`**
+
+- intent: `LOAN_ANALYSIS` @ 0.89 · taskType: `WHAT_IF` @ 0.97
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**261. `can I be debt free before 2030`**
+
+- intent: `LOAN_ANALYSIS` @ 0.61 · taskType: `SUMMARY` @ 0.48
+- model spans: `{"targetdate":"2030"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**267. `if my interest rate drops to 7.5% what happens to my EMI`**
+
+- intent: `LOAN_ANALYSIS` @ 0.94 · taskType: `WHAT_IF` @ 1.00
+- model spans: `{"interestrate":"rate"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**268. `EMI kab tak chalegi meri home loan ki`**
+
+- intent: `LOAN_ANALYSIS` @ 0.67 · taskType: `SUMMARY` @ 0.12
+- model spans: `{"liabilitytype":"home loan"}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**356. `should I refinance my personal loan`**
+
+- intent: `LOAN_ANALYSIS` @ 0.85 · taskType: `WHAT_IF` @ 0.38
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `LOAN_ANALYSIS_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+### NAVIGATE (1)
+
+**38. `is my subscriptions budget exhausted`**
+
+- intent: `NAVIGATE` @ 1.00 · taskType: `STATUS` @ 0.88
+- model spans: `{"category":"subscriptions"}`
+- mapped: `{"merchant":"paywall","category":"Subscriptions","date":"2026-07-20","categories":["Subscriptions"]}`
+- route: `NAVIGATE_STATUS`
+- sources: tfjs-intent-classifier
+
+### NET_WORTH_CHECK (1)
+
+**349. `what's my current net worth`**
+
+- intent: `NET_WORTH_CHECK` @ 1.00 · taskType: `SUMMARY` @ 0.98
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `NET_WORTH_CHECK_SUMMARY`
+- sources: tfjs-intent-classifier
+
+### REFUND (6)
+
+**155. `tax refund received this year`**
+
+- intent: `REFUND` @ 0.87 · taskType: `CREATE` @ 0.76
+- model spans: `{"period":"year"}`
+- mapped: `{"period":"this year","periods":["year"]}`
+- route: `REFUND_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: What amount should I log?
+- ⚠️ warnings: Amount not detected; Merchant not detected; Category not determined — using fallback
+
+**203. `refund aya amazn se 1299`**
+
+- intent: `REFUND` @ 0.68 · taskType: `CREATE` @ 0.45
+- model spans: `{"period":"1299"}`
+- mapped: `{"period":"1299","periods":["1299"]}`
+- route: `REFUND_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ❓ clarification: What amount should I log?
+- ⚠️ warnings: Amount not detected; Merchant not detected; Category not determined — using fallback
+
+**204. `refund ko 1399 krdo`**
+
+- intent: `REFUND` @ 0.71 · taskType: `CREATE` @ 0.55
+- model spans: `{"amount":"1399"}`
+- mapped: `{"amount":1399,"date":"2026-07-20"}`
+- route: `REFUND_CREATE`
+- sources: tfjs-intent-classifier → fallback-category
+- ⚠️ warnings: Merchant not detected; Category not determined — using fallback
+
+**324. `received ₹850 refund from Flipkart today`**
+
+- intent: `REFUND` @ 0.99 · taskType: `CREATE` @ 0.95
+- model spans: `{"amount":"850","merchant":"flipkart"}`
+- mapped: `{"amount":850,"merchant":"Flipkart","date":"2026-07-20","merchants":["Flipkart"]}`
+- route: `REFUND_CREATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**325. `change the Zomato refund to ₹420`**
+
+- intent: `REFUND` @ 0.99 · taskType: `UPDATE` @ 0.99
+- model spans: `{"merchant":"zomato","amount":"420"}`
+- mapped: `{"amount":420,"merchant":"Zomato","date":"2026-07-20","merchants":["Zomato"]}`
+- route: `REFUND_UPDATE`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**326. `delete the Amazon refund entry`**
+
+- intent: `REFUND` @ 0.95 · taskType: `DELETE` @ 0.98
+- model spans: `{"merchant":"amazon"}`
+- mapped: `{"merchant":"Amazon","date":"2026-07-20","merchants":["Amazon"]}`
+- route: `REFUND_DELETE`
+- sources: tfjs-intent-classifier → merchant-classifier
+- ❓ clarification: What amount should I log?
+- ⚠️ warnings: Amount not detected
+
+### SAVINGS_ADVICE (2)
+
+**346. `why are my savings so low recently`**
+
+- intent: `SAVINGS_ADVICE` @ 1.00 · taskType: `ANALYSIS` @ 0.99
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SAVINGS_ADVICE_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**380. `Show me the category breakdown for this year.`**
+
+- intent: `SAVINGS_ADVICE` @ 0.96 · taskType: `SUMMARY` @ 0.91
+- model spans: `{"period":"this year"}`
+- mapped: `{"period":"this year","periods":["this year"]}`
+- route: `SAVINGS_ADVICE_SUMMARY`
+- sources: tfjs-intent-classifier
+
+### SIP_VS_PREPAY (4)
+
+**199. `sip kru ya loan prepay kru`**
+
+- intent: `SIP_VS_PREPAY` @ 0.99 · taskType: `COMPARISON` @ 0.95
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SIP_VS_PREPAY_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**363. `should I invest ₹10000 in SIP or prepay my home loan`**
+
+- intent: `SIP_VS_PREPAY` @ 1.00 · taskType: `COMPARISON` @ 1.00
+- model spans: `{"amount":"10000","liabilitytype":"home loan"}`
+- mapped: `{"amount":10000,"date":"2026-07-20","periodClarificationNeeded":true}`
+- route: `SIP_VS_PREPAY_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**364. `what if I do ₹5000 SIP instead of prepaying my loan`**
+
+- intent: `SIP_VS_PREPAY` @ 1.00 · taskType: `WHAT_IF` @ 0.99
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SIP_VS_PREPAY_WHAT_IF`
+- sources: tfjs-intent-classifier
+
+**365. `SIP vs loan prepayment which gives better returns for me`**
+
+- intent: `SIP_VS_PREPAY` @ 1.00 · taskType: `COMPARISON` @ 1.00
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SIP_VS_PREPAY_COMPARISON`
+- sources: tfjs-intent-classifier
+
+### SPENDING_ANALYSIS (120)
+
+**7. `show budgets for groceries and rent`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.92 · taskType: `SUMMARY` @ 0.91
+- model spans: `{"category":"groceries"}`
+- mapped: `{"category":"Groceries","date":"2026-07-20","categories":["Groceries","Rent"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**11. `summarize my food budget`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.70 · taskType: `SUMMARY` @ 0.41
+- model spans: `{"category":"food"}`
+- mapped: `{"category":"Food","date":"2026-07-20","categories":["Food"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**37. `check my internet bill budget`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.87 · taskType: `INSIGHTS` @ 0.45
+- model spans: `{"category":"internet"}`
+- mapped: `{"category":"Internet / Broadband","date":"2026-07-20","categories":["Internet / Broadband"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**107. `how much did i spend this month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.89 · taskType: `SUMMARY` @ 0.96
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**108. `last month total spending`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.93 · taskType: `SUMMARY` @ 0.79
+- model spans: `{"period":"month"}`
+- mapped: `{"period":"last month","periods":["month"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**111. `break down my spending this week`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.95 · taskType: `SUMMARY` @ 0.44
+- model spans: `{"period":"this week"}`
+- mapped: `{"period":"this week","periods":["this week"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**113. `why did i spend more this month than last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `COMPARISON` @ 0.83
+- model spans: `{"period":"this"}`
+- mapped: `{"period":"this","period1":"this","period2":"2026-06","periods":["this","last month"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**114. `why are my dining out expenses so high recently`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `ANALYSIS` @ 0.98
+- model spans: `{"category":"dining out"}`
+- mapped: `{"category":"Dining Out","date":"2026-07-20","categories":["Dining Out"]}`
+- route: `SPENDING_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**115. `give me spending insights for the last 30 days`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `INSIGHTS` @ 0.83
+- model spans: `{"period":"30 days"}`
+- mapped: `{"period":"30 days","periods":["30 days"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**116. `anything unusual in my expenses this quarter`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `INSIGHTS` @ 0.90
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**117. `food vs travel spending this month`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.94
+- model spans: `{"merchant":"food","category":"travel"}`
+- mapped: `{"merchant":"food","category":"Travel","date":"2026-07-20","categories":["Travel"],"merchants":["food"],"periodClarificationNeeded":true}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**118. `Swiggy vs Zomato expenses last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"merchant":"swiggy","period":"last"}`
+- mapped: `{"merchant":"Swiggy","period":"last","period1":"2026-07","period2":"last","merchants":["Swiggy","Zomato"],"periods":["last"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**119. `Amazon vs Flipkart purchases this year`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.89 · taskType: `COMPARISON` @ 0.98
+- model spans: `{"merchant":"amazon"}`
+- mapped: `{"merchant":"Amazon","date":"2026-07-20","merchants":["Amazon","Flipkart"],"periodClarificationNeeded":true}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**120. `June vs May spending`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.91 · taskType: `COMPARISON` @ 0.90
+- model spans: `{"period":"june"}`
+- mapped: `{"period":"june","period1":"2026-06","period2":"2026-05","periods":["june","may"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**121. `this quarter compared to last quarter spending`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `COMPARISON` @ 0.88
+- model spans: `{"period":"quarter"}`
+- mapped: `{"period":"this quarter","period1":"quarter","period2":"2026-04-01","periods":["quarter","last quarter"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**122. `is my spending increasing over the last 6 months`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `TREND` @ 0.99
+- model spans: `{"period":"the last 6 months"}`
+- mapped: `{"period":"the last 6 months","periods":["the last 6 months"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**123. `travel expense trend from Jan to April`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `TREND` @ 0.93
+- model spans: `{"category":"travel","period":"jan to april"}`
+- mapped: `{"category":"Travel","period":"jan to april","categories":["Travel"],"periods":["jan to april"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**124. `rent spending trend year to date`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.92 · taskType: `TREND` @ 0.99
+- model spans: `{"category":"rent","period":"year"}`
+- mapped: `{"category":"Rent","period":"year","period1":"year","period2":"date","categories":["Rent"],"periods":["year","date"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**126. `fuel expenses H1 vs H2`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.97
+- model spans: `{"category":"fuel","period":"h1"}`
+- mapped: `{"category":"Fuel","period":"h1","period1":"2026-01-01","period2":"2026-07-01","categories":["Fuel"],"periods":["h1","h2"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**127. `how much did i spend on subscriptions this year`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.95
+- model spans: `{"category":"subscriptions","period":"year"}`
+- mapped: `{"category":"Subscriptions","period":"this year","categories":["Subscriptions"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**128. `electricity bill and water bill this quarter`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.57
+- model spans: `{"category":"electricity","period":"quarter"}`
+- mapped: `{"category":"Electricity Bill","period":"this quarter","categories":["Electricity Bill","Water Bill"],"periods":["quarter"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**129. `coffee shop expenses last 7 days`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.90 · taskType: `SUMMARY` @ 0.61
+- model spans: `{"period":"last 7 days"}`
+- mapped: `{"period":"last 7 days","periods":["last 7 days"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**130. `movies and entertainment spending last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.72
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","periods":["last month"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**132. `IRCTC travel expenses this year`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.60
+- model spans: `{"category":"travel","period":"year"}`
+- mapped: `{"category":"Travel","period":"this year","categories":["Travel"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**133. `last week how much on Uber and Ola`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.92 · taskType: `SUMMARY` @ 0.81
+- model spans: `{"period":"last week","merchant":"uber"}`
+- mapped: `{"merchant":"Uber","period":"last week","merchants":["Uber","Ola"],"periods":["last week"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**134. `category wise spending for March 2024`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.73
+- model spans: `{"period":"march 2024"}`
+- mapped: `{"period":"march 2024","periods":["march 2024"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**135. `merchant wise spending this month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.96 · taskType: `SUMMARY` @ 0.55
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**137. `which merchant did i spend the most at this quarter`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.72
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**138. `compare healthcare and pharmacy expenses this month`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.82
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**140. `clothing expenses between January and March`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `COMPARISON` @ 0.70
+- model spans: `{"category":"clothing","period":"january and march"}`
+- mapped: `{"category":"Clothing","period":"january and march","period1":"2026-07","period2":"2026-01-01","categories":["Clothing"],"periods":["january and march"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**141. `electronics spending in Q2`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.42
+- model spans: `{"category":"electronics","period":"q2"}`
+- mapped: `{"category":"Electronics / Gadgets","period":"q2","categories":["Electronics / Gadgets"],"periods":["q2"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**142. `travel spending from Jan to April compared to May to August`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.92 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"category":"travel","period":"from jan to april"}`
+- mapped: `{"category":"Travel","period":"from jan to april","period1":"2026-01-01","period2":"2026-05","categories":["Travel"],"periods":["from jan to april","may","august"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**143. `groceries this month compared to last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.60 · taskType: `COMPARISON` @ 0.84
+- model spans: `{"category":"groceries","period":"last"}`
+- mapped: `{"category":"Groceries","period":"last","period1":"2026-07","period2":"last","categories":["Groceries"],"periods":["last"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**145. `show all rent payments this year`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.79 · taskType: `SUMMARY` @ 0.76
+- model spans: `{"category":"rent","period":"year"}`
+- mapped: `{"category":"Rent","period":"this year","categories":["Rent"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**194. `last mnth vs this mnth food expnse`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.73 · taskType: `COMPARISON` @ 0.96
+- model spans: `{"period":"this","category":"food"}`
+- mapped: `{"category":"Food","period":"this","period1":"2026-07","period2":"this","categories":["Food"],"periods":["this"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**215. `compare my spending this month vs last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"this"}`
+- mapped: `{"period":"this","period1":"this","period2":"2026-06","periods":["this","last month"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**216. `food expenses in June vs May`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.96 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"category":"food","period":"june"}`
+- mapped: `{"category":"Food","period":"june","period1":"2026-06","period2":"2026-05","categories":["Food"],"periods":["june","may"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**219. `travel spending Q1 vs Q2`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"category":"travel","period":"q1"}`
+- mapped: `{"category":"Travel","period":"q1","period1":"2026-01-01","period2":"2026-04-01","categories":["Travel"],"periods":["q1","q2"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**221. `Swiggy spending this week vs last week`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"merchant":"swiggy","period":"this week"}`
+- mapped: `{"merchant":"Swiggy","period":"this week","period1":"2026-07-20","period2":"2026-07-13","merchants":["Swiggy"],"periods":["this week","last week"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**223. `coffee expenses over the last 30 days vs previous 30 days`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.94
+- model spans: `{"period":"30 days"}`
+- mapped: `{"period":"30 days","period1":"30 days","period2":"previous 30 days","periods":["30 days","previous 30 days"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**225. `Amazon purchases June vs July`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.86 · taskType: `COMPARISON` @ 0.98
+- model spans: `{"merchant":"amazon","period":"june"}`
+- mapped: `{"merchant":"Amazon","period":"june","period1":"2026-06","period2":"2026-07","merchants":["Amazon"],"periods":["june","july"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**227. `compare my dining out expenses between March and June vs July and October`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 1.00
+- model spans: `{"category":"dining out","period":"march and june"}`
+- mapped: `{"category":"Dining Out","period":"march and june","period1":"2026-03-01","period2":"2026-07-01","categories":["Dining Out"],"periods":["march and june","july and october"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**229. `fuel expenses year to date vs last year to date`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.93 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"category":"fuel","period":"year"}`
+- mapped: `{"category":"Fuel","period":"last year","period1":"year","period2":"date","categories":["Fuel"],"periods":["year","date","last year to date"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**231. `Zomato vs Swiggy spending this month compared to last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 1.00
+- model spans: `{"merchant":"zomato","period":"this"}`
+- mapped: `{"merchant":"Zomato","period":"this","period1":"this","period2":"last","merchants":["Zomato","Swiggy"],"periods":["this","last"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**234. `electronics spending between Q2 and Q3`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.73
+- model spans: `{"category":"electronics","period":"q2"}`
+- mapped: `{"category":"Electronics / Gadgets","period":"q2","period1":"2026-04-01","period2":"2026-07-01","categories":["Electronics / Gadgets"],"periods":["q2","q3"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**236. `how did my travel expenses change from last month to this month`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.97
+- model spans: `{"category":"travel","period":"last month"}`
+- mapped: `{"category":"Travel","period":"last month","period1":"2026-07","period2":"2026-06","categories":["Travel"],"periods":["last month"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**238. `compare my healthcare spending from Jan to April vs May to August`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 1.00
+- model spans: `{"category":"healthcare","period":"from jan to april"}`
+- mapped: `{"category":"Healthcare","period":"from jan to april","period1":"2026-01-01","period2":"may to","categories":["Healthcare"],"periods":["from jan to april","may to","august"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**333. `food vs travel spending last month`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.94
+- model spans: `{"merchant":"food","category":"travel","period":"last month"}`
+- mapped: `{"merchant":"food","category":"Travel","period":"last month","period1":"2026-07","period2":"2026-06","categories":["Travel"],"merchants":["food"],"periods":["last month"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**334. `is my spending increasing over the last 6 months`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `TREND` @ 0.99
+- model spans: `{"period":"the last 6 months"}`
+- mapped: `{"period":"the last 6 months","periods":["the last 6 months"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**335. `June compared to May spending`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.96 · taskType: `COMPARISON` @ 0.53
+- model spans: `{"period":"may"}`
+- mapped: `{"period":"may","period1":"2026-07","period2":"2026-05","periods":["may"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**336. `give me some insights from my expenses this quarter`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `INSIGHTS` @ 0.94
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**370. `How much did I spend in total last month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","periods":["last month"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**371. `What's my total expenditure for July?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.91 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"july"}`
+- mapped: `{"period":"july","periods":["july"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**372. `Show me my spendings on Food for this month.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.76 · taskType: `SUMMARY` @ 0.80
+- model spans: `{"category":"food","period":"month"}`
+- mapped: `{"category":"Food","period":"this month","categories":["Food"],"periods":["month"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**373. `How much money went towards rent this year?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.86 · taskType: `SUMMARY` @ 0.89
+- model spans: `{"category":"rent","period":"year"}`
+- mapped: `{"category":"Rent","period":"this year","categories":["Rent"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**374. `Can you tell me my total expenses for the last 30 days?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"30 days"}`
+- mapped: `{"period":"30 days","periods":["30 days"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**375. `How much did I spend in Q2?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.92 · taskType: `SUMMARY` @ 0.95
+- model spans: `{"period":"q2"}`
+- mapped: `{"period":"q2","periods":["q2"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**376. `What was my grocery spend in 2024?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.92 · taskType: `SUMMARY` @ 0.66
+- model spans: `{"category":"grocery","period":"2024"}`
+- mapped: `{"category":"Groceries","period":"2024","categories":["Groceries"],"periods":["2024"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**377. `Total spend in March 2023?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.96 · taskType: `SUMMARY` @ 0.95
+- model spans: `{"period":"march 2023"}`
+- mapped: `{"period":"march 2023","periods":["march 2023"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**378. `Did I spend a lot on shopping last week?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 0.75
+- model spans: `{"category":"shopping","period":"last week"}`
+- mapped: `{"category":"Clothing","period":"last week","categories":["Clothing"],"periods":["last week"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**379. `Tell me how much I spent on Uber yesterday.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.67 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"date":"uber yesterday"}`
+- mapped: `{"date":"uber yesterday"}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**381. `What did I spend mostly on last month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.86 · taskType: `SUMMARY` @ 0.92
+- model spans: `{"period":"last"}`
+- mapped: `{"period":"last","periods":["last"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**382. `Can you give me spending insights for today?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.95 · taskType: `INSIGHTS` @ 0.87
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**383. `Analyze my expenses for the last 90 days.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `INSIGHTS` @ 0.43
+- model spans: `{"period":"90 days"}`
+- mapped: `{"period":"90 days","periods":["90 days"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**384. `Give me my spend summary from January.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.98
+- model spans: `{"period":"january"}`
+- mapped: `{"period":"january","periods":["january"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**385. `Show my total expenses for August 2022.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"august 2022."}`
+- mapped: `{"period":"august 2022.","periods":["august 2022."]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**386. `What's the total for dining this quarter?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.90 · taskType: `SUMMARY` @ 0.99
+- model spans: `{"category":"dining","period":"quarter"}`
+- mapped: `{"category":"Dining Out","period":"this quarter","categories":["Dining Out"],"periods":["quarter"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**388. `Total expenses in 2021?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.89 · taskType: `SUMMARY` @ 0.95
+- model spans: `{"period":"2021"}`
+- mapped: `{"period":"2021","periods":["2021"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**390. `What is my total spend this week?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.94 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"week"}`
+- mapped: `{"period":"this week","periods":["week"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**391. `Can I see my total spend for the last 6 months?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.98
+- model spans: `{"period":"last 6 months"}`
+- mapped: `{"period":"last 6 months","periods":["last 6 months"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**392. `Show me my spending at Amazon last month.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `SUMMARY` @ 0.41
+- model spans: `{"merchant":"amazon"}`
+- mapped: `{"merchant":"Amazon","date":"2026-07-20","merchants":["Amazon"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**393. `How much did I spend on Zomato this year?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"merchant":"zomato","period":"year"}`
+- mapped: `{"merchant":"Zomato","period":"this year","merchants":["Zomato"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**394. `Analyze my spend on groceries for Q1.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `SUMMARY` @ 0.33
+- model spans: `{"category":"groceries","period":"q1."}`
+- mapped: `{"category":"Groceries","period":"q1.","categories":["Groceries"],"periods":["q1."]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**395. `What's the breakdown of my spending in 2025?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.87 · taskType: `SUMMARY` @ 0.89
+- model spans: `{"period":"2025"}`
+- mapped: `{"period":"2025","periods":["2025"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**396. `Give me spending breakdown for the last 7 days.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.87 · taskType: `SUMMARY` @ 0.98
+- model spans: `{"period":"the last 7 days"}`
+- mapped: `{"period":"the last 7 days","periods":["the last 7 days"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**397. `How did I spend my money in February?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.84 · taskType: `SUMMARY` @ 0.96
+- model spans: `{"period":"february"}`
+- mapped: `{"period":"february","periods":["february"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**398. `What's my top spend category this month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `INSIGHTS` @ 0.49
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**399. `Total spend on electricity last year?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `SUMMARY` @ 0.94
+- model spans: `{"category":"electricity","period":"year"}`
+- mapped: `{"category":"Electricity Bill","period":"last year","categories":["Electricity Bill"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**401. `Can you break down my Swiggy expenses for this week?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `ANALYSIS` @ 0.62
+- model spans: `{"merchant":"swiggy","period":"this week"}`
+- mapped: `{"merchant":"Swiggy","period":"this week","merchants":["Swiggy"],"periods":["this week"]}`
+- route: `SPENDING_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**402. `Show me a deep dive into my last month spending.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.96 · taskType: `INSIGHTS` @ 0.87
+- model spans: `{"period":"month"}`
+- mapped: `{"period":"last month","periods":["month"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**403. `What was my total spend in September 2023?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.99
+- model spans: `{"period":"september 2023"}`
+- mapped: `{"period":"september 2023","periods":["september 2023"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**404. `Give me an analysis of my total spend for Q4.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.91 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"q4."}`
+- mapped: `{"period":"q4.","periods":["q4."]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**405. `How much have I spent on water bill this month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `SUMMARY` @ 0.63
+- model spans: `{"category":"water"}`
+- mapped: `{"category":"Water Bill","date":"2026-07-20","categories":["Water Bill"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**406. `Tell me how much I spent on Wifi last year.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 0.99
+- model spans: `{"period":"last year"}`
+- mapped: `{"period":"last year","periods":["last year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**407. `Show me insights on my rent spend this year.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `INSIGHTS` @ 0.84
+- model spans: `{"category":"rent","period":"year"}`
+- mapped: `{"category":"Rent","period":"this year","categories":["Rent"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**408. `What was my top spend category in Q3?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `ANALYSIS` @ 0.50
+- model spans: `{"period":"q3"}`
+- mapped: `{"period":"q3","periods":["q3"]}`
+- route: `SPENDING_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**409. `Give me the total amount I dropped on Flipkart last month.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.80 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"merchant":"flipkart"}`
+- mapped: `{"merchant":"Flipkart","date":"2026-07-20","merchants":["Flipkart"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier → merchant-classifier
+
+**410. `How much did I spend in total last month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"period":"last month"}`
+- mapped: `{"period":"last month","periods":["last month"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**411. `What's my total expenditure for July?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.91 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"july"}`
+- mapped: `{"period":"july","periods":["july"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**412. `Show me my spendings on Food for this month.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.76 · taskType: `SUMMARY` @ 0.80
+- model spans: `{"category":"food","period":"month"}`
+- mapped: `{"category":"Food","period":"this month","categories":["Food"],"periods":["month"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**413. `How much money went towards rent this year?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.86 · taskType: `SUMMARY` @ 0.89
+- model spans: `{"category":"rent","period":"year"}`
+- mapped: `{"category":"Rent","period":"this year","categories":["Rent"],"periods":["year"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**414. `Can you tell me my total expenses for the last 30 days?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 1.00
+- model spans: `{"period":"30 days"}`
+- mapped: `{"period":"30 days","periods":["30 days"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**415. `Give me a breakdown of my spending for this week.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.77 · taskType: `SUMMARY` @ 0.97
+- model spans: `{"period":"this week"}`
+- mapped: `{"period":"this week","periods":["this week"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**418. `Did I spend a lot on shopping last month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 0.69
+- model spans: `{"category":"shopping"}`
+- mapped: `{"category":"Clothing","date":"2026-07-20","categories":["Clothing"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**419. `Summarize my expenses for Q2.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.93 · taskType: `SUMMARY` @ 0.90
+- model spans: `{"period":"q2."}`
+- mapped: `{"period":"q2.","periods":["q2."]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**420. `Can you compare my spendings on Food for this month and last month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.96
+- model spans: `{"category":"food","period":"this month"}`
+- mapped: `{"category":"Food","period":"this month","period1":"2026-07","period2":"2026-06","categories":["Food"],"periods":["this month","last month"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**421. `Did I spend more on shopping in June or July?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.95
+- model spans: `{"category":"shopping","period":"june"}`
+- mapped: `{"category":"Clothing","period":"june","period1":"2026-06","period2":"2026-07","categories":["Clothing"],"periods":["june","july"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**422. `How does my travel expense this year compare to last year?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.93
+- model spans: `{"category":"travel","period":"last year"}`
+- mapped: `{"category":"Travel","period":"last year","period1":"2026-01-01","period2":"2025-01-01","categories":["Travel"],"periods":["last year"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**423. `Compare my total expenses from this week versus last week.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.99
+- model spans: `{"period":"this week"}`
+- mapped: `{"period":"this week","period1":"2026-07-20","period2":"2026-07-13","periods":["this week","last week"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**424. `Am I spending more on dining out than groceries this month?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `COMPARISON` @ 0.66
+- model spans: `{"category":"dining out"}`
+- mapped: `{"category":"Dining Out","date":"2026-07-20","categories":["Dining Out","Groceries"],"periodClarificationNeeded":true}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**426. `Show me a comparison of my discretionary vs fixed expenses.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `COMPARISON` @ 0.79
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**427. `Did I save more money this month compared to the previous one?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.64 · taskType: `COMPARISON` @ 0.92
+- model spans: `{"period":"this month"}`
+- mapped: `{"period":"this month","period1":"2026-07","period2":"2026-07","periods":["this month"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**428. `Compare my Amazon purchases this month with my Flipkart purchases.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `INSIGHTS` @ 0.78
+- model spans: `{"merchant":"amazon","category":"flipkart"}`
+- mapped: `{"merchant":"Amazon","category":"flipkart","date":"2026-07-20","categories":["flipkart"],"merchants":["Amazon"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier → tfjs-category-classifier
+
+**429. `How much higher is my rent now compared to 2024?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.94 · taskType: `COMPARISON` @ 0.55
+- model spans: `{"category":"rent","period":"2024"}`
+- mapped: `{"category":"Rent","period":"2024","period1":"2026-01-01","period2":"2024-01-01","categories":["Rent"],"periods":["2024"]}`
+- route: `SPENDING_ANALYSIS_COMPARISON`
+- sources: tfjs-intent-classifier
+
+**430. `Is my spending on eating out going up?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `TREND` @ 0.84
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**431. `What's the trend of my transportation expenses over the last 6 months?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `TREND` @ 1.00
+- model spans: `{"category":"transportation","period":"last 6 months"}`
+- mapped: `{"category":"Transport","period":"last 6 months","categories":["Transport"],"periods":["last 6 months"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**432. `Show me how my lifestyle expenses have changed recently.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.99 · taskType: `TREND` @ 0.47
+- model spans: `{}`
+- mapped: `{"date":"2026-07-20"}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**433. `Am I spending less money on average this quarter?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `SUMMARY` @ 0.42
+- model spans: `{"period":"this quarter"}`
+- mapped: `{"period":"this quarter","periods":["this quarter"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**434. `How has my monthly spending trended since January?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.63 · taskType: `TREND` @ 0.99
+- model spans: `{"period":"january"}`
+- mapped: `{"period":"january","period1":"2026-07","period2":"2026-01","periods":["january"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**436. `Show me a chart of my shopping habits over the last year.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `TREND` @ 0.76
+- model spans: `{"category":"shopping","period":"the last year"}`
+- mapped: `{"category":"Clothing","period":"the last year","categories":["Clothing"],"periods":["the last year"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**437. `Have I been managing to keep my daily expenses down this week?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.89 · taskType: `SUMMARY` @ 0.65
+- model spans: `{"period":"this week"}`
+- mapped: `{"period":"this week","periods":["this week"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**439. `Did I have any unusually large expenses last week?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `INSIGHTS` @ 0.26
+- model spans: `{"period":"last week"}`
+- mapped: `{"period":"last week","periods":["last week"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**440. `Show me any spikes in my spending for July.`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `INSIGHTS` @ 1.00
+- model spans: `{"period":"july"}`
+- mapped: `{"period":"july","periods":["july"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**441. `What caused my expenses to shoot up yesterday?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.70 · taskType: `ANALYSIS` @ 0.93
+- model spans: `{}`
+- mapped: `{"date":"2026-07-19"}`
+- route: `SPENDING_ANALYSIS_ANALYSIS`
+- sources: tfjs-intent-classifier
+
+**442. `Are there any abnormal transactions in my food category lately?`**
+
+- intent: `SPENDING_ANALYSIS` @ 1.00 · taskType: `INSIGHTS` @ 0.96
+- model spans: `{"category":"food"}`
+- mapped: `{"category":"Food","date":"2026-07-20","categories":["Food"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**443. `Find my highest single expense from the last 30 days.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.98 · taskType: `TREND` @ 0.25
+- model spans: `{"period":"last 30 days"}`
+- mapped: `{"period":"last 30 days","periods":["last 30 days"]}`
+- route: `SPENDING_ANALYSIS_TREND`
+- sources: tfjs-intent-classifier
+
+**445. `Give me a quick rundown of where all my money went last month, especially on stupid stuff like subscriptions.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.81 · taskType: `INSIGHTS` @ 0.49
+- model spans: `{"period":"last","category":"subscriptions"}`
+- mapped: `{"category":"Subscriptions","period":"last","categories":["Subscriptions"],"periods":["last"]}`
+- route: `SPENDING_ANALYSIS_INSIGHTS`
+- sources: tfjs-intent-classifier
+
+**446. `I think my electricity bill is crazy high this summer, how much did I pay in May and June combined?`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.97 · taskType: `SUMMARY` @ 0.61
+- model spans: `{"category":"electricity","period":"may"}`
+- mapped: `{"category":"Electricity Bill","period":"may","period1":"2026-05","period2":"2026-06","categories":["Electricity Bill"],"periods":["may","june"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**448. `Just show me how bad the damage is for my shopping spree yesterday.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.74 · taskType: `SUMMARY` @ 0.80
+- model spans: `{"category":"shopping","date":"yesterday"}`
+- mapped: `{"category":"Clothing","date":"2026-07-19","categories":["Clothing"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+**449. `I need to know if I blew past my budget on groceries compared to what I spent in April.`**
+
+- intent: `SPENDING_ANALYSIS` @ 0.96 · taskType: `SUMMARY` @ 0.77
+- model spans: `{"category":"groceries","period":"april"}`
+- mapped: `{"category":"Groceries","period":"april","period1":"2026-07","period2":"2026-04","categories":["Groceries"],"periods":["april"]}`
+- route: `SPENDING_ANALYSIS_SUMMARY`
+- sources: tfjs-intent-classifier
+
+### UNKNOWN (66)
+
+**1. `what budgets do i have this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**3. `summarize all my budgets`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**12. `rent budget this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**13. `travel budget this year`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Lifestyle","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**17. `give me my entertainment budget`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**18. `show my healthcare budget`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Lifestyle","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**20. `budget overview year to date`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**42. `allocate ₹80000 across rent food and savings`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":80000,"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**46. `how much should i keep for rent from ₹60000`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":60000,"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**47. `allocate ₹75000 for this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":75000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**61. `allocate ₹20000 only for essentials`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":20000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**76. `allocate ₹85000 for this year`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":85000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**78. `help me distribute ₹95000`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":95000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**80. `split ₹100000 between rent travel healthcare and food`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":100000,"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**88. `suggest a monthly allocation with ₹150000 income`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":150000,"category":"Other Expense","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**89. `how much should i reserve for emergency expenses`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**101. `divide ₹8500 across groceries snacks and tea coffee`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":8500,"category":"Food","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**104. `allocate ₹18000 for household expenses`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":18000,"category":"Other Expense","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**110. `food delivery expenses yesterday`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Food","date":"2026-07-19","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**125. `groceries between March and June`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Food","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**131. `BigBasket purchases this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Food","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**136. `which category cost me the most recently`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**144. `how much did i spend after salary day this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**146. `mera kitna kharcha hua is mahine`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**154. `cashback rewards earned this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Investment","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**172. `interest income and cashback rewards this month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Investment","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**182. `cashback rewards trend recently`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Investment","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**187. `grocerry pe 2k ud gya is week`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":2000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**188. `mera salry 85000 ayi aaj`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":85000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**192. `netflx subcription 649 pay kiya`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":649,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**193. `kitna kharcha hua is mnth`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**196. `kitna bcha mere pass abhi`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**197. `emi kab tk chalegi`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Debt","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**198. `agr 5k extra bharu loan me kb khtm hoga`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":5000,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**206. `wo rahul wala transfer del krdo`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Investment","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**208. `mera networth kitna h`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**211. `goal ko 5l krdo`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Investment","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**213. `hello bhai kya hal`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**214. `relaince share kharidu kya abhi`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**218. `groceries between January and February`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Food","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**232. `compare my grocery bills in the last 7 days vs the previous 7 days`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Food","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**240. `what's my total outstanding loan amount right now`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**242. `is my home loan interest rate too high`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**246. `is my current EMI burden healthy for my salary`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**248. `which loan has the highest interest rate`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**266. `should I refinance first or just continue with my current loan`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**277. `gave ₹120 to the local tea shop this morning`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":120,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**288. `paid ₹3 lakh as house rent today`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":300000,"category":"Housing","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**296. `change the Starbucks bill to ₹350`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":350,"category":"Food","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**297. `the IRCTC booking was ₹48,500 instead`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":48500,"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**314. `salary of ₹85000 credited today`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":85000,"category":"Other Expense","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**316. `change my bonus income to ₹25000`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":25000,"category":"Other Expense","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**317. `remove the cashback income entry`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20","type":"INCOME"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**327. `sent ₹5000 to Rahul for house rent split`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"amount":5000,"category":"Housing","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**337. `mera kitna kharcha hua is mahine`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**345. `kitna bacha is month`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**366. `hello`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**367. `tell me a joke`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**368. `should I buy Reliance shares now`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Investment","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**369. `what's the weather in Bangalore today`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**400. `How much did I drop on gas stations in July?`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Transport","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**416. `How much did I blow on lifestyle and entertainment last weekend?`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**425. `What's the difference in my utility bills between Q1 and Q2?`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Utilities","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**435. `Are my utility bills increasing over time?`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Utilities","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**438. `Why is my credit card bill so high this month?`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Debt","date":"2026-07-20","type":"EXPENSE"}`
+- route: `UNKNOWN`
+- sources: rules
+
+**447. `Can you check if my weekend partying is eating up my whole paycheck?`** ⚠️ low-conf
+
+- intent: `UNKNOWN` @ 0.00 · taskType: `NONE` @ 0.00
+- model spans: `{}`
+- mapped: `{"category":"Other Expense","date":"2026-07-20"}`
+- route: `UNKNOWN`
+- sources: rules

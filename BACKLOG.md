@@ -68,6 +68,44 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
 
 ## P1 — quality
 
+- [ ] **FIELD REPORT: isolated run, 449 cases** (2026-07-20) — first
+  UNCONTAMINATED run; see
+  `benchmarks/field_reports/2026-07-20-harness-isolated-449.md`.
+  Contamination 31 -> 0, so these numbers are trustworthy. Coverage 19/19
+  intents, 15/15 taskTypes. HEADLINE: UNKNOWN swallows 60 of its 66 hits —
+  they are answerable queries, not junk. Ranked:
+    1. ALLOCATION verb family ~22 cases ("allocate 80000 across rent food
+       and savings", "help me distribute 95000"). BUDGET_PLANNING declares
+       ALLOCATION but the allocate/distribute/keep-for verbs are untrained.
+       Cheapest large win.
+    2. Loan/debt reads 7 ("what is my total outstanding loan amount",
+       "is my home loan interest rate too high"). LOAN_ANALYSIS won only
+       8/449 = 1.8%; genuinely weak, survived isolation.
+    3. Budget reads 7 ("what budgets do i have this month").
+    4. Writes 8 — incl. "salary of 85000 credited today", which only
+       "worked" in the contaminated run by inheriting the prior case's
+       entities. Isolation REVEALED this, did not cause it.
+    5. Hinglish 9 — PRODUCT DECISION NEEDED before any work: support it
+       (needs dedicated data, it is a language surface not a synonym gap) or
+       assert UNKNOWN in the QA suite so it stops reading as a defect.
+  Also: NAVIGATE was emitted once — a Layer1Intent with no model label and
+  no action-mask entry; the app can emit an intent the mask/route map do not
+  cover. Add a guard.
+- [ ] **Harness has no ground truth** — records what the model said, never
+  what it should have said, so NO accuracy figure is computable from any run;
+  all findings are inspection-based judgement. Highest-value harness change:
+  accept `query | EXPECTED_INTENT | EXPECTED_TASKTYPE` and self-grade, so a
+  batch yields a real pass/fail number and failures flow into
+  qa_scenarios.jsonl.
+- [x] ~~Harness cross-case contamination~~ — FIXED (app repo fe30b45).
+  CognitionFacade prepends any open clarification to the next utterance;
+  the harness shared one conversation store across cases, so 31 cases
+  carried entities from a preceding case. Isolated mode (default ON) clears
+  pendingConversation + lastContext per case; state is stamped into the
+  report header and JSON. METHOD LESSON: the markdown groups cases by
+  intent, so file-order is NOT execution-order — my first leak-detection
+  pass compared against the wrong neighbour.
+
 - [ ] **FIELD REPORT: harness run 1** (2026-07-20, run 29b model) — full
   analysis in `v6/training_pipeline/benchmarks/field_reports/2026-07-20-harness-run-1.md`.
   Suite tested ~5% of the product (36/40 SPENDING_ANALYSIS, 3 of 15
