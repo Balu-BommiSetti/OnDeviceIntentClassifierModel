@@ -95,6 +95,26 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   NOT YET MEASURABLE: the 741-row clean probe set is almost entirely English,
   so it CANNOT tell us whether Hinglish support worked. A Hinglish probe set
   is required before claiming success.
+  RUN 33 RESULT — HINGLISH COST ENGLISH ENTITIES. Honest scorecard:
+    probe intent   87.6 -> 90.6%  (+3.0, BEST EVER, well outside 0.8pt noise)
+    probe bucket   81.6 -> 81.8%  (flat)
+    QA full pass   57.5 -> 51.4%  (-6.1, well outside QA's ~2.4pt band)
+    QA entities    62.9 -> 57.1%  (-5.8)
+    regression     38   -> 37/41
+  Vocab 2709 -> 3238 (+529 Hinglish tokens). Diagnosis: 2,098 Hinglish rows
+  (10.7% of data) plus a 20% larger vocabulary spread the embedding capacity
+  thinner, and the SPAN head paid for it while the INTENT head gained. That
+  is a coherent story — intent is a whole-sentence decision that benefits from
+  more phrasings, spans are per-token and suffer from vocabulary dilution.
+  THIS IS A REAL TRADE, NOT NOISE, and it hits the thing the product cares
+  about most (entity extraction). DO NOT DEPLOY RUN 33 AS-IS.
+  Options, cheapest first:
+   1. Reduce Hinglish share (10.7% -> ~5%) and retrain — test whether intent
+      gain survives at lower dilution.
+   2. Raise embedding capacity / vocab cap to absorb +529 tokens.
+   3. Weight the slots-head loss to counteract span dilution.
+  Measure each on BOTH the English probe set and a new Hinglish probe set —
+  neither alone can see this trade.
 
 - [x] **RUN 31 DEPLOYED to the app** (2026-07-20, app repo afbe04b) — best
   model to date: probe intent 87.7% / bucket 82.2%, QA 56.3% full pass /
