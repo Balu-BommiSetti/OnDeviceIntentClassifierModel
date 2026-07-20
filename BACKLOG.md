@@ -6,7 +6,7 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
-Last updated: 2026-07-19 (iteration 36 — commitment/risk vocabulary + EMI-pool fix + cross-suite contradiction resolved; run 29 training).
+Last updated: 2026-07-20 (iteration 37 — run 29 CRASHED MID-EXPORT (my archive-block bug), caught by gates, export restored from archive; run 29b training).
 
 ## P0 — blocks shipping
 
@@ -80,10 +80,17 @@ Last updated: 2026-07-19 (iteration 36 — commitment/risk vocabulary + EMI-pool
   run 25 was NOT restorable — its .h5 was overwritten and only the broken
   export survived. LESSON: "verified" must mean the artifact was exercised
   by the runtime that consumes it, not that its structure is self-consistent.
-- [x] ~~Archive per-run .h5 weights~~ — train.py now copies the full
-  exported_model/ into exported_model_archive/<stamp>-seed<seed>/ after every
-  run (newest 10 kept, gitignored). Run 28's export archived immediately as
-  *-run28-DEPLOYED so the shipped model can always be rebuilt.
+- [x] ~~Archive per-run .h5 weights~~ — train.py archives the full export
+  per run (newest 10, gitignored). THE FIRST PLACEMENT WAS ITSELF A BUG: the
+  block sat BEFORE model.save() and crashed on a shadowed local `import
+  shutil` (UnboundLocalError), killing run 29 mid-export — exported_model
+  held run-29 vocab over run-28 weights and every harness scored
+  near-random (QA 4.9%, intent 15.8%). Caught by the gates before staging;
+  export restored from the *-run28-DEPLOYED archive (the archive rescuing
+  us from its own bug). Block now sits AFTER the final banner with a
+  keep-this-last comment; the shadowing import removed. Launcher lesson:
+  `; echo EXIT $?` masks failure from the task harness — run the command
+  bare so its exit code propagates.
 
 - [ ] **USER LIVE-TESTING IN PROGRESS** — flag ON in the app. DEPLOYMENT
   RULE (user-set, 2026-07-19): model updates to the app happen ONLY when the

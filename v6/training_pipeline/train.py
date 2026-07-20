@@ -751,25 +751,11 @@ def main():
         json.dump(eval_report, f, indent=2)
     print(f"[*] Wrote structured evaluation report to: {eval_report_path}")
 
-    # Archive this run's full export. Each run OVERWRITES exported_model/, and
-    # that cost us twice on 2026-07-19: the best seed-spread weights were
-    # unreproducible (TF nondeterminism), and when the TFJS schema bug forced
-    # a re-export of the DEPLOYED model, its .h5 no longer existed — the app
-    # had to take a newer model instead of a rebuilt copy of what it ran.
-    # Keeps the newest 10 archives (~40 MB total); prune is oldest-first.
-    import datetime
-    archive_root = "exported_model_archive"
-    os.makedirs(archive_root, exist_ok=True)
-    stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    archive_dir = os.path.join(archive_root, f"{stamp}-seed{RANDOM_SEED}")
-    shutil.copytree(output_dir, archive_dir)
-    print(f"[*] Archived run to {archive_dir}")
-    archives = sorted(os.listdir(archive_root))
-    for old_run in archives[:-10]:
-        shutil.rmtree(os.path.join(archive_root, old_run))
-        print(f"[*] Pruned old archive {old_run}")
 
-    import shutil
+    # (shutil is imported at module level — a local import here previously
+    # shadowed it for the entire function, crashing the archive block above
+    # with UnboundLocalError BEFORE the model weights were saved: run 29's
+    # export ended up as new vocab/labels over run 28's weights.)
     try:
         shutil.copy("../../category_mapping.json", os.path.join(output_dir, "category_mapping.json"))
         print("[*] Copied category_mapping.json to export directory.")
@@ -841,6 +827,24 @@ def main():
     print("\n" + "="*50)
     print("   AI TRAINING PIPELINE COMPLETE! ALL TARGETED ASSETS COMPILED.")
     print("="*50)
+
+    # Archive this run's COMPLETE export — placed after the final banner so
+    # every artifact (h5, tfjs, vocab, labels, mask, eval report) is on disk.
+    # First placement of this block sat BEFORE model.save() and its
+    # shutil.copytree crashed on a shadowed local import, killing run 29
+    # mid-export: exported_model held run-29 vocab over run-28 weights and
+    # every harness scored near-random. Keep this block LAST, always.
+    import datetime
+    archive_root = "exported_model_archive"
+    os.makedirs(archive_root, exist_ok=True)
+    stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    archive_dir = os.path.join(archive_root, f"{stamp}-seed{RANDOM_SEED}")
+    shutil.copytree(output_dir, archive_dir)
+    print(f"[*] Archived run to {archive_dir}")
+    archives = sorted(os.listdir(archive_root))
+    for old_run in archives[:-10]:
+        shutil.rmtree(os.path.join(archive_root, old_run))
+        print(f"[*] Pruned old archive {old_run}")
 
 
 if __name__ == "__main__":
