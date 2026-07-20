@@ -32,7 +32,7 @@
     "utterance": "change yesterday income to 500"
   },
   "ADD_INCOME|DELETE|remove the Amazon income entry": {
-    "passed": true,
+    "passed": false,
     "utterance": "remove the Amazon income entry"
   },
   "ADD_LIABILITY|CREATE|took a home loan of 500 from the bank": {
@@ -44,7 +44,7 @@
     "utterance": "update my home loan balance to 500"
   },
   "ADD_LIABILITY|DELETE|remove my home loan": {
-    "passed": true,
+    "passed": false,
     "utterance": "remove my home loan"
   },
   "AFFORDABILITY_CHECK|ANALYSIS|can I afford food for 500": {
@@ -84,7 +84,7 @@
     "utterance": "remove the transfer to my roommate"
   },
   "GOAL_PLANNING|CREATE|I want to save 50000 for a car": {
-    "passed": false,
+    "passed": true,
     "utterance": "I want to save 50000 for a car"
   },
   "GOAL_PLANNING|UPDATE|change my a car target to 50000": {

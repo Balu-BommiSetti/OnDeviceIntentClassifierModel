@@ -72,7 +72,28 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   model to date: probe intent 87.7% / bucket 82.2%, QA 56.3% full pass /
   62.9% entities, regression 39/41, TFJS smoke PASS, vocab=emb=2705,
   146/146 tests.
-- [ ] **Run 32 training** — the three weakest buckets, diagnosed together and
+- [x] ~~Run 32~~ — ALL THREE TARGETS IMPROVED, overall net-neutral. STAGED,
+  not deployed (app runs 31).
+    ADD_INCOME|UPDATE        2/7  -> 4/7
+    GOAL_PLANNING|ANALYSIS   5/14 -> 10/14  (doubled)
+    ADD_ASSET misroutes      9    -> 4      (52/56 intent-correct)
+    QA full pass 56.3 -> 57.5% (best ever), entities 62.9% held
+    probe intent 87.7 -> 87.6 (flat), bucket 82.2 -> 81.6 (-0.6, INSIDE the
+    1.0pt noise band), regression 39 -> 38/41, checklist READY.
+  MY PREDICTION WAS WRONG: I said these were pure coverage gaps that "should
+  not trade against each other". They did trade — INCOME_ANALYSIS picked up
+  15 misroutes. But the cause is NOT what I guessed either: only 3 are the
+  ADD_INCOME bleed I feared, and those 3 are Hinglish. The rest are
+  two-amount COMPARISON queries ("compare march 2024 salary 1.8 lakh with
+  april 2024...") colliding with SIP_VS_PREPAY, whose whole shape is
+  two-option comparison. That is a REAL taxonomy adjacency, not a data gap.
+  FAMILY_TRANSFER->ADD_EXPENSE shows 9 but was previously measured as
+  UNSTABLE across seeds (4/10/4) — do not act on this single number.
+  NEXT: INCOME_ANALYSIS|COMPARISON vs SIP_VS_PREPAY adjacency is the top
+  remaining item; needs a discriminator (SIP_VS_PREPAY must NAME the
+  investment side — that rule already exists in the spec and may just need
+  enforcing in INCOME_ANALYSIS|COMPARISON patterns).
+- [x] ~~(superseded)~~ Run 32 plan — the three weakest buckets, diagnosed together and
   fixed in ONE run (they are distinct COVERAGE gaps, not boundary shifts, so
   unlike run 30 they should not trade against each other; probe_eval can
   attribute each independently afterwards):
