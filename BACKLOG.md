@@ -68,6 +68,34 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
 
 ## P1 — quality
 
+- [ ] **FIELD REPORT: harness run 1** (2026-07-20, run 29b model) — full
+  analysis in `v6/training_pipeline/benchmarks/field_reports/2026-07-20-harness-run-1.md`.
+  Suite tested ~5% of the product (36/40 SPENDING_ANALYSIS, 3 of 15
+  taskTypes) so it says little about overall quality, but it surfaced real
+  bugs. Priority order, NOT yet actioned (user asked for analysis only):
+    1. SILENT WRONG-PERIOD ANSWERS — PERIOD dropped, app substitutes TODAY,
+       user gets a confident answer about the wrong time range. 5/40 (12.5%).
+       Weak shape is merchant-then-period. Trace the today-fallback first.
+    2. Category synonym gaps where the app category EXISTS: "gas stations"
+       (Fuel), "Wifi" (Internet / Broadband), "coffee" (Tea & Coffee).
+       Cheap training-data fix.
+    3. Informal spend verbs: "blow on" -> INCOME_ANALYSIS, "drop on" ->
+       UNKNOWN@0.00.
+    4. "Analyze"/"analysis" never maps to ANALYSIS taskType (0 for 3; one at
+       1.00 confidence).
+    5. SUMMARY/INSIGHTS/ANALYSIS boundary: identical question shape split
+       INSIGHTS@0.49 vs ANALYSIS@0.50 — needs a PRODUCT decision.
+    6. Span swallowing: "spent on Uber yesterday" -> DATE="uber yesterday",
+       merchant lost. Hallucinated category "Clothing" on a query with no
+       category. Both need tracing.
+  Every item must become a qa_scenarios.jsonl case even if not fixed now.
+- [ ] **Query-generation prompt written** —
+  `~/Downloads/TestSuites/QUERY_GENERATION_PROMPT.md` hands the generating
+  model the full 19-intent/15-taskType taxonomy, real category + merchant
+  vocabulary, Indian money/time formats, and an explicit coverage
+  requirement. Root cause of batch 1's narrowness: the generator had no idea
+  what the app could do.
+
 - [x] **TFJS export schema bug (CRITICAL, user-found)** — the converter
   serialized topology from Keras 3; tfjs-layers implements the Keras 2
   schema (batch_shape vs batch_input_shape + dict inbound_nodes). Every
