@@ -71,13 +71,9 @@
       "Give me the aggregate savings data for {PERIOD}",
       "Summarise my savings in {PERIOD}",
       "Is {PERIOD} ka savings summary batao",
-      "Mujhe {CATEGORY} ki savings ka summary chahiye",
       "Mera {AMOUNT} savings is {PERIOD} me kitna hai?",
-      "Is {PERIOD} me {AMOUNT} bachane ke liye kya karna chahiye?",
       "Kya main har {PERIODSHORT} me {AMOUNT} bacha raha hoon?",
-      "Yeh {CATEGORY} me mera savings summary aur cut back suggestions de",
       "Is mahine mein {PLAINAMOUNT} bachane ke liye tips?",
-      "Mere {DATE} ka savings summary batao",
       "Kaun se kharchon mein main {AMOUNT} bacha sakta hoon?"
     ],
     "ANALYSIS": [
@@ -123,15 +119,10 @@
       "what is affecting my ability to save",
       "why is my saving rate declining",
       "Mere {PERIODSHORT} ka savings rate kyon kam hai?",
-      "Agar mera {CATEGORY} ka kharcha {AMOUNT} hai, to saving rate low kyon hai?",
       "Maine {DATE} tak {PLAINAMOUNT} bachaya, par still savings low hai. Kyun?",
-      "Mere monthly budget mein {AMOUNT} kharch ho raha, saving kam ho raha hai. Kya rok raha hai?",
       "Kya {CATEGORY} ke kharche se mera savings rate prabhavit ho raha hai?",
-      "Mujhe {PERIOD} ke liye kitna bacha nahi pa raha, kyun?",
       "Mere expenses mein {AMOUNT} ka hissa barh gaya, saving kam ho raha, kyun?",
-      "Salary ke baad {AMOUNT} bacha nahi raha, saving rate low kyon hai?",
-      "Mere credit card bill mein {AMOUNT} aaya, ab saving kam kaise ho raha hai?",
-      "Pichle mahine mein {AMOUNT} spend kiya, saving rate low kyon?"
+      "Mere credit card bill mein {AMOUNT} aaya, ab saving kam kaise ho raha hai?"
     ]
   }
 }

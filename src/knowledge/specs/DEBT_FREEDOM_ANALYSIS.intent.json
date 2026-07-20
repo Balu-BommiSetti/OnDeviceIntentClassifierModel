@@ -105,15 +105,10 @@
       "list the loans among my commitments",
       "what loans am I actually paying every month",
       "Mujhe batao ki {LIABILITYTYPE} ka payoff timeline kaise dikhai dega?",
-      "Kitna jaldi {LIABILITYTYPE} ko {TARGETDATE} tak clear kar sakta/ sakti hoon, 20% extra payment ke saath?",
       "Yaar, {LIABILITYTYPE} ko {INTERESTRATE}% interest pe {TENUREMONTHS} mahine mein kaise settle karu?",
-      "{LENDER} ka loan, {PLAINAMOUNT} ka payoff summarise karke batao.",
       "Quick summary deto, {LIABILITYTYPE} ko {TARGETDATE} tak kaise free ho jaunga/karungi?",
-      "Kya {EXTRAPAYMENT} karne se {LIABILITYTYPE} ki repayment jaldi ho jati hai?",
-      "Lumpsum ₹{LUMPSUM} se {LIABILITYTYPE} clear karne ka fastest path batao.",
-      "Ek overview, {LIABILITYTYPE} ka total payoff amount aur schedule kya hoga?",
-      "Mujhe ek short period ({PERIODSHORT}) ka debt freedom plan chahiye.",
-      "Kya main {LENDER} ka loan 3% interest pe aur {EXTRAPAYMENT} karke kis tarike se timeline badalunga/karungi?"
+      "Lumpsum \u20b9{LUMPSUM} se {LIABILITYTYPE} clear karne ka fastest path batao.",
+      "Mujhe ek short period ({PERIODSHORT}) ka debt freedom plan chahiye."
     ],
     "WHAT_IF": [
       "suppose I add {EXTRAPAYMENT} to every payment",
@@ -172,15 +167,10 @@
       "what happens to my payoff date if the EMI increases",
       "if my {LIABILITYTYPE} EMI changes what happens to my debt free date",
       "Har mahine {EXTRAPAYMENT} extra add kar do, loan kitni jaldi clear hoga?",
-      "Agar main {EXTRAPAYMENT} extra har mahine pay karun, toh {LIABILITYTYPE} ki repayment kitni pehle complete hogi?",
       "Ek baar {LUMPSUM} lump sum pay karo, balance kitna kam hoga aur repayment kab complete hogi?",
-      "Mujhe {INTERESTRATE}% par loan mila hai, agar emi me {EXTRAPAYMENT} add karun, total interest kitna save hoga?",
       "Agar main payment ko {EXTRAPAYMENT} se raise karun, toh repayment period kitna chhota hoga?",
-      "Mere {LIABILITYTYPE} ka remaining balance kya hai aur agar {EXTRAPAYMENT} extra add karun, future total kya hoga?",
       "Yo {LENDER} ka loan hai, agar {EXTRAPAYMENT} extra pay karun, toh loan kab clear hoga?",
-      "Mere {LIABILITYTYPE} ka balance fix hai, agar har mahine {EXTRAPAYMENT} extra pay karun, kitna jaldi debt free ho jaunga?",
-      "Ek baar {LUMPSUM} lump sum payment kar do, total interest aur loan tenure pe kya impact padega?",
-      "Mere {TENUREMONTHS} mahine ka loan hai, agar {EXTRAPAYMENT} extra monthly pay karun, repayment early ho jaega?"
+      "Ek baar {LUMPSUM} lump sum payment kar do, total interest aur loan tenure pe kya impact padega?"
     ],
     "STRATEGY": [
       "what sequence should I repay these in",
@@ -226,15 +216,10 @@
       "which repayment path gives me the lowest interest if i choose snowball or avalanche",
       "can i determine the order of my loans by comparing interest rates and balances",
       "Mujhe batao ki pehle {LIABILITYTYPE} ka loan chukana chahiye ya {LENDER} ka?",
-      "Kya mujhe sabse high {INTERESTRATE} wala loan pehle chukana chahiye?",
       "Mujhe strategy batao jisse main {EXTRAPAYMENT} add karke {LUMPSUM} bhi laga sakun aur loans ko priority de sakun.",
-      "Mere paas {TENUREMONTHS} months ka loan hai, kaunse loan ko pehle clear karna chahiye?",
       "Kya main {TARGETDATE} tak sab loans clear kar sakta hoon by focusing mainly on {LIABILITYTYPE}?",
-      "Phir mujhe batayein ki kaunse loan ka {INTERESTRATE} sabse high hai, so priority wohi ho.",
       "Mujhe batao ki 2 lakh {PLAINAMOUNT} ka loan, main kaunse order me repay karna chahiye?",
-      "Mujhe strategy chahiye ki pehle {LIABILITYTYPE} ko chukana, phir {LENDER} ko.",
-      "Kya main {PERIODSHORT} me kaunse loan ko clear karun to debt freedom jaldi mile?",
-      "Mujhe plan batao jisse main {LIABILITYTYPE} ke {INTERESTRATE} interest wale loan ko first clear kar saku."
+      "Kya main {PERIODSHORT} me kaunse loan ko clear karun to debt freedom jaldi mile?"
     ],
     "SCHEDULE": [
       "split my next payment into interest and principal",
@@ -290,15 +275,10 @@
       "upcoming EMIs for {PERIODSHORT}",
       "when is my next EMI due",
       "Mujhe meri {LIABILITYTYPE} ka next payment ka interest aur principal split kar ke batao.",
-      "Bank {LENDER} se meri {LIABILITYTYPE} ke instalment ka kitna portion interest mein jaega?",
       "Mujhe {LIABILITYTYPE} ka {TARGETDATE} tak ka repayment table dikhau.",
-      "Mere paas {EXTRAPAYMENT} extra hai, isse meri {LIABILITYTYPE} ki repayment dates kaise badalti hain?",
       "Meri {LIABILITYTYPE} ka {PERIODSHORT} breakup interest vs principal batao.",
-      "Mujhe {LIABILITYTYPE} ka next due date aur total amount batao.",
       "Kya mein {LUMPSUM} ka lump sum laga ke {LIABILITYTYPE} ki repayment schedule change kar sakta/ sakti hoon?",
-      "Show me the repayment table for my {LIABILITYTYPE} till {TENUREMONTHS} months, please.",
-      "Mere {LIABILITYTYPE} ke {PLAINAMOUNT} ka payment next month mein split kaise hoga?",
-      "Kya {LIABILITYTYPE} ka {INTERESTRATE}% ka interest rate badhega future mein?"
+      "Mere {LIABILITYTYPE} ke {PLAINAMOUNT} ka payment next month mein split kaise hoga?"
     ],
     "RISK": [
       "am I carrying too much debt for my income",
@@ -352,13 +332,9 @@
       "is my EMI load too high for my income",
       "is my borrowing getting risky",
       "Mere {LIABILITYTYPE} ka EMI-to-income ratio kya high hai? Kya yeh over-exposed hai?",
-      "Rate meri debt health, especially {LIABILITYTYPE} from {LENDER}.",
       "Kya mera {LIABILITYTYPE} from {LENDER} ka EMI {INTERESTRATE}% pe high lag raha hai?",
-      "Mere {LIABILITYTYPE} ka {TENUREMONTHS} mahine ka loan, kya yeh risk level ke hisaab se sahi hai?",
       "Kya main {EXTRAPAYMENT} extra kar ke {LIABILITYTYPE} ka risk kam kar sakta hoon?",
-      "Mujhe bataao {LIABILITYTYPE} ka {INTERESTRATE}% interest ke saath EMI-to-income ratio kitna hai.",
       "Mere {LIABILITYTYPE} ka {LUMPSUM} ka one-time payment plan {TARGETDATE} tak complete karne ka plan kitna safe hai?",
-      "Kya mere {LIABILITYTYPE} ka {PERIODSHORT} wage mein too high hai?",
       "Check my debt health for {LIABILITYTYPE} from {LENDER} ka total {PLAINAMOUNT}."
     ]
   }

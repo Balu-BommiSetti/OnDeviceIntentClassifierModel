@@ -280,10 +280,18 @@ const SLOT_VALUES_BY_INTENT: Record<string, Record<string, string[]>> = {
   // Money direction is the highest-stakes thing this model decides: getting it
   // backwards writes a transaction with the wrong sign.
   ADD_INCOME: {
+    // OVER-CORRECTION FIXED 2026-07-20: this pool was swung ENTIRELY to payers,
+    // which fixed "got 7500 from zara store" -> ADD_EXPENSE but created the
+    // opposite gap — "received 500 from Amazon" and "remove the Amazon income
+    // entry" both regressed, because a payee name was never seen in an income
+    // context. Real merchants DO pay users: refunds, marketplace payouts,
+    // cashback. Both directions must be learnable, so the pool now carries
+    // payers AND payee-capable brands rather than trading one for the other.
     MERCHANT: [
       "my employer", "my client", "the company", "my tenant", "the agency",
       "my main client", "the bank", "my previous employer", "the startup",
       "the delivery company", "my office", "the university", "my landlord",
+      "Amazon", "Flipkart", "Swiggy", "Paytm", "PhonePe", "Zomato",
     ],
     CATEGORY: [
       "salary", "bonus", "freelance work", "consulting", "commission",

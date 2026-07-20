@@ -69,13 +69,9 @@
       "calculate my total wealth after considering liabilities",
       "list my net worth figure for this month",
       "Mera net worth {DATE} ka kitna hai?",
-      "Overall kitna am I worth {PERIODSHORT}?",
       "Show me my total wealth {PERIOD} mein?",
-      "Mera net worth ka total {PERIOD} mein?",
       "Mujhe batao total net worth ka {DATE}?",
-      "Kitna bacha hai mujhmein this month {PERIODSHORT}?",
       "Mere total assets ka amount kya hai {DATE}?",
-      "Total net worth show kar do {PERIOD} mein?",
       "Overall worth kya hai {PERIOD}?"
     ]
   }

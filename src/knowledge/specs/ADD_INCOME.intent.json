@@ -89,14 +89,13 @@
       "{MERCHANT} sent me {AMOUNT}",
       "got {AMOUNT} {CATEGORY} from {MERCHANT}",
       "Maine {MERCHANT} se {AMOUNT} liya, income add kar do",
-      "Salary {AMOUNT} ka receipt aaya, krdo",
       "Cash back {AMOUNT} {MERCHANT} se mila, add income kar",
-      "Investment returns {AMOUNT} {CATEGORY} mein, record karo",
       "{AMOUNT} {PAYMENT_METHOD} ke through {DATE} ko mila, add kar",
-      "Freelance ka {AMOUNT} {PERIODSHORT} aaya, income line add karo",
       "Bonus {AMOUNT} account mein aayi, add kar do",
-      "Mujhe {MERCHANT} se {AMOUNT} {DATE} ko mila, income record kar",
-      "Salary {PLAINAMOUNT} aayi, income add karo"
+      "Salary {PLAINAMOUNT} aayi, income add karo",
+      "received {AMOUNT} from {MERCHANT}",
+      "{AMOUNT} refund received from {MERCHANT}",
+      "got {AMOUNT} payout from {MERCHANT}"
     ],
     "UPDATE": [
       "change {DATE} income to {AMOUNT}",
@@ -161,15 +160,10 @@
       "the {CATEGORY} i logged {DATE} should be {AMOUNT}",
       "fix my {DATE} income to {AMOUNT}",
       "Mere {DATE} ka income {AMOUNT} se update karo.",
-      "Mere {MERCHANT} ke payment ka amount {AMOUNT} se kardo.",
       "Mera {CATEGORY} income ko {AMOUNT} se correct karo.",
-      "Meri salary ka income {AMOUNT} kar do.",
       "Is mahine ka income {AMOUNT} update karo.",
-      "Mere {PERIODSHORT} ka income {AMOUNT} se badal do.",
       "Mere {PLAINAMOUNT} ka income {AMOUNT} dubara set karo.",
-      "Mera {MERCHANT} payment ka amount {AMOUNT} se badal do.",
-      "Mere {DATE} ka salary income {AMOUNT} se fix karo.",
-      "Mere {DATE} ki income {AMOUNT} se correct kar do."
+      "Mere {DATE} ka salary income {AMOUNT} se fix karo."
     ],
     "DELETE": [
       "remove the {MERCHANT} income entry",
@@ -224,7 +218,9 @@
       "delete {AMOUNT} from {DATE} {CATEGORY}",
       "remove {AMOUNT} from my {CATEGORY} entry",
       "delete the {AMOUNT} i received from {MERCHANT}",
-      "remove {MERCHANT} ka income entry"
+      "remove {MERCHANT} ka income entry",
+      "remove the {MERCHANT} income entry",
+      "delete the income from {MERCHANT}"
     ]
   }
 }

@@ -71,13 +71,9 @@
       "received a {AMOUNT} refund from {MERCHANT} {DATE}",
       "{MERCHANT} refunded me {AMOUNT} {DATE}",
       "Refund mila hai {AMOUNT} {MERCHANT} se",
-      "Maine {AMOUNT} ka refund {MERCHANT} se paaya",
       "Refund {AMOUNT} {DATE} ko mila hai",
-      "Cashback {AMOUNT} {CATEGORY} pe mili",
       "Refund ki entry kar do {AMOUNT} {MERCHANT}",
-      "Mujhe {AMOUNT} ka refund {MERCHANT} se hua",
-      "Maine {AMOUNT} ka refund {PAYMENT_METHOD} se paaya",
-      "Refund mila {AMOUNT} {CATEGORY} ke liye"
+      "Maine {AMOUNT} ka refund {PAYMENT_METHOD} se paaya"
     ],
     "UPDATE": [
       "change the refund from {MERCHANT} to {AMOUNT}",
@@ -125,15 +121,10 @@
       "How do I change the refund I logged via {PAYMENT_METHOD} to {AMOUNT}",
       "Could I re-enter the refund I logged on {DATE} with a new amount {AMOUNT}",
       "refund ko {MERCHANT} se {AMOUNT} kar do",
-      "meri {DATE} ki refund {AMOUNT} se sahi karo",
       "actual refund {AMOUNT} tha, update kar do",
-      "refund amount {AMOUNT} galat hai, change kar do",
       "refund ko {MERCHANT} me {AMOUNT} fix kar do",
-      "refund ko {MERCHANT} se {PAYMENT_METHOD} ke through {AMOUNT} fix kar do",
       "refund ko {CATEGORY} ke liye {AMOUNT} adjust kar do",
-      "refund ko {PERIODSHORT} mein {AMOUNT} kar do",
-      "refund ka amount galat hai, {MERCHANT} mein {AMOUNT} se sahi karo",
-      "refund ko badal do, {MERCHANT} se {AMOUNT}"
+      "refund ka amount galat hai, {MERCHANT} mein {AMOUNT} se sahi karo"
     ],
     "DELETE": [
       "remove the {MERCHANT} refund",
@@ -183,13 +174,9 @@
       "could you take out the {AMOUNT} refund entry from {CATEGORY} on {DATE}",
       "can you cancel the {AMOUNT} refund entry that appeared on {DATE} for {MERCHANT}",
       "remove {MERCHANT} ka refund",
-      "delete {AMOUNT} ka refund from {DATE}",
       "Refund ka {MERCHANT} delete kar do",
-      "Mujhe {AMOUNT} refund hatana hai",
       "Refund {DATE} ka {AMOUNT} delete karein",
-      "duplicate {PLAINAMOUNT} refund entry cancel karo",
       "Refund {PAYMENT_METHOD} se {AMOUNT} ka entry delete kar do",
-      "Refund ka {CATEGORY} entry delete karo",
       "Mujhe {PERIODSHORT} ke refunds delete karne hain"
     ]
   }

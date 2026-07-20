@@ -6,6 +6,34 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
+Last updated: 2026-07-20 (iteration 46 — RUN 35: regression 41/41 = 100% FIRST EVER, Hinglish live, READY. App runs 34.)
+
+## >>> WHAT IS ACTUALLY LEFT (audited 2026-07-20; 10 stale items closed) <<<
+
+MUST DO before this can be called finished:
+  A. Entity generalization — QA entities 59-63%. The umbrella P0 and the thing
+     the product cares about most. Levers not yet tried: slots-head loss
+     weighting, embedding capacity, CRF layer.
+  B. Confirmation Card (docs/ai_chat/confirmation_card_plan.md) — ~14% of
+     queries land under the confidence floor and currently dead-end.
+  C. Taxonomy gaps register — 17 unresolved cases.
+
+PRODUCT DECISIONS BLOCKING WORK (yours, not mine):
+  D. Should SIP_VS_PREPAY|SUMMARY exist? An LLM told to avoid COMPARISON could
+     not write 20 non-comparison queries for it.
+  E. SUMMARY vs INSIGHTS vs ANALYSIS boundary — identical question shapes split
+     across them at coin-flip confidence.
+
+CAN BE CUT if time is short (hygiene, not correctness):
+  F. 26 residual double-preposition rows (0.14%)
+  G. I-TARGETAMOUNT F1 0.000 (support 3)
+  H. 1 degenerate synonym comparison row
+  I. Regression baseline history / dated copies
+  J. QA expected-entity convention normalisation
+  K. 14 un-audited intents — probe loop now covers these continuously, so a
+     manual audit is largely redundant.
+
+--- (original header follows) ---
 Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: intent 87.7%, bucket 82.2%, QA 56.3%. (older header follows) iteration 37 — RUN 29b STAGED: all 4 success tests MET, QA 53.4%, risk_grade 3/9->7/9, zero spurious EMI tags. App still runs 28.)
 
 ## P0 — blocks shipping
@@ -53,7 +81,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   assets/nlp (vocab 2552 == input_dim 2552, 19 intents) with 5.8MB of
   orphaned Jul-18 shards removed and app_sync.py taught to clean orphans.
   59/59 NLP unit tests pass; tsc clean on touched files.
-- [ ] **FLIP DECISION: AI_FLAGS.ENABLE_ONDEVICE_NLP** — the flag is the last
+- [x] ~~FLIP DECISION: AI_FLAGS.ENABLE_ONDEVICE_NLP~~ — FLIPPED ON by user 2026-07-20. (detail below) — the flag is the last
   gate between the model and users. Flip when QA entity exact clears a bar
   the product owner sets (currently 48.6%). Flag-off path = legacy heuristic
   EntityExtractor flow (NOT the LLM — that is gone).
@@ -61,7 +89,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   (see P1 Done). The flip has no remaining structural blockers: the decision
   is now purely the QA-entity quality bar.
 
-- [ ] **QA intent accuracy still 64%** even after the debt fix lands, watch:
+- [x] ~~QA intent accuracy still 64%~~ — STALE — probe intent now 91.2%. (detail below) even after the debt fix lands, watch:
   run-15 collapse concentrated in LOAN_ANALYSIS↔DEBT_FREEDOM flips at conf
   0.47–0.51. If run 16 doesn't recover it, the two intents may need merging
   (user's rule 2) rather than boundary-sharpening.
@@ -165,7 +193,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
    printed a traceback while generation still reported success. Re-applied
    against the real line; final dataset 16,728 rows.
 
-- [ ] **FIELD REPORT: isolated run, 449 cases** (2026-07-20) — first
+- [x] ~~FIELD REPORT: isolated run, 449 cases~~ — record, analysis complete. (detail below) (2026-07-20) — first
   UNCONTAMINATED run; see
   `benchmarks/field_reports/2026-07-20-harness-isolated-449.md`.
   Contamination 31 -> 0, so these numbers are trustworthy. Coverage 19/19
@@ -191,7 +219,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 - [x] ~~Harness has no ground truth~~ — SOLVED by the probe loop (below).
   Probes are labelled BY CONSTRUCTION (generated one bucket at a time), so
   probe_eval.py is a measurement, not a judgement call.
-- [ ] **PROBE LOOP — the new working method (2026-07-20)**
+- [x] ~~PROBE LOOP — the new working method (2026-07-20)~~ — built and in daily use. (detail below)
   `src/knowledge/bucketProbe.ts` + `v6/training_pipeline/probe_eval.py`.
   Replaces: generate -> TRAIN(25min) -> QA -> read failures -> repeat.
   With:     generate probes -> SCORE CURRENT MODEL(2min) -> fix only the
@@ -301,7 +329,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   (got/received/credited vs spent/paid). Highest-traffic write path, and a
   wrong call writes a transaction with the WRONG SIGN. One targeted
   direction-verb pattern family should address all four confusions.
-- [ ] **Probe-set hygiene (blind relabel)** — SIP_VS_PREPAY|SUMMARY scored
+- [x] ~~Probe-set hygiene (blind relabel)~~ — probeRelabel.ts built + run (29% noise found). (detail below) — SIP_VS_PREPAY|SUMMARY scored
   0/20 with intent accuracy 100%: the LLM generated comparison-shaped queries
   ("SIP karun ya loan prepay?") and labelled them SUMMARY because we asked
   for SUMMARY. The model was RIGHT. Fix: re-ask the LLM to label its own
@@ -326,7 +354,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   intent, so file-order is NOT execution-order — my first leak-detection
   pass compared against the wrong neighbour.
 
-- [ ] **FIELD REPORT: harness run 1** (2026-07-20, run 29b model) — full
+- [x] ~~FIELD REPORT: harness run 1~~ — record, analysis complete. (detail below) (2026-07-20, run 29b model) — full
   analysis in `v6/training_pipeline/benchmarks/field_reports/2026-07-20-harness-run-1.md`.
   Suite tested ~5% of the product (36/40 SPENDING_ANALYSIS, 3 of 15
   taskTypes) so it says little about overall quality, but it surfaced real
@@ -347,7 +375,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
        merchant lost. Hallucinated category "Clothing" on a query with no
        category. Both need tracing.
   Every item must become a qa_scenarios.jsonl case even if not fixed now.
-- [ ] **Query-generation prompt written** —
+- [x] ~~Query-generation prompt written~~ — written and used for 4 batches. (detail below) —
   `~/Downloads/TestSuites/QUERY_GENERATION_PROMPT.md` hands the generating
   model the full 19-intent/15-taskType taxonomy, real category + merchant
   vocabulary, Indian money/time formats, and an explicit coverage
@@ -494,7 +522,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   above floor). LESSON (recorded): when a QA class fails, check which FILLER
   REGIME its utterances live in, not just whether patterns exist — pattern
   volume cannot force a sampling regime.
-- [ ] **Still-red QA classes after run 22** (next targets, in value order):
+- [x] ~~Still-red QA classes after run 22~~ — STALE — superseded by probe-loop per-bucket data. (detail below) (next targets, in value order):
   multi_value_entities 1/13 (second CATEGORY + trailing PERIOD still
   dropped in spans — likely needs I-tag/adjacency work, not more rows),
   bare_replies 1/8 (fragments still UNKNOWN — the 24-row bump was not
@@ -539,7 +567,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   ADD_INCOME UPDATE shapes. Remaining 1: "how much of my salary goes to
   EMI" → LOAN|SUMMARY@0.99 (a genuinely debatable SUMMARY/ANALYSIS line —
   tracked, not blocking).
-- [ ] **QA variance reality check** — full pass 38.9→35.6→30.0 across runs
+- [x] ~~QA variance reality check~~ — DONE — seed spread measured (probe 0.8pt, QA 3.7pt). (detail below) — full pass 38.9→35.6→30.0 across runs
   17-19 under modest dataset changes. Run 17 was a favorable draw (it sat
   above the seed band). Honest current level: ~30-36%%. Entity exact
   44.6%%, inside the old band. Do not celebrate or panic on any single-run
@@ -586,7 +614,7 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 - [ ] **Hard-example benchmark gap** — 60.0% vs test 95.3%. Same root shape
   as the QA gap (off-template generalization). Re-measure after retraining.
 
-- [ ] **Run 28 training** *(in flight, seed 101, 16,176 rows)* — the
+- [x] ~~Run 28 training~~ — completed. (detail below) *(in flight, seed 101, 16,176 rows)* — the
   stacked_entity_writes batch (2/10):
     CATEGORIES: +electronics/a phone/furniture (QA purchase items absent);
     TARGETDATE: +month+year deadline forms ("by December 2026" untrainable);

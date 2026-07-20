@@ -75,15 +75,10 @@
       "{AMOUNT} to {SPLITWITH} for {CATEGORY}",
       "paid {SPLITWITH} {AMOUNT}",
       "Maine {AMOUNT} {SPLITWITH} ko transfer kiya",
-      "Yeh {AMOUNT} {SPLITWITH} ko bhej do",
       "Transfer karo {AMOUNT} {SPLITWITH} ko {DATE} ko",
-      "Kya maine {AMOUNT} {SPLITWITH} ko via {PAYMENT_METHOD} bhej diya?",
       "Bhai, {AMOUNT} {SPLITWITH} ko transfer kiya {PERIODSHORT} me",
-      "Mujhe {PLAINAMOUNT} {SPLITWITH} ko dena hai",
       "Maine {AMOUNT} {SPLITWITH} ko {PAYMENT_METHOD} se de diya",
-      "Transfer {AMOUNT} kiya {SPLITWITH} ko {DATE} ko",
-      "Maine {AMOUNT} {CATEGORY} category me {SPLITWITH} ko transfer kiya",
-      "Dekho, {AMOUNT} {SPLITWITH} ko transfer ho gaya"
+      "Maine {AMOUNT} {CATEGORY} category me {SPLITWITH} ko transfer kiya"
     ],
     "UPDATE": [
       "change the transfer to {SPLITWITH} to {AMOUNT}",
@@ -133,15 +128,10 @@
       "Can I modify the {AMOUNT} I sent to {SPLITWITH} from the existing record",
       "How should I fix the {AMOUNT} I sent to {SPLITWITH} that was recorded previously",
       "Transfer mein {SPLITWITH} ka amount {AMOUNT} se badal dena.",
-      "Maine {SPLITWITH} ko {AMOUNT} bheja tha, please correct karo.",
       "Bhai, {SPLITWITH} transfer ko {AMOUNT} se update karo.",
-      "Kal ka {SPLITWITH} transfer galat tha, isse {AMOUNT} me fix kar do.",
       "Kya {SPLITWITH} ka transaction amount {AMOUNT} kr dena?",
-      "Mere cousin {SPLITWITH} ko maine {PLAINAMOUNT} bheja, isse thoda adjust karo.",
       "Transfer ko edit karna hai: {SPLITWITH} ke liye {AMOUNT} set karo.",
-      "Yeh {SPLITWITH} transfer ka amount galat hai, {AMOUNT} se replace kar do.",
-      "Family ke liye {SPLITWITH} transfer ko {AMOUNT} banana hai.",
-      "25/8 ka {SPLITWITH} transfer galat tha, {AMOUNT} se correct karo."
+      "Family ke liye {SPLITWITH} transfer ko {AMOUNT} banana hai."
     ],
     "DELETE": [
       "remove the transfer to {SPLITWITH}",
@@ -196,15 +186,10 @@
       "cancel the duplicate transfer to {SPLITWITH}",
       "remove the money i sent {SPLITWITH}",
       "transfer delete kar do {SPLITWITH} ke liye",
-      "main {SPLITWITH} ki {AMOUNT} wali transfer delete karna chahta hoon",
       "meri {SPLITWITH} ko bheji gayi {AMOUNT} ki transfer ko delete karo",
-      "wo transfer jo {SPLITWITH} ke liye hai, cancel kar do",
       "duplicate transfer jo {SPLITWITH} hai, delete kar de",
-      "meri {SPLITWITH} wali transfer {PERIODSHORT} ki delete karein",
       "hamari transfer jo {SPLITWITH} ko {AMOUNT} bheji gayi thi, delete karo",
-      "kal ka {DATE} transfer jo {SPLITWITH} ko gaya tha, delete kar do",
-      "kya tum {SPLITWITH} ki {PLAINAMOUNT} transfer delete kar sakte ho?",
-      "hi, {AMOUNT} ki family transfer jo {DATE} se {SPLITWITH} ko gayi, delete kar de"
+      "kya tum {SPLITWITH} ki {PLAINAMOUNT} transfer delete kar sakte ho?"
     ]
   }
 }

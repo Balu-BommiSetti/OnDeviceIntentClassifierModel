@@ -90,15 +90,10 @@
       "why did my {MERCHANT} orders go up",
       "explain the jump in my {CATEGORY} bill",
       "meri {CATEGORY} ka kharcha itna high kyun hai?",
-      "kya {CATEGORY} mein extra expenses aa rahe hain?",
       "kaunsi {MERCHANT} ne mera {CATEGORY} bill badha diya?",
-      "pichle {PERIODSHORT} mein meri {CATEGORY} spending kahan ghum gyi?",
       "mere total {CATEGORY} expenses 45k se 1.2 lakh badh gaye kya?",
-      "money {DATE} se kahan ja raha hai?",
-      "kiye {CATEGORY} mein 23₹ extra charge lag raha hai?",
-      "mere {CATEGORY} spending ka trend kya hai last {PERIOD} mein?",
-      "mere ek transaction {MERCHANT} ke liye 8.5k ka fee kyun?",
-      "meri {CATEGORY} spending itni high kyun ho rahi hai?"
+      "kiye {CATEGORY} mein 23\u20b9 extra charge lag raha hai?",
+      "mere ek transaction {MERCHANT} ke liye 8.5k ka fee kyun?"
     ],
     "SUMMARY": [
       "show my spending report {PERIOD}",
@@ -190,13 +185,9 @@
       "total spent on {MERCHANT1} and {MERCHANT2} {PERIODSHORT}",
       "spending on {CATEGORY1} and {CATEGORY2} {PERIODSHORT}",
       "Is {PERIOD} mein {CATEGORY} pe kitna kharcha hua?",
-      "Is {PERIOD} mein {CATEGORY} ka spend dikhao.",
       "Kitna bacha {PERIOD}?",
-      "Is {PERIODSHORT} ka total spend?",
       "Kya {MERCHANT} pe {PERIOD} spend hua?",
-      "Kitna spend {CATEGORY} {PERIOD}?",
-      "Is {PERIOD} ka spending summary?",
-      "Is {PERIOD} mein main kitna kharcha kiya?"
+      "Is {PERIOD} ka spending summary?"
     ],
     "COMPARISON": [
       "compare my {CATEGORY} spend this month vs last",
@@ -262,15 +253,10 @@
       "{MERCHANT1} vs {MERCHANT2} spending {PERIODSHORT}",
       "which costs more {MERCHANT1} or {MERCHANT2}",
       "Is mahine ka {CATEGORY} spend last mahine se kitna alag hai?",
-      "Kya mera {CATEGORY} kharcha is mahine last mahine se zyada hua?",
       "Is mahine ki {CATEGORY} kharche ka comparison last mahine se karo.",
-      "Spending across {PERIOD} compare krdo.",
       "Is mahine aur {PERIOD} me {CATEGORY} kharcha ka compare kardo.",
-      "Kya {CATEGORY} spending is mahine {PERIODSHORT} se zyada hai?",
       "Is mahine ka {CATEGORY} spend {PERIOD} se kitna kam hai?",
-      "Is mahine ka {CATEGORY} spend last mahine ke muqabale me kaise hai?",
-      "Kya mera {CATEGORY} spend {PERIOD} ke doraan zyaada hua?",
-      "Is mahine aur {PERIOD} me {CATEGORY} spend ka difference batao."
+      "Kya mera {CATEGORY} spend {PERIOD} ke doraan zyaada hua?"
     ],
     "INSIGHTS": [
       "give me insights on my spending",
@@ -321,11 +307,8 @@
       "show me some insights about my money habits",
       "got any insights on where my money went {PERIODSHORT}",
       "meri spending insights dikhao {PERIOD}",
-      "kya unusual spending hua {PERIODSHORT}?",
       "top merchants jahan maine kharch kiya {DATE}",
-      "meri spend analysis batao {CATEGORY} ke liye",
       "kaun se merchant pe maine {PLAINAMOUNT} rupees se zyada kharcha kiya {PERIOD}",
-      "merchants se hamare kharch ka breakdown {PERIOD}",
       "meri monthly spending ka summary {PERIOD}"
     ],
     "TREND": [
@@ -394,15 +377,10 @@
       "Plot my {CATEGORY} spending for each month in {PERIOD} and state if it is higher or lower",
       "Create a trend line for my {CATEGORY} expenses over {PERIOD} and indicate the movement",
       "Pichle {PERIOD} me mera {CATEGORY} spending ka trend kaise hai?",
-      "Show me {CATEGORY} spending trend pichle {PERIOD} ka.",
       "Kya {CATEGORY} ki spending pichle {PERIOD} se zyada ho rahi hai?",
-      "Pichle {PERIODSHORT} ke liye total kharcha ka trend kya hai?",
       "Ur {CATEGORY} ka kharcha pichle {PERIOD} mein kaise badla?",
-      "Mujhe dikhaye {CATEGORY} spending trend pichle {PERIOD} ka.",
       "Pichle {PERIOD} me {CATEGORY} ki spending badhi jati hai?",
-      "Kaunse {MERCHANT} se pichle {PERIOD} me zyada kharcha hua?",
-      "Is {PERIOD} me mera {CATEGORY} kharcha {PLAINAMOUNT} se badha?",
-      "Pichle {PERIOD} me kharcha ka trend kaisa tha?"
+      "Is {PERIOD} me mera {CATEGORY} kharcha {PLAINAMOUNT} se badha?"
     ]
   }
 }

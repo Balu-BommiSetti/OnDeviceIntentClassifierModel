@@ -73,15 +73,10 @@
       "display my monthly cashflow",
       "what does my inflow vs outflow look like {PERIOD}",
       "Main {PERIOD} ke liye paise khatam honge kya?",
-      "Is {PERIODSHORT} mein kitne paise bacha hai?",
       "Kya {DATE} tak mere paas paise ka kya haal rahega?",
-      "Mere paas {AMOUNT} bacha hua, next month ke liye balance kya hoga?",
       "Mujhe {PLAINAMOUNT} bacha hua pata hai, kya aagey bacha rahega?",
-      "Is {PERIOD} ke kharche ke baad kitna bacha hoga?",
       "Kya {PERIOD} tak paise khatam honge?",
-      "Batao mere paise {PERIOD} tak kitne bache honge?",
-      "Kya main {PERIOD} tak lifestyle maintain kar paunga?",
-      "Bacha hua paisa {PLAINAMOUNT} ke baad kya situation hai?"
+      "Kya main {PERIOD} tak lifestyle maintain kar paunga?"
     ],
     "ANALYSIS": [
       "why is my cashflow negative {PERIOD}",
@@ -127,15 +122,10 @@
       "what is causing my money to disappear",
       "analyse my cash burn {PERIOD}",
       "meri cashflow {PERIOD} mein negative kyun ho rahi hai?",
-      "Mujhe samjhao {PERIODSHORT} ke liye cashflow negative kyun ho rahi hai?",
       "Kaun se kharche meri cashflow {PERIOD} mein negative kar rahe hain?",
-      "Is {DATE} ko cashflow negative ka reason kya hai?",
-      "Mere ₹{PLAINAMOUNT} ke loan repayment se cashflow negative kyun ho raha hai?",
-      "Apne {AMOUNT} expenses ke baad cashflow negative kyun ho rahi hai?",
+      "Mere \u20b9{PLAINAMOUNT} ke loan repayment se cashflow negative kyun ho raha hai?",
       "Cashflow ka negative trend {PERIOD} mein kahan se aaraha hai?",
-      "Mere monthly rent {AMOUNT} se cashflow negative kyun ho raha hai?",
-      "Yeh {PERIODSHORT} ke expenses se cashflow negative kyun spike ho gaya?",
-      "Batao, {PLAINAMOUNT} ki investment se cashflow negative ka impact kya hai?"
+      "Yeh {PERIODSHORT} ke expenses se cashflow negative kyun spike ho gaya?"
     ]
   }
 }

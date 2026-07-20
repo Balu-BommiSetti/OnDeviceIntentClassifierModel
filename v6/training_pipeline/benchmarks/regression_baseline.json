@@ -24,7 +24,7 @@
     "utterance": "remove the food expense"
   },
   "ADD_INCOME|CREATE|received 500 from Amazon": {
-    "passed": false,
+    "passed": true,
     "utterance": "received 500 from Amazon"
   },
   "ADD_INCOME|UPDATE|change yesterday income to 500": {
@@ -32,7 +32,7 @@
     "utterance": "change yesterday income to 500"
   },
   "ADD_INCOME|DELETE|remove the Amazon income entry": {
-    "passed": false,
+    "passed": true,
     "utterance": "remove the Amazon income entry"
   },
   "ADD_LIABILITY|CREATE|took a home loan of 500 from the bank": {
@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": false,
+    "passed": true,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {
@@ -124,7 +124,7 @@
     "utterance": "got a refund of 500 from Amazon"
   },
   "REFUND|UPDATE|change the refund from Amazon to 500": {
-    "passed": false,
+    "passed": true,
     "utterance": "change the refund from Amazon to 500"
   },
   "REFUND|DELETE|remove the Amazon refund": {

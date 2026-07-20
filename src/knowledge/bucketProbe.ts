@@ -48,7 +48,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPEC_DIR = path.resolve(__dirname, "specs");
-const OUT_PATH = path.resolve(__dirname, "../../v6/training_pipeline/benchmarks/probe_set.jsonl");
+const OUT_PATH_EN = path.resolve(__dirname, "../../v6/training_pipeline/benchmarks/probe_set.jsonl");
+const OUT_PATH_HI = path.resolve(__dirname, "../../v6/training_pipeline/benchmarks/probe_set.hinglish.jsonl");
 const HELD_OUT = [
   path.resolve(__dirname, "../../v6/training_pipeline/benchmarks/qa_scenarios.jsonl"),
   path.resolve(__dirname, "../../v6/training_pipeline/benchmarks/hard_cases.jsonl"),
@@ -124,7 +125,7 @@ function loadHeldOut(): Set<string> {
  *   - The realism rules. Template-shaped queries are precisely what the model
  *     is already good at; the gap is everyday phrasing.
  */
-function buildPrompt(spec: Spec, action: string, count: number): string {
+function buildPrompt(spec: Spec, action: string, count: number, hinglish = false): string {
   const siblings = spec.supported_actions.filter((a) => a !== action);
   const anchors = (spec.utterance_patterns[action] ?? []).slice(0, 4);
   const ents = [...(spec.required_entities ?? []), ...(spec.optional_entities ?? [])];
@@ -144,7 +145,7 @@ RULES:
 - Vary the sentence shape: questions, bare fragments, commands. Not all starting the same way.
 - Use Indian money (500, 2k, 50k, 1.5L, 2 lakh, 12 crore) and Indian merchants where natural.
 - Vary WHERE the time period sits — start of sentence sometimes, not always the end.
-- Include 2 or 3 Hinglish queries.
+${hinglish ? "- EVERY line must be Hinglish (Hindi grammar in Latin script mixed with English finance words), e.g. \"mera kitna kharcha hua is mahine\". Not translated English — natural Hindi word order." : "- Include 2 or 3 Hinglish queries."}
 - Every line must unambiguously be ${action}, not a sibling taskType.
 - No two lines may be the same sentence with one word swapped.
 
@@ -239,6 +240,10 @@ async function main() {
   const onlyIntent = flag("--intent");
   const onlyAction = flag("--action");
   const dryRun = args.includes("--dry-run");
+  // --hinglish builds a DEDICATED Hinglish eval set. The English probe set
+  // cannot see whether Hinglish works, so tuning the Hinglish share without
+  // this is flying blind on one side of the trade.
+  const hinglish = args.includes("--hinglish");
 
   const specs = loadSpecs().filter((s) => s.intent !== "UNKNOWN");
   const heldOut = loadHeldOut();
@@ -255,7 +260,7 @@ async function main() {
   if (dryRun) {
     const b = buckets[0];
     console.log(`--- DRY RUN: ${b.spec.intent}|${b.action} (${buckets.length} buckets would run) ---\n`);
-    console.log(buildPrompt(b.spec, b.action, count));
+    console.log(buildPrompt(b.spec, b.action, count, hinglish));
     return;
   }
 
@@ -267,7 +272,7 @@ async function main() {
   let generated = 0, dropped = 0;
 
   for (const { spec, action } of buckets) {
-    const prompt = buildPrompt(spec, action, count);
+    const prompt = buildPrompt(spec, action, count, hinglish);
     let queries: string[] = [];
     try {
       const raw = provider === "openai" ? await callOpenAi(prompt) : await callOllama(prompt);
@@ -293,6 +298,7 @@ async function main() {
     console.log(`  ${kept === 0 ? "✗" : "✓"} ${spec.intent}|${action}: ${kept}`);
   }
 
+  const OUT_PATH = hinglish ? OUT_PATH_HI : OUT_PATH_EN;
   fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
   fs.writeFileSync(OUT_PATH, rows.join("\n") + "\n");
   console.log(`\n[*] ${generated} labelled probes -> ${OUT_PATH}  (dropped ${dropped} dup/held-out)`);
