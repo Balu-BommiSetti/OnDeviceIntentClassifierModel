@@ -6,7 +6,7 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
-Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests MET, QA 53.4%, risk_grade 3/9->7/9, zero spurious EMI tags. App still runs 28.)
+Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: intent 87.7%, bucket 82.2%, QA 56.3%. (older header follows) iteration 37 — RUN 29b STAGED: all 4 success tests MET, QA 53.4%, risk_grade 3/9->7/9, zero spurious EMI tags. App still runs 28.)
 
 ## P0 — blocks shipping
 
@@ -162,7 +162,16 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   (PhonePe read as a payee).
   NEXT: needs a seed-repeat before any further conclusion — a single run
   cannot separate a 1.2pt move from noise.
-- [ ] **SPENDING_ANALYSIS|ANALYSIS — RE-DIAGNOSED, my earlier hypothesis was
+- [x] ~~SPENDING_ANALYSIS|ANALYSIS~~ — FIXED in run 31 by the re-diagnosis.
+  Target bucket 4/9 (44.4%) -> 8/9 (88.9%), and unlike run 30 this ADDED
+  accuracy instead of trading: intent 86.5 -> 87.7%, bucket 80.4 -> 82.2%,
+  both BEST EVER and outside the 0.8pt probe noise band. Direction cluster
+  held at 15 (vs 29b 20). Lesson: 4 iterations of adding "analyze" patterns
+  did nothing because the taskType was never wrong; 12 bill/fee/charge NOUN
+  patterns aimed at the intent head doubled the bucket in one run. When a
+  fix fails twice, re-read WHICH HEAD is failing before increasing the dose.
+  *(original diagnosis retained below)*
+- [x] **SPENDING_ANALYSIS|ANALYSIS — RE-DIAGNOSED, my earlier hypothesis was
   WRONG.** For 4 iterations I treated this as "Analyze does not map to the
   ANALYSIS taskType" and kept adding analyze-cue patterns. It never moved.
   The probe set shows why: bucket accuracy 44.4% EQUALS intent-alone 44.4%,
