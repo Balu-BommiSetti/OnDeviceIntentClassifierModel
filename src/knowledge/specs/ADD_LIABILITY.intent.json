@@ -116,7 +116,11 @@
       "Can I adjust the balance of my {LIABILITYTYPE} to {AMOUNT}",
       "Where can I edit my {LIABILITYTYPE} amount to {AMOUNT}",
       "Is it possible for me to replace my previous {LIABILITYTYPE} figure with {AMOUNT}",
-      "I realized I entered the wrong amount for my {LIABILITYTYPE}. Can I update it to {AMOUNT}"
+      "I realized I entered the wrong amount for my {LIABILITYTYPE}. Can I update it to {AMOUNT}",
+      "change the tenure of my {LIABILITYTYPE} to {TENUREMONTHS}",
+      "update my {LIABILITYTYPE} interest rate to {INTERESTRATE}",
+      "correct the {LIABILITYTYPE} amount to {AMOUNT}",
+      "change my {LENDER} loan tenure to {TENUREMONTHS}"
     ],
     "DELETE": [
       "remove my {LIABILITYTYPE}",
@@ -165,7 +169,9 @@
       "Could you explain how to delete the {TENUREMONTHS} month loan I entered",
       "What happens if I want to erase the {LIABILITYTYPE} I recorded",
       "I would like to delete the {AMOUNT} loan I added with {INTERESTRATE} interest",
-      "Can I remove the {LENDER} credit card liability I noted"
+      "Can I remove the {LENDER} credit card liability I noted",
+      "i cleared the {LENDER} {LIABILITYTYPE}, remove it",
+      "delete my {LIABILITYTYPE}, it is paid off"
     ]
   }
 }

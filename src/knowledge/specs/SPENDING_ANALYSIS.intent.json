@@ -71,7 +71,12 @@
       "explain why my {CATEGORY} spending has increased on {DATE}",
       "whats the rationale behind my higher {CATEGORY} costs during {PERIOD}",
       "which shops are responsible for my {CATEGORY} spend bump this week",
-      "show me the source of my {CATEGORY} surge in expenses over {PERIOD}"
+      "show me the source of my {CATEGORY} surge in expenses over {PERIOD}",
+      "analyze my spending {PERIODSHORT}",
+      "analyse my {CATEGORY} spend {PERIODSHORT}",
+      "give me an analysis of my expenses {PERIODSHORT}",
+      "do an analysis on my {CATEGORY} costs",
+      "analyze where my money went {PERIODSHORT}"
     ],
     "SUMMARY": [
       "show my spending report {PERIOD}",

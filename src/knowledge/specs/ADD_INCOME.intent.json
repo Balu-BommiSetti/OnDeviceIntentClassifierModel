@@ -79,7 +79,15 @@
       "add {AMOUNT} {CATEGORY} income for {DATE}",
       "log {AMOUNT} {CATEGORY} income for {DATE}",
       "add {AMOUNT} income for {DATE}",
-      "record {AMOUNT} {CATEGORY} income {DATE}"
+      "record {AMOUNT} {CATEGORY} income {DATE}",
+      "got {AMOUNT} from {MERCHANT}",
+      "got paid {AMOUNT} by {MERCHANT}",
+      "received {AMOUNT} from {MERCHANT} {DATE}",
+      "{AMOUNT} credited from {MERCHANT}",
+      "add {AMOUNT} received from {MERCHANT}",
+      "{AMOUNT} came in from {MERCHANT}",
+      "{MERCHANT} sent me {AMOUNT}",
+      "got {AMOUNT} {CATEGORY} from {MERCHANT}"
     ],
     "UPDATE": [
       "change {DATE} income to {AMOUNT}",
@@ -186,7 +194,10 @@
       "I would like to undo the {AMOUNT} received from {MERCHANT}",
       "Is there a way to remove the {PAYMENT_METHOD} income I recorded on {DATE}",
       "Could you instruct me to delete the {MERCHANT} income entry I made",
-      "I am looking to erase the {CATEGORY} income I logged with {PAYMENT_METHOD}"
+      "I am looking to erase the {CATEGORY} income I logged with {PAYMENT_METHOD}",
+      "delete {AMOUNT} from {DATE} {CATEGORY}",
+      "remove {AMOUNT} from my {CATEGORY} entry",
+      "delete the {AMOUNT} i received from {MERCHANT}"
     ]
   }
 }

@@ -68,7 +68,12 @@
       "Should I record giving {AMOUNT} to {SPLITWITH} for {CATEGORY} today",
       "Did I send {AMOUNT} to {SPLITWITH} last week ? I want the app to reflect it",
       "Can you help me add the {AMOUNT} I forwarded to {SPLITWITH} on {DATE}",
-      "Please log the {AMOUNT} I sent to {SPLITWITH} as an expense"
+      "Please log the {AMOUNT} I sent to {SPLITWITH} as an expense",
+      "gave {AMOUNT} to {SPLITWITH}",
+      "sent {AMOUNT} to {SPLITWITH} via {PAYMENT_METHOD}",
+      "transferred {AMOUNT} to {SPLITWITH} {DATE}",
+      "{AMOUNT} to {SPLITWITH} for {CATEGORY}",
+      "paid {SPLITWITH} {AMOUNT}"
     ],
     "UPDATE": [
       "change the transfer to {SPLITWITH} to {AMOUNT}",
@@ -166,7 +171,10 @@
       "please delete the entry of {AMOUNT} sent to {SPLITWITH} via {PAYMENT_METHOD}",
       "how do i cancel the payment of {AMOUNT} I sent to {SPLITWITH} on {DATE}",
       "could you pull back the outgoing transfer of {AMOUNT} to {SPLITWITH} dated {DATE}",
-      "remove the entry where i sent {AMOUNT} to {SPLITWITH} for {CATEGORY}"
+      "remove the entry where i sent {AMOUNT} to {SPLITWITH} for {CATEGORY}",
+      "delete the {AMOUNT} transfer to {SPLITWITH}",
+      "cancel the duplicate transfer to {SPLITWITH}",
+      "remove the money i sent {SPLITWITH}"
     ]
   }
 }

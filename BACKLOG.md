@@ -115,6 +115,16 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   Tooling bug found+fixed mid-sweep: num_predict 2048 truncated JSON and the
   parser discarded whole batches, losing 25/55 buckets; salvage stage + cap
   8192, re-ran the 25, 24 recovered 0 failed.
+- [x] ~~Probe-set hygiene (blind relabel)~~ — `src/knowledge/probeRelabel.ts`
+  re-asks the LLM to classify its own queries BLIND (full taxonomy, no hint of
+  the source bucket) and quarantines disagreements rather than deleting them
+  (a disagreement is evidence about the TAXONOMY too). 1,041 -> 741 clean /
+  300 disputed (29% label noise). Rescoring on the clean set moved
+  intent 83.8 -> 87.2% and bucket 72.3 -> 81.1%: NINE POINTS of apparent
+  model failure was actually label noise. Most-disputed buckets are a
+  taxonomy signal in their own right: SIP_VS_PREPAY|SUMMARY 20/20 disputed,
+  DEBT_FREEDOM|SCHEDULE 20, DEBT_FREEDOM|SUMMARY 19, INCOME_DECLARATION|
+  UPDATE 18 — buckets an LLM cannot reliably separate from their siblings.
 - [ ] **TOP FIX: direction-confusion cluster** (from probe sweep) — the model
   knows the domain but not WHICH WAY money moves:
     ADD_INCOME -> ADD_EXPENSE (12), FAMILY_TRANSFER -> ADD_INCOME (8),

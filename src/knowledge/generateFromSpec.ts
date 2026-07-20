@@ -262,6 +262,39 @@ const SLOT_VALUES_BY_INTENT: Record<string, Record<string, string[]>> = {
       "my main client", "the bank", "my previous employer", "the startup",
     ],
   },
+
+  // ADD_INCOME had the SAME defect as INCOME_ANALYSIS but was missed when that
+  // was fixed: it is a WRITE intent, so it kept drawing MERCHANT from the
+  // global payee pool and trained on "got 5000 from Amazon / Netflix / Swiggy".
+  // That teaches the exact inversion the probe sweep caught — a merchant name
+  // outweighing the direction verb, so "got 3000 from delivery company" and
+  // "add 7500 from zara store" both routed to ADD_EXPENSE (7 misroutes on the
+  // label-cleaned set). Pattern COUNT was never the problem: ADD_INCOME|CREATE
+  // already had 27 "from" patterns. The FILLERS were wrong.
+  // Money direction is the highest-stakes thing this model decides: getting it
+  // backwards writes a transaction with the wrong sign.
+  ADD_INCOME: {
+    MERCHANT: [
+      "my employer", "my client", "the company", "my tenant", "the agency",
+      "my main client", "the bank", "my previous employer", "the startup",
+      "the delivery company", "my office", "the university", "my landlord",
+    ],
+    CATEGORY: [
+      "salary", "bonus", "freelance work", "consulting", "commission",
+      "overtime", "rent received", "dividends", "interest", "a refund",
+      "my side business", "reimbursement",
+    ],
+  },
+
+  // FAMILY_TRANSFER is money moving to a PERSON. Drawing MERCHANT from the
+  // shop pool made "sent 5000 to <shop>" look like an ordinary purchase, which
+  // is why transfers leaked to ADD_INCOME/ADD_EXPENSE (10 misroutes).
+  FAMILY_TRANSFER: {
+    MERCHANT: [
+      "my brother", "my sister", "mom", "dad", "my cousin", "my friend",
+      "my uncle", "my aunt", "my roommate", "Rahul", "Priya", "Amit",
+    ],
+  },
 };
 
 /**
