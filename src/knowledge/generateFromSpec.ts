@@ -51,7 +51,10 @@ const SLOT_VALUES: Record<string, string[]> = {
   ASSETTYPE: ["gold", "mutual fund", "stocks", "property", "land", "bitcoin",
     "fixed deposit", "SIP", "a house", "a car", "silver", "platinum",
     "cryptocurrency", "bonds", "PPF", "NPS", "an ETF"],
-  LIABILITYTYPE: ["home loan", "car loan", "personal loan", "credit card debt", "bike loan", "education loan", "EMI"],
+  // "EMI" removed 2026-07-19: it is a PAYMENT, not a liability type, and its
+  // presence here taught the NER head to emit spurious LIABILITYTYPE=emi in
+  // any EMI-containing sentence (QA commitment_semantics/risk_grade).
+  LIABILITYTYPE: ["home loan", "car loan", "personal loan", "credit card debt", "bike loan", "education loan", "gold loan"],
   LENDER: ["the bank", "HDFC", "SBI", "my friend", "the credit union", "ICICI", "a relative"],
   GOALNAME: ["a car", "a house", "vacation", "emergency fund", "retirement", "an iphone", "wedding", "a laptop"],
   TARGETAMOUNT: AMOUNTS,

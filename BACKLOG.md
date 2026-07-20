@@ -6,7 +6,7 @@ items move to Done with evidence, or stay here with a priority. The live
 visual mirror is the "Task & TaskType Tracker" artifact; this file is the
 durable copy that survives sessions.
 
-Last updated: 2026-07-19 (iteration 35 — TFJS SCHEMA BUG fixed + smoke-test gate added; run 28 shipped to app out of necessity).
+Last updated: 2026-07-19 (iteration 36 — commitment/risk vocabulary + EMI-pool fix + cross-suite contradiction resolved; run 29 training).
 
 ## P0 — blocks shipping
 
@@ -80,19 +80,19 @@ Last updated: 2026-07-19 (iteration 35 — TFJS SCHEMA BUG fixed + smoke-test ga
   run 25 was NOT restorable — its .h5 was overwritten and only the broken
   export survived. LESSON: "verified" must mean the artifact was exercised
   by the runtime that consumes it, not that its structure is self-consistent.
-- [ ] **Archive per-run .h5 weights** — run 25/27 weights are gone (each
-  train.py run overwrites exported_model/), which forced shipping run 28
-  during the schema fix instead of restoring the deployed model. Keep dated
-  copies of nlp_multitask_model.h5 (or the whole exported_model/) per run.
+- [x] ~~Archive per-run .h5 weights~~ — train.py now copies the full
+  exported_model/ into exported_model_archive/<stamp>-seed<seed>/ after every
+  run (newest 10 kept, gitignored). Run 28's export archived immediately as
+  *-run28-DEPLOYED so the shipped model can always be rebuilt.
 
 - [ ] **USER LIVE-TESTING IN PROGRESS** — flag ON in the app. DEPLOYMENT
   RULE (user-set, 2026-07-19): model updates to the app happen ONLY when the
   user explicitly asks; gates keep running per train run and results are
-  staged. Currently staged: run 27 (READY — QA 55.1% FIRST >50%, entities 63.4%,
-  regression 38/41; the brand/category cross-pool fix paid broadly, since
-  Amazon/Uber/Netflix appear throughout the QA suite). App runs 25. Fixed during their session:
-  ModelLoader.ts hardcoded the old 2-shard filenames and crashed warmup the
-  moment the flag went on (b614b3c).
+  staged. APP NOW RUNS 28 (QA 51.4%, entities 62.9%, regression 39/41, TFJS smoke
+  PASS) — shipped out of necessity during the schema fix; runs 25/27 h5s were
+  unrecoverable. Two loader-blocking bugs were found BY the user's testing
+  and fixed: hardcoded 2-shard filenames (b614b3c) and the Keras-3 topology
+  schema (cbf88e0). No further staged candidate — run 29 in training.
 - [x] **Grader amount-normalization fix** — QA market_speech expectations
   assert NORMALIZED amounts ("150000") because the APP runs marketNormalize
   BEFORE the classifier; the harness feeds raw text, so the model correctly
@@ -102,7 +102,7 @@ Last updated: 2026-07-19 (iteration 35 — TFJS SCHEMA BUG fixed + smoke-test ga
   entities 56.0->56.6%, market_speech 1/7->3/7. Also re-adjudicated the
   Hindi budget case SUMMARY->STATUS ("kaisa chal raha hai" asks
   on-track-ness — the model's answer was the better product answer).
-- [ ] **Run 26 training** *(in flight, seed 101, 16,122 rows)* — remaining
+- [x] ~~Run 26 training~~ (completed; superseded by runs 27/28) — remaining
   genuine gaps from market_speech/incomplete_data:
     "wedding" existed ONLY in GOALNAME pool, so "spent 2 lakh on the
       wedding" routed to GOAL_PLANNING — added life-event expense categories
@@ -310,6 +310,22 @@ Last updated: 2026-07-19 (iteration 35 — TFJS SCHEMA BUG fixed + smoke-test ga
   hardcoded "run16_backup" — rerunning it would have rolled the current
   model back to run 16. Now backs up/restores the CURRENT model generically,
   and archives per-seed weights.
+
+- [ ] **Run 29 training** *(in flight, seed 101, 16,296 rows)* — the
+  commitment_semantics (1/5) + risk_grade (3/9) batch:
+    "EMI" REMOVED from the LIABILITYTYPE filler pool — it is a payment, not
+      a liability, and taught spurious LIABILITYTYPE=emi tags in any
+      EMI-containing sentence.
+    DEBT_FREEDOM +20 patterns: SCHEDULE commitment vocabulary ("what EMIs
+      are due", "did the EMI go out"), SUMMARY commitment-listing, WHAT_IF
+      loan-closure ("if I close this loan early"), RISK subjective cues
+      ("over leveraged", "under control", "worried", "healthy").
+    CROSS-SUITE CONTRADICTION resolved: QA expected income-share-to-EMI ->
+      DEBT_FREEDOM|RISK while regression expected the near-identical
+      utterance -> LOAN_ANALYSIS|ANALYSIS. Rule now recorded in both places:
+      factual share = LOAN|ANALYSIS; subjective risk judgment = DEBT|RISK.
+  Success tests: commitment_semantics >2/5, risk_grade >5/9, no spurious
+  LIABILITYTYPE=emi in QA failures, regression >=90% holds.
 
 ## P2 — debt / hygiene
 

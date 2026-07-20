@@ -9,6 +9,7 @@ Date: 2026-06-03
 """
 
 import os
+import shutil
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import json
 import re
@@ -749,6 +750,24 @@ def main():
     with open(eval_report_path, "w") as f:
         json.dump(eval_report, f, indent=2)
     print(f"[*] Wrote structured evaluation report to: {eval_report_path}")
+
+    # Archive this run's full export. Each run OVERWRITES exported_model/, and
+    # that cost us twice on 2026-07-19: the best seed-spread weights were
+    # unreproducible (TF nondeterminism), and when the TFJS schema bug forced
+    # a re-export of the DEPLOYED model, its .h5 no longer existed — the app
+    # had to take a newer model instead of a rebuilt copy of what it ran.
+    # Keeps the newest 10 archives (~40 MB total); prune is oldest-first.
+    import datetime
+    archive_root = "exported_model_archive"
+    os.makedirs(archive_root, exist_ok=True)
+    stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    archive_dir = os.path.join(archive_root, f"{stamp}-seed{RANDOM_SEED}")
+    shutil.copytree(output_dir, archive_dir)
+    print(f"[*] Archived run to {archive_dir}")
+    archives = sorted(os.listdir(archive_root))
+    for old_run in archives[:-10]:
+        shutil.rmtree(os.path.join(archive_root, old_run))
+        print(f"[*] Pruned old archive {old_run}")
 
     import shutil
     try:

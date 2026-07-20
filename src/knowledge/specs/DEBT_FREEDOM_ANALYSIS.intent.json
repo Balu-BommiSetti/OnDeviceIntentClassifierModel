@@ -100,7 +100,10 @@
       "I do not know my loan rate, estimate my payoff anyway",
       "why can you not calculate my payoff date",
       "estimate my debt free date with whatever data you have",
-      "work out my payoff date even if some details are missing"
+      "work out my payoff date even if some details are missing",
+      "which of my commitments are loans",
+      "list the loans among my commitments",
+      "what loans am I actually paying every month"
     ],
     "WHAT_IF": [
       "suppose I add {EXTRAPAYMENT} to every payment",
@@ -152,7 +155,12 @@
       "what if I begin adding {EXTRAPAYMENT} extra each month to the {LIABILITYTYPE} until it is paid off",
       "what if I choose to tack on {EXTRAPAYMENT} monthly to the {LIABILITYTYPE} payment",
       "what if I treat each month as a {EXTRAPAYMENT} boost toward the {LIABILITYTYPE}",
-      "what if I decide to finish the {LIABILITYTYPE} earlier by adding {EXTRAPAYMENT} to my monthly payment"
+      "what if I decide to finish the {LIABILITYTYPE} earlier by adding {EXTRAPAYMENT} to my monthly payment",
+      "if I close this loan early what happens to my plan",
+      "what if I foreclose the {LIABILITYTYPE} ahead of time",
+      "my EMI went up, what does that do to my payoff",
+      "what happens to my payoff date if the EMI increases",
+      "if my {LIABILITYTYPE} EMI changes what happens to my debt free date"
     ],
     "STRATEGY": [
       "what sequence should I repay these in",
@@ -244,7 +252,13 @@
       "Detail the amount of interest and principal in my monthly {LIABILITYTYPE} payment",
       "Show me the payment allocation for my {LIABILITYTYPE} including both interest and principal",
       "Explain the distribution of my {LIABILITYTYPE} repayment between interest and principal",
-      "Give a month-by-month view of how my {LIABILITYTYPE} payment balances interest and principal"
+      "Give a month-by-month view of how my {LIABILITYTYPE} payment balances interest and principal",
+      "what EMIs are due {PERIODSHORT}",
+      "which EMIs are coming up {PERIODSHORT}",
+      "did the EMI for {PERIODSHORT} already go out",
+      "has my {LIABILITYTYPE} EMI been paid {PERIODSHORT}",
+      "upcoming EMIs for {PERIODSHORT}",
+      "when is my next EMI due"
     ],
     "RISK": [
       "am I carrying too much debt for my income",
@@ -290,7 +304,13 @@
       "Will postponing payments until {TARGETDATE} expose me to unsafe debt conditions",
       "If I keep the same repayment schedule for {PERIOD}, will my debt stay within safe limits",
       "Is my EMI burden on {LIABILITYTYPE} pushing me toward unsafe debt territory",
-      "Is the {LIABILITYTYPE} from {LENDER} becoming a dangerous liability if I maintain the current monthly payment"
+      "Is the {LIABILITYTYPE} from {LENDER} becoming a dangerous liability if I maintain the current monthly payment",
+      "am I over leveraged on debt",
+      "is my debt load under control",
+      "should I be worried about my loan burden",
+      "how healthy is my debt situation",
+      "is my EMI load too high for my income",
+      "is my borrowing getting risky"
     ]
   }
 }

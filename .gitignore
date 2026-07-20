@@ -49,3 +49,4 @@ __pycache__/
 # (c) Regression baseline is pass/fail HISTORY, not a build artifact — without
 #     it the suite cannot tell a new failure from a known one on a fresh clone.
 !v6/training_pipeline/benchmarks/regression_baseline.json
+exported_model_archive/
