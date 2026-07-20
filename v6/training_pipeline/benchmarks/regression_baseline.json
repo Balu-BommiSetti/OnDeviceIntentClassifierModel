@@ -24,7 +24,7 @@
     "utterance": "remove the food expense"
   },
   "ADD_INCOME|CREATE|received 500 from Amazon": {
-    "passed": true,
+    "passed": false,
     "utterance": "received 500 from Amazon"
   },
   "ADD_INCOME|UPDATE|change yesterday income to 500": {
@@ -44,7 +44,7 @@
     "utterance": "update my home loan balance to 500"
   },
   "ADD_LIABILITY|DELETE|remove my home loan": {
-    "passed": false,
+    "passed": true,
     "utterance": "remove my home loan"
   },
   "AFFORDABILITY_CHECK|ANALYSIS|can I afford food for 500": {
@@ -64,7 +64,7 @@
     "utterance": "show my cashflow this month"
   },
   "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra towards debt": {
-    "passed": false,
+    "passed": true,
     "utterance": "what if I pay 1000 extra towards debt"
   },
   "DEBT_FREEDOM_ANALYSIS|SUMMARY|show my debt payoff plan for my home loan": {
@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": false,
+    "passed": true,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {
@@ -112,7 +112,7 @@
     "utterance": "show my home loan details"
   },
   "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra on my loan": {
-    "passed": true,
+    "passed": false,
     "utterance": "what if I pay 1000 extra on my loan"
   },
   "NET_WORTH_CHECK|SUMMARY|what is my net worth": {

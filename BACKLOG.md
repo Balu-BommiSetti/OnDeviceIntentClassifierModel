@@ -125,7 +125,29 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   taxonomy signal in their own right: SIP_VS_PREPAY|SUMMARY 20/20 disputed,
   DEBT_FREEDOM|SCHEDULE 20, DEBT_FREEDOM|SUMMARY 19, INCOME_DECLARATION|
   UPDATE 18 — buckets an LLM cannot reliably separate from their siblings.
-- [ ] **TOP FIX: direction-confusion cluster** (from probe sweep) — the model
+- [~] **PARTIAL: direction-confusion cluster** — run 30 result is MIXED, not
+  a win. Targeted pairs improved: ADD_INCOME->ADD_EXPENSE 7->5,
+  FAMILY_TRANSFER->ADD_INCOME 7->4. But overall moved DOWN slightly
+  (intent 87.2->86.0, bucket 81.1->80.8) — WITHIN the measured +/-3.7pt intent
+  noise band, so neither the gains nor the drop are individually conclusive.
+  New confusions appeared (classic seesaw): GOAL_PLANNING->AFFORDABILITY_CHECK
+  5, ADD_LIABILITY->ADD_EXPENSE 4, BUDGET_PLANNING->SPENDING_ANALYSIS 3,
+  ADD_INCOME->INCOME_DECLARATION 3.
+  Standing gates HELD: regression 39/41 (95.1%), QA 52.6% full pass / 59.4%
+  entities, checklist READY. Run 30 is not worse on anything that gates.
+  Remaining ADD_INCOME failures are DIFFERENT shapes than before, and some are
+  debatable labels, not defects: "correct my salary income to 50k" ->
+  INCOME_DECLARATION is arguably RIGHT; "add 5k from amazon return" is
+  arguably REFUND. The no-merchant shapes are the real残 gap:
+  "1 lakh credited 10-08 via UPI", "got paid 1.2 lakh 22-11 through phone pe"
+  (PhonePe read as a payee).
+  NEXT: needs a seed-repeat before any further conclusion — a single run
+  cannot separate a 1.2pt move from noise.
+- [ ] **SPENDING_ANALYSIS|ANALYSIS cue fix DID NOT WORK** — still 44.4% after
+  adding 5 explicit "analyze/analysis" patterns (4th sighting). Pattern
+  addition is not reaching this bucket; needs a different diagnosis, not more
+  patterns.
+- [ ] ~~(superseded)~~ direction-confusion cluster (from probe sweep) — the model
   knows the domain but not WHICH WAY money moves:
     ADD_INCOME -> ADD_EXPENSE (12), FAMILY_TRANSFER -> ADD_INCOME (8),
     DEBT_FREEDOM -> ADD_LIABILITY (8), ADD_ASSET -> ADD_LIABILITY (4).
