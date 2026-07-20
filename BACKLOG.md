@@ -697,7 +697,30 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 
 ## P2 — debt / hygiene
 
-- [~] **Shared-pool audit** — done systematically; run 37 measuring.
+- [~] **Shared-pool audit** — run 37 was a NET REGRESSION; corrected in run 38.
+  RUN 37 RESULT, honestly: targeted tags improved (I-LUMPSUM 0.400->1.000,
+  TARGETAMOUNT 0.840->0.911 / 0.857->0.935, EXTRAPAYMENT 0.727->0.774) but
+  OVERALL went DOWN — QA full pass 60.7->53.0%, entities 64.0->61.1%,
+  regression 41/41->39/41. DO NOT DEPLOY run 37; app stays on run 36.
+  MY ERROR, and it was directional: I resolved the "the bank" collision by
+  deleting it from LENDER — the slot that SEMANTICALLY OWNS it, and which a
+  held-out QA case explicitly asserts (LENDER="the bank"). I made that case
+  unlearnable. Correct fix, now applied: remove it from the income MERCHANT
+  pools where I had recently added it. Verified: "the bank" is now tagged
+  LENDER only, across 4 loan intents.
+  GUARD SCOPE WAS ALSO WRONG. It checked SAME-INTENT pairs only, on the
+  assumption that cross-intent sharing was harmless. It is not — the NER head
+  has ONE GLOBAL tag set, so a value tagged LENDER in loan rows and MERCHANT
+  in income rows competes directly. The same-intent-only guard passed "the
+  bank" happily. Now: same-intent = HARD FAILURE (the model cannot possibly
+  separate them), cross-intent = WARNING listing every instance (15 today),
+  because some are genuine ambiguities — "a car" really is both an ASSETTYPE
+  you own and a GOALNAME you save for, and banning that forces artificial
+  distinctions. Decide each on its per-type F1.
+  B-LUMPSUM remains weak (0.286, precision 0.750 / recall 0.176 on support 17)
+  — high precision, low recall means the model rarely PREDICTS the class
+  rather than confusing it. Different problem from the collision; needs its
+  own diagnosis.
   Method: cross-reference IDENTICAL filler values against per-type F1, so only
   collisions that actually HURT get fixed. Found and fixed:
     B-LUMPSUM f1 0.111 / recall 0.059 — the worst tag in the model. 8 of its

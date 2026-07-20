@@ -66,7 +66,7 @@ const SLOT_VALUES: Record<string, string[]> = {
   // B-LENDER f1 0.578 / recall 0.433. Lenders are INSTITUTIONS here; informal
   // person-lending is FAMILY_TRANSFER's territory, not a LENDER value.
   LENDER: ["HDFC", "SBI", "ICICI", "Axis Bank", "Kotak", "Bajaj Finance",
-           "the credit union", "LIC", "IDFC", "Yes Bank"],
+           "the credit union", "LIC", "IDFC", "Yes Bank", "the bank"],
   GOALNAME: ["a car", "a house", "vacation", "emergency fund", "retirement", "an iphone", "wedding", "a laptop"],
   // TARGETAMOUNT was AMOUNTS — the SAME pool as AMOUNT, and GOAL_PLANNING
   // declares BOTH slots. The model saw "45.50" and "roughly 500" labelled as
@@ -297,7 +297,7 @@ const SLOT_VALUES_BY_INTENT: Record<string, Record<string, string[]>> = {
     ],
     MERCHANT: [
       "my employer", "my client", "the company", "my tenant", "the agency",
-      "my main client", "the bank", "my previous employer", "the startup",
+      "my main client", "my previous employer", "the startup",
     ],
   },
 
@@ -321,9 +321,13 @@ const SLOT_VALUES_BY_INTENT: Record<string, Record<string, string[]>> = {
     // payers AND payee-capable brands rather than trading one for the other.
     MERCHANT: [
       "my employer", "my client", "the company", "my tenant", "the agency",
-      "my main client", "the bank", "my previous employer", "the startup",
+      "my main client", "my previous employer", "the startup",
       "the delivery company", "my office", "the university", "my landlord",
       "Amazon", "Flipkart", "Swiggy", "Paytm", "PhonePe", "Zomato",
+      // "the bank" deliberately NOT here: it collides with LENDER, and LENDER
+      // is its correct owner (a held-out QA case asserts LENDER="the bank").
+      // Fixing a collision by deleting the value from the slot that SHOULD own
+      // it is the wrong direction — it made that QA case unlearnable.
     ],
     CATEGORY: [
       "salary", "bonus", "freelance work", "consulting", "commission",
@@ -616,11 +620,58 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
  * words can separate them — which is not enough. It is invisible in every
  * count-based gate: row totals, diversity, and validation all pass happily.
  *
- * Only SAME-INTENT overlap is an error. AMOUNT and TARGETAMOUNT sharing a
- * value across two intents that never co-declare them is harmless.
+ * SCOPE CORRECTION 2026-07-20: this originally checked only SAME-INTENT pairs,
+ * on the assumption that cross-intent sharing was harmless. It is NOT — the NER
+ * head is GLOBAL, one tag set across all intents, so a value tagged LENDER in
+ * loan rows and MERCHANT in income rows is a direct conflict for the span head
+ * regardless of which intent it came from. "the bank" was exactly that, and the
+ * same-intent-only guard passed it happily.
  */
 function assertNoSlotValueCollisions(specs: IntentSpec[]): void {
   const problems: string[] = [];
+
+  // GLOBAL pass: the same value must not be reachable as two different entity
+  // TYPES anywhere, because the span head has one shared tag set.
+  const typesByValue = new Map<string, Set<string>>();
+  for (const [slot, pool] of Object.entries(SLOT_VALUES)) {
+    const type = SLOT_TYPE_ALIASES[slot] ?? slot.replace(/\d+$/, "");
+    for (const v of pool) {
+      const k = v.toLowerCase();
+      if (!typesByValue.has(k)) typesByValue.set(k, new Set());
+      typesByValue.get(k)!.add(type);
+    }
+  }
+  for (const perIntent of Object.values(SLOT_VALUES_BY_INTENT)) {
+    for (const [slot, pool] of Object.entries(perIntent)) {
+      const type = SLOT_TYPE_ALIASES[slot] ?? slot.replace(/\d+$/, "");
+      for (const v of pool) {
+        const k = v.toLowerCase();
+        if (!typesByValue.has(k)) typesByValue.set(k, new Set());
+        typesByValue.get(k)!.add(type);
+      }
+    }
+  }
+  // Cross-intent overlap WARNS rather than fails. Some of it is semantically
+  // real and unavoidable — "a car" genuinely is both an ASSETTYPE you own and
+  // a GOALNAME you save for; banning that would force artificial distinctions.
+  // But it is not free either: "the bank" was tagged LENDER in loan rows and
+  // MERCHANT in income rows, and B-LENDER sat at f1 0.578 until it was split.
+  // So: surface every instance, decide each on its per-type F1, and keep the
+  // hard failure for the same-intent case the model truly cannot resolve.
+  const crossIntent: string[] = [];
+  for (const [value, types] of typesByValue) {
+    if (types.size > 1) {
+      crossIntent.push(`"${value}" -> ${[...types].sort().join(" / ")}`);
+    }
+  }
+  if (crossIntent.length > 0) {
+    console.warn(
+      `[!] ${crossIntent.length} value(s) reachable as MORE THAN ONE entity type.\n` +
+      `    The NER head has ONE global tag set, so these compete. Not fatal —\n` +
+      `    some are genuine ambiguities — but check per-type F1 before adding more:\n` +
+      crossIntent.map((c) => `      ${c}`).join("\n")
+    );
+  }
   for (const spec of specs) {
     const declared = [...spec.required_entities, ...spec.optional_entities];
     for (let i = 0; i < declared.length; i++) {

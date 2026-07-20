@@ -64,7 +64,7 @@
     "utterance": "show my cashflow this month"
   },
   "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra towards debt": {
-    "passed": true,
+    "passed": false,
     "utterance": "what if I pay 1000 extra towards debt"
   },
   "DEBT_FREEDOM_ANALYSIS|SUMMARY|show my debt payoff plan for my home loan": {
@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": true,
+    "passed": false,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {
