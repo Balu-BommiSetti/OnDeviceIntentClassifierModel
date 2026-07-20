@@ -68,11 +68,31 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   B-PERIOD recall 0.745→0.895, QA entities 32.0→42.3%, single_period 11→32%,
   comparisons 4→32%. Boundary-noise theory CONFIRMED. But QA intent fell
   74.1→64.0%: debt classes collapsed (see LOAN/DEBT boundary item).
-- [ ] **Entity generalization** — the umbrella P0. The span head collapsed
-  off-template (QA entity exact 32.0%). The preposition fix addresses the
-  boundary-noise share of this; if QA entity accuracy is still weak after
-  retraining, next levers in order: context diversity around spans in
-  patterns, slots-head loss weighting, then architecture (CRF layer).
+- [ ] **Entity generalization** — the umbrella P0. DIAGNOSED PRECISELY
+  2026-07-20; two cheap hypotheses TESTED AND DISPROVED, so do not retry them:
+    MEASUREMENT: token F1 0.922 in-distribution (B-PERIOD 0.902, I-PERIOD
+    0.931) vs QA entity-exact 59.4% off-template. That ~30pt gap is a
+    GENERALIZATION problem, not coverage and not distribution.
+    WHERE IT HURTS: PERIOD is 49 of ~97 QA entity issues, and "wrong" (32)
+    outnumbers "missing" (14) — the model FINDS the period and mis-bounds it.
+    23 of 32 are TRUNCATION: "last month"->"month", "this month"->"this",
+    "between march and june"->"march and june".
+    DISPROVED #1 — "the spans are not in training". They are: "last month"
+    appears 60x as a complete span, "month" alone appears ZERO times.
+    "between march and june" 27x, "march and june" 0x. The model is emitting
+    spans it was never taught.
+    DISPROVED #2 — "single-token months dominate, biasing it short".
+    Multi-token spans are 67.6% of PERIOD spans (1-token 32.4%). No bias.
+    WHAT REMAINS (untried, in cost order):
+     1. Context diversity around spans — the same span value always appears in
+        similar surrounding words; vary the frame, not the filler.
+     2. Slots-head loss weighting — the span head is the weak one and trains
+        against two other heads.
+     3. CRF layer — structurally enforces valid BIO transitions, which is
+        exactly the failure class here (orphan B-, dropped I-). Most likely to
+        work, largest change, costs on-device size.
+    NOTE: the model already learns boundaries well IN-distribution, so this is
+    about robustness to unseen framing, not about teaching the spans again.
 - [x] ~~Swap OllamaClient → IntentClassifier.predict()~~ — DONE (app repo,
   2026-07-19). OllamaClient.ts deleted (ngrok tunnel + faked 0.99 gone);
   CognitionFacade routes through IntentClassifier.predict() behind
@@ -95,6 +115,26 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   (user's rule 2) rather than boundary-sharpening.
 
 ## P1 — quality
+
+- [ ] **VERIFICATION UI — foundation DONE, UI pending** (app repo 902be42).
+  Per-head confidence now flows end-to-end (IntentClassifier was already
+  computing each token's tag probability and discarding it);
+  `utils/ai/verification/answerVerification.ts` holds the policy as a pure,
+  tested module; harness shows mode/weakest/would-ask per case.
+  AI_FLAGS.ENABLE_ANSWER_VERIFICATION is OFF.
+  REMAINING, in order:
+   1. Run a batch through the harness and check the SILENT / VERIFY /
+      REPAIR_FIRST split. The 0.8 / 0.5 / 0.7 thresholds are GUESSES — tune
+      them from a real distribution before shipping, or we will nag users on
+      answers that were already correct.
+   2. Build the Yes/No footer + repair card widget (plan:
+      app repo `docs/ai_chat/confirmation_card_plan.md`).
+   3. Log every "No" + its repair as labelled production failure data — the
+      highest-value output of the whole feature.
+  OPEN QUESTION for review: only intent/taskType gate whether we answer; a
+  weak ENTITY score never blocks. Rationale is that a wrong category still
+  yields a checkable reply while a wrong intent answers a question the user
+  never asked — but that is a product judgement, not a fact.
 
 - [x] **PRODUCT DECISION MADE: Hinglish IS supported** (user, 2026-07-20).
   Implemented in run 33 (training). Measurement first: real Hinglish coverage
