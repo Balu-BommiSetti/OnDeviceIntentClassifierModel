@@ -1,7 +1,7 @@
 {
   "$schema": "../knowledge.schema.json",
   "intent": "LOAN_ANALYSIS",
-  "description": "User asks about their loan burden / EMI pressure, loan terms, rates, tenure, or refinancing. Read-only advisory intent. BOUNDARY RULE (2026-07-19): prepayment/payoff/debt-free what-ifs belong to DEBT_FREEDOM_ANALYSIS \u2014 this intent owns TERMS (rate, tenure, refinance, consolidation, new-loan burden), that one owns FREEDOM (payoff date, extra payments, lump sums). 43 of 45 WHAT_IF patterns here previously used debt-freedom language, training two intents on the same meaning; the classifier flipped between them across runs.",
+  "description": "User asks about their loan burden / EMI pressure, loan terms, rates, tenure, or refinancing. Read-only advisory intent. BOUNDARY RULE (2026-07-19): prepayment/payoff/debt-free what-ifs belong to DEBT_FREEDOM_ANALYSIS — this intent owns TERMS (rate, tenure, refinance, consolidation, new-loan burden), that one owns FREEDOM (payoff date, extra payments, lump sums). 43 of 45 WHAT_IF patterns here previously used debt-freedom language, training two intents on the same meaning; the classifier flipped between them across runs.",
   "supported_actions": [
     "ANALYSIS",
     "SUMMARY",
@@ -69,7 +69,17 @@
       "what portion of my salary goes toward loan payments",
       "what percent of my income is going to my {LIABILITYTYPE}",
       "how big a bite do EMIs take from my monthly income",
-      "is too much of my salary going into EMIs"
+      "is too much of my salary going into EMIs",
+      "Mere {LIABILITYTYPE} ka {LENDER} ki repayment kyun itna high hai?",
+      "Is mahine {LIABILITYTYPE} ki repayment from {LENDER} kyun itni heavy ho rahi hai?",
+      "Kaunse kharch mere {LIABILITYTYPE} ko is {PERIODSHORT} me heavy kar rahe hain?",
+      "Mujhe batayein ki mera kharcha {LENDER} ke loan installment ko kaise drive kar raha hai?",
+      "Mere {LIABILITYTYPE} ki {INTERESTRATE}% ki rate se repayment kyun badh gaya?",
+      "Mujhe samjhao {EXTRAPAYMENT} ka impact mera loan repayment pe kaise hai?",
+      "Kharcha track karte hue, meri {LIABILITYTYPE} ka repayment kyun high ho raha hai?",
+      "Mujhe batao ki {TENUREMONTHS} ka tenure mere {LIABILITYTYPE} repayment ko kaise affect kar raha hai?",
+      "Is mahine {PLAINAMOUNT} extra paid, phir bhi repayment itna high, kya reason hai?",
+      "Mere {LENDER} ka loan {AMOUNT} se variation karne wale kharch se repayment itna high kyun ho raha hai?"
     ],
     "SUMMARY": [
       "show my {LIABILITYTYPE} details",
@@ -121,7 +131,17 @@
       "my total {LIABILITYTYPE} load for {PERIOD} months",
       "overall cash requirement for {LIABILITYTYPE} over {PERIOD}",
       "total amount I must pay for {LIABILITYTYPE} in {PERIOD} months",
-      "sum of all {LIABILITYTYPE} charges in {PERIOD}"
+      "sum of all {LIABILITYTYPE} charges in {PERIOD}",
+      "Mera {LIABILITYTYPE} ka total EMI {PERIOD} me kitna hai?",
+      "Mere {LIABILITYTYPE} ki details dikhado.",
+      "Kitna baki bachcha hai mera {LIABILITYTYPE}?",
+      "Loan summary: {LIABILITYTYPE} ka principal aur interest {PERIODSHORT} ka.",
+      "Mere {LIABILITYTYPE} ka cumulative EMI summary batao {PERIOD} ke liye.",
+      "Bacha hua {LIABILITYTYPE} kitna hai? {AMOUNT}",
+      "Maine jo {LIABILITYTYPE} liya hai, uska total EMI kitna hoga {PERIOD} me?",
+      "Apni loan summary dekhna chahata hun: {LIABILITYTYPE} ka balance kitna?",
+      "Loan update: {LIABILITYTYPE} ka total amount {PLAINAMOUNT} ka baki balance?",
+      "Mere {LIABILITYTYPE} ka EMI ka full summary {PERIODSHORT} ke liye."
     ],
     "WHAT_IF": [
       "how much do I save if I refinance at {INTERESTRATE}",
@@ -163,7 +183,17 @@
       "if {LENDER} offers {INTERESTRATE} is switching worth it",
       "what does my EMI look like if I borrow {AMOUNT} more",
       "what if I top up my {LIABILITYTYPE} by {AMOUNT}",
-      "would a top up of {AMOUNT} at {INTERESTRATE} be manageable"
+      "would a top up of {AMOUNT} at {INTERESTRATE} be manageable",
+      "Mere mortgage ka interest rate {INTERESTRATE} pe refinance karke kitna bacha hoga?",
+      "Agar tenure {TENUREMONTHS} mahine karun to total interest me kitna fark padega?",
+      "Interest rate {INTERESTRATE} badhne se mera EMI kitna badhega?",
+      "Loan amount {AMOUNT} me extra payment {EXTRAPAYMENT} karne se total interest kaise badhega?",
+      "Bank {LENDER} se loan le raha hoon, agar interest {INTERESTRATE} ho to repayment kitna hoga?",
+      "Mere {LIABILITYTYPE} ka tenure {TENUREMONTHS} mahine kam kar do, to monthly payment kya hoga?",
+      "Kya agar interest rate {INTERESTRATE} ho to loan refinance karne se kitna benefit hoga?",
+      "Mere loan ki fixed period {PERIODSHORT} me total interest kaise badlega agar {INTERESTRATE} ho?",
+      "Kar do 2 lakh ka extra payment {EXTRAPAYMENT}, agar interest {INTERESTRATE} ho to repayment ka total kitna hoga?",
+      "Loan amount {PLAINAMOUNT} hai, agar tenure 30 saal se 15 saal karo to total interest badhega ya ghatega?"
     ]
   }
 }

@@ -74,7 +74,16 @@
       "my salary is {AMOUNT} per month",
       "I earn {PLAINAMOUNT} a month",
       "my take home is {AMOUNT} monthly",
-      "monthly income {PLAINAMOUNT}"
+      "monthly income {PLAINAMOUNT}",
+      "Mera monthly salary hai {AMOUNT}",
+      "Salary ko add karo {AMOUNT} {PERIODSHORT}",
+      "Mere liye base salary set karo {AMOUNT}",
+      "Mera salary ka amount hai {AMOUNT} {FREQUENCY}",
+      "Salary declare karo {PLAINAMOUNT} {PERIODSHORT}",
+      "Mujhe salary add karni hai {AMOUNT} {PERIODSHORT}",
+      "Mera income update karo {AMOUNT} {DATE}",
+      "Mere liye salary daal do {PLAINAMOUNT} {PERIODSHORT}",
+      "Salary input karo {AMOUNT} {PERIODSHORT}"
     ],
     "UPDATE": [
       "update my salary to {AMOUNT}",
@@ -120,7 +129,14 @@
       "What would I do to reset my base pay to {AMOUNT}",
       "To update my wage, what information should I provide about {AMOUNT}",
       "Where can I modify my periodic earnings to {AMOUNT}",
-      "How do I recalculate my budget after setting my salary to {AMOUNT}"
+      "How do I recalculate my budget after setting my salary to {AMOUNT}",
+      "salary update kar do {AMOUNT}",
+      "meri salary badal gayi, ab {AMOUNT} {FREQUENCY} ho gayi",
+      "base salary sahi krdo {AMOUNT}",
+      "yahan di hui salary {AMOUNT} se upd karna hai",
+      "meri income change ho gayi, ab {AMOUNT} {FREQUENCY} ho gai",
+      "salary update karna hai {AMOUNT} {FREQUENCY} se",
+      "meri salary {AMOUNT} bhar badal gayi, update krdo"
     ]
   }
 }

@@ -87,7 +87,16 @@
       "{AMOUNT} {CATEGORY} {PERIODSHORT}",
       "I spent {AMOUNT} at {MERCHANT} {PERIODSHORT}",
       "blew {AMOUNT} on {CATEGORY} {PERIODSHORT}",
-      "{AMOUNT} at {MERCHANT} {PERIODSHORT}"
+      "{AMOUNT} at {MERCHANT} {PERIODSHORT}",
+      "Kharcha {AMOUNT} {CATEGORY} me kiya",
+      "Paid {AMOUNT} {MERCHANT} ko {PAYMENT_METHOD} se kiya",
+      "Expense {AMOUNT} {CATEGORY} ka {DATE} record karo",
+      "Kya main {AMOUNT} {CATEGORY} ka kharcha add kar sakta hoon?",
+      "Maine {AMOUNT} {CATEGORY} ke liye {PAYMENT_METHOD} se kharcha kiya",
+      "Expense {AMOUNT} {CATEGORY} ke liye {PERIODSHORT}",
+      "Paid {AMOUNT} {MERCHANT} ko {DATE} me",
+      "Record {AMOUNT} {CATEGORY} ka kharcha",
+      "Kharcha {AMOUNT} {MERCHANT} me kar"
     ],
     "UPDATE": [
       "change {DATE} {CATEGORY} expense to {AMOUNT}",
@@ -144,7 +153,16 @@
       "correct that to {PLAINAMOUNT}",
       "no, {PLAINAMOUNT} not {PLAINAMOUNT2}",
       "change the {MERCHANT} one to {PLAINAMOUNT}",
-      "that should be {PLAINAMOUNT}"
+      "that should be {PLAINAMOUNT}",
+      "January ke grocery ka kharcha {AMOUNT} kr do",
+      "Meri food spend galat hai, change to {AMOUNT}",
+      "tonight ke {MERCHANT} expense wrong hai, krdo amount update {AMOUNT}",
+      "Grocery bill jo aayi, wrong hai, krdo amount ko {AMOUNT} karo",
+      "Meri {PERIODSHORT} ki entertainment kharcha zyada hai, krdo update to {AMOUNT}",
+      "Rent ka kharcha update karo {AMOUNT} se",
+      "Fuel expense galat hai, krdo update to {AMOUNT}",
+      "Trip ke liye {CATEGORY} expense wrong hai, krdo replace with {AMOUNT}",
+      "Apni {CATEGORY} spend galat hai, krdo correct to {AMOUNT}?"
     ],
     "DELETE": [
       "remove the {CATEGORY} expense",
@@ -202,7 +220,17 @@
       "scrap the {CATEGORY} entry",
       "undo that expense",
       "drop the {MERCHANT} charge",
-      "take out the {CATEGORY} one"
+      "take out the {CATEGORY} one",
+      "meri {CATEGORY} ka kharcha delete karo",
+      "meri {MERCHANT} ki transaction delete krdo",
+      "{AMOUNT} rupees ki expense {DATE} ko remove karo",
+      "cancel karo {AMOUNT} expense {DATE} se",
+      "kya krna hai {MERCHANT} ka kharcha delete?",
+      "pichle {PERIOD} ka {CATEGORY} kharcha delete krdo",
+      "is mahine ka {CATEGORY} expense delete krdo",
+      "Mujhe {PLAINAMOUNT} ki transaction {MERCHANT} se delete karni hai",
+      "Maine {MERCHANT} se {AMOUNT} kharcha kiya, delete karo",
+      "abhi cancel karo {PERIODSHORT} ka {CATEGORY} expense"
     ]
   },
   "short_reply_patterns": {

@@ -68,6 +68,34 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 
 ## P1 — quality
 
+- [x] **PRODUCT DECISION MADE: Hinglish IS supported** (user, 2026-07-20).
+  Implemented in run 33 (training). Measurement first: real Hinglish coverage
+  was effectively ZERO. A naive grep read 1.17%, but nearly every hit was the
+  currency word "paisa" inside ordinary ENGLISH rows — the marker regex now
+  excludes it deliberately.
+  `src/knowledge/hinglishPatterns.ts` generates Hinglish patterns per bucket.
+  KEY DESIGN CHOICE: it emits PATTERNS WITH {SLOT} PLACEHOLDERS, not finished
+  queries. A Hinglish pattern without placeholders would teach intent while
+  DESTROYING entity extraction for that phrasing — trading one failure for
+  another, the trap this project keeps rediscovering. Patterns with no slot
+  are rejected outright.
+  Result: 493 patterns applied across 53 buckets; dataset 16,728 -> 19,686
+  rows; Hinglish coverage ~0 -> 10.7% (2,098 rows) spanning 18/19 intents,
+  and 100% of them carry entity spans. Validate PASS.
+  Two guards added after review caught real problems:
+    - HINGLISH_MARKER check — the first sweep returned 24 plain-ENGLISH
+      patterns ("Add {ASSETTYPE} worth {AMOUNT}.") that would have diluted the
+      signal we were paying for. 32 rejected on the applied run.
+    - undeclared-slot check — same failure mode as SPLITWITH (a slot with no
+      filler pool generates nothing, silently).
+  KNOWN FLAW (documented in-file, fix before next use): `--apply` REGENERATES
+  before applying, so the candidate you reviewed is not the one that lands.
+  Safe for now only because validate() enforces the same rules the manual
+  review checked. Correct shape is a separate --apply-only.
+  NOT YET MEASURABLE: the 741-row clean probe set is almost entirely English,
+  so it CANNOT tell us whether Hinglish support worked. A Hinglish probe set
+  is required before claiming success.
+
 - [x] **RUN 31 DEPLOYED to the app** (2026-07-20, app repo afbe04b) — best
   model to date: probe intent 87.7% / bucket 82.2%, QA 56.3% full pass /
   62.9% entities, regression 39/41, TFJS smoke PASS, vocab=emb=2705,

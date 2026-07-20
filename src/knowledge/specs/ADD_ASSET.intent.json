@@ -57,7 +57,15 @@
       "Need to enter a new {ASSETTYPE} worth {AMOUNT}. How do I do that",
       "How do I add the {ASSETTYPE} I got for {AMOUNT} into my records",
       "record my {AMOUNT} {ASSETTYPE} investment",
-      "add {AMOUNT} {ASSETTYPE} to my portfolio"
+      "add {AMOUNT} {ASSETTYPE} to my portfolio",
+      "Maine {ASSETTYPE} {AMOUNT} me kharidi",
+      "Add asset {ASSETTYPE} ko {AMOUNT} me add karo",
+      "Yeh {ASSETTYPE} {AMOUNT} ka kharid gaya",
+      "Naya asset {ASSETTYPE} {AMOUNT} ka add krdo",
+      "Mujhe {ASSETTYPE} {AMOUNT} ke liye kharidna hai",
+      "Bhai, {ASSETTYPE} {AMOUNT} ka add kar do",
+      "Kya maine {ASSETTYPE} {AMOUNT} dated {DATE} add kiya?",
+      "Abhi {ASSETTYPE} {PLAINAMOUNT} kharid li {PERIODSHORT} me"
     ],
     "UPDATE": [
       "update my {ASSETTYPE} value to {AMOUNT}",
@@ -105,7 +113,17 @@
       "update my {ASSETTYPE} to {AMOUNT}",
       "my {ASSETTYPE} is {AMOUNT} now",
       "i realized my {ASSETTYPE} are {AMOUNT} now",
-      "change my {ASSETTYPE} value to {AMOUNT}"
+      "change my {ASSETTYPE} value to {AMOUNT}",
+      "Meri {ASSETTYPE} ki value ab {AMOUNT} ho gayi hai",
+      "Mujhe {ASSETTYPE} ka amount {AMOUNT} se update karna hai",
+      "Mere {ASSETTYPE} ko {AMOUNT} se correct karo",
+      "Kya aap mere {ASSETTYPE} ka balance {AMOUNT} update kar sakte ho?",
+      "Mere {ASSETTYPE} ka balance {PERIODSHORT} {AMOUNT} tha, ab {AMOUNT} kar do",
+      "Yo {ASSETTYPE} ka value ab {AMOUNT} hai, please correct",
+      "Set karo {ASSETTYPE} ki amount {AMOUNT} kar do",
+      "Mere {ASSETTYPE} ki amount {AMOUNT} kar do",
+      "Meri {ASSETTYPE} ab {PLAINAMOUNT} rupees ki hai",
+      "Mere {ASSETTYPE} ka current value {AMOUNT} hai, ab update karo"
     ],
     "DELETE": [
       "remove my {ASSETTYPE} asset",
@@ -160,7 +178,17 @@
       "please delete my {AMOUNT} {ASSETTYPE}",
       "i want to delete the {AMOUNT} {ASSETTYPE}",
       "remove the {ASSETTYPE} worth {AMOUNT}",
-      "delete my {ASSETTYPE} holding"
+      "delete my {ASSETTYPE} holding",
+      "Mere {ASSETTYPE} ka entry delete kar do",
+      "Mera {AMOUNT} ka {ASSETTYPE} asset delete kar do",
+      "Mere {DATE} ka {ASSETTYPE} entry delete kar do",
+      "Kya main {ASSETTYPE} ka entry delete kar sakta hu?",
+      "Mere {PERIODSHORT} me kharida {ASSETTYPE} delete kar do",
+      "Mere {PLAINAMOUNT} {ASSETTYPE} ko delete kar do",
+      "Mere {CATEGORY} ke andar ka {ASSETTYPE} entry delete kar do",
+      "Humne {DATE} ko kharida {ASSETTYPE}. Delete karo",
+      "Mera {AMOUNT} {ASSETTYPE} ab delete kar do",
+      "Mera {ASSETTYPE} ({AMOUNT}) ka entry delete kar do"
     ]
   },
   "short_reply_patterns": {

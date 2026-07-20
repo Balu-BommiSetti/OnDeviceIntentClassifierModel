@@ -65,7 +65,17 @@
       "can I comfortably take out a {AMOUNT} {CATEGORY} now",
       "is a {AMOUNT} {CATEGORY} purchase at {MERCHANT} within my means",
       "is it wise to spend {AMOUNT} on a {CATEGORY} after setting aside {DOWNPAYMENT}",
-      "is a {AMOUNT} {CATEGORY} an affordable buy for me"
+      "is a {AMOUNT} {CATEGORY} an affordable buy for me",
+      "Kya main {DATE} tak {AMOUNT} ka {CATEGORY} afford kar sakta hoon?",
+      "Mujhe batao ki {AMOUNT} ka {CATEGORY} affordable hai ya nahi?",
+      "Kya {AMOUNT} ki EMI {TENUREMONTHS} mahine ke liye afford kar paunga?",
+      "Kya {AMOUNT} ka {CATEGORY} mujhe financial stress dega?",
+      "Mujhe samajh nahi aa raha ki {AMOUNT} ka {CATEGORY} kharidna kitna feasible hai.",
+      "Kya {AMOUNT} ka {CATEGORY} afford karne me mere monthly expenses pe effect padega?",
+      "Kya {AMOUNT} ka {CATEGORY} afford karne ka hisaab mere liye tight hoga?",
+      "Mujhe {AMOUNT} ka {CATEGORY} ke liye {INTERESTRATE} per annum aur {TENUREMONTHS} months ka analysis chahiye.",
+      "Kya {MERCHANT} se {PLAINAMOUNT} ka {CATEGORY} kharidna affordable hai?",
+      "Kya {PERIODSHORT} me {AMOUNT} ka {CATEGORY} afford kar sakta hoon?"
     ],
     "WHAT_IF": [
       "what if I put {DOWNPAYMENT} down on a {AMOUNT} {CATEGORY}",
@@ -114,7 +124,17 @@
       "what if I pay {AMOUNT} more each month for a {CATEGORY} loan",
       "what if I set aside {AMOUNT} extra for a {CATEGORY} on {DATE}",
       "what if I dedicate {AMOUNT} more toward a {CATEGORY} purchase at {MERCHANT}",
-      "what if I include {AMOUNT} extra toward a {CATEGORY} transaction"
+      "what if I include {AMOUNT} extra toward a {CATEGORY} transaction",
+      "agar {DOWNPAYMENT} down karun {AMOUNT} ki {CATEGORY} par, to kya main afford kar sakta hu?",
+      "agar {AMOUNT} ka loan mile aur {INTERESTRATE} rate ho, to {TENUREMONTHS} ka EMI kitna aayega?",
+      "agar {AMOUNT} kharido aur {INTERESTRATE} rate ho, to {TENUREMONTHS} mein kitna EMI dena padega?",
+      "yadi {INTERESTRATE} rate se {AMOUNT} ki gaddi kharidi, to {TENUREMONTHS} ke baad kitna monthly payment aayega?",
+      "kitna EMI hoga agar {AMOUNT} ki {CATEGORY} {TENUREMONTHS} mein repay karo? Rate {INTERESTRATE} hai.",
+      "agar {AMOUNT} ka installment plan ho aur {INTERESTRATE} ho, to {TENUREMONTHS} mein kitna kharcha hoga?",
+      "agar {AMOUNT} ki property li aur {INTERESTRATE} rate ho, to {TENUREMONTHS} ka EMI kitna hoga?",
+      "agar {DOWNPAYMENT} rakha toh {AMOUNT} ki {CATEGORY} ke liye {TENUREMONTHS} ka monthly payment kya hoga?",
+      "kitna monthly burden hoga agar {AMOUNT} ki gadget kharide aur {INTERESTRATE} rate ho? {TENUREMONTHS} ka period?",
+      "agar {AMOUNT} ka home loan ho, rate {INTERESTRATE} ho, to {TENUREMONTHS} mein monthly cost kya hoga?"
     ]
   }
 }

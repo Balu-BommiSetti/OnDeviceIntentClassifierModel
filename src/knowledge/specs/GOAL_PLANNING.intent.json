@@ -64,7 +64,14 @@
       "How can I register a new savings objective of {TARGETAMOUNT} for {GOALNAME} before {TARGETDATE}",
       "What steps do I need to take to record a new goal of saving {TARGETAMOUNT} for {GOALNAME} by {TARGETDATE}",
       "Which steps are required to create a new savings target for {GOALNAME} set to reach {TARGETAMOUNT} by {TARGETDATE}",
-      "How do I add a new savings plan aiming to accumulate {TARGETAMOUNT} for {GOALNAME} on or before {TARGETDATE}"
+      "How do I add a new savings plan aiming to accumulate {TARGETAMOUNT} for {GOALNAME} on or before {TARGETDATE}",
+      "Mujhe {GOALNAME} ke liye {TARGETAMOUNT} save karna hai, target date {TARGETDATE}",
+      "Goal {GOALNAME} create karo, amount {TARGETAMOUNT} till {TARGETDATE}",
+      "Naya savings goal {GOALNAME} set karo, target {TARGETAMOUNT} by {TARGETDATE}",
+      "Ek goal add karo, {GOALNAME} ke liye {TARGETAMOUNT} bachaana hai by {TARGETDATE}",
+      "Goal {GOALNAME} ka plan banao, amount {TARGETAMOUNT} aur deadline {TARGETDATE}",
+      "Ek naya goal add karo, {GOALNAME} ka target {TARGETAMOUNT} set karo by {DATE}",
+      "Maine {GOALNAME} ke liye {PLAINAMOUNT} save karne ka goal set kiya, deadline {TARGETDATE}"
     ],
     "UPDATE": [
       "change my {GOALNAME} target to {TARGETAMOUNT}",
@@ -113,7 +120,17 @@
       "Could I adjust the target amount of {GOALNAME} to {TARGETAMOUNT}",
       "How do I set a new deadline for my {GOALNAME} goal at {TARGETDATE}",
       "Is there a way to fix the goal amount for my {GOALNAME} to {TARGETAMOUNT}",
-      "Can I modify the finish date of my {GOALNAME} to {TARGETDATE}"
+      "Can I modify the finish date of my {GOALNAME} to {TARGETDATE}",
+      "Mere {GOALNAME} ka target {TARGETAMOUNT} kar do.",
+      "Mere {GOALNAME} ka deadline {TARGETDATE} update karo.",
+      "Mere {GOALNAME} ka amount {TARGETAMOUNT} change karo.",
+      "Mere {GOALNAME} ka target {TARGETAMOUNT} set karo.",
+      "Mere {GOALNAME} ka deadline {TARGETDATE} ko move karo.",
+      "Mere {GOALNAME} ka target {TARGETAMOUNT} badal do.",
+      "Mere {GOALNAME} ki deadline {TARGETDATE} set karo.",
+      "Mere {GOALNAME} ka target {PLAINAMOUNT} lakhs kar do.",
+      "Mere {GOALNAME} ka deadline {DATE} se pehle set karo.",
+      "Mere {GOALNAME} ka target {TARGETAMOUNT} update karo."
     ],
     "ANALYSIS": [
       "will I reach my {GOALNAME} goal by {TARGETDATE}",
@@ -167,7 +184,17 @@
       "what is my progress on the {GOALNAME}",
       "how far am i from my {TARGETAMOUNT} {GOALNAME}",
       "is my {GOALNAME} on schedule",
-      "will i hit {TARGETAMOUNT} by {TARGETDATE}"
+      "will i hit {TARGETAMOUNT} by {TARGETDATE}",
+      "Kya main {GOALNAME} goal ko {TARGETDATE} tak achieve kar sakta hoon?",
+      "Mujhe har mahine {GOALNAME} ke liye kitna save karna chahiye?",
+      "Kya main {GOALNAME} ke liye track par hoon?",
+      "Abhi tak {GOALNAME} ke liye {AMOUNT} bacha hai, kya ye kaafi hai?",
+      "Mujhe {GOALNAME} ko {TARGETDATE} tak pahunchaane ke liye monthly kitna bachana hoga?",
+      "Yo {GOALNAME} ka target {TARGETAMOUNT} hai, kya main {TARGETDATE} tak reach karunga?",
+      "Goal {GOALNAME} ka progress check karo.",
+      "Per {PERIODSHORT} {GOALNAME} ke liye kitna bacha hai?",
+      "Mujhe {GOALNAME} ke liye monthly savings ka target batao.",
+      "Kya {GOALNAME} abhi bhi delay mein hai?"
     ]
   }
 }

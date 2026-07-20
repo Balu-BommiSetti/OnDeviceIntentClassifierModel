@@ -1,7 +1,7 @@
 {
   "$schema": "../knowledge.schema.json",
   "intent": "INCOME_ANALYSIS",
-  "description": "User asks to read, explain, or compare their INCOME. Read-only advisory intent \u2014 never writes transactions. Distinct from ADD_INCOME and INCOME_DECLARATION, which are write intents: this intent answers 'how much / why / is it growing', they answer 'record this'.",
+  "description": "User asks to read, explain, or compare their INCOME. Read-only advisory intent — never writes transactions. Distinct from ADD_INCOME and INCOME_DECLARATION, which are write intents: this intent answers 'how much / why / is it growing', they answer 'record this'.",
   "supported_actions": [
     "SUMMARY",
     "ANALYSIS",
@@ -64,7 +64,17 @@
       "what is my income {PERIOD}",
       "display my income {PERIOD}",
       "how much came in from {MERCHANT}",
-      "give me an income snapshot {PERIOD}"
+      "give me an income snapshot {PERIOD}",
+      "Is {PERIODSHORT} ki total income kitni hai?",
+      "Mera total income {PERIOD} ka kya hai?",
+      "Income summary {PERIOD} bhej do.",
+      "Mere {CATEGORY} se kitni income aayi {PERIOD}?",
+      "Is {DATE} ko kitna income aaya?",
+      "Salary ke sath total income {PERIOD} ka batao.",
+      "Mere {PERIOD} ka total income kitna tha?",
+      "Mere {PERIOD} ki income summary dikhao.",
+      "Is {PERIOD} ka income amount kitna hai?",
+      "Mere {PERIOD} ke earnings dekhna chahta hoon."
     ],
     "ANALYSIS": [
       "why is my income lower {PERIOD}",
@@ -108,7 +118,17 @@
       "why did my {CATEGORY} income change",
       "is my income reliable",
       "what is the biggest source of my income",
-      "why is my income varying so much"
+      "why is my income varying so much",
+      "Mera income {PERIOD} mein kyon kam hai?",
+      "Mera salary {DATE} ko kyon kam mil rahi hai?",
+      "Mera income {PERIODSHORT} mein kyon ghatt gaya?",
+      "Mera income {PERIOD} mein kyon low hua?",
+      "Salary {PERIOD} pe kyon kam aayi?",
+      "Mera allowance {PERIOD} ke liye kyon kam aaya?",
+      "Income {PERIOD} ka {CATEGORY} kyon kam hai?",
+      "Mera bonus {PERIOD} me kyon kam aaya?",
+      "Mujhe dekhna hai ki income {PERIOD} me {MERCHANT} se koi deduction kyon hai?",
+      "Mera income {PERIOD} me {PLAINAMOUNT} kyon kam dikh raha hai?"
     ],
     "TREND": [
       "is my income growing",
@@ -151,7 +171,17 @@
       "what direction is my income going",
       "is my income flat",
       "how fast is my income growing",
-      "has my earning improved {PERIOD}"
+      "has my earning improved {PERIOD}",
+      "Mera salary ka {PERIOD} trend dekhna hai.",
+      "Income ka {PERIODSHORT} trend kya hai?",
+      "Mera monthly income ka {PERIOD} trend dikhao.",
+      "Kaise badhi meri income {PERIOD} ke saath?",
+      "Income ka {PERIOD} ke beech mein kya badlaav hua?",
+      "Mera salary growth ka {PERIOD} trend batao.",
+      "Income {CATEGORY} ka {PERIOD} trend kaise badh raha?",
+      "Mera salary ka {DATE} se {DATE} tak ka trend dikhayo.",
+      "Income ka {PERIOD} trend ka analysis kar de.",
+      "Maine jo {CATEGORY} income earn ki, uska {PERIOD} trend bata do."
     ],
     "COMPARISON": [
       "compare my income {PERIOD1} vs {PERIOD2}",
@@ -194,7 +224,16 @@
       "measure income {PERIOD1} against {PERIOD2}",
       "put my income {PERIOD1} next to {PERIOD2}",
       "spot the income difference {PERIOD1} {PERIOD2}",
-      "compare my take home {PERIOD1} vs {PERIOD2}"
+      "compare my take home {PERIOD1} vs {PERIOD2}",
+      "Mera income {PERIOD1} vs {PERIOD2} kaise compare karu?",
+      "Income {PERIOD1} aur {PERIOD2} mein kitna fark hai?",
+      "Mujhe batao, {PERIOD1} ka income {PERIOD2} se kitna jyada/ghat?",
+      "Dekho, {PERIOD1} ka income {PERIOD2} se compare karo.",
+      "Compare my income {PERIOD1} vs {PERIOD2} aur graph dikhao.",
+      "Income {PERIOD1} compared to {PERIOD2} ka chart dikhao.",
+      "Income {PERIODSHORT} ke hisaab se {PERIOD1} ka {PERIOD2} se difference?",
+      "Mera yearly income {PERIOD1} vs {PERIOD2} ka comparison?",
+      "Income {PERIOD1} aur {PERIOD2} ka trend batao."
     ]
   }
 }

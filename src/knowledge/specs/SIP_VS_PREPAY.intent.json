@@ -1,7 +1,7 @@
 {
   "$schema": "../knowledge.schema.json",
   "intent": "SIP_VS_PREPAY",
-  "description": "User asks whether to invest (SIP) or prepay a loan. Read-only advisory comparison intent. BOUNDARY RULE: every COMPARISON/WHAT_IF pattern MUST name the investment side (SIP/investing/mutual fund) \u2014 a prepay-only phrasing belongs to DEBT_FREEDOM_ANALYSIS. This is the LOAN_ANALYSIS|WHAT_IF lesson applied before it bites: two intents must never train on the same meaning.",
+  "description": "User asks whether to invest (SIP) or prepay a loan. Read-only advisory comparison intent. BOUNDARY RULE: every COMPARISON/WHAT_IF pattern MUST name the investment side (SIP/investing/mutual fund) — a prepay-only phrasing belongs to DEBT_FREEDOM_ANALYSIS. This is the LOAN_ANALYSIS|WHAT_IF lesson applied before it bites: two intents must never train on the same meaning.",
   "supported_actions": [
     "SUMMARY",
     "COMPARISON",
@@ -67,7 +67,17 @@
       "If I have {EXTRAPAYMENT} to spare, should I invest it or use it to lower my {LIABILITYTYPE} balance",
       "Is investing my spare cash or clearing my loan the better use of my funds",
       "Should I invest my remaining {AMOUNT} in a SIP or use it to wipe out my loan",
-      "If I add {AMOUNT} to my finances, should I start a SIP or make an extra loan payment"
+      "If I add {AMOUNT} to my finances, should I start a SIP or make an extra loan payment",
+      "Mujhe {AMOUNT} ka SIP start karna chahiye ya {LIABILITYTYPE} ka loan pehle clear karna?",
+      "Mere {INTERESTRATE}% interest wale {LIABILITYTYPE} ko close karun ya {AMOUNT} ka SIP invest karun?",
+      "Mere paas {LUMPSUM} ka extra payment hai, use loan reduce karne me use karun ya SIP me invest karun?",
+      "Mere {PERIODSHORT} ke liye {INTERESTRATE}% ka loan hai, kya main {AMOUNT} ka SIP chalu karun ya loan clear?",
+      "Mujhe {AMOUNT} ka SIP better hoga ya {LENDER} ka {INTERESTRATE}% loan ko pay off karna?",
+      "Mere extra {EXTRAPAYMENT} ka use kahaan kare, SIP mein invest karun ya loan clear karun?",
+      "Mere 30 lakh ka loan 8% pe chal raha hai, kya fir {AMOUNT} ka SIP shuru karun ya loan ko fast clear?",
+      "Mere paas {PLAINAMOUNT} ki spare money hai, {LIABILITYTYPE} clear karo ya SIP start karo, summary?",
+      "Kya 10 mahine ke liye {INTERESTRATE}% interest ka loan close karun, ya {AMOUNT} ka SIP shuru karun?",
+      "Mere loan ki EMI {AMOUNT} hai, kya main {EXTRAPAYMENT} extra payment karke loan clear karun ya SIP invest?"
     ],
     "COMPARISON": [
       "SIP or prepay my {LIABILITYTYPE}",
@@ -114,7 +124,17 @@
       "Which is better to use my spare {AMOUNT} on: a regular investment or an extra loan payment",
       "Is putting {AMOUNT} into a SIP better than using it to prepay a {INTERESTRATE} debt",
       "If I can spare {AMOUNT} weekly, would it be better to invest or prepay my loan",
-      "With {PERIOD} left on my loan, should I use the {AMOUNT} for a SIP or prepay"
+      "With {PERIOD} left on my loan, should I use the {AMOUNT} for a SIP or prepay",
+      "SIP aur prepay se meri {LIABILITYTYPE} pe kaunsa better return milega?",
+      "Kya {INTERESTRATE}% pe SIP invest karna prepay karke loan clear karne se better hai?",
+      "Mere {LIABILITYTYPE} ka {AMOUNT} SIP vs prepay ka compare karo.",
+      "Bina {EXTRAPAYMENT} ke, SIP karne se ya {LIABILITYTYPE} prepay karne se zyada munafa hoga?",
+      "SIP growth aur {LIABILITYTYPE} prepay returns ka difference dekh.",
+      "2 lakh ka {LUMPSUM} SIP ya prepay, kaun sa better option hai?",
+      "Mere {LENDER} loan ke liye, 10% interest, SIP vs prepay ka {PERIODSHORT} ka comparison bata.",
+      "SIP se bazar me invest karna ya {LIABILITYTYPE} prepay karna, dono ke returns mein kaun sa zyada acha hai?",
+      "Mere loan ke liye SIP zyada beneficial hai ya prepay, {INTERESTRATE2}% ka interest dekhkar?",
+      "SIP launch aur prepay ke returns me 3 saal baad kya fark padega, meri {LIABILITYTYPE} ke liye?"
     ],
     "WHAT_IF": [
       "what if I prepay {LUMPSUM} instead of investing it in SIP",
@@ -157,7 +177,17 @@
       "what if I stop the {AMOUNT} SIP and foreclose {LENDER}",
       "what if I redirect the emergency bonus into SIP not the {LIABILITYTYPE}",
       "if I trim my SIP by {EXTRAPAYMENT} to speed up the loan what changes",
-      "what if next year the SIP money clears {LENDER} instead"
+      "what if next year the SIP money clears {LENDER} instead",
+      "agar main {LUMPSUM} prepay karun, toh SIP se invest karne ka kya farq padega?",
+      "SIP rok ke, {LIABILITYTYPE} ko prepay karne ka impact kya hoga?",
+      "{PERIOD} mahine ki SIP ko skip karke, {LIABILITYTYPE} ki {INTERESTRATE}% interest prepay karne se kitni bachat hogi?",
+      "agar main {EXTRAPAYMENT} extra prepay karun {LIABILITYTYPE} par, SIP se kaun zyada benefit hoga?",
+      "{LUMPSUM} ko SIP ki jagah prepay karne se total interest kitna kam hoga?",
+      "kitna badal jayega meri EMI agar main {PLAINAMOUNT} ki SIP ko prepay kar doon?",
+      "kya hoga agar main {LIABILITYTYPE} ko pehle prepay karun aur baad me SIP shuru karu?",
+      "EMI ko {INTERESTRATE} tak kam karne ke liye, main {EXTRAPAYMENT} prepay karun, SIP cancel karne ka kya effect?",
+      "{LUMPSUM} prepay karke {LIABILITYTYPE} ka loan tod dene se, SIP me invest karne se kitna extra interest lagega?",
+      "agar main {PERIODSHORT} ka SIP bandh karu aur loan prepay kar doon, toh mujhe kitna bachat hogi?"
     ]
   }
 }

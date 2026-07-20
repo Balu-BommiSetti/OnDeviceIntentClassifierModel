@@ -74,7 +74,15 @@
       "give me a sense of how my budget is faring",
       "how well am i keeping my budget on track",
       "outline how my budget is performing overall",
-      "compare my budget adherence to my goal plan"
+      "compare my budget adherence to my goal plan",
+      "Mera {PERIODSHORT} ka budget kaise lag raha hai?",
+      "Pichle {PERIOD} ka budget summary de do",
+      "Mujhe {AMOUNT} ka budget update chahiye",
+      "Kya {CATEGORY} mein {AMOUNT} bacha hai?",
+      "Mere budget ki {DATE} ki detail dikhao",
+      "Mujhe {PERIOD} ka budget snapshot chahiye",
+      "Mujhe {PERIODSHORT} ka budget ka summary chahiye",
+      "Mere budget ki {AMOUNT} ka quick view dikhao"
     ],
     "STATUS": [
       "am I over budget on {CATEGORY}",
@@ -119,7 +127,17 @@
       "how much room do I still have in my {CATEGORY} budget for {PERIOD}",
       "are any of my {CATEGORY} categories close to or over the allocated amount this {PERIOD}",
       "is my {CATEGORY} balance low enough to risk overspending on {DATE}",
-      "did I spend beyond the {CATEGORY} budget limit I set for {PERIOD}"
+      "did I spend beyond the {CATEGORY} budget limit I set for {PERIOD}",
+      "Mera {CATEGORY} ka kharcha kitna ho gaya?",
+      "Kya main {CATEGORY} pe budget se jyada kharid raha hoon?",
+      "Is mahine {CATEGORY} ka kitna bacha hai?",
+      "Mujhe batao {CATEGORY} ka available kharcha kitna bacha hai?",
+      "Kya {PERIOD} mein {CATEGORY} ka budget track pe hai?",
+      "Mere {CATEGORY} budget me {AMOUNT} bacha hai, sahi hai?",
+      "Yeh {CATEGORY} ke liye {PERIODSHORT} ka budget dekho, kitna use ho chuka?",
+      "Main {CATEGORY} pe {PLAINAMOUNT} kharcha kar diya, ab kya status?",
+      "Kya {CATEGORY} ke liye {DATE} ka budget sahi hai?",
+      "Is mahine ka {CATEGORY} budget kitna bacha?"
     ],
     "ALLOCATION": [
       "how should I split my income",
@@ -164,7 +182,17 @@
       "How should I divide my {AMOUNT} so that {CATEGORY} and other bills are covered each {PERIOD}",
       "Outline a practical budget split for my {AMOUNT} that includes {CATEGORY} and savings goals",
       "Tell me how much of my {AMOUNT} should go toward {CATEGORY} while still building an emergency fund over {PERIOD}",
-      "Create a concise plan for allocating my {AMOUNT} that covers {CATEGORY} and savings within the next {PERIOD}"
+      "Create a concise plan for allocating my {AMOUNT} that covers {CATEGORY} and savings within the next {PERIOD}",
+      "Maine {AMOUNT} ka monthly income liya hai, isko alag alag {CATEGORY} me kaise rakho?",
+      "Income {AMOUNT} me se {CATEGORY} ke liye kitna rakhna chahiye, har {PERIOD} me?",
+      "Mujhe {AMOUNT} ka salary aayi, {CATEGORY} ko kitna allocate karna chahiye, krdo?",
+      "Budget kaise banaye, {CATEGORY} ke liye {AMOUNT} set karna hai?",
+      "Kya ap mujhe bata sakte ho ki {AMOUNT} me se {CATEGORY} mein kitna allocate karna hoga?",
+      "Mere paas {PLAINAMOUNT} bacha hai, maine yeh {PERIOD} me savings me split karna hai, kaise?",
+      "Income {AMOUNT} ka split banao, har {PERIODSHORT} me {CATEGORY} ka kitna hissa hoga?",
+      "Salary {AMOUNT} aayi, har {PERIOD} me main kaunse {CATEGORY} me kitna money rakhun?",
+      "Mere budget me {CATEGORY} ke liye {AMOUNT} add karo, phir baki {PERIOD} me kaise distribute hoga?",
+      "Mujhe {AMOUNT} ka income hai, {CATEGORY} ke liye monthly allocate karna hai, help karo."
     ]
   }
 }

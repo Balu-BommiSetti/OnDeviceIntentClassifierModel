@@ -72,7 +72,15 @@
       "Can you log a new loan of {AMOUNT} with a repayment frequency of {FREQUENCY} starting on {DATE}",
       "took a {AMOUNT} {LIABILITYTYPE} from {LENDER} at {INTERESTRATE} for {TENUREMONTHS}",
       "I took a {LIABILITYTYPE} of {AMOUNT} from {LENDER}",
-      "new {LIABILITYTYPE}: {AMOUNT} at {INTERESTRATE} over {TENUREMONTHS}"
+      "new {LIABILITYTYPE}: {AMOUNT} at {INTERESTRATE} over {TENUREMONTHS}",
+      "Add new {LIABILITYTYPE} {AMOUNT} rupees {LENDER} se",
+      "Add {AMOUNT} rupees {LIABILITYTYPE} {INTERESTRATE}% interest, {TENUREMONTHS} mahine ki repayment",
+      "Mujhe {AMOUNT} rupees {LIABILITYTYPE} chahiye, {LENDER} se",
+      "Naya loan {PLAINAMOUNT} rupees, {INTERESTRATE}% interest, add karo",
+      "Add {AMOUNT} {LIABILITYTYPE} {LENDER} se, {TENUREMONTHS} mahine, interest {INTERESTRATE}%",
+      "Add {LIABILITYTYPE} ka {AMOUNT} rupees, {PERIODSHORT}",
+      "Mujhe {LIABILITYTYPE} {AMOUNT} rupees add karna hai, {INTERESTRATE}% interest",
+      "Add loan {AMOUNT} rupees {LENDER} se {DATE} ko"
     ],
     "UPDATE": [
       "update my {LIABILITYTYPE} balance to {AMOUNT}",
@@ -120,7 +128,17 @@
       "change the tenure of my {LIABILITYTYPE} to {TENUREMONTHS}",
       "update my {LIABILITYTYPE} interest rate to {INTERESTRATE}",
       "correct the {LIABILITYTYPE} amount to {AMOUNT}",
-      "change my {LENDER} loan tenure to {TENUREMONTHS}"
+      "change my {LENDER} loan tenure to {TENUREMONTHS}",
+      "Mere {LIABILITYTYPE} ka balance {AMOUNT} set karo.",
+      "Is {LIABILITYTYPE} ka amount {AMOUNT} wrong hai, thoda sudhar lo.",
+      "Loan balance ko {AMOUNT} update karo, please.",
+      "Mera {LIABILITYTYPE} ka balance {AMOUNT} hai, fix karo.",
+      "Yeh {LIABILITYTYPE} ka amount {AMOUNT} change kar do.",
+      "Mere {LIABILITYTYPE} ki EMI {AMOUNT} hai, update krdo.",
+      "Mere {LIABILITYTYPE} ka {LENDER} se loan amount {AMOUNT} set karo.",
+      "Yeh {LIABILITYTYPE} ka interest rate {INTERESTRATE} set karo.",
+      "Tenure ko {TENUREMONTHS} mahine kar do, {LIABILITYTYPE} ke liye.",
+      "Mere {LIABILITYTYPE} ka balance {PLAINAMOUNT} hai, correct karo."
     ],
     "DELETE": [
       "remove my {LIABILITYTYPE}",
@@ -171,7 +189,17 @@
       "I would like to delete the {AMOUNT} loan I added with {INTERESTRATE} interest",
       "Can I remove the {LENDER} credit card liability I noted",
       "i cleared the {LENDER} {LIABILITYTYPE}, remove it",
-      "delete my {LIABILITYTYPE}, it is paid off"
+      "delete my {LIABILITYTYPE}, it is paid off",
+      "delete {LIABILITYTYPE} ki entry kar do",
+      "remove {LIABILITYTYPE} ka {AMOUNT} loan",
+      "delete {LENDER} ka loan entry",
+      "remove {LIABILITYTYPE} ka {PLAINAMOUNT} record",
+      "delete {LIABILITYTYPE} ki {AMOUNT} entry",
+      "remove {LENDER} ki loan entry",
+      "delete {LIABILITYTYPE} ki entry krdo",
+      "remove {LIABILITYTYPE} ki entry {DATE} ka",
+      "delete {LIABILITYTYPE} ka entry {PERIODSHORT} baad",
+      "remove {LIABILITYTYPE} ka record, ye clear kar do"
     ]
   }
 }
