@@ -84,8 +84,8 @@ const SLOT_VALUES: Record<string, string[]> = {
   // them rather than artificial oddness. No value appears in another pool.
   TARGETAMOUNT: [
     "5 lakh", "10 lakh", "15 lakh", "20 lakh", "25 lakh", "50 lakh",
-    "1 crore", "2 crore", "12 lakhs", "30 lakh", "75 lakh",
-    "500000", "1500000", "2500000", "5000000",
+    "1 crore", "2 crore", "5 lakhs", "12 lakhs", "30 lakh",
+    "500000", "1050000", "1500000", "2500000", "75 lakh",
   ],
   TARGETDATE: buildTargetDateFillers(),
   // EXTRAPAYMENT is a RECURRING monthly extra on a loan. It shared the full
@@ -118,8 +118,12 @@ const SLOT_VALUES: Record<string, string[]> = {
   // Correct axis is RANGE: a windfall is large and round; an everyday AMOUNT
   // is small and round; a DOWNPAYMENT is a percentage or a mid-size round.
   // Values stay natural, and no two pools share one.
-  LUMPSUM: ["1 lakh", "3 lakh", "4 lakh", "6 lakh", "7 lakh", "8 lakh",
-            "150000", "300000", "400000", "800000"],
+  // REVERTED to the run-36 values 2026-07-20. Three successive attempts to
+  // "fix" this pool (odd magnitudes, then range separation) each improved
+  // B-LUMPSUM's own F1 while making QA entity-exact WORSE — 64.0 -> 60.0 ->
+  // 59.4%. Per-type F1 and real-world QA performance turned out not to be
+  // correlated here, and QA is the honest measure. Left as-is deliberately.
+  LUMPSUM: ["50000", "100000", "2 lakh", "1.5 lakhs", "200000", "75000", "3 lakh", "5 lakhs", "25000", "10 lakhs"],
   TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months"],
   // SHORT-FORM pools. The generic pools are diversity-weighted toward long
   // forms ("July through October", "in the last 6 weeks", "2.5 lakhs"), so
@@ -146,10 +150,7 @@ const SLOT_VALUES: Record<string, string[]> = {
   // (downPaymentPercent) but was never declared in the spec, so the model had
   // no way to emit it. Both percentage and absolute phrasings appear in real
   // questions ("20% down" / "2 lakh down").
-  // Percentages carry most of the signal here and collide with nothing; the
-  // absolute values are mid-size rounds that no other money slot uses.
-  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "15%", "40%",
-                "250000", "350000", "600000"],
+  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "1 lakh", "200000", "50000", "5 lakhs", "2 lakh"],
   // PERIOD1/PERIOD2 exist so COMPARISON patterns can carry two DISTINCT period
   // spans. Both draw from the same grammar pool; fill() de-duplicates within a
   // single pattern so "June vs June" can't be generated. The NER head tags both
@@ -642,6 +643,27 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
  * regardless of which intent it came from. "the bank" was exactly that, and the
  * same-intent-only guard passed it happily.
  */
+/**
+ * Collisions we have MEASURED and consciously accepted.
+ *
+ * The guard below encodes a theory: two slots sharing values inside one intent
+ * cannot be separated by the NER head. TARGETAMOUNT/AMOUNT supported it — the
+ * fix took I-TARGETAMOUNT 0.148 -> 0.857 AND improved QA. LUMPSUM/AMOUNT
+ * CONTRADICTED it: three attempts (odd magnitudes, then range separation) each
+ * improved B-LUMPSUM's own F1 while QA entity-exact fell 64.0 -> 60.0 -> 59.4%.
+ * Per-type F1 and real-world QA performance are not reliably correlated.
+ *
+ * So this is an allowlist, not a silent exemption: each entry names the
+ * measurement that justifies it, and anything NOT listed still fails the build.
+ */
+const ACCEPTED_COLLISIONS = new Set<string>([
+  // Measured 2026-07-20: run 36 (with this collision) scored QA 60.7% /
+  // entities 64.0% / regression 41/41 — better than runs 37, 38 and 39, each
+  // of which "fixed" it. Windfalls and everyday amounts genuinely overlap in
+  // range, and forcing them apart made the values unrealistic.
+  "SIP_VS_PREPAY:AMOUNT:LUMPSUM",
+]);
+
 function assertNoSlotValueCollisions(specs: IntentSpec[]): void {
   const problems: string[] = [];
 
@@ -697,7 +719,8 @@ function assertNoSlotValueCollisions(specs: IntentSpec[]): void {
         if (!poolA || !poolB) continue;
         const setB = new Set(poolB.map((v) => v.toLowerCase()));
         const shared = poolA.filter((v) => setB.has(v.toLowerCase()));
-        if (shared.length > 0) {
+        const key = `${spec.intent}:${[a, b].sort().join(":")}`;
+        if (shared.length > 0 && !ACCEPTED_COLLISIONS.has(key)) {
           problems.push(
             `${spec.intent}: {${a}} and {${b}} share ${shared.length} value(s) ` +
             `[${shared.slice(0, 4).join(", ")}${shared.length > 4 ? ", …" : ""}]`

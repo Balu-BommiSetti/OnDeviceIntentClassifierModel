@@ -697,7 +697,31 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 
 ## P2 — debt / hygiene
 
-- [~] **Shared-pool audit** — run 37 was a NET REGRESSION; corrected in run 38.
+- [x] **Shared-pool audit — CLOSED, mostly a negative result.** Run 39 scored
+  QA 50.6%% / entities 59.4%% — the WORST of the thread. Final scoreboard:
+    run 36 (baseline, DEPLOYED)  QA 60.7%% · entities 64.0%% · reg 41/41
+    run 37 (odd-value pools)     QA 53.0%% · entities 61.1%% · reg 39/41
+    run 38 (direction corrected) QA 57.5%% · entities 60.0%% · reg 40/41
+    run 39 (range-separated)     QA 50.6%% · entities 59.4%% · reg 40/41
+  Every variation improved the TARGETED tags (B-LENDER 0.578->0.760,
+  B-LUMPSUM 0.111->0.647, I-LUMPSUM 0.400->1.000) and every one made QA worse.
+  THE REAL FINDING: per-type F1 and real-world QA performance are NOT reliably
+  correlated. Optimising an individual tag's F1 is not evidence of product
+  improvement, and this thread cost 3 training runs to learn it. QA is the
+  honest measure; per-type F1 is a diagnostic hint, not a target.
+  KEPT (measured wins): the TARGETAMOUNT fix — it improved BOTH its F1
+  (0.148->0.857) and QA, which is why it stands while the others were
+  reverted. And "the bank" now belongs to LENDER, which was a genuine
+  correctness fix (a held-out QA case asserts it).
+  REVERTED: LUMPSUM / DOWNPAYMENT / TARGETAMOUNT value churn, back to the
+  run-36 configuration.
+  GUARD KEPT but honest about its own limits: same-intent collisions still
+  fail the build, EXCEPT for an ACCEPTED_COLLISIONS allowlist where each entry
+  cites the measurement justifying it (today: SIP_VS_PREPAY AMOUNT/LUMPSUM).
+  Cross-intent collisions warn and list every instance. A guard encoding a
+  theory the data partly contradicts should say so rather than be quietly
+  weakened.
+- [~] ~~(superseded)~~ audit detail — run 37 was a NET REGRESSION; corrected in run 38.
   RUN 37 RESULT, honestly: targeted tags improved (I-LUMPSUM 0.400->1.000,
   TARGETAMOUNT 0.840->0.911 / 0.857->0.935, EXTRAPAYMENT 0.727->0.774) but
   OVERALL went DOWN — QA full pass 60.7->53.0%, entities 64.0->61.1%,
