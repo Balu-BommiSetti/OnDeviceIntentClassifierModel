@@ -143,10 +143,30 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   (PhonePe read as a payee).
   NEXT: needs a seed-repeat before any further conclusion — a single run
   cannot separate a 1.2pt move from noise.
-- [ ] **SPENDING_ANALYSIS|ANALYSIS cue fix DID NOT WORK** — still 44.4% after
-  adding 5 explicit "analyze/analysis" patterns (4th sighting). Pattern
-  addition is not reaching this bucket; needs a different diagnosis, not more
-  patterns.
+- [ ] **SPENDING_ANALYSIS|ANALYSIS — RE-DIAGNOSED, my earlier hypothesis was
+  WRONG.** For 4 iterations I treated this as "Analyze does not map to the
+  ANALYSIS taskType" and kept adding analyze-cue patterns. It never moved.
+  The probe set shows why: bucket accuracy 44.4% EQUALS intent-alone 44.4%,
+  i.e. the taskType is correct in every single case (ANALYSIS 9/9) and every
+  failure is an INTENT miss. I was aiming at the wrong head.
+  Real split, from all 9 probes:
+    PASS: "grocery EXPENSES", "grocery SPEND", "food SPENDING" (explicit
+          spend-word present)
+    FAIL: "cable BILL jump" -> INCOME_ANALYSIS, "gas BILL increase" ->
+          INCOME_ANALYSIS, "netbank FEE spike" -> INCOME_ANALYSIS,
+          "cafe ORDERS" -> SAVINGS_ADVICE
+  Two compounding causes:
+   (a) BILL/FEE/CHARGE/ORDER nouns are nearly absent from
+       SPENDING_ANALYSIS|ANALYSIS — only 3 of 54 patterns use them, even
+       though the app's own categories are literally "Electricity Bill",
+       "Water Bill", "Gas Bill", "Credit Card Bill".
+   (b) jump/spike/increase IS well covered (18/54) but is also
+       INCOME_ANALYSIS|TREND vocabulary, so with no spend-noun to anchor it
+       the query drifts to income.
+  FIX (prepared, deliberately NOT applied yet): bill/fee/charge-noun ANALYSIS
+  patterns. HELD because a seed-repeat is training off the current
+  spec_dataset.jsonl — regenerating mid-run would train seeds 202/303 on
+  different data than run 30 and void the noise comparison.
 - [ ] ~~(superseded)~~ direction-confusion cluster (from probe sweep) — the model
   knows the domain but not WHICH WAY money moves:
     ADD_INCOME -> ADD_EXPENSE (12), FAMILY_TRANSFER -> ADD_INCOME (8),
