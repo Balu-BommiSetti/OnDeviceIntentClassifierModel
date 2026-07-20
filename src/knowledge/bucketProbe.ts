@@ -160,7 +160,8 @@ async function callOllama(prompt: string): Promise<string> {
     },
     body: JSON.stringify({
       model: OLLAMA_MODEL, prompt, stream: false, format: "json",
-      options: { temperature: 0.9, num_predict: 2048 },
+      // 8192: 2048 truncated ~45% of buckets mid-array at count=20.
+      options: { temperature: 0.9, num_predict: 8192 },
     }),
   });
   if (!res.ok) throw new Error(`Ollama ${res.status}: ${await res.text()}`);
@@ -184,7 +185,17 @@ async function callOpenAi(prompt: string): Promise<string> {
   return (await res.json()).choices?.[0]?.message?.content ?? "";
 }
 
-/** Tolerant extraction — models wrap arrays in objects, fences, or prose. */
+/**
+ * Tolerant extraction — models wrap arrays in objects, fences, or prose, and
+ * sometimes get cut off mid-array by the token cap.
+ *
+ * The SALVAGE stage is not optional politeness: the first full sweep lost 25 of
+ * 55 buckets (45%) to truncated JSON. Every one had produced perfectly good
+ * queries, and all of them were thrown away because the closing bracket was
+ * missing. A generator that silently discards half its output looks identical
+ * to a generator whose model refused the task — which is exactly how long that
+ * bug would have survived. Salvage first, then raise the cap.
+ */
 function parseQueries(raw: string): string[] {
   const tryParse = (s: string): string[] | null => {
     try {
@@ -198,14 +209,26 @@ function parseQueries(raw: string): string[] {
     } catch { /* fall through */ }
     return null;
   };
+
   const direct = tryParse(raw.trim());
-  if (direct) return direct;
+  if (direct?.length) return direct;
+
   const m = raw.match(/\[[\s\S]*\]/);
   if (m) {
     const arr = tryParse(m[0]);
-    if (arr) return arr;
+    if (arr?.length) return arr;
   }
-  return [];
+
+  // SALVAGE: pull every complete double-quoted string out of a truncated or
+  // otherwise malformed array. An unterminated final element is simply lost
+  // instead of taking the whole batch with it.
+  const salvaged: string[] = [];
+  for (const mm of raw.matchAll(/"((?:[^"\\]|\\.)*)"/g)) {
+    const s = mm[1].replace(/\\"/g, '"').replace(/\\n/g, " ").trim();
+    // Skip JSON keys and single tokens — real queries have spaces.
+    if (s.length > 8 && s.includes(" ")) salvaged.push(s);
+  }
+  return salvaged;
 }
 
 async function main() {

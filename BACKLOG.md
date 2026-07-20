@@ -109,7 +109,31 @@ Last updated: 2026-07-20 (iteration 37 — RUN 29b STAGED: all 4 success tests M
   Token cost: ~300 in / ~400 out per bucket; full 55-bucket sweep ~20k tokens.
   Model: gpt-oss:20b-cloud via the existing provider abstraction (worked
   first try, realistic + Hinglish). --provider openai available if needed.
-  NEXT: run the full sweep to get a 55-bucket heatmap before any more training.
+  DONE: full sweep ran — 1,041 probes / 52 buckets, no retraining. See
+  `benchmarks/field_reports/2026-07-20-probe-sweep-1041.md`.
+  intent 83.8%, intent+taskType 72.3% (a FLOOR — probe set has label noise).
+  Tooling bug found+fixed mid-sweep: num_predict 2048 truncated JSON and the
+  parser discarded whole batches, losing 25/55 buckets; salvage stage + cap
+  8192, re-ran the 25, 24 recovered 0 failed.
+- [ ] **TOP FIX: direction-confusion cluster** (from probe sweep) — the model
+  knows the domain but not WHICH WAY money moves:
+    ADD_INCOME -> ADD_EXPENSE (12), FAMILY_TRANSFER -> ADD_INCOME (8),
+    DEBT_FREEDOM -> ADD_LIABILITY (8), ADD_ASSET -> ADD_LIABILITY (4).
+  "add 7500 from zara store" and "4000 cr from client" both -> ADD_EXPENSE:
+  the model keys on merchant presence over the direction verb
+  (got/received/credited vs spent/paid). Highest-traffic write path, and a
+  wrong call writes a transaction with the WRONG SIGN. One targeted
+  direction-verb pattern family should address all four confusions.
+- [ ] **Probe-set hygiene (blind relabel)** — SIP_VS_PREPAY|SUMMARY scored
+  0/20 with intent accuracy 100%: the LLM generated comparison-shaped queries
+  ("SIP karun ya loan prepay?") and labelled them SUMMARY because we asked
+  for SUMMARY. The model was RIGHT. Fix: re-ask the LLM to label its own
+  queries blind and drop rows where the label disagrees with the requested
+  bucket. Until then, where intent accuracy is HIGH but bucket accuracy LOW,
+  suspect the label before the model.
+- [ ] **PRODUCT: should SIP_VS_PREPAY|SUMMARY exist?** An LLM explicitly told
+  to avoid COMPARISON could not write 20 non-comparison queries for it. If
+  the intent is inherently comparative we may be training the model to fail.
 - [ ] ~~(superseded)~~ Harness ground-truth note — records what the model said, never
   what it should have said, so NO accuracy figure is computable from any run;
   all findings are inspection-based judgement. Highest-value harness change:

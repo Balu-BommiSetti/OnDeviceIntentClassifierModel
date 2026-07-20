@@ -1,12 +1,1041 @@
-{"utterance":"how should i split my 50k monthly income for rent, groceries, savings","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"what should my budget look like if i make 2 lakh a month and want to invest 20k","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"how much should i put aside for kids edu this year, got 1.5 lakh left","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"suggest a budget for me with 30k grilling, 15k groceries, 10k emergency","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"i'm planning next month, how should i allocate 20k to car fuel","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"budget kaise banau 40k monthly income ke saath? sab expenses?","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"i earned 500k last month, how should i split it across rent, utilities & savings","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"what budget for covering 1 lakh wedding over 6 months","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"plan allocation for 25k monthly to phone, internet, streaming","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"kya kaise save karun health ins this quarter, 15k extra hai","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"give me yearly allocation for my 2 lakh annual income for travel, savings, debt","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
-{"utterance":"budget split for 12 crore next year, how much for investments, FDs, daily spend","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"03-25 loan repay 1.2 crore, correct to 1.1 crore","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"1 lakh credited 10-08 via UPI","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"1 lakh uncle ko Paytm se bheja","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"1.5L credited 20-09 via netbanking","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"1.5l spent at hotel last week","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"1.8L received from sole proprietorship 28-09","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"10k ka income delete karo","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"12 crore credited 15-12 via credit card","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"2 lakh bacha hai, SIP karun ya loan prepay?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"2 lakh ka payment delete karo","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"2 lakh parents ko bheja bank transfer se","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"2000 from adhar pay","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"250 spent at pani puri stall yesterday","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"2500 spent at amazon.in 15-08-2023","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"3k credited via google pay 05-07","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"3k monthly invest karu ya 4 lakh loan 8% prepay 3 saal tak?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"3k spent at novu dinner on 05-09-23","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"400 spent at bigbasket 20-07","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"4000 cr from client","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"4k monthly invest karu 12% SIP mein ya 3 lakh loan 9% prepay karu?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"60 months over how does a 2 lakh purchase look","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"I want a snapshot of my budget for the last 15 days","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"I want to know my earnings from ad revenue 2023","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"ROI kya hoga agar 1 lakh SIP mein invest karun vs 3 lakh loan prepay 9% pe 3 saal?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"What returns do I get if I invest 50k in a SIP vs prepay 2 lakh loan?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"What's the best way to save 5000 after each bill?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"abhi bhi paisa kaam hai kya, 5000 rs left?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"actually I got 12 crore back from investment, i logged 10 crore","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"actually got advance 1.2 lakh, update cat","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"actually i got 4500 HDFC 03-20, change","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"actually i got 75k 18-08 via Interac, not 70k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"actually i received 1.5l not the logged amount","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"actually make my emergency fund target 70k","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"actually make my vacation target 30k","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"actually sent 500 to aunty on 12/08, wrong date in app, set it to 12/08","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"actually the amazon prime subscription bill was 999","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"actually the metro fare was 50","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"actually the movie ticket bill was 200","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"actually the refund was 2000","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"actually the swiggy bill was 350","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"actually the water bill was 300","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"add 3000 for mobile data","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"add 400 for bus ticket","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"add 5000 on cafe last night","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"add 5k from amazon return","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"add 7500 from zara store","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"add asset 30k in mutual fund on 14 feb","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"add asset 50k in mutual fund","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"add asset 5k in crypto today","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"add asset 7 lakh in mutual fund trust","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"add asset gold priced 15k on 12mar","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"add liability 5 lakh at 9.5%","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"add liability 75k at 8.5% interest rate","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"added a small personal loan of 1.5 lakh at 10% interest","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"adjust my monthly income to 1.5L","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"adjust my personal loan interest rate to 9.7%","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"adjust my transfer to dad from yesterday, i used netbanking, amount is 70k not 75k","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"adjust the refund I got from make my trip to 4.2l","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"adjust the value of my auto loan to 1.2 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"agar i reduce my tenure to 48 months kya mazaa hogi?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"am I spending more on gym memberships month to month?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"am i carrying too much debt for my 80k monthly salary with a 2 lakh home loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"am i going to run out of money before Christmas if i spend 10k on gifts?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"am i going to run out of money by the end of next week?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"am i making more total income each quarter?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"am i okay to buy a new phone on 1.5l rupees next month?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"am i on schedule to save 1 lakh for my future travel by feb","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"am i on track for my 50k vacation goal","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"am i over budget on a mobile recharge of 5k this week","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over budget on groceries this month","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over budget on kids tuition for april","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over budget on monthly subscriptions like spotify and netflix","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over budget on my gym membership this month","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over budget on my monthly coffee spend","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over budget on my monthly iPhone purchase","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"am i over-indebted with a 1 lakh loan from Jio Finance with 10% interest?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"am i overleveraged with a 1 lakh loan and a 2 lakh EMI from PNB?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"am i saving enough each month if i put 2k aside?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"am i saving enough? i spend 15k in rent and 8k in utility","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"am i saving more if i SIP 2k per month vs prepay 50k extra on my car loan?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"am i spending more each month","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"am i spending more on petrol each month?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"amaari net worth kahtna?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"baby, can we see my income trend in the last year?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"bhai, 500 extra monthly karun to kab free ho jata loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"borrowed 3 lakh for study loan from IDBI","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"bought 9000 rupees gold from local jeweller","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"bought f&c shares worth 2000 rupees yesterday","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"budget check for my 1.5L savings goal","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget check for my new startup expenses 2 lakh","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget health check for my 50k monthly spend","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget health check for my groceries and fuel","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget health check for my monthly expenses till now","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget health check for my netflix, gym, and meals","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget how to allocate 1.2 lakh between investing, living expenses and debt","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"budget how to divide 2 lakh between travel, savings and emergencies","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"budget ka summary this quarter chahiye","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget karo 3k month wise savings plan 12 months","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"budget overview for my recent flights and trains","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget overview for my rent, health, and travel this period","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget rundown last month kr do","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget summary for my groceries, rent, and entertainment in march 2024","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"budget summary for the month of feb 2024","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"buy asset 10k in liquid fund","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"buy asset 2 lakh in fixed deposit","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"by 2025, am I getting close to my 6 lakh kids education target?","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"by 2026 will i hit my 3 lakh emergency fund goal","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"by apr 2024, am i on target for my 70k holiday trip","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"by dec 2024 am i on track for my 4 lakh property fund","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"by jan 2028, will i be debt free if i pay extra 10k each month on my 1 lakh personal loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"by march 2029, can i be debt free if i pay an extra 15k/month on a 2 lakh loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"by when can i finish my 5 lakh home loan if I pay 20k extra every month","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"can i add 750 to snacks?","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"can i adjust the refund I received from flipkart to 3k","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"can i afford a 1.2 lakh tv with emi 1.2k per month","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"can i afford a 1k mobile from flipkart at this jun","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"can i afford a 2 lakh investment in mutual funds today","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"can i afford a 3 lakh credit card limit increase now","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"can i afford a 4k kids’ bike with a 500 down payment","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"can i afford a 50k laptop right now","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"can i break even if I SIP 70k over 2yrs vs prepay 4 lakh loan at 10%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"can i cancel the duplicate 2000 rupees sent to sister","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"can i change my car insurance ka goal 2 lakh?","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"can i modify the refund I got from metro bill 4 lakh to 3.9 lakh","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"can i pay off my 10k credit card balance in 3 months before other loans","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"can i set my salary to 90k per month","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"can u summarise my expenses for last week?","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"can you delete the car loan i added","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"can you delete the credit card i added","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"can you delete the home loan i added","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"can you delete the loan i added for my startup","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"can you delete the personal loan i added","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"can you give me a simple savings plan for 500 a month?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"can you give me the growth trend of income from my 1.5l bonus?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"can you show me the emi impact if i refinance my car loan at 9%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"can you show me which payments are affecting my home loan from IDBI","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"can you tell me when my 500k EMI loan will be finished?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"can you tell me why i didn’t save 1k last week?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"cancel 4k transfer to dad logged 10-09","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"cancel duplicate transfer to grandma on 3 Oct","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"cancel the 2 lakh transfer to parents from last month","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"cancel the 2000 expense on 15th","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"cancel the 3000 groceries from 01-08","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"cancel the 500 rupees expense from 12-07","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"cancel the duplicate 3k freelance income","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"cancel the duplicate 5k reimbursements income","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"cancel the duplicate gift income","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"cancel the duplicate refund entry","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"cancel the duplicate salary income","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"cancel the duplicate transfer to uncle on 14/08","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"cash flowing poorly after my salary this month","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"cash shortage in april, what's going wrong","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"cashback of ₹300 on dining app FoodPanda","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"cashback of ₹450 on pharmacy purchase","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"change 05-05 credit to 5k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"change 08-20-2024 income to 2k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"change 12-04-23 groceries expense to 1.2k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"change 12th jan salary to 60k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"change 15th March electric bill expense to 5k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"change 15th march ka electricity bill expense to 5k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"change 1st May rent expense to 25k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"change 20-06-23 food expense to 800","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"change 23-01 10k mutual fund to 12k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"change my bachcha ke college goal ko 10 lakh se 12 lakh kar dena","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"change my base pay to 3 lakh per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"change my grocery income 09-11 to 500","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"change my health insurance goal to 4 lakh","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"change my kids future fund target to 3 lakh","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"change my laptop budget to 1 lakh","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"change my salary to 200k per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"change my wedding fund target to 50k","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"change the 3k transfer to brother from yesterday, app wrong amount","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"change the lender of my car loan to indusind","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"change the mortgage tenure to 240 months","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"change the refund from amazon to 500","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"change the refund from paytm to 5000","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"change the tenure of my home loan to 180 months","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"change the worth of my bike to 1.5 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"change the worth of my laptop to 35k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"changed my transfer to sis, i sent 4k but recorded 3k, fix it","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"check my income trend for the last 24 weeks.","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"check my total earnings for 2024 so far","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"compare invest 500/month in mutual fund or prepay 2 lakh loan with 9.5%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"compare march 2024 salary 1.8 lakh with april 2024 salary 2 lakh.","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 1.5l spend on travel tickets this year vs 2022","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 10k spend on gym vs spa this month","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 12 crore spend on real estate 2024 vs 2023","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 2 lakh spend on schooling this semester vs last semester","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 2000 spend on metro 5 cities vs 5 cities last month","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 2k spend on coffee shops this week vs last week","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 3000 spend on gym this week vs last month","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 4k spend on books 2024 vs 2023","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 500 spend on groceries last week vs this week","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 5000 spend on amazon vs flipkart this year","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 5000 spend on trip to goa this year vs last year","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 7000 spend on utilities april vs march","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my 9k spend on cinema this week vs last week","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my dine out spend between 12th jan and 12th feb","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my gadget spend 15th april to 15th may","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my grocery spend this month vs last","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my home renovation spend 2023 vs 2022","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my income last month to this month.","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare my telecom spend for 10th march vs 10th feb","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"compare sip growth with prepaying 1.5 lakh credit card debt?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"compare sip returns with prepaying my loan of 12 crore?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"compare sip returns with prepaying my student loan at 12%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"compare sip vs prepay my home loan interest 8% and lump sum 50k?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"compare spending across january and february","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"correct my 5th jan refund to 1.5l","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"correct my base salary to 5 lakh","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"correct my cinema spend to 150","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"correct my coffee shop spend to 180","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"correct my gas spend to 300","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"correct my gym spend to 1.5k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"correct my mobile refill spend to 50","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"correct my mutual fund value to 13k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"correct my refund from razorpay of 2 lakh to 1.8 lakh","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"correct my salary income to 50k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"correct my transfer of 2000 to aunt, it says 2500","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"correct the car loan amount to 70k","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"correct the loan balance for hdfc to 3 lakh","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"correct the property value to 50k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"could you delete 3000 to mom that i did on 9th","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"could you delete the 1.2L refund from Flipkart on 2024-08-10","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"could you delete the 1.5l car i purchased on 23/01?","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"could you delete the 12 crore refund from Tata on 2024-07-20","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"could you delete the 2 lakh refund from Tata on 12/10/24","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"could you delete the 20k refund from Reliance on 2024-08-30","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"could you delete the 700 refund from myntra on 10th sept","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"could you delete the 8k refund from amazon on 2024-09-05","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"create a goal for credit card debt pay off 15k by oct 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"create a goal for new bike of 50k by march 2025","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"create goal 20k for new laptop by april 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"create goal v-cards 3000 by may 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"december 2024 2 lakh vs january 2025 2.3 lakh, which higher?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"declare my base salary as 1.5L","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"declare position: amount 60k monthly","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"decrease my home downpayment goal to 25 lakh","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"delete 1.5L ka house rent 20-06","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete 1.5L transfer to aunty that happened on 11/9","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete 1000 transfer to dad I recorded August 12","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete 12 crore ka charity donation","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete 2 lakh from last week's client payment","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"delete 2000 rupees ki Airtel bill","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete 300k stock i purchased last week","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"delete 5 lakh transfer to mom entered 6 August","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete 500 rupees family transfer recorded 22nd","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete 5000 rupees transfer to cousin on 2/3","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete 50k from yesterday's bonus","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"delete 75k income on 15th dec","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"delete 75k transfer to aunt from 7 September","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete family transfer of 1.5L to sister on 4 July","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete my 350k artwork asset","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"delete my big bazaar transaction","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete my niket's food expense 3k","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete the 1 lakh credit card entry","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"delete the 1.5L refund from 2024-09-01","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 1.5l house loan entry","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"delete the 12 crore income from 1st march","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"delete the 150k real estate i had 3 months ago","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"delete the 2 lakh donation from jan","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete the 2 lakh krishi plot i had","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"delete the 2000 refund from 05-07-24","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 200k property entry","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"delete the 20k emi loan entry","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"delete the 2k monthly student loan entry bhai","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"delete the 350 refund from 03-09-24","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 3k refund from 2024-09-03","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 4k refund from 2024-09-02","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 500 refund from 12-08-24","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 500 to mom that i sent on 05-10","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"delete the 50k refund from 2024-08-25","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"delete the 50k student loan entry","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"delete the 75k cryptocurrency i had","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"delete the duplicate coffee shop entry","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"delete the duplicate mobile recharge","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"did I earn more in february 2024 than january 2024?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"did i spend 300 on books? let's add it","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"did my income in 2024 january 2 lakh exceed 2023 january 1.8 lakh?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"did my salary rise in 2024 q1 versus 2023 q4?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"display my earnings from sports sponsorship last year","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"display my earnings from zara in april","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"do I need to increase my contributions to hit 8 lakh home security by 2023","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"do i do sip or prepay my home loan at 8%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"do i have a safe debt profile if I pay off 4 lakh loan by 2029?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"do i have enough for my flight tickets next month given my balance of 5 lakh rupees?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"do i have enough for the next bus fare if my savings are 2k rupees?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"do i need to bump my savings to reach my 25k down payment by july","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"do i need to choose sip or prepay my 50k EMI loan 4.5%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"do i need to worry about running out of money before my anniversary dinner next month?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"does my income from paytm 5000 per month is increasing?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"does my income rise every month from jan to dec?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"does my subscription to swiggy cost that much","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"does paying a 2 lakh lump sum now reduce my risk for a 4 lakh home loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"e batao agar i refinance my personal loan at 8% toh kya hoga?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"earning 10k annually","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"expense breakdown 10-12 jan","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"expense breakdown 12th march","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"expense breakdown for my big birthday party last month","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"explain my savings 3 months ago, was it lower?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"explain my savings for the past 6 months, what went wrong?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"explain my savings in January, did i overspend?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"explain my savings last month, why did it dip?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"explain which merchants are affecting my credit card burden from Axis Bank","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"explain which merchants are making my student loan from UCO Bank feel heavier","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"fam, budget overview for my grocery, rent, and utilities","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"family support of 10k to sister via cheque","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"family support of 4k to aunt","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"family support of 500 to dad via cash","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"family support of 50k to sister","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"february 2024 earnings 1.5 lakh vs january 2024 1.3 lakh, which higher?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"fix my salary to 60k every month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"fix the 2 lakh sent to grandpa, app reads 1 lakh now","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"fix the value of my insurance premium to 5k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"flipkart refund I logged as 2k should be 1.8k","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"frank, hi, 2 lakh car plan, am i on track","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"gave 1.5l to aunt via google pay","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"gave 2000 to mom via netbanking","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"gave 3000 to brother via UPI","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"get rid of the 5k restaurant expense","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"get rid of the duplicate taxi entry","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"give me a budget for me with 12k rent, 5k groceries, and 3k utilities","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"give me a budget overview for january 2024","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"give me a plan to pay off 1.5L auto loan and 30k credit card in 18 months","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"give me a summary of the payoff date for my 2 lakh personal loan","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"give me my loan payoff timeline","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"give me savings advice for a 6 month period after my birthday cash","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"give me summary of saving strategies for a 2 lakh goal","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"give me the details if i refinance at 6%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"give me the repayment table for my student loan of 50k at 9% interest over 36 months","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"give me the schedule for my car loan of 90k at 7% with a 3k extra payment every 3 months","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"give me the schedule for my credit card debt of 2 lakh with 18% interest and 5000 monthly payment","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"goal: buy property 12 crore by 2030","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"got 1000 from iPaytm","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"got 3000 from delivery company","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"got 50k from salary office","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"got a refund 3000 INR from Airtel recharge","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"got a refund of ₹1200 from Amazon","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"got paid 1.2 lakh 22-11 through phone pe","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"got paid 2k 01-10","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"got paid 3 lakh on 12-03 via bank transfer","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"has my income in june 2024 outpaced july 2023?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"have a 2 lakh loan starting 15th july","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"have i blown my 12 crore investment plan","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"have i blown my rent budget for july","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"have i exceeded my 5000 petrol budget for the quarter","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"have i used up my 2k food budget already","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"have you calculated my net worth recently?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"help me see where my credit card payments from HDFC are going","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"help me see where my spending is driving my personal loan installment from SBI","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"hey can you tell me when i will be debt free","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"hey, when can i wrap up my 12 crore business loan","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"his monthly paycheck is 75k, declare it","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"how bad is my debt health if i only earn 60k per month with a 1 lakh loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"how can i save extra 500 a day on my metro rides?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"how can i save more from my 5000 salary?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"how come my expenses are higher than income last month","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"how did my earnings change from march to april 2024?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"how do i prioritise between my home loan and credit card debt","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"how does a 30k purchase look over 18 months","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"how does a 500 purchase look over 6 months","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"how does my EMI from Punjab National Bank compare to the market?","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"how does my income in october 2023 stack up against november 2023?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"how has my dining out spend changed over the last quarter?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"how has my grocery spending changed over 2 months","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"how has my income changed over time for the last 2 years?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"how has my income changed since 2022?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"how has my netflix subscription spending changed over 6 months?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"how is my budget looking for this month?","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"how long can i get by with 12 crore in my account before paying the loan?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"how long can i last on my current balance of 2 lakh rupees if i pay 1 lakh for a new laptop?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"how long can i last on what i have if i spend 50k on groceries?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"how long can i survive if i spend 5k a day on food?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"how long till i reach 3 lakh for my home renovation","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"how long to reach 1.5l for my car","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"how much am i worth overall?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"how much are my travel expenses for trip to delhi","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"how much can i save if i cut my 70% movie budget?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"how much car loan do i have left","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much debt do i have left on my loan from Axis","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did I spend on food at swiggy last week?","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i earn from ad revenue last month?","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i earn last month","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i earn this year till now","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i make from freelancing last quarter","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i spend on ayurvedic medicines last month","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i spend on flipkart order 15th december","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"how much did i spend on groceries april","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i spend on petrol last month","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much did i spend on rent in april","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"how much do i have as assets and debt?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"how much do i save if i refinance 2 lakh loan at 7.5%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"how much medical loan do i owe now","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much monthly to hit 200k philately hobby goal by may","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"how much of my entertainment budget is left this year","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"how much of my home loan is left after 60 months","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"how much of my savings goal for 1.5l is left","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"how much of my travel budget for the year remains after flights","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"how much of my wedding budget is left after today's spend","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"how much should i put aside for annual trip if i have 1 lakh to spend","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how much should i put aside for car maintenance each year if I have 5 lakh","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how much should i put aside for groceries each month","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how much should i put aside for my gym membership costing 2k a month","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how much should i save monthly for my child education plan","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"how much should i save monthly to hit my 2 lakh gift fund in 6 months","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"how much would i pay in interest if i have 5 lakh loan and rates rise 1%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"how much would my emi drop if i refinance 3 lakh at 6.5%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"how risky am i with a 5 lakh loan at 9% interest and a 12-month tenure?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"how risky is it to still have a 3 lakh personal loan after 18 months?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"how safe is my debt health if i add 5k extra per month to my 4 lakh loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"how should i allocate 1 lakh between savings, food and entertainment","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how should i split my 25k income between savings and shopping","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how should i split my 30k income between kids expenses and savings","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how should i split my 50k income this month?","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"how soon can i clear all my debt","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"i actually sent 75k to mom at 5pm, app logs 70k, update","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i bought a car loan of 12 lakh from Axis bank","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"i bought gold bars worth 5k last week","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"i changed my base income, now 2.5 lakh a month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i cleared the axis loan, remove it","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"i cleared the bajaj finance loan, remove it","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"i cleared the hdfc loan, remove it","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"i cleared the icici mortgage, remove it","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"i cleared the sbi credit card, remove it","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"i dropped 1.5l in parents account but it logged as 1l, change to 1.5l","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i earn 15000 rupees a day, please record","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"i earn 20000 rupees every week, add it","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"i earned 3 lakh in march 2024 and 2.8 lakh in feb 2024, how does that compare?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"i get 30k from my company each month, please log","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"i got 10k in cashback this month vs last month, which larger?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"i got 3000 from paytm 10th, change to 3500","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"i got 4 lakh property in chennai","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"i got 8k worth of gold today","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"i got a 4 lakh loan from Bajaj Finserv for 60 months","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"i got a promotion, salary ab 1 lakh per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i got a raise, salary ab 90k per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i got a raise, so salary is 1.2L now","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i got a refund from zomato 1500 but I logged 2000","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"i have 3 loans at different rates, which repayment method will finish them fastest","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i have 4 loans: 2 lakh, 50k, 1 lakh, 30k, how to stack them for early payoff","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i have a 12 crore loan with 9% interest, what strategy to clear it in 5 years","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i have a 3L loan at 11% and a 50k loan at 15%, which should i pay first","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i invested 3 lakh in stocks this january","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"i just got a bumper bonus, how do i allocate it to cut down my total debt fastest","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i just got a new job, i earn 2 lakh a month","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"i logged a 500 rupee refund from amazon, it's actually 1000","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"i need a summary of dues for loan with id 12345","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"i need tips to save 1.5L by next 12 months","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"i need to correct my salary to 70k","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i need to know date when my student loan will end","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"i need to know why my home loan from State Bank of India is so steep","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"i need to update salary to 55k per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i plan to save 1 lakh to buy a car, what monthly cutbacks?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"i purchased 2 lakh house in bengaluru","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"i purchased a 2 lakh 4-door car on 3rd september","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"i realized my shares are 4 lakh now","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"i receive 80k a month, create entry","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"i remitted 300k to mom last Friday, error shows 25k, correct","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i see my balance falling, why does this happen","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"i sent 1 lakh to mom via google pay, app shows 1.2l","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i sent 2.5l to aunty but app says 2l, adjust","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i sent 2k to mom last night but app shows 1.5l, correct that","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i sent 3000 to brother via phonepe, wrong amount, set it to 3000","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i sold my 2 lakh gold necklace, delete it","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"i sold my 50k unit ETF, delete it","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"i sold my mutual fund, remove it","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"i spend 20k on shopping, how to save 5k from that?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"i updated my income to 2 lakh monthly","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"i used ru pay to transfer 250k to nante, wrong date, set to 07-09","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"i want a quick fix strategy: should i just kill the high‑interest loan first","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i want a quick summary of when i can clear all my loans","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"i want the repayment schedule for a 30 lakh loan at 9.5% per annum over 5 years","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"i want to be debt free in 2028, can you show me the steps","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i want to change refund from one 500 rupees to 700 rupees","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"i want to delete the 20k savings bond","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"i want to delete the 2k movie ticket from yesterday","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"i want to know if sip or prepay my personal loan 9%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"i want to know when i will be debt free if i pay 2k extra per month on my home loan with 8.5% rate","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"i want to know when my 2k EMI loan will be cleared","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"i want to remove the 10k book purchase","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"i want to save 1.5 lakh for 2024 holidays","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"i want to save 10k a month for a trip next december, what should i do?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"i want to save 2 lakh for daughter's wedding by dec 2025","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"i want to save 3k for birthday gift by may 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"i want to save 50k this year, how do i start?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"i want to save 5k for weekend trip next month","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"i want to save 7k for kids education by oct 2025","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"i want to save for a wedding 2 lakh, monthly tips?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"i want to see comparison: invest 10k/month vs prepay 5 lakh loan 8%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"i want to see my income trend from my amazon 2k sales.","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"i want to see my income trend on a monthly basis for the last year.","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"i want to see my salary from march","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"i want to squeeze my loans; should i do lump sum of 1 lakh on the small loan","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"i'm short of 5000 rupees, why","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"i'm watching my balance drop, can i know why","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"if i prepay 2 lakh instead of investing in sip, how will it affect my equity stake?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"if i raise my monthly payment by 1500 rupees, how much earlier do i finish my 5 lakh student loan at pnb?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"if i raise my monthly payment by 2500 rupees, how much earlier do i finish paying my 30k personal loan at axis?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"if i raise my monthly payment by 3000 rupees, how much earlier do i finish with 15 lakh car loan at bajaj?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"if i raise my monthly payment by 4000 rupees, how much earlier do i finish paying my 4 lakh personal loan at hdfc?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"if i raise my monthly payment by 5000 rupees, how much earlier do i finish paying off my 1.5l car loan at hdfc?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"if i redirect 4 lakh sip to prepay the 10 lakh credit card debt, kya farq padega?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"if i redirect my 1.5l sip to the car loan what changes?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"if i save 10k a month, will i reach my 12 crore investment goal by 2030","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"if the rate were 12% could i afford 1.5l","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"if the rate were 7.5% could i afford 12 crore","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"if the rate were 8% could i afford 2 lakh","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"if the rate were 9% could i afford 50k","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"imagine a windfall of 1 lakh rupees goes straight to the loans, how many emis will i skip?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"imagine a windfall of 15 lakh rupees goes straight to the loans, how soon am i free from debt?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"imagine a windfall of 2 lakh rupees goes straight to the loans, how soon will i be debt‑free?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"imagine a windfall of 2 lakh rupees goes straight to the loans, will i have zero balance by next year?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"imagine a windfall of 50000 rupees goes straight to the loans, how early will i finish?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"income mein 1.5L kyon kam dikh raha hai","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"income mein 2 lakh kyon appear nahi ho raha","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"income mein 50k kyon missing hai","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"income trend by month for my salary and freelancing?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"income trend for the period feb to aug 2023?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"is a 2 lakh bike within reach for me","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"is a 2 lakh loan for a new laptop within reach","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"is a 5 lakh order of gym equipment feasible for me","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"is a 5k dinner at a popular cafe affordable","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"is a 7 lakh trip to tourism zone affordable for me","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"is it better to knock out my 2 lakh loan first or the 50k student loan","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"is it better to start a SIP or clear my 3 lakh EMIs with 8% interest?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"is my debt safe if i add 2k extra monthly to a 1 lakh loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"is my emi-to-income ratio too high with 1 lakh loan from SBI?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"is my food delivery spend increasing over the past 2 weeks?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my income growing over the last 6 months?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my income trend steady or fluctuating in the last 3 months?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my income trending up in the last 5 months?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my march 2024 income higher than april 2024?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"is my monthly bill spending trend rising over 5 months?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my spending going up over the last 3 months?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my spending higher than last month on cinema?","intent":"SPENDING_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"is my travel spending going up over the last year?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"is my utility bill trend up over the past 6 months?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"is sip better than prepaying my rehab loan at 10% with 5 year period?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"kaun cash low hai? dey?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"kaunse kharche mujhe paise bachane se rok rahe hain?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"khada ho gaya paise ka account kya ho raha hai","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"kharch ka trend 4 mahine ka kaise dikh raha hai?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"kya apko pata hai ke mera account kyun khatam ho raha hai","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"kya main 2l ka car afford kar sakta hoon","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"kya main 5 lakh ka loan le ke safe rahunga?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"kya main 500 rupees daily save nahi kar pa raha hoon?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"kya main 50k shopping at amazon afford kar sakta hoon","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"kya main 50k vacation fund 3 months mein save kar saku?","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"kya mera emi kam hoga agar i negotiate a lower rate of 7%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"kya mere salary kam ho gaye is month","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"kya prepaying loan better than sip for 2 lakh loan at 9%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"kya sip better than prepay my 30 lakh home loan?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"kya tum bataoge ki 3k extra dene se kitna jaldi debt chuka hoga?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"last 3 months mein mobile recharge spend ka trend kaise hai?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"last 4 months mein fashion spend ka trend kya hai?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"last year mein shopping spend ka trend kya hai?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"looking at investing 1 lakh in SIP vs clearing 3 lakh loan, which gives bigger benefit?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"lose! i think i over spent on amazon.in this week","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"ma ko 2k bheja last night par app 1.5l dikha raha hai, fix karo","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"ma'am 1 lakh ka personal loan 12x pe 9% ke saath","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"maine 07-12 ko 2 lakh SBI se liya, wrong amount, change to 2.5 lakh","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"maine 20k ka personal loan liya hai 18 mahine ka","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"make my garden renovation goal 5k in the app","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"march 2024 2 lakh vs april 2024 2.5 lakh; which better?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"march 2024 income 2 lakh vs april 2024 income 2.3 lakh, which more?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"mein apni property ka value 10 lakh kar diya","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"mera gold set 12k ka hua","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"mere 5k monthly expenses ke bawajood main save kaise karu?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"mere salary ka total last 3 months ka kya hai?","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri 500 rupees ki grocery expense delete karo","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"meri budget january ki? quick summary krdo","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"meri credit card liability total emi kya ho ga","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri emi to income ratio theek hai kya? risky?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"meri freelance income last 15 days ka kitna hai?","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri groceries pe kitna kharch hua last week","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri monthly income 35k, set karo","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"meri net worth kitni hai?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"meri overall financial position kya hai?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"meri personal loan ki total emi kya hai august","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri salary 2k ka entry delete kar de","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"meri sbi loan balance 2 lakh kar","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"meri spend on movie tickets total kitna tha?","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri stationery pe 2k kharcha last week","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri student loan ki remaining balance kya hai","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"meri total income dec 2023 kitna tha?","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"modify my remittance to uncle: 4 lakh, wrong amount recorded 3 lakh","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"modify the geld of the 10th march got to 750","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"modify the loan amount for my gold loan to 1.5L","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"mom ko 1500 phonepe se bheja","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"mom ko 2000 bheja via google pay","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"money returned ₹12000 from books.com via netbanking","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"money returned ₹1500 from Myntra using credit card","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"money returned ₹6500 from Tata Cliq via netbanking","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"money returned ₹7500 from OYO via netbanking","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"money suddenly dropped, can you analyze the cause","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"monthly income 45k, set it","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"move my holiday trip to 2025-11-15 deadline","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"move my kids college deadline to 2025-12-31","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"move my son's graduation date to 2027-06-01 goal deadline","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"move my trip to paris deadline to next Jan","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"move my wedding anniversary gift deadline to 2024-12-20","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"my 17-12 50k part time job wrong, change to 55k","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"my 50k personal loan, when can i finish paying it off?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"my EMI from CANARA Bank is a bit too much, can you analyze why","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"my balance is falling after selling my bike, why","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"my base salary is now 8 lakh","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"my baseline salary is 4 lakh per year","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"my credit card limit changed to 5 lakh","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"my emi changed to 3k","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"my income changed to 1.2L monthly","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"my income is 5k weekly","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"my jewellery is now worth 8k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"my loan from Bajaj Finserv seems too high, can you break it down","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"my monthly expenses are 25k, how can i save 5k more?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"my monthly income is now 90k after raise","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"my monthly salary is 50k","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"my mutual fund is now worth 1.8L","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"my net worth in lakhs and crores?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"my observatory equipment is now worth 2 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"my overall financial position matti?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"my personal loan from SBI ka EMI kitta heavy lag rha hai","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"my refund from ola shown as 4k, should be 3.5k","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"my rental property value is 1 crore now","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"my salary has been updated to 70k","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"my spend summary on amazon last 10 days","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"my target date is 2029, how much extra should i pay monthly to hit it","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"my wallet mein paisa kam kyun ho raha hai","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"naw today paid 850 to flipkart","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"need to change splitwith parent to 12 crore, it shows 10 crore","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"need to save 10k for new phone by aug 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"net worth check 2k this month","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"net worth estimate 12 crore?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"net worth snapshot ksh?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"new EMI of 1k weekly from ICICI","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"new EMI of 2k monthly","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"new education loan of 50k for 18 months","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"new loan 2 lakh monthly 5 months EMI","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"new loan of 5 lakh per annum emi 5k","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"new plan to save 4k for emergency fund till dec 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"new plan: save 30k for medical expenses by june 2025","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"new salary 2.5 lakh monthly","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"new savings goal 1.5l car insurance by feb 2026","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"new savings goal 3 lakh for house renovation 2025","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"over 24 months how does a 1 lakh purchase look","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"over 24 months how does a 75k purchase look","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"overall wealth FY23 Q4","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"paid 1200 to dhaba","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"paid 1500 to local chaiwala","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"paid 4k bro 07-10 via BHIM","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"paise 1.5 lakh in march 2024 vs 1.6 lakh in april 2024, which higher?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"please cancel the 50k shopping from last month","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"please delete my 700k investment in startup","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"please explain why my cash is low after the 2 lakh grocery bill","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"please remove 2k that I sent to dad on 15aug","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"please remove 5k transfer to parents made 23rd","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"please update the 5k transfer to father, recorded as 5l","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"prepay loan or invest sip for 10k monthly?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"prepay loan or invest sip when my loan interest is 11% for 4 years?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"prepay the house loan or invest sip 10k monthly 8%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"prepay the personal loan or keep investing in sip at 8%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"put my spare 10k into investments or pay off my home loan?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"rank my loans for repayment when i have a 5k surplus each month","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"rate my debt health if i have a 3 lakh car loan from HDFC and 1.5 lakh personal loan?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"ratio of returns if i invest 1 lakh vs prepay 3 lakh loan in 5 years?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"received 2 lakh from udaan","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"received 5000 from patricks pizza","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"received cashback 100 from Yatra booking","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"received cashback of ₹200 on groceries","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"record 1200 for cinema","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"record 2000 for gym membership","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"record an expense of 200 for entertainment","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"record income 6k for freelance project","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"record income of 1 lakh for tax refund","intent":"ADD_INCOME","taskType":"CREATE"}
+{"utterance":"record my 1.5L real estate investment in pune","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"record my 12 crore property in mumbai","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"record my 4.5 lakh loan payoff asset","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"record my gold bars 20k on 20 aug","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"record my gold investment 5 lakh","intent":"ADD_ASSET","taskType":"CREATE"}
+{"utterance":"refund got 2 lakh from Croma on last Friday","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"refund got 2k from Flipkart yesterday","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"refund mil gaya 12 crore from SBI (interest) 09-08-24","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"refund mila 50k from Paytm","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"remove 1.5l income entry of icici","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"remove 1200 rupees transfer to brother 15th Jan","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"remove 2000 rupees to mom sent yesterday","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"remove 2500 sent to sister on 01-11","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"remove 50k sent to brother on 20th Jan","intent":"FAMILY_TRANSFER","taskType":"DELETE"}
+{"utterance":"remove kar 5 lakh personal loan i liya","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove kar do 500 rupee gold bar i added","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove my 1 lakh rupee bonds","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove my 12 crore land asset","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove my 12 crore loan","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"remove my 2 lakh loan","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"remove my 4k silver coin","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove my 50000 emi debt bhai","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"remove my 5k gold asset","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove my car loan","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"remove my personal loan till now","intent":"ADD_LIABILITY","taskType":"DELETE"}
+{"utterance":"remove the 1k stock i bought yesterday","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove the 800k tech fund entry","intent":"ADD_ASSET","taskType":"DELETE"}
+{"utterance":"remove the amazon bonus income today","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"remove the amazon refund","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"remove the chemiq refund","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"remove the costco refund","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"remove the duplicate gym membership","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"remove the flipkart income entry","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"remove the flipkart refund","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"remove the groceries expense","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"remove the grocery mart refund","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"remove the hdfc dividend income","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"remove the myntra refund","intent":"REFUND","taskType":"DELETE"}
+{"utterance":"remove the nagad salary entry","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"remove the rent payment","intent":"ADD_EXPENSE","taskType":"DELETE"}
+{"utterance":"revalue my stocks at 3.5 crore","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"salary ab 1.5 lakh per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"salary per month: 1 lakh","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"salary updated to 80k","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"salary: 90k per month","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"say i drop a one time 1 lakh rupees onto the balance of my 20 lakh corporate loan at state bank, kya interest rate drop hoga?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"say i drop a one time 2 lakh rupees onto the balance of my 8 lakh home loan at hdfc, will i save 4 months?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"say i drop a one time 3 lakh rupees onto the balance of my 12 lakh mortgage at udyog, when will it be done?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"say i drop a one time 5 lakh rupees onto the balance of my 15 lakh home loan at icici, will i finish in 2 years?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"say i drop a one time 50k rupees onto the balance of my 10 lakh credit card debt at axis, what will happen?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"sbi ka student loan ka EMI afford nai ho raha","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"sent 1.2l to dad last friday","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"sent 12 crore to uncle on 12/12/2023","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"sent 5000 to mom","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"sent 7000 to sister on 15th Nov","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"set a target 1 lakh for wedding planning by march 2025","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"set a target of 5k for grocery till jan 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"set my annual income to 12 crore","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"set my salary to 20k per week","intent":"INCOME_DECLARATION","taskType":"CREATE"}
+{"utterance":"set target 2k for monthly movie nights till 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"set target 50k for car maintenance by sept 2024","intent":"GOAL_PLANNING","taskType":"CREATE"}
+{"utterance":"set the car loan interest rate to 12%","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"set the credit card repayment frequency to monthly","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"shift my emergency fund deadline to 2026-03-01","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"should i SIP 1.5 lakh in 2025 or prepay 5 lakh loan interest 8.5%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"should i do sip or prepay my car loan 2 lakh at 7%?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"should i go ahead with a 1 lakh office chair purchase","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"should i go ahead with a 75k sofa purchase","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"should i invest 50k in a SIP or prepay 5 lakh loan at 9%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"should i pay 12 crore for a custom car next month","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"should i start sip or prepay my car loan 4% interest?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"show me my income from online tutoring this sem","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show me my income trend for the past 12 months.","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"show me my loan from ICICI bank","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show me my loan from State Bank of India","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show me my monthly spending summary for april","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show me my total net worth 2023-06-30","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"show me the emi change if i refinance 2 lakh at 5.75% from hdfc?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"show my 2 lakh personal loan details","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my auto loan details from Muthoot","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my home loan details","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my income for feb 2024","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my income trend for the past quarter.","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"show my loan from HDFC","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my loan from Paytm Payments Bank","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my loan from SBI","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my spending report for the last 3 days","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my spending report march to may","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my spending report this month","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"show my spending trend for the last 12 weeks","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"show my spending trend for the last 6 weeks","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"show my spending trend for the last 8 weeks","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"show my total wealth 2023-12-31","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"show net worth 1.5l and 2 lakh?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"sip 1 lakh per year vs prepaying 2 lakh home loan 9.5% for 10 yrs?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"sip 2k vs prepay 1 lakh home loan in 5 years?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"sip 4k vs prepay 1 lakh EMI loan 5% for 3 yrs?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"sip 5k vs prepay 2 lakh car loan 6% interest period 3 years?","intent":"SIP_VS_PREPAY","taskType":"COMPARISON"}
+{"utterance":"spare cash 1 lakh, invest or prepay 5 lakh home loan at 7.2%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"spent 2 lakh on new laptop this year","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"spent 2k on rent this month","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"spent 500 on groceries","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"split my next payment into interest & principal for a 10 lakh loan with 6.5% and 9000 monthly instalment","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"split my next payment into interest and principal for a 25 lakh mortgage at 6% with monthly instalments","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"split my next payment into interest and principal for my car loan of 2 lakh with 7% per annum","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"started a 1 lakh student loan for 36 months","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"started a 30k home rent liability 12 months","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"started a personal loan of 15k for 24 months","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"suggest a budget for me for 3 months with 10k salary","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"suggest a budget for me for 6 months with 8k salary per month","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"suggest a budget for me this month with 3k rent, 2k groceries, and 1k utilities","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"suggest a budget for me this year with rent 15k, groceries 8k, utilities 3k","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"suggest me ways to save on my 2000 restaurant meals","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"suggest me where i can cut back to save 2k every month.","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"suppose i add 1000 rupees to every payment of my emi at icici, maile kaun sa din pe khatam hoga?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"suppose i add 1200 rupees to every payment of my 3 lakh student loan at ugc, how many months earlier?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"suppose i add 2000 rupees to every payment of my 20k loan at SBI, how many months earlier will i finish?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"suppose i add 500 rupees to every payment on my 20k retail loan at bhf, kya yeh 3 mahine chhutega?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"suppose i add 800 rupees to every payment of my 7k credit card at hdfc, kya interest kam hoga?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"suppose i finance 12 crore at 6% for 120 months","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"suppose i finance 2 lakh at 9.5% for 36 months","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"suppose i finance 45k at 10% for 12 months","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"suppose i finance 8 lakh at 11% for 48 months","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"swap: invest 1 lakh in SIP or prepay 4 lakh loan 9%","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"tell me about my income trend across categories like salary and rent.","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"the 12th mar receipt shows 3l, should be 2.5l","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"the 20th dec refund I recorded 3000 is actually 2500","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"the interest rate for my home loan is now 7%","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"the interest rate is now 8.5%","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"the refund from uber was 1000, but I entered 1200","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"today spent 300 on petrol","intent":"ADD_EXPENSE","taskType":"CREATE"}
+{"utterance":"took a credit card debt of 25k from HDFC","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"took a home loan of 10 lakh from SBI","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"took a margin loan of 15 lakh from SBI for stocks","intent":"ADD_LIABILITY","taskType":"CREATE"}
+{"utterance":"total assets and liabilities 01-01-2024","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"total income from investment dividends this quarter","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"total income jan 2023","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"total spend 1.5 lakh in july","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"total spend 15th feb","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"total spend on coffee shops last friday","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"total spend on travel 12th may","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"total wealth for this month","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"transferred 10000 to brother today","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"transferred 25000 to grandma last week","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"transferred 2k to dad yesterday","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"transferred 6000 to grandma via apple pay","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"transferred 80k to father on 1st Jan","intent":"FAMILY_TRANSFER","taskType":"CREATE"}
+{"utterance":"trend of my income from swiggy deliveries over last week?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"trend of my movie ticket spend in last quarter?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"tune me up on my budget for next month","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"uh i got 25k from flipkart 15-07, change that","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"undo my last 4k gift entry","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"undo my last income entry","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"undo the last 1000 from app","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"undo the last salary entry","intent":"ADD_INCOME","taskType":"DELETE"}
+{"utterance":"update 02-15 transfer from MIB to 7000","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"update 14-09 2k monthly stipend","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"update 27-06 3000 from zomato to 2800","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"update base income to 1 lakh per month","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"update my emi from 4000 to 3500","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"update my gold value to 2 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"update my gold worth to 16 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"update my home loan balance to 12 lakh","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"update my home loan lender to axis bank","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"update my investment in rs 20k to 30k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"update my loan collateral value to 60 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"update my loan start date to 2023-03-15","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"update my new phone savings to 10k","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"update my salary to 75k","intent":"INCOME_DECLARATION","taskType":"UPDATE"}
+{"utterance":"update my student loan balance to 50k by 2024-06-01","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"update my study materials savings to 2k","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"update my tech gadget worth to 25k","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"update my transfer to uncle, i paid 50k last month, not 40k","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"update the 15th feb refund to 2 lakh","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"update the Amazon payment to 5000","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"update the Uber fare to 2000","intent":"ADD_INCOME","taskType":"UPDATE"}
+{"utterance":"update the amazon.in expense amount to 600","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"update the billdhanse doctor expense amount to 4k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"update the dharamshala tea shop expense amount to 200","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"update the goal amount to 1.5L for my emergency fund","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"update the hindi television shopping expense amount to 2k","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"update the mohalla bazar expense amount to 750","intent":"ADD_EXPENSE","taskType":"UPDATE"}
+{"utterance":"update the monthly repayment for my student loan to 2k","intent":"ADD_LIABILITY","taskType":"UPDATE"}
+{"utterance":"update the refund of 7th may from tcs to 2 lakh","intent":"REFUND","taskType":"UPDATE"}
+{"utterance":"update the target for my retirement savings to 12 crore","intent":"GOAL_PLANNING","taskType":"UPDATE"}
+{"utterance":"update the value of my home to 75 lakh","intent":"ADD_ASSET","taskType":"UPDATE"}
+{"utterance":"update transfer to dad: 10k via UPI, but logged 5k","intent":"FAMILY_TRANSFER","taskType":"UPDATE"}
+{"utterance":"walk me through the repayment table for my personal loan of 1 lakh with 11% interest and 1500 monthly","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"walk me through the repayment table for my personal loan of 75k with a lumpsum of 10k after 12 months","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"walk me through the repayment table if i do a lumpsum of 50k after 6 months on a 40k loan at 8%","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"warn me if my cash is low after paying rent on 15th.","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"warn me if my cash is low when i need to pay my gym membership next Friday.","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"warn me if my cash is running low after paying my electricity bill.","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"warn me if my cash is running low before i buy the new phone on 20th Dec.","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"what debt‑free timeline can i expect if i use the debt avalanche method","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"what delta if i invest 1 lakh in a 12% SIP vs prepay a 4 lakh loan at 7.5%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"what does my 2 lakh home loan payoff period look like","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what does my car loan payoff look like","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what happened to my income after resigning from xyz corp","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what happened to my income after tax deduction","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what happened to my income after the 12 crore investment","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what happened to my income in january 2025","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what happens if i redirect my 8k sip to prepay the auto loan, will i save interest?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what happens if i stop my sip and prepay my personal loan instead?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what happens to my emi if rates rise to 9.5%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what if i cut my tenure to 84 months?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what if i lock in a rate of 6.8% now with sbi?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what if i move my 2k sip money to prepay my home loan interest rate 9%?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i move my 5000 sip to prepay my personal loan? how does it compare?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i prepay 1 lakh instead of putting it in sip for 4 yrs?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i prepay 20k instead of investing it in sip while loan has 7.5% interest, kaise bachaenge?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i prepay 3 lakh instead of investing 3k in sip to pay off loan?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i prepay 30k instead of investing it in sip for 3 yrs? what is net gain?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i prepay 50k instead of investing it in sip for 5 years?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i prepay 7k instead of investing it in sip, can i free up debt faster?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i put 10k down on a 3 lakh apartment","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"what if i put 1k down on a 2k item","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"what if i put 2k down on a 50k smartphone","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"what if i put 3000 down on a 15k laptop","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"what if i put 5k down on a 1 lakh suv","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"what if i redirect 2k sip to prepay my gold loan, how is ROI vs sip?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i redirect 5k sip to paying off my edu loan early, kya hoga?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i refinance my home loan at 8.2%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what if i shorten the loan period to 60 months?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what if i stop my sip of 10k and prepay the 8 lakh home loan, what is the ROI?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i stop my sip of 15k and put the money to prepay my student loan?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if i switch my 500 sip to prepay my credit card debt and see the yield?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what if interest rates go up by 1.5%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what is better 2k SIP vs extra 10k prepayment on my 6 lakh loan 7%?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"what is draining my cash in the last 7 days","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"what is driving my cafe orders every saturday","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what is driving my grocery expenses over 50k this quarter","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what is driving my medical expenses now","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what is eating my budget in the last quarter","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what is eating my budget this month","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what is making my business loan from LIC look insane this quarter","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what is my overall financial position this year?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"what is my spending trend in hotels in the last 2 months?","intent":"SPENDING_ANALYSIS","taskType":"TREND"}
+{"utterance":"what is my total EMI 1st of next month","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what is my total emi feb 2027","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what is my total emi for next 12 months","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what is my total emi for the next 3 months","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what is my total emi january 2028","intent":"LOAN_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what is stopping me from saving more, i spend 5k on groceries everyday?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"what is stopping me from saving when i buy 2k worth of Amazon orders?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"what is stopping me from saving when i have a 2 lakh deposit?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"what is stopping me from saving when i have a 2k monthly subscription?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"what is the emi if i switch to a 10 year tenure on 1.5 lakh loan?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what is the exact date when my 500k loan will be paid off","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what is the monthly payment if I shorten the tenure to 72 months?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what is the risk of my 6 lakh education loan with 9.5% interest after 2 years?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"what monthly savings need for 2 lakh wedding dress by oct","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"what part of my EMI from Axis Bank is actually interest this month","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what portion of my instalment is the bank keeping if i do a 30k lumpsum after 9 months on a 70k loan at 10%","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"what portion of my instalment is the bank keeping if i pay 1 lakh extra once in a year on a 12 lakh loan at 7.5%","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"what portion of my instalment is the bank keeping if i pay 1.5l on a 5 year loan at 6.5%?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"what risk comes if i maintain 3 lakh debt for 24 months?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"what risk do i face if i have a 2.5 lakh loan at 8% for 36 months?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"what sequence should i repay these loans in to be debt free faster","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"what should be my repayment strategy if i get an extra 15k from job promo","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"what should my budget look like for 2k rent and 1k entertainment over a week","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"what should my budget look like if i earn 70k and pay 12k rent","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"what should my budget look like if i have 30k monthly and want to save 10k","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"what total income have i got from gig work last 30 days","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what was my income this week","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what was my total income from flipkart last year","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what was my total income from freelance in january 2024?","intent":"INCOME_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what was total spend on gym for this quarter","intent":"SPENDING_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what would be the emi if i choose a 15 year period?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what would happen if i prepay 60k instead of investing in sip for 7 yrs?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what would happen if i redirect 2 lakh sip to pay the 12 crore loan instead?","intent":"SIP_VS_PREPAY","taskType":"WHAT_IF"}
+{"utterance":"what would my emi look like if interest climbs to 10% on 3 lakh loan?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what would the total interest be if rates go up 2%?","intent":"LOAN_ANALYSIS","taskType":"WHAT_IF"}
+{"utterance":"what's eating my budget on weekend trips","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"what's my net worth right now?","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"what's the difference between my income in january 2024 and january 2023?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"what's the payoff timeline for my 50k debt with SBI","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"what's the spread between my earnings feb 2024 and march 2024?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"what's the trend in my pocket money from mumbai trips?","intent":"INCOME_ANALYSIS","taskType":"TREND"}
+{"utterance":"when does my 1.5L credit card debt wrap up","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"when does principal start dominating my payment on a 12 crore credit card debt at 18%?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"when does the HDFC student loan end","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"when does the ICICI auto loan finish paying","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"when does the SBI home loan wrap up","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"when i can clear all my debts if i put 10k extra every month","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"when will i be debt free if i pay 3k extra monthly on a 20 lakh home loan at 8% interest","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"when will i be debt free if i pay 500 extra each month on my home loan with 8% interest?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"when will i be debt free if i pay an extra 2000 per month on my student loan of 35k at 7%","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SCHEDULE"}
+{"utterance":"where am i losing cash on online shopping","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"where can i cut back on my 12,000 grocery bill each month?","intent":"SAVINGS_ADVICE","taskType":"SUMMARY"}
+{"utterance":"where did i drop 3k on entertainment last week","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"where did i spend 3000 on movies this week","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"where do i stand on my budget after paying rent 12k?","intent":"BUDGET_PLANNING","taskType":"SUMMARY"}
+{"utterance":"where is my money going on 27th january","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"where is my money going swiggy orders last friday","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"which categories are slammed this month","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"which categories have I overspent in the last 30 days","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"which categories have I overspent last month","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"which category is most over the line for the week","intent":"BUDGET_PLANNING","taskType":"STATUS"}
+{"utterance":"which expenses are causing my car loan to feel heavy this month","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why am i losing money fast this quarter","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"why am i not saving enough after my 12 crore salary?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why am i not saving enough after my new 1.5L job?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why am i not saving enough for a 50k vacation?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why am i not saving enough when i earn 3k per month?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why am i paying too much interest on my personal loan from Kotak Mahindra","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why am i running out of money this week","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"why did my cable bill jump 1.5k in january","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my gas bill increase in mai","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my income drop after the 2k bonus stopped","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my income drop from the new contract at google","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my income drop this year","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my income drop when i switched banks","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my netbank fee spike last december","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why did my telecom bill surge 500 rupees this monday","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why do i have to pay so much on my car loan from Tata Indiabank","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why does my student loan from ICICI feel like a nightmare this month","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my balance dropping after rent","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"why is my car loan repayment from Maruti Suzuki Bank so massive","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my cash flowing negative in the last 30 days","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"why is my cash negative in january","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"why is my cashflow negative last month","intent":"CASHFLOW_WARNING","taskType":"ANALYSIS"}
+{"utterance":"why is my grocery spend so high during summer","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my home loan repayment from HDFC so high","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my income lower after last quarter's bonus","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my income lower after promotion","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my income lower last month","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my income lower than two months ago","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my loan from RBL Bank so expensive compared to others","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my loan from Yes Bank so high in my budget","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my salary less during the holidays season","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my salary less in the app after the recent pay cut","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my salary less on my 05/2024 statement","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my salary less this quarter","intent":"INCOME_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why is my savings rate low after paying 2 lakh rent?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why is my savings rate low during the festive season?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why is my savings rate low even after cutting my cable bill?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why is my savings rate low when i win 10k from a quiz?","intent":"SAVINGS_ADVICE","taskType":"ANALYSIS"}
+{"utterance":"why my food spending 2k higher than usual in march","intent":"SPENDING_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"why my student loan repayment from ICICI feels like a death sentence","intent":"LOAN_ANALYSIS","taskType":"ANALYSIS"}
+{"utterance":"will i be at risk if my 50k loan from KPMG has a 12% interest rate?","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"RISK"}
+{"utterance":"will i have enough to cover my monthly grocery bill this week if i have 30k rupees left?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"will i have enough to cover my rent this month?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"will i have enough to pay the school fee in 2 weeks?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"will i meet my 5 lakh health insurance reserve by 2025","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"will i reach my wedding fund goal by 2025","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"will i run out of money if i order from Amazon on 30th Oct?","intent":"CASHFLOW_WARNING","taskType":"SUMMARY"}
+{"utterance":"would buying a 1.5l car hurt my finances","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"would buying a 3 lakh medical kit hurt my savings","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"would buying a 90k car with 15% downpay be wise","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"would i gain more investing than prepaying 6 lakh loan after 3yrs?","intent":"SIP_VS_PREPAY","taskType":"SUMMARY"}
+{"utterance":"would paying 3 lakh for a new house be a good decision","intent":"AFFORDABILITY_CHECK","taskType":"ANALYSIS"}
+{"utterance":"yaad hai melhor, 1.2 lakh bachcha fund, kya progress se khush hu?","intent":"GOAL_PLANNING","taskType":"ANALYSIS"}
+{"utterance":"yesterday net worth check","intent":"NET_WORTH_CHECK","taskType":"SUMMARY"}
+{"utterance":"अब 2024 में मेरी आय 1.5L है, 2023 में 1.2L से कैसे तुलना होती है?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"कैसे बाँटे 2 लाख रुपये का मासिक आय, इत्यादि?","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"क्या अगर मैं 2k डाउन देता हूँ तो 1.5l के AC का लोन ले सकता हूँ","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"पिछले साल की तुलना में इस साल की आय कितनी है?","intent":"INCOME_ANALYSIS","taskType":"COMPARISON"}
+{"utterance":"मुझे बताओ कब हो जाओगा मेरा 2 lakh का कर्ज","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"SUMMARY"}
+{"utterance":"मैं 1.5लाख का वेतन कमाता हूँ, क्या बजट बनाऊँ?","intent":"BUDGET_PLANNING","taskType":"ALLOCATION"}
+{"utterance":"यदि मैं 5k डाउन पेमेंट करूं तो 1 lakh के कार का फाइनेंस करूं","intent":"AFFORDABILITY_CHECK","taskType":"WHAT_IF"}
+{"utterance":"साल के पहले महीने से 30k extra लगाकर कर्ज़ फ्री कैसे हो? (Hinglish)","intent":"DEBT_FREEDOM_ANALYSIS","taskType":"STRATEGY"}
+{"utterance":"₹1.5L refunded 12 Sep via UPI","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"₹1200 refunded on 10th August by credit card","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"₹2500 refunded 3rd Oct via debit card","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"₹500 refunded 22 Nov from Bajaj by UPI","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"₹5000 refunded 15th Aug","intent":"REFUND","taskType":"CREATE"}
+{"utterance":"₹8000 refunded last month on utility bills","intent":"REFUND","taskType":"CREATE"}
