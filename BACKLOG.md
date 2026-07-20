@@ -700,7 +700,22 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
 - [ ] **Residual double-preposition rows** — 26 of 14,560 (0.18%, was 767).
   Pattern-level compositions like "over the next {PERIOD}" drawing a range
   filler ("from July to October"). Fix is a pattern lint, not a fill() change.
-- [ ] **`I-TARGETAMOUNT` F1 = 0.000** (support 17) — multi-token target
+- [~] **`I-TARGETAMOUNT`** — ROOT-CAUSED and fixed in run 36 (training).
+  Still broken on run 35 and the WORST entity in the model:
+  B-TARGETAMOUNT f1 0.590 / recall 0.419, I-TARGETAMOUNT f1 0.148 /
+  recall 0.080 — while its own siblings were fine (GOALNAME 0.939,
+  TARGETDATE 0.923), which is what localised it.
+  CAUSE: `TARGETAMOUNT: AMOUNTS` — the SAME pool as AMOUNT, and GOAL_PLANNING
+  declares BOTH slots. 41 identical values ("45.50", "roughly 500", "10 lakhs")
+  were labelled as each type inside the same intent, so only context could
+  separate them and context alone was not enough. IDENTICAL to the
+  EXTRAPAYMENT bug (0.500 -> 0.737).
+  FIX: dedicated goal-shaped pool (large, round, savings-ambition amounts).
+  Overlap with AMOUNT 41 -> 1; multi-token share 71% — deliberate, since
+  I-TARGETAMOUNT can only be learned from spans that HAVE a continuation.
+  LESSON (now twice): two slots sharing a filler pool inside one intent is a
+  structural defect. Audit the remaining shared pools.
+- [ ] ~~(old)~~ `I-TARGETAMOUNT` F1 = 0.000 (support 17) — multi-token target
   amounts never learned. Small but a real per-type hole.
 - [ ] **Degenerate synonym comparisons** — 1 of 524 two-PERIOD rows pairs
   synonyms ("the current week" vs "this week"). Needs a semantic-equivalence
@@ -710,7 +725,13 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   confusable pair while SUMMARY-vs-specific confusion is unresolved.
   Revisit after that boundary is settled. This is a decision, not an
   omission.
-- [ ] **Regression baseline history** — running the suite rewrites the
+- [x] ~~Regression baseline history~~ — regression_suite.py now snapshots the
+  OUTGOING baseline to benchmarks/baseline_history/ before overwriting (newest
+  20 kept). The baseline was a single generation, so running the suite twice
+  made a newly-broken case look "always broken" and consumed its own signal —
+  which already bit us on 2026-07-19 when 3 genuine regressions had to be
+  reconstructed from a backup. Verified: snapshot written, suite still 41/41.
+- [ ] ~~(old)~~ Regression baseline history — running the suite rewrites the
   baseline in place (single generation). A change that breaks a case AND
   runs twice absorbs its own regression. Keep dated baseline copies.
 - [ ] **QA expected-entity conventions** — QA scenarios write PERIOD values

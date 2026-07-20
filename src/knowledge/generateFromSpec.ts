@@ -63,7 +63,23 @@ const SLOT_VALUES: Record<string, string[]> = {
   LIABILITYTYPE: ["home loan", "car loan", "personal loan", "credit card debt", "bike loan", "education loan", "gold loan"],
   LENDER: ["the bank", "HDFC", "SBI", "my friend", "the credit union", "ICICI", "a relative"],
   GOALNAME: ["a car", "a house", "vacation", "emergency fund", "retirement", "an iphone", "wedding", "a laptop"],
-  TARGETAMOUNT: AMOUNTS,
+  // TARGETAMOUNT was AMOUNTS — the SAME pool as AMOUNT, and GOAL_PLANNING
+  // declares BOTH slots. The model saw "45.50" and "roughly 500" labelled as
+  // each type in the same intent and could not separate them: B-TARGETAMOUNT
+  // f1 0.590 / recall 0.419, I-TARGETAMOUNT f1 0.148 / recall 0.080 — the
+  // worst entity in the model, while its siblings GOALNAME (0.939) and
+  // TARGETDATE (0.923) were fine.
+  // This is the identical bug already fixed for EXTRAPAYMENT (0.500 -> 0.737):
+  // when two slots share a filler pool, only context can separate them, and
+  // context alone is not enough. A goal TARGET is a savings ambition — large,
+  // round, and multi-token — which is a different number shape from an
+  // everyday transaction amount. Multi-token values are deliberate here:
+  // I-TARGETAMOUNT can only be learned from spans that HAVE a continuation.
+  TARGETAMOUNT: [
+    "5 lakh", "10 lakh", "15 lakh", "20 lakh", "25 lakh", "50 lakh",
+    "1 crore", "2 crore", "5 lakhs", "12 lakhs", "30 lakh",
+    "500000", "1000000", "1500000", "2500000", "75 lakh",
+  ],
   TARGETDATE: buildTargetDateFillers(),
   // EXTRAPAYMENT is a RECURRING monthly extra on a loan. It shared the full
   // AMOUNTS pool, which offers "50 paisa" and "2.5 crores" as monthly extras —

@@ -17,6 +17,8 @@ Usage: python regression_suite.py [exported_model_dir]
 import os
 import sys
 import json
+import shutil
+import datetime
 
 sys.path.insert(0, os.path.dirname(__file__))
 from run_benchmark import load_artifacts, predict  # reuse the same tokenizer/predict logic
@@ -132,6 +134,25 @@ def run(export_dir):
         print(f"\n⚠ {len(failing_never_passed)} case(s) failing but not flagged as a regression (no prior passing baseline recorded):")
         for r in failing_never_passed:
             print(f"  \"{r['utterance']}\" -> got {r['predIntent']}/{r['predTaskType']} ({r['intent_conf']:.2f}), expected {r['expectedIntent']}/{r['expectedTaskType']}")
+
+    # Snapshot the OUTGOING baseline before overwriting it.
+    #
+    # WHY: the baseline is a single generation. Running the suite twice makes a
+    # newly-broken case look "always broken" — it was recorded as failing by
+    # the first run, so the second sees no regression. That already bit us on
+    # 2026-07-19: the 3 genuine regressions had to be reconstructed from a
+    # backup because train.py's own suite run had consumed the signal before
+    # anyone looked. Dated snapshots make the history reconstructable and cost
+    # a few KB per run.
+    if os.path.exists(BASELINE_PATH):
+        hist_dir = os.path.join(os.path.dirname(BASELINE_PATH), "baseline_history")
+        os.makedirs(hist_dir, exist_ok=True)
+        stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        shutil.copy(BASELINE_PATH, os.path.join(hist_dir, f"regression_baseline-{stamp}.json"))
+        # Keep the newest 20; older history has never been useful in practice.
+        snaps = sorted(os.listdir(hist_dir))
+        for old_snap in snaps[:-20]:
+            os.remove(os.path.join(hist_dir, old_snap))
 
     with open(BASELINE_PATH, "w") as f:
         json.dump(new_baseline, f, indent=2)
