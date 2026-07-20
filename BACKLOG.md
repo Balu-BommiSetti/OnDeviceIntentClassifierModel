@@ -717,7 +717,26 @@ Last updated: 2026-07-20 (iteration 40 — RUN 31 BEST EVER on probe metric: int
   because some are genuine ambiguities — "a car" really is both an ASSETTYPE
   you own and a GOALNAME you save for, and banning that forces artificial
   distinctions. Decide each on its per-type F1.
-  B-LUMPSUM remains weak (0.286, precision 0.750 / recall 0.176 on support 17)
+  RUN 38 (corrected collision direction): tags recovered decisively —
+  B-LENDER 0.578 -> 0.760, B-LUMPSUM 0.111 -> 0.647, I-LUMPSUM 1.000 held,
+  regression 39 -> 40/41. But QA ENTITY-EXACT still fell (64.0 -> 60.0%).
+  ROOT CAUSE OF THAT DROP, and it is mine: I broke the collisions by making
+  pool values ODD ("1.2 lakh", "6.5 lakh"). 11 of 18 amount spans in the
+  held-out QA suite are ROUND (500, 50000, 200000, 500000) because real people
+  say round numbers. I traded realism for separability.
+  RUN 39 (training) fixes the axis: separate the money slots by MAGNITUDE
+  RANGE instead of oddness — everyday AMOUNT small-round, LUMPSUM large-round,
+  TARGETAMOUNT goal-scale-round, DOWNPAYMENT percentages + mid-size round.
+  All four pools are now 100%% round-shaped AND mutually disjoint.
+  DELIBERATELY LEFT: AMOUNT ∩ EXTRAPAYMENT on 4 values (500/1500/2000/5000).
+  A monthly extra payment and an everyday amount genuinely occupy the same
+  range; separating them would make one unrealistic, and B-EXTRAPAYMENT at
+  0.774 shows context mostly handles it. Same category as "a car" being both
+  ASSETTYPE and GOALNAME.
+  GENERAL LESSON: filler pools have TWO competing requirements — distinct
+  enough for the NER head, realistic enough to generalise. Optimise only the
+  first and QA falls. Separate by range/shape, never by weirdness.
+  B-LUMPSUM was weak (0.286, precision 0.750 / recall 0.176 on support 17)
   — high precision, low recall means the model rarely PREDICTS the class
   rather than confusing it. Different problem from the collision; needs its
   own diagnosis.

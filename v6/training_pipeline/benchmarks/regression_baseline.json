@@ -64,7 +64,7 @@
     "utterance": "show my cashflow this month"
   },
   "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra towards debt": {
-    "passed": false,
+    "passed": true,
     "utterance": "what if I pay 1000 extra towards debt"
   },
   "DEBT_FREEDOM_ANALYSIS|SUMMARY|show my debt payoff plan for my home loan": {

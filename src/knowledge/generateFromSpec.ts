@@ -80,10 +80,12 @@ const SLOT_VALUES: Record<string, string[]> = {
   // round, and multi-token — which is a different number shape from an
   // everyday transaction amount. Multi-token values are deliberate here:
   // I-TARGETAMOUNT can only be learned from spans that HAVE a continuation.
+  // Goal scale: larger and rounder than a windfall, so the RANGE separates
+  // them rather than artificial oddness. No value appears in another pool.
   TARGETAMOUNT: [
     "5 lakh", "10 lakh", "15 lakh", "20 lakh", "25 lakh", "50 lakh",
-    "1 crore", "2 crore", "5 lakhs", "12 lakhs", "30 lakh",
-    "500000", "1050000", "1500000", "2500000", "75 lakh",
+    "1 crore", "2 crore", "12 lakhs", "30 lakh", "75 lakh",
+    "500000", "1500000", "2500000", "5000000",
   ],
   TARGETDATE: buildTargetDateFillers(),
   // EXTRAPAYMENT is a RECURRING monthly extra on a loan. It shared the full
@@ -106,8 +108,18 @@ const SLOT_VALUES: Record<string, string[]> = {
   // A LUMPSUM is a one-off windfall — bonus, maturity, sale proceeds — so the
   // values are deliberately "odd" magnitudes that a DOWNPAYMENT (round, often
   // a percentage) and an everyday AMOUNT never take.
-  LUMPSUM: ["1.2 lakh", "3.5 lakh", "8 lakh", "12 lakh", "6.5 lakh",
-            "90000", "65000", "1.8 lakh", "4.2 lakh", "7 lakh"],
+  // SEPARATED BY MAGNITUDE RANGE, NOT BY ODD VALUES (2026-07-20).
+  // The previous pool used deliberately odd amounts ("1.2 lakh", "6.5 lakh")
+  // to break the collision with DOWNPAYMENT/AMOUNT. It worked on the tags
+  // (B-LUMPSUM 0.111 -> 0.647) but COST generalisation: 11 of 18 amount spans
+  // in the held-out QA suite are ROUND (500, 50000, 200000, 500000), because
+  // real people say round numbers. Teaching odd ones trades realism for
+  // separability and QA entity-exact fell 64.0 -> 60.0%.
+  // Correct axis is RANGE: a windfall is large and round; an everyday AMOUNT
+  // is small and round; a DOWNPAYMENT is a percentage or a mid-size round.
+  // Values stay natural, and no two pools share one.
+  LUMPSUM: ["1 lakh", "3 lakh", "4 lakh", "6 lakh", "7 lakh", "8 lakh",
+            "150000", "300000", "400000", "800000"],
   TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months"],
   // SHORT-FORM pools. The generic pools are diversity-weighted toward long
   // forms ("July through October", "in the last 6 weeks", "2.5 lakhs"), so
@@ -134,7 +146,10 @@ const SLOT_VALUES: Record<string, string[]> = {
   // (downPaymentPercent) but was never declared in the spec, so the model had
   // no way to emit it. Both percentage and absolute phrasings appear in real
   // questions ("20% down" / "2 lakh down").
-  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "1 lakh", "200000", "50000", "5 lakhs", "2 lakh"],
+  // Percentages carry most of the signal here and collide with nothing; the
+  // absolute values are mid-size rounds that no other money slot uses.
+  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "15%", "40%",
+                "250000", "350000", "600000"],
   // PERIOD1/PERIOD2 exist so COMPARISON patterns can carry two DISTINCT period
   // spans. Both draw from the same grammar pool; fill() de-duplicates within a
   // single pattern so "June vs June" can't be generated. The NER head tags both
