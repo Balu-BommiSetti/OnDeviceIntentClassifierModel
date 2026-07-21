@@ -1,0 +1,18 @@
+{"utterance": "what if I pay 5000 extra on my home loan every month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 2000 extra monthly", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 5000 extra every month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "imagine I throw 20000 extra on my car loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "imagine I throw 15000 extra on my personal loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "suppose I pay 5000 extra on my home loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "if I put 5000 extra on my home loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "suppose I pay 20000 extra on my home loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "how many months of EMIs do I have left", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "how much of my EMI is interest", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SCHEDULE"}
+{"utterance": "break down my EMI", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SCHEDULE"}
+{"utterance": "when does most of my EMI start going to principal", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SCHEDULE"}
+{"utterance": "is my EMI burden too high", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "RISK"}
+{"utterance": "what if I throw 3000 extra at my loan each month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "if I add 10000 more to my emi how much sooner am I done", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "how much of each installment goes to interest vs principal", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SCHEDULE"}
+{"utterance": "how many emis remain on my car loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "is my debt load too heavy for my salary", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "RISK"}

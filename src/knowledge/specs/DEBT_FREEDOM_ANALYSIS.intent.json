@@ -107,8 +107,10 @@
       "Mujhe batao ki {LIABILITYTYPE} ka payoff timeline kaise dikhai dega?",
       "Yaar, {LIABILITYTYPE} ko {INTERESTRATE}% interest pe {TENUREMONTHS} mahine mein kaise settle karu?",
       "Quick summary deto, {LIABILITYTYPE} ko {TARGETDATE} tak kaise free ho jaunga/karungi?",
-      "Lumpsum \u20b9{LUMPSUM} se {LIABILITYTYPE} clear karne ka fastest path batao.",
-      "Mujhe ek short period ({PERIODSHORT}) ka debt freedom plan chahiye."
+      "Lumpsum ₹{LUMPSUM} se {LIABILITYTYPE} clear karne ka fastest path batao.",
+      "Mujhe ek short period ({PERIODSHORT}) ka debt freedom plan chahiye.",
+      "how many months of EMIs do I have left",
+      "how many EMIs are left on my {LIABILITYTYPE}"
     ],
     "WHAT_IF": [
       "suppose I add {EXTRAPAYMENT} to every payment",
@@ -170,7 +172,15 @@
       "Ek baar {LUMPSUM} lump sum pay karo, balance kitna kam hoga aur repayment kab complete hogi?",
       "Agar main payment ko {EXTRAPAYMENT} se raise karun, toh repayment period kitna chhota hoga?",
       "Yo {LENDER} ka loan hai, agar {EXTRAPAYMENT} extra pay karun, toh loan kab clear hoga?",
-      "Ek baar {LUMPSUM} lump sum payment kar do, total interest aur loan tenure pe kya impact padega?"
+      "Ek baar {LUMPSUM} lump sum payment kar do, total interest aur loan tenure pe kya impact padega?",
+      "what if I pay {EXTRAPAYMENT} extra monthly",
+      "what if I pay {EXTRAPAYMENT} extra per month",
+      "what if I pay {EXTRAPAYMENT} extra every month",
+      "what if I pay {EXTRAPAYMENT} extra on my {LIABILITYTYPE} every month",
+      "imagine I throw {EXTRAPAYMENT} extra on my {LIABILITYTYPE}",
+      "suppose I pay {EXTRAPAYMENT} extra on my {LIABILITYTYPE}",
+      "if I put {EXTRAPAYMENT} extra on my {LIABILITYTYPE}",
+      "what if I pay {EXTRAPAYMENT} more towards my {LIABILITYTYPE} each month"
     ],
     "STRATEGY": [
       "what sequence should I repay these in",
@@ -278,7 +288,11 @@
       "Mujhe {LIABILITYTYPE} ka {TARGETDATE} tak ka repayment table dikhau.",
       "Meri {LIABILITYTYPE} ka {PERIODSHORT} breakup interest vs principal batao.",
       "Kya mein {LUMPSUM} ka lump sum laga ke {LIABILITYTYPE} ki repayment schedule change kar sakta/ sakti hoon?",
-      "Mere {LIABILITYTYPE} ke {PLAINAMOUNT} ka payment next month mein split kaise hoga?"
+      "Mere {LIABILITYTYPE} ke {PLAINAMOUNT} ka payment next month mein split kaise hoga?",
+      "how much of my EMI is interest",
+      "break down my EMI",
+      "when does most of my EMI start going to principal",
+      "how much of my {LIABILITYTYPE} EMI goes to interest"
     ],
     "RISK": [
       "am I carrying too much debt for my income",
@@ -335,7 +349,8 @@
       "Kya mera {LIABILITYTYPE} from {LENDER} ka EMI {INTERESTRATE}% pe high lag raha hai?",
       "Kya main {EXTRAPAYMENT} extra kar ke {LIABILITYTYPE} ka risk kam kar sakta hoon?",
       "Mere {LIABILITYTYPE} ka {LUMPSUM} ka one-time payment plan {TARGETDATE} tak complete karne ka plan kitna safe hai?",
-      "Check my debt health for {LIABILITYTYPE} from {LENDER} ka total {PLAINAMOUNT}."
+      "Check my debt health for {LIABILITYTYPE} from {LENDER} ka total {PLAINAMOUNT}.",
+      "is my EMI burden too high"
     ]
   }
 }

@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": false,
+    "passed": true,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {
@@ -160,7 +160,7 @@
     "utterance": "compare investing 500 vs prepaying my loan"
   },
   "SIP_VS_PREPAY|WHAT_IF|what if I invest 500 instead of prepaying": {
-    "passed": false,
+    "passed": true,
     "utterance": "what if I invest 500 instead of prepaying"
   }
 }
