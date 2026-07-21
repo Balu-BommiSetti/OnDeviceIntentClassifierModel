@@ -68,7 +68,7 @@
     "utterance": "what if I pay 1000 extra towards debt"
   },
   "DEBT_FREEDOM_ANALYSIS|SUMMARY|show my debt payoff plan for my home loan": {
-    "passed": true,
+    "passed": false,
     "utterance": "show my debt payoff plan for my home loan"
   },
   "FAMILY_TRANSFER|CREATE|sent 500 to my roommate": {
@@ -84,7 +84,7 @@
     "utterance": "remove the transfer to my roommate"
   },
   "GOAL_PLANNING|CREATE|I want to save 50000 for a car": {
-    "passed": false,
+    "passed": true,
     "utterance": "I want to save 50000 for a car"
   },
   "GOAL_PLANNING|UPDATE|change my a car target to 50000": {
@@ -104,7 +104,7 @@
     "utterance": "update my salary to 500"
   },
   "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
-    "passed": true,
+    "passed": false,
     "utterance": "how much of my salary goes to EMI"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {

@@ -1,0 +1,26 @@
+{"utterance": "how much should i keep for rent from ₹60000", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate ₹75000 for this month", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "divide ₹5000 between tea coffee and snacks", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "split ₹1.5 lakh across rent groceries travel and savings", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate ₹20000 only for essentials", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate ₹85000 for this year", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "help me distribute ₹95000", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "split ₹100000 between rent travel healthcare and food", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate ₹250000 over the next 12 months", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "how much should i reserve for emergency expenses", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "split ₹35000 for essentials and non essentials", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "help me allocate ₹10000 just for groceries entertainment and transport", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate ₹6000 for food delivery and dining out", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "divide ₹8500 across groceries snacks and tea coffee", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate 50000 for next month", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "split 40000 between food and transport", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "divide 12000 across utilities and groceries", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "distribute 60000 for this month", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "help me split 25000 between rent and savings", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate 1 lakh across all my expenses", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "how much should i keep for groceries from 45000", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "split my 80000 salary across essentials", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "divide 15000 between shopping and entertainment", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "allocate 30000 only for bills", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "70000 ko rent aur groceries me baant do", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
+{"utterance": "35000 ka budget banao is mahine ke liye", "intent": "BUDGET_PLANNING", "taskType": "ALLOCATION"}
