@@ -252,36 +252,61 @@ function cleanTokenize(text: string): string[] {
 }
 
 /**
- * Locates each entity's value as a token-aligned span within the FINAL
- * (post regional-slang/style/typo) utterance and emits BIO tags. Entities are
- * matched against the mutated text directly, rather than tracked through each
- * mutation step, so a typo landing inside an entity's own tokens correctly
- * fails to tag (a mangled value shouldn't be trained as if it were clean) —
- * an honest degradation, not a bug, and it self-limits to the ~15%/10% of
- * rows the typo/grammar passes actually touch.
+ * Locates each entity's value as a token-aligned span and emits BIO tags.
+ *
+ * ORDERING CONTRACT: this must run BEFORE the typo pass. The previous design
+ * ran it after, on the theory that "a mangled value shouldn't be trained as
+ * if it were clean" — which reads the labels as claims about the STRING. BIO
+ * labels are claims about the token's SEMANTIC ROLE: in "spent 200 on petol",
+ * "petol" IS the category mention, and tagging it O trains the head that
+ * unfamiliar tokens in entity positions are not entities — the exact inverse
+ * of what typo augmentation exists to teach. Measured cost: 793/15766 rows
+ * (5%) carried entities their tags didn't cover, and the app's live failure
+ * on "petol" (entityConfidence 0.43, category lost) is this bug at inference.
+ * Typos are now injected AFTER tagging, at token level, so tags ride along
+ * positionally and a typo'd entity token keeps its label.
+ *
+ * The article-insensitive retry covers generateGrammarMistake, which drops
+ * a/an/the from the utterance BEFORE tagging — an entity value like "the
+ * bank" would otherwise fail its exact match against the mutated text.
  */
 function buildTags(finalUtterance: string, entities: { type: string; value: string }[]): { tokens: string[]; tags: string[] } {
   const tokens = cleanTokenize(finalUtterance);
   const tags = new Array(tokens.length).fill("O");
 
+  const ARTICLES = new Set(["a", "an", "the"]);
+
   for (const entity of entities) {
-    const entityTokens = cleanTokenize(entity.value);
+    let entityTokens = cleanTokenize(entity.value);
     if (entityTokens.length === 0) continue;
-    for (let i = 0; i <= tokens.length - entityTokens.length; i++) {
+    let matched = matchSpan(tokens, tags, entityTokens, entity.type);
+    if (!matched) {
+      // Grammar pass may have dropped articles from the utterance; mirror it.
+      const noArticles = entityTokens.filter((t) => !ARTICLES.has(t));
+      if (noArticles.length > 0 && noArticles.length < entityTokens.length) {
+        matched = matchSpan(tokens, tags, noArticles, entity.type);
+      }
+    }
+  }
+
+  return { tokens, tags };
+}
+
+/** Exact contiguous token match; tags the first unclaimed occurrence. */
+function matchSpan(tokens: string[], tags: string[], entityTokens: string[], type: string): boolean {
+  for (let i = 0; i <= tokens.length - entityTokens.length; i++) {
       if (tags[i] !== "O") continue; // don't re-tag a span already claimed by an earlier entity
       let matches = true;
       for (let j = 0; j < entityTokens.length; j++) {
         if (tokens[i + j] !== entityTokens[j]) { matches = false; break; }
       }
       if (matches) {
-        tags[i] = `B-${entity.type}`;
-        for (let j = 1; j < entityTokens.length; j++) tags[i + j] = `I-${entity.type}`;
-        break; // tag only the first occurrence per entity, matching typical span extraction
+        tags[i] = `B-${type}`;
+        for (let j = 1; j < entityTokens.length; j++) tags[i + j] = `I-${type}`;
+        return true; // tag only the first occurrence per entity
       }
     }
-  }
-
-  return { tokens, tags };
+  return false;
 }
 
 /**
@@ -536,24 +561,36 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
         if (filler && rng() < 0.5) finalUtterance = `${finalUtterance} ${filler}`;
       }
 
-      // Apply Typos & Grammar Mistakes (15% chance)
-      if (rng() < 0.15) {
-        const words = finalUtterance.split(' ');
-        if (words.length > 2) {
-          const wIdx = Math.floor(rng() * words.length);
-          words[wIdx] = injectTypo(words[wIdx], rng);
-          finalUtterance = words.join(' ');
-        }
-      }
+      // Grammar mistakes stay BEFORE tagging (string-level; buildTags's
+      // article-insensitive retry absorbs the mutation).
       if (rng() < 0.1) {
         finalUtterance = generateGrammarMistake(finalUtterance);
+      }
+
+      const taggedEntities = remapComparisonSlots(filled.entities);
+      const { tokens, tags } = buildTags(finalUtterance, taggedEntities);
+
+      // Typos AFTER tagging, at token level, so tags ride along positionally
+      // and a typo'd entity token KEEPS its label (see buildTags contract —
+      // this is what teaches the head that "petol" in category position is
+      // still a category). The utterance gets the same mutation so the row's
+      // provenance text matches what the model trains on.
+      if (rng() < 0.15 && tokens.length > 2) {
+        const tIdx = Math.floor(rng() * tokens.length);
+        const original = tokens[tIdx];
+        const typoed = injectTypo(original, rng);
+        if (typoed !== original) {
+          tokens[tIdx] = typoed;
+          finalUtterance = finalUtterance.replace(
+            new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i"),
+            typoed,
+          );
+        }
       }
 
       const key = finalUtterance.toLowerCase();
       if (seen.has(key) || HELD_OUT_UTTERANCES.has(key)) continue;
       seen.add(key);
-      const taggedEntities = remapComparisonSlots(filled.entities);
-      const { tokens, tags } = buildTags(finalUtterance, taggedEntities);
       rows.push({
         utterance: finalUtterance,
         intent: spec.intent,

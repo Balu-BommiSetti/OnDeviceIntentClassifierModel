@@ -126,7 +126,24 @@ def build_vocab_and_label_mappings(samples):
         for tag in sample.get("tags", []):
             unique_slots.add(tag.upper())
 
-    # Sort vocabs by frequency for optimal layout
+    # Sort vocabs by frequency for optimal layout.
+    #
+    # MIN_FREQ=2: singleton tokens are excluded so they map to <UNK> during
+    # training. Without this, <UNK> exists in the vocab but appears in ZERO
+    # training rows — the model can never learn what to do with an unknown
+    # token, so a real user's typo ("petol") gets an untrained embedding and
+    # its entity span is dropped. The generator's typo pass (tag-preserving
+    # since run 41) creates one-off misspellings of entity values; excluding
+    # them here turns those rows into exactly the lesson we need: <UNK> in an
+    # entity position still carries the entity tag. Verified need: run 41 kept
+    # per-token typo'd rows and STILL failed to tag "petol" — the typos each
+    # got their own vocab entry, so UNK stayed untrained.
+    # MIN_FREQ=2 was tried (run 42) and measured NET NEGATIVE: it shrank the
+    # vocab by ~1000 entries and degraded the clean probe (89.1→87.4 intent)
+    # and regression (37→36) without delivering typo tagging — because the
+    # forced-O relabel below (now removed) was erasing UNK entity tags anyway.
+    # With that fixed, the 10% dropout supplies balanced UNK exposure on its
+    # own, so the full vocab stays.
     vocab = ["<PAD>", "<UNK>"]
     sorted_words = [w for w, c in sorted(word_counts.items(), key=lambda item: item[1], reverse=True)]
     vocab.extend(sorted_words)
@@ -184,8 +201,14 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
         tag_sequence = sample.get("tags", [])
         
         for j, tag in enumerate(tag_sequence[:MAX_SEQ_LENGTH]):
-            if X[i, j] == word2idx.get("<UNK>") and tokens[j] != "<UNK>":
-                tag = "O"
+            # UNK positions KEEP their true tags. The previous force-to-O here
+            # was the root cause of the model never tagging a typo'd entity
+            # ("petol", "grocries"): the 10% dropout above is the model's ONLY
+            # UNK exposure, and relabeling those positions O taught, by
+            # construction, that an unknown token is never an entity. Entity
+            # identity comes from CONTEXT (the tokens around the span), which
+            # is untouched by the dropout — keeping the tag is what turns the
+            # dropout into OOV-robustness training instead of its opposite.
             Y_slots[i, j] = slot2idx.get(tag.upper(), slot2idx["O"])
             
     return X, Y_intent, Y_task, Y_slots
