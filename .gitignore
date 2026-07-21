@@ -50,3 +50,7 @@ __pycache__/
 #     it the suite cannot tell a new failure from a known one on a fresh clone.
 !v6/training_pipeline/benchmarks/regression_baseline.json
 exported_model_archive/
+
+# fastText subword model (7GB) — spike artifact, measured net-negative, not tracked
+v6/training_pipeline/embeddings/cc.en.300.bin
+v6/training_pipeline/embeddings/cc.en.300.bin.gz

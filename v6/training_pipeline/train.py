@@ -213,45 +213,96 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
             
     return X, Y_intent, Y_task, Y_slots
 
+# Embedding source order (first that exists wins):
+#   1. cc.en.300.bin  — Common Crawl SUBWORD model. Synthesizes a vector for
+#      EVERY token (incl. Hinglish/brands/typos) from char n-grams. This is the
+#      spike under test: wiki-news .vec left 1131/3068 real words (swiggy,
+#      kharcha, icici, ppf …) at random init because .vec is a static lookup
+#      that discards subword synthesis. Measured 62% coverage → the domain and
+#      Hinglish tokens, exactly the highest-signal ones, were noise.
+#   2. wiki-news-300d-1M.vec — the prior static-lookup path (kept as fallback).
+#   3. random init.
+FASTTEXT_BIN_PATH = "embeddings/cc.en.300.bin"
+FASTTEXT_VEC_PATH = "embeddings/wiki-news-300d-1M.vec"
+
+
+def _is_synthetic_token(tok):
+    # Numeric buckets (<NUM3>, <NUM5D…>) and the reserved <PAD>/<UNK> are not
+    # real words — feeding "<NUM3>" to subword synthesis yields a garbage vector
+    # from the literal characters. Leave these at random init as before.
+    return tok.startswith("<") and tok.endswith(">")
+
+
 def load_fasttext_embeddings(word2idx):
     """
-    Loads pre-trained FastText vectors and constructs a weight matrix for our vocabulary.
-    Out-of-vocabulary words are initialized randomly but scaled to match FastText variance.
+    Builds the [vocab x EMBEDDING_DIM] init matrix from the best available
+    FastText source. Prefers the .bin subword model so OOV/Hinglish/brand
+    tokens get real synthesized vectors instead of random noise.
     """
-    embedding_path = "embeddings/wiki-news-300d-1M.vec"
-    print(f"[*] Loading FastText embeddings from {embedding_path}...")
-    
-    if not os.path.exists(embedding_path):
-        print("[!] FastText vectors not found! Falling back to random initialization.")
-        return None
-        
-    embeddings_index = {}
-    with open(embedding_path, 'r', encoding='utf-8') as f:
-        # First line is usually count and dim
-        next(f)
-        for line in f:
-            values = line.rstrip().split(' ')
-            word = values[0]
-            vector = np.asarray(values[1:], dtype='float32')
-            embeddings_index[word] = vector
-            
-    print(f"    - Loaded {len(embeddings_index)} word vectors.")
-    
     vocab_size = len(word2idx)
     embedding_matrix = np.random.normal(scale=0.1, size=(vocab_size, EMBEDDING_DIM))
-    
-    hits, misses = 0, 0
-    for word, i in word2idx.items():
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-            hits += 1
+
+    # ---- Path 1: subword .bin (SPIKE — measured NET NEGATIVE, gated OFF) --
+    # Run 44 re-init the matrix from cc.en.300.bin: coverage 62%->98% (all the
+    # Hinglish/brand tokens rescued from random init), yet the model got WORSE
+    # on every gate except the one it was meant to help: clean probe i+t
+    # 83.4->75.4, regression 39->35, QA 142->129, entityExact 0.629->0.640
+    # (flat, inside noise). Conclusion: entity extraction is NOT embedding-
+    # coverage-bound here — the ceiling is architectural (word-level, ~5-token
+    # Conv1D receptive field, frozen matrix). Generic web-meaning vectors for a
+    # narrow 3k-vocab domain task actively competed with the from-scratch
+    # signal the fine-tune otherwise learns. Kept behind a flag, not deleted,
+    # so the finding is reproducible. Default is the .vec path (Path 2).
+    if os.path.exists(FASTTEXT_BIN_PATH) and os.environ.get("USE_FT_SUBWORD") == "1":
+        import fasttext
+        print(f"[*] Loading FastText SUBWORD model from {FASTTEXT_BIN_PATH}...")
+        model = fasttext.load_model(FASTTEXT_BIN_PATH)
+        if model.get_dimension() != EMBEDDING_DIM:
+            print(f"[!] .bin dim {model.get_dimension()} != EMBEDDING_DIM {EMBEDDING_DIM}; "
+                  f"falling back to .vec path.")
         else:
-            # Fallback for subwords or numeric buckets
-            misses += 1
-            
-    print(f"    - Vocabulary Matrix Created: {hits} hits, {misses} misses.")
-    return embedding_matrix
+            in_vocab, synthesized, skipped = 0, 0, 0
+            for word, i in word2idx.items():
+                if _is_synthetic_token(word):
+                    skipped += 1
+                    continue
+                embedding_matrix[i] = model.get_word_vector(word)
+                # get_word_id >= 0 means the exact word was in FT's vocab;
+                # -1 means the vector was SYNTHESIZED from subwords (the win).
+                if model.get_word_id(word) >= 0:
+                    in_vocab += 1
+                else:
+                    synthesized += 1
+            real = in_vocab + synthesized
+            print(f"    - Subword matrix: {real}/{vocab_size} tokens got a REAL vector "
+                  f"({in_vocab} exact-vocab, {synthesized} subword-synthesized), "
+                  f"{skipped} synthetic tokens left random.")
+            return embedding_matrix
+
+    # ---- Path 2: static .vec lookup (prior behaviour, fallback) ----------
+    if os.path.exists(FASTTEXT_VEC_PATH):
+        print(f"[*] Loading FastText embeddings from {FASTTEXT_VEC_PATH}...")
+        embeddings_index = {}
+        with open(FASTTEXT_VEC_PATH, 'r', encoding='utf-8') as f:
+            next(f)
+            for line in f:
+                values = line.rstrip().split(' ')
+                embeddings_index[values[0]] = np.asarray(values[1:], dtype='float32')
+        print(f"    - Loaded {len(embeddings_index)} word vectors.")
+        hits, misses = 0, 0
+        for word, i in word2idx.items():
+            vec = embeddings_index.get(word)
+            if vec is not None:
+                embedding_matrix[i] = vec
+                hits += 1
+            else:
+                misses += 1
+        print(f"    - Vocabulary Matrix Created: {hits} hits, {misses} misses.")
+        return embedding_matrix
+
+    # ---- Path 3: nothing found -------------------------------------------
+    print("[!] No FastText source found! Falling back to random initialization.")
+    return None
 
 
 def build_model(vocab_size, num_intents, num_tasks, num_slots, embedding_matrix=None):
