@@ -162,14 +162,47 @@ def grade_entities(expected, predicted):
     for p in predicted:
         got_by_type[p["type"]].append(norm(p["value"]))
 
+    # Fuzzy PERIOD sentinels the scenarios encode deliberately (see the
+    # __CONTAINS_TO_DATE__ / __IMPLICIT_SECOND__ notes in qa_scenarios.jsonl:
+    # "Entity span assertion is fuzzy … because the span boundary is part of
+    # the design decision"). The grader never implemented that fuzziness, so it
+    # compared the literal sentinel string against the model's real span and
+    # always failed. Implement the AUTHOR'S intent, and no more:
+    #   __CONTAINS_TO_DATE__ — satisfied if a PERIOD span carries a to-date
+    #                          marker (so far / to date / mtd / ytd). If the
+    #                          model extracted NO such span it still fails.
+    #   __IMPLICIT_SECOND__/__FIRST__ — the comparison's other period is NOT in
+    #                          the utterance (it's derived downstream by
+    #                          assignPeriodRoles), so it is not an extractable
+    #                          span; satisfied iff the model extracted the ONE
+    #                          explicit PERIOD. A missing period still fails.
+    TODATE_MARKERS = ("so far", "to date", "todate", "mtd", "ytd")
     missing, wrong, spurious = [], [], []
     for etype, exp_vals in exp_by_type.items():
-        got_vals = got_by_type.get(etype, [])
-        for i, ev in enumerate(exp_vals):
+        got_vals = list(got_by_type.get(etype, []))
+        remaining_exp = []
+        for ev in exp_vals:
+            if ev == "containstodate":
+                hit = next((g for g in got_vals if any(m.replace(" ", "") in g.replace(" ", "") for m in TODATE_MARKERS)), None)
+                if hit is not None:
+                    got_vals.remove(hit)  # consume so it's not flagged spurious
+                else:
+                    missing.append(f"{etype}={ev}")
+            elif ev in ("implicitsecond", "implicitfirst"):
+                if got_vals:
+                    got_vals.pop(0)  # the explicit period satisfies it
+                else:
+                    missing.append(f"{etype}={ev}")
+            else:
+                remaining_exp.append(ev)
+        # Positional compare for the non-sentinel expected values.
+        for i, ev in enumerate(remaining_exp):
             if i >= len(got_vals):
                 missing.append(f"{etype}={ev}")
             elif got_vals[i] != ev:
                 wrong.append(f"{etype}: expected {ev!r} got {got_vals[i]!r}")
+        got_by_type[etype] = got_vals  # reflect consumed spans for the spurious pass
+        exp_by_type[etype] = remaining_exp
     for etype, got_vals in got_by_type.items():
         extra = len(got_vals) - len(exp_by_type.get(etype, []))
         if extra > 0:
