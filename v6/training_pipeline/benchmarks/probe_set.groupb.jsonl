@@ -1,0 +1,4 @@
+{"utterance": "what if I pay 1 lakh extra per month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 50000 extra per month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 1 lakh extra monthly", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 1 lakh extra each month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}

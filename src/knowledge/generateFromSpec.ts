@@ -93,7 +93,7 @@ const SLOT_VALUES: Record<string, string[]> = {
   // implausible values that dilute the context signal separating EXTRAPAYMENT
   // from generic AMOUNT (B-EXTRAPAYMENT f1 was 0.500, the weakest slot
   // family, despite 329 training rows). Plausible-magnitude pool only.
-  EXTRAPAYMENT: ["1000", "2000", "500", "5000", "3000", "1500", "10000", "7500", "2500", "5k", "2 thousand", "four thousand"],
+  EXTRAPAYMENT: ["1000", "2000", "500", "5000", "3000", "1500", "10000", "7500", "2500", "5k", "2 thousand", "four thousand", "1 lakh"],  // + lakh-scale: realistic recurring extra on a large home loan (was missing, caused DEBT_FREEDOM->AFFORDABILITY on "1 lakh extra per month")
   // LUMPSUM is a ONE-TIME windfall — its own pool of windfall-shaped values so
   // the model learns the distinction from EXTRAPAYMENT by context AND by the
   // kind of number that appears. Conflating the two makes the engine model a

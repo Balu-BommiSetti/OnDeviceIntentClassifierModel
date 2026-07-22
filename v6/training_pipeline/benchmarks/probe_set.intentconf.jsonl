@@ -1,0 +1,11 @@
+{"utterance": "total expenses in the first six months of the year", "intent": "SPENDING_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "what if I pay 1 lakh extra per month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 50000 extra per month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 1 lakh extra monthly", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 1 lakh extra each month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 2 lakh extra per month on my home loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 75000 extra monthly on my car loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 1.5 lakh extra each month towards my personal loan", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "what if I pay 60000 extra every month", "intent": "DEBT_FREEDOM_ANALYSIS", "taskType": "WHAT_IF"}
+{"utterance": "total expenses in the second half of 2025", "intent": "SPENDING_ANALYSIS", "taskType": "SUMMARY"}
+{"utterance": "what were my total expenses in the first six months of this year", "intent": "SPENDING_ANALYSIS", "taskType": "SUMMARY"}

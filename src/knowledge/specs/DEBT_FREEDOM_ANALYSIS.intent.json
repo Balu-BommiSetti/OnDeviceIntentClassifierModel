@@ -180,7 +180,8 @@
       "imagine I throw {EXTRAPAYMENT} extra on my {LIABILITYTYPE}",
       "suppose I pay {EXTRAPAYMENT} extra on my {LIABILITYTYPE}",
       "if I put {EXTRAPAYMENT} extra on my {LIABILITYTYPE}",
-      "what if I pay {EXTRAPAYMENT} more towards my {LIABILITYTYPE} each month"
+      "what if I pay {EXTRAPAYMENT} more towards my {LIABILITYTYPE} each month",
+      "what if I pay {EXTRAPAYMENT} extra each month"
     ],
     "STRATEGY": [
       "what sequence should I repay these in",
