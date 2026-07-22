@@ -10,7 +10,16 @@ Date: 2026-06-03
 
 import os
 import shutil
+import random
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
+# DETERMINISM (must be set before TF is imported). The pipeline had seeds set
+# but NO op-determinism, so runs on identical data drew QA anywhere in a ~13pt
+# band (measured this session: 146–159), making any single-run comparison
+# unreliable — the run-to-run noise exceeded most real fixes. TF_DETERMINISTIC_OPS
+# + enable_op_determinism() below force deterministic kernels/reductions so a
+# fixed seed actually reproduces. Trades some training speed for measurability.
+os.environ.setdefault("TF_DETERMINISTIC_OPS", "1")
+os.environ.setdefault("PYTHONHASHSEED", "0")
 import json
 import re
 import numpy as np
@@ -49,6 +58,14 @@ TEMPERATURE_GRID = np.linspace(0.5, 5.0, 46)
 
 tf.random.set_seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
+random.seed(RANDOM_SEED)
+# Deterministic kernels (TF 2.8+). With this + the seeds above, a fixed SEED
+# reproduces the same model, so QA/regression deltas reflect the CHANGE, not
+# the draw. Guarded so an older TF (no such API) degrades to seed-only.
+try:
+    tf.config.experimental.enable_op_determinism()
+except AttributeError:
+    print("[!] enable_op_determinism unavailable — determinism is seed-only.")
 
 
 def load_dataset():
