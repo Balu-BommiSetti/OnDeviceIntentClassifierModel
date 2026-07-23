@@ -1,7 +1,7 @@
 {
   "$schema": "../knowledge.schema.json",
   "intent": "INCOME_ANALYSIS",
-  "description": "User asks to read, explain, or compare their INCOME. Read-only advisory intent \u2014 never writes transactions. Distinct from ADD_INCOME and INCOME_DECLARATION, which are write intents: this intent answers 'how much / why / is it growing', they answer 'record this'.",
+  "description": "User asks to read, explain, or compare their INCOME. Read-only advisory intent — never writes transactions. Distinct from ADD_INCOME and INCOME_DECLARATION, which are write intents: this intent answers 'how much / why / is it growing', they answer 'record this'.",
   "supported_actions": [
     "SUMMARY",
     "ANALYSIS",
@@ -69,7 +69,13 @@
       "Income summary {PERIOD} bhej do.",
       "Is {DATE} ko kitna income aaya?",
       "Mere {PERIOD} ka total income kitna tha?",
-      "Is {PERIOD} ka income amount kitna hai?"
+      "Is {PERIOD} ka income amount kitna hai?",
+      "did I earn more than {AMOUNT} this month",
+      "was my income above {AMOUNT} in {PERIOD}",
+      "did I make at least {AMOUNT} {PERIOD}",
+      "is my income over {AMOUNT} this {PERIOD}",
+      "how much did I earn on {DATE}",
+      "what was my income on {DATE}"
     ],
     "ANALYSIS": [
       "why is my income lower {PERIOD}",
@@ -118,7 +124,10 @@
       "Mera income {PERIODSHORT} mein kyon ghatt gaya?",
       "Salary {PERIOD} pe kyon kam aayi?",
       "Income {PERIOD} ka {CATEGORY} kyon kam hai?",
-      "Mujhe dekhna hai ki income {PERIOD} me {MERCHANT} se koi deduction kyon hai?"
+      "Mujhe dekhna hai ki income {PERIOD} me {MERCHANT} se koi deduction kyon hai?",
+      "why did my income fall below {AMOUNT} this month",
+      "explain why I earned less than {AMOUNT} in {PERIOD}",
+      "why was my income different on {DATE}"
     ],
     "TREND": [
       "is my income growing",
@@ -214,7 +223,8 @@
       "Mujhe batao, {PERIOD1} ka income {PERIOD2} se kitna jyada/ghat?",
       "Compare my income {PERIOD1} vs {PERIOD2} aur graph dikhao.",
       "Income {PERIODSHORT} ke hisaab se {PERIOD1} ka {PERIOD2} se difference?",
-      "Income {PERIOD1} aur {PERIOD2} ka trend batao."
+      "Income {PERIOD1} aur {PERIOD2} ka trend batao.",
+      "did I earn more than {AMOUNT} in {PERIOD1} compared to {PERIOD2}"
     ]
   }
 }

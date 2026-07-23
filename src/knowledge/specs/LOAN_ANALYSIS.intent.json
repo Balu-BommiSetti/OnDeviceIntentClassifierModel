@@ -1,7 +1,7 @@
 {
   "$schema": "../knowledge.schema.json",
   "intent": "LOAN_ANALYSIS",
-  "description": "User asks about their loan burden / EMI pressure, loan terms, rates, tenure, or refinancing. Read-only advisory intent. BOUNDARY RULE (2026-07-19): prepayment/payoff/debt-free what-ifs belong to DEBT_FREEDOM_ANALYSIS \u2014 this intent owns TERMS (rate, tenure, refinance, consolidation, new-loan burden), that one owns FREEDOM (payoff date, extra payments, lump sums). 43 of 45 WHAT_IF patterns here previously used debt-freedom language, training two intents on the same meaning; the classifier flipped between them across runs.",
+  "description": "User asks about their loan burden / EMI pressure, loan terms, rates, tenure, or refinancing. Read-only advisory intent. BOUNDARY RULE (2026-07-19): prepayment/payoff/debt-free what-ifs belong to DEBT_FREEDOM_ANALYSIS — this intent owns TERMS (rate, tenure, refinance, consolidation, new-loan burden), that one owns FREEDOM (payoff date, extra payments, lump sums). 43 of 45 WHAT_IF patterns here previously used debt-freedom language, training two intents on the same meaning; the classifier flipped between them across runs.",
   "supported_actions": [
     "ANALYSIS",
     "SUMMARY",
@@ -74,7 +74,43 @@
       "Kaunse kharch mere {LIABILITYTYPE} ko is {PERIODSHORT} me heavy kar rahe hain?",
       "Mere {LIABILITYTYPE} ki {INTERESTRATE}% ki rate se repayment kyun badh gaya?",
       "Kharcha track karte hue, meri {LIABILITYTYPE} ka repayment kyun high ho raha hai?",
-      "Is mahine {PLAINAMOUNT} extra paid, phir bhi repayment itna high, kya reason hai?"
+      "Is mahine {PLAINAMOUNT} extra paid, phir bhi repayment itna high, kya reason hai?",
+      "am I carrying too much debt for my income",
+      "Is my EMI-to-income ratio too high with {LIABILITYTYPE} from {LENDER}",
+      "Will my {INTERESTRATE} on {LIABILITYTYPE} make me leverage too much",
+      "Do my monthly debts exceed a safe threshold for my income",
+      "Is my debt load dangerous if I make only minimum payments",
+      "Will my debt-to-income ratio exceed safe limits with {INTERESTRATE}",
+      "Is my borrowing burden too high for my current earnings",
+      "Am I at risk of alarming leverage if I keep my repayment pace unchanged",
+      "Do the portions of my salary surrendered to emi flag a dangerous debt load",
+      "Is my borrowing burden exceeding a healthy threshold relative to earnings",
+      "Is the remaining term of my {LIABILITYTYPE} creating a perilous burden",
+      "Are my total liabilities higher than a safe limit given my income",
+      "Is my EMI-to-salary ratio for {LIABILITYTYPE} from {LENDER} risky",
+      "Is the leverage from my {LIABILITYTYPE} percentage too high for my financial health",
+      "Is my current repayment burden for {LIABILITYTYPE} threatening my financial stability",
+      "Are my monthly loan obligations a dangerous indicator of financial leverage",
+      "Will my {INTERESTRATE}% on {LIABILITYTYPE} cause my debt load to become unsafe",
+      "How dangerous is my debt load if I keep paying only the minimum on {LIABILITYTYPE}",
+      "Will the {INTERESTRATE} rate on my {LIABILITYTYPE} bring my leverage into danger",
+      "Does my total debt load represent a dangerous lever compared to my earnings",
+      "Is my EMI burden on {LIABILITYTYPE} pushing me toward unsafe debt territory",
+      "am I over leveraged on debt",
+      "is my debt load under control",
+      "should I be worried about my loan burden",
+      "is my EMI load too high for my income",
+      "Mere {LIABILITYTYPE} ka EMI-to-income ratio kya high hai? Kya yeh over-exposed hai?",
+      "Kya mera {LIABILITYTYPE} from {LENDER} ka EMI {INTERESTRATE}% pe high lag raha hai?",
+      "is my EMI burden too high",
+      "why does my {LIABILITYTYPE} feel so heavy this month?",
+      "mera {LIABILITYTYPE} EMI itna zyada kyun lag raha hai?",
+      "why is my {LENDER} {LIABILITYTYPE} eating up my income?",
+      "is my {LIABILITYTYPE} rate of {INTERESTRATE} too high compared to my salary?",
+      "what is making my {LENDER} loan so hard to pay off?",
+      "mera {LIABILITYTYPE} burden kyun badh gaya hai?",
+      "why is the interest portion so high for my {LENDER} {LIABILITYTYPE}?",
+      "explain the EMI burden of my {LENDER} {LIABILITYTYPE}"
     ],
     "SUMMARY": [
       "show my {LIABILITYTYPE} details",
@@ -131,7 +167,12 @@
       "Kitna baki bachcha hai mera {LIABILITYTYPE}?",
       "Mere {LIABILITYTYPE} ka cumulative EMI summary batao {PERIOD} ke liye.",
       "Maine jo {LIABILITYTYPE} liya hai, uska total EMI kitna hoga {PERIOD} me?",
-      "Loan update: {LIABILITYTYPE} ka total amount {PLAINAMOUNT} ka baki balance?"
+      "Loan update: {LIABILITYTYPE} ka total amount {PLAINAMOUNT} ka baki balance?",
+      "what are the terms of my {LIABILITYTYPE} with {LENDER}?",
+      "mera {LENDER} loan ka kya status hai?",
+      "tell me the details of my {LIABILITYTYPE} EMI and interest",
+      "what is the tenure left on my {LIABILITYTYPE} from {LENDER}?",
+      "{LENDER} {LIABILITYTYPE} ka interest rate kya chal raha hai?"
     ],
     "WHAT_IF": [
       "how much do I save if I refinance at {INTERESTRATE}",
@@ -178,7 +219,10 @@
       "Interest rate {INTERESTRATE} badhne se mera EMI kitna badhega?",
       "Bank {LENDER} se loan le raha hoon, agar interest {INTERESTRATE} ho to repayment kitna hoga?",
       "Kya agar interest rate {INTERESTRATE} ho to loan refinance karne se kitna benefit hoga?",
-      "Kar do 2 lakh ka extra payment {EXTRAPAYMENT}, agar interest {INTERESTRATE} ho to repayment ka total kitna hoga?"
+      "Kar do 2 lakh ka extra payment {EXTRAPAYMENT}, agar interest {INTERESTRATE} ho to repayment ka total kitna hoga?",
+      "what would my new EMI be if I add {EXTRAPAYMENT} to my monthly payment",
+      "how does an extra {EXTRAPAYMENT} a month change my loan burden",
+      "what if my monthly payment went up by {EXTRAPAYMENT}, what would the new EMI look like"
     ]
   }
 }

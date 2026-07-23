@@ -129,7 +129,9 @@ def check_export_integrity(export_dir: str) -> None:
     embedding_layers = [l for l in layers if "mbedding" in l["class_name"]]
     if not embedding_layers:
         raise IntegrityError("No Embedding layer found in tfjs/model.json — cannot verify vocab/model consistency.")
-    embedding_input_dim = embedding_layers[0]["config"]["input_dim"]
+    
+    shared_embed = next((l for l in embedding_layers if l.get("config", {}).get("name") == "shared_embeddings"), embedding_layers[0])
+    embedding_input_dim = shared_embed["config"]["input_dim"]
 
     if vocab_size != embedding_input_dim:
         raise IntegrityError(

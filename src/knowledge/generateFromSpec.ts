@@ -38,9 +38,24 @@ const SLOT_VALUES: Record<string, string[]> = {
   // Widened 2026-07-19: Zomato/Flipkart/Ola/Costco were absent, so QA cases
   // referencing them ("Swiggy and Zomato", "Amazon and Flipkart", "Uber and
   // Ola", "at Costco") were unlearnable by construction — not model failures.
-  MERCHANT: ["Amazon", "Netflix", "Uber", "Swiggy", "Starbucks", "the landlord",
+  MERCHANT: [
+    "Amazon", "Netflix", "Uber", "Swiggy", "Starbucks", "the landlord",
     "Walmart", "the clinic", "Zomato", "Flipkart", "Ola", "Costco", "Myntra",
-    "BigBasket", "PhonePe", "Ajio"],
+    "BigBasket", "PhonePe", "Ajio", "Paytm", "GPay", "Blinkit", "Zepto",
+    "Dunzo", "Nykaa", "Croma", "Reliance Digital", "DMart", "Reliance Fresh",
+    "JioMart", "BookMyShow", "PVR", "MakeMyTrip", "Cleartrip", "IRCTC",
+    "RedBus", "Tesco", "Carrefour", "Target", "Best Buy", "IKEA", "McDonald's",
+    "Domino's", "KFC", "Burger King", "Subway", "Shoppers Stop", "Lifestyle",
+    "Decathlon", "H&M", "Zara", "Marks & Spencer", "PharmEasy", "1mg",
+    "Apollo Pharmacy", "Urban Company", "Lenskart", "Airbnb", "Oyo", "Agoda",
+    "Tinder", "Bumble", "Spotify", "Apple Music", "YouTube Premium",
+    "Disney+ Hotstar", "Prime Video", "SonyLIV", "Zee5", "Voot",
+    "Airtel", "Jio", "Vodafone", "Bescom", "Adani Electricity", "Tata Power",
+    "Indane", "HP Gas", "Bharat Gas", "ICICI Lombard", "LIC",
+    "Bajaj Allianz", "Star Health", "HDFC Ergo", "SBI General",
+    "Google Play", "App Store", "PlayStation", "Steam", "Xbox",
+    "Bata", "Nike", "Adidas", "Puma", "Reebok", "Skechers"
+  ],
   DATE: DATE_FILLERS,
   PERIOD: PERIOD_FILLERS,
   PAYMENT_METHOD: ["credit card", "UPI", "cash", "debit card", "bank transfer"],
@@ -124,6 +139,7 @@ const SLOT_VALUES: Record<string, string[]> = {
   // 59.4%. Per-type F1 and real-world QA performance turned out not to be
   // correlated here, and QA is the honest measure. Left as-is deliberately.
   LUMPSUM: ["50000", "100000", "2 lakh", "1.5 lakhs", "200000", "75000", "3 lakh", "5 lakhs", "25000", "10 lakhs"],
+  STRATEGY: ["snowball", "avalanche", "highest interest first", "smallest balance first", "debt consolidation", "consolidation"],
   TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months"],
   // SHORT-FORM pools. The generic pools are diversity-weighted toward long
   // forms ("July through October", "in the last 6 weeks", "2.5 lakhs"), so

@@ -30,7 +30,9 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 # Configuration Constants
 MAX_SEQ_LENGTH = 64
-EMBEDDING_DIM = 300  # FastText uses 300d vectors
+MAX_CHAR_LENGTH = 15
+EMBEDDING_DIM = 300
+CHAR_EMBEDDING_DIM = 32  # FastText uses 300d vectors
 LSTM_UNITS = 64
 DROPOUT_RATE = 0.3
 BATCH_SIZE = 128
@@ -125,6 +127,7 @@ def build_vocab_and_label_mappings(samples):
     1 index is reserved for UNK (unknown tokens).
     """
     word_counts = {}
+    char_counts = {}
     unique_intents = set()
     unique_tasks = set()
     unique_slots = {"O"}  # Start with Outside tag
@@ -135,6 +138,8 @@ def build_vocab_and_label_mappings(samples):
         for token in tokens:
             processed_token = numeric_vocab_key(token)
             word_counts[processed_token] = word_counts.get(processed_token, 0) + 1
+            for c in token:
+                char_counts[c] = char_counts.get(c, 0) + 1
         
         unique_intents.add(sample["intent"])
         if "taskType" in sample:
@@ -164,6 +169,10 @@ def build_vocab_and_label_mappings(samples):
     vocab = ["<PAD>", "<UNK>"]
     sorted_words = [w for w, c in sorted(word_counts.items(), key=lambda item: item[1], reverse=True)]
     vocab.extend(sorted_words)
+    char_vocab = ["<PAD>", "<UNK>"]
+    sorted_chars = [c for c, count in sorted(char_counts.items(), key=lambda item: item[1], reverse=True)]
+    char_vocab.extend(sorted_chars)
+    char2idx = {char: idx for idx, char in enumerate(char_vocab)}
     
     # Fast lookup dicts
     word2idx = {word: idx for idx, word in enumerate(vocab)}
@@ -177,10 +186,10 @@ def build_vocab_and_label_mappings(samples):
     slots_list = sorted(list(unique_slots))
     slot2idx = {slot: idx for idx, slot in enumerate(slots_list)}
     
-    return word2idx, vocab, intent2idx, intents_list, task2idx, tasks_list, slot2idx, slots_list
+    return word2idx, vocab, char2idx, char_vocab, intent2idx, intents_list, task2idx, tasks_list, slot2idx, slots_list
 
 
-def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_training=False):
+def vectorize_samples(samples, word2idx, char2idx, intent2idx, task2idx, slot2idx, is_training=False):
     """
     Translates raw string datasets and sequential chunk vectors to numpy training arrays.
     Slices inputs precisely to MAX_SEQ_LENGTH with index padding.
@@ -188,6 +197,7 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
     num_samples = len(samples)
     print(f"[*] Vectorizing {num_samples} samples into numpy arrays...")
     X = np.zeros((num_samples, MAX_SEQ_LENGTH), dtype=np.int32)
+    X_char = np.zeros((num_samples, MAX_SEQ_LENGTH, MAX_CHAR_LENGTH), dtype=np.int32)
     Y_intent = np.zeros((num_samples,), dtype=np.int32)
     Y_task = np.zeros((num_samples,), dtype=np.int32)
     Y_slots = np.zeros((num_samples, MAX_SEQ_LENGTH), dtype=np.int32)
@@ -202,6 +212,8 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
         for j, token in enumerate(tokens[:MAX_SEQ_LENGTH]):
             processed_token = numeric_vocab_key(token)
             X[i, j] = word2idx.get(processed_token, word2idx["<UNK>"])
+            for k, c in enumerate(token[:MAX_CHAR_LENGTH]):
+                X_char[i, j, k] = char2idx.get(c, char2idx["<UNK>"])
         
         # Data augmentation: random token dropout (training only)
         if is_training:
@@ -228,7 +240,7 @@ def vectorize_samples(samples, word2idx, intent2idx, task2idx, slot2idx, is_trai
             # dropout into OOV-robustness training instead of its opposite.
             Y_slots[i, j] = slot2idx.get(tag.upper(), slot2idx["O"])
             
-    return X, Y_intent, Y_task, Y_slots
+    return X, X_char, Y_intent, Y_task, Y_slots
 
 # Embedding source order (first that exists wins):
 #   1. cc.en.300.bin  — Common Crawl SUBWORD model. Synthesizes a vector for
@@ -322,13 +334,19 @@ def load_fasttext_embeddings(word2idx):
     return None
 
 
-def build_model(vocab_size, num_intents, num_tasks, num_slots, embedding_matrix=None):
+def build_model(vocab_size, char_vocab_size, num_intents, num_tasks, num_slots, embedding_matrix=None):
     """
     Creates a unified Shared-Representation Multi-Task deep neural model.
     Head A: Dense classifier (Softmax over 16 intent states)
     Head B: Sequential Token tagger (Softmax over IOB labels across time steps)
     """
     input_seq = Input(shape=(MAX_SEQ_LENGTH,), name="input_tokens", dtype=tf.int32)
+    input_char = Input(shape=(MAX_SEQ_LENGTH, MAX_CHAR_LENGTH), name="input_chars", dtype=tf.int32)
+
+    char_embed = Embedding(input_dim=char_vocab_size, output_dim=CHAR_EMBEDDING_DIM, mask_zero=False, name="char_embeddings")(input_char)
+    from tensorflow.keras.layers import Conv1D, GlobalMaxPooling1D, Concatenate, BatchNormalization, Activation
+    char_conv = TimeDistributed(Conv1D(filters=32, kernel_size=3, padding="same", activation="relu"))(char_embed)
+    char_pool = TimeDistributed(GlobalMaxPooling1D())(char_conv)
     
     if embedding_matrix is not None:
         embeddings = Embedding(
@@ -349,7 +367,8 @@ def build_model(vocab_size, num_intents, num_tasks, num_slots, embedding_matrix=
             name="shared_embeddings"
         )(input_seq)
     
-    dropout_embed = Dropout(DROPOUT_RATE, name="embedding_dropout")(embeddings)
+    combined_embeddings = Concatenate()([embeddings, char_pool])
+    dropout_embed = Dropout(DROPOUT_RATE, name="embedding_dropout")(combined_embeddings)
     
     from tensorflow.keras.layers import Conv1D, BatchNormalization, Activation
     
@@ -374,7 +393,7 @@ def build_model(vocab_size, num_intents, num_tasks, num_slots, embedding_matrix=
         Dense(num_slots, activation="softmax"), name="slots"
     )(dropout_features)
     
-    model = Model(inputs=input_seq, outputs=[intent_out, task_out, slots_out], name="neural_nlp_coprocessor")
+    model = Model(inputs=[input_seq, input_char], outputs=[intent_out, task_out, slots_out], name="neural_nlp_coprocessor")
     return model
 
 
@@ -536,7 +555,7 @@ def main():
         
     print(f"[*] Read in {len(samples)} unique NLP utterances.")
 
-    word2idx, vocab, intent2idx, intents_list, task2idx, tasks_list, slot2idx, slots_list = build_vocab_and_label_mappings(samples)
+    word2idx, vocab, char2idx, char_vocab, intent2idx, intents_list, task2idx, tasks_list, slot2idx, slots_list = build_vocab_and_label_mappings(samples)
     
     train_samples = [s for s in samples if s.get("split") == "train"]
     val_samples = [s for s in samples if s.get("split") == "val"]
@@ -550,13 +569,13 @@ def main():
     print(f"    - Validation Split: {len(val_samples)} samples")
     print(f"    - Testing Split:    {len(test_samples)} samples")
 
-    X_train, Y_intent_train, Y_task_train, Y_slots_train = vectorize_samples(train_samples, word2idx, intent2idx, task2idx, slot2idx, is_training=True)
-    X_val, Y_intent_val, Y_task_val, Y_slots_val = vectorize_samples(val_samples, word2idx, intent2idx, task2idx, slot2idx, is_training=False)
-    X_test, Y_intent_test, Y_task_test, Y_slots_test = vectorize_samples(test_samples, word2idx, intent2idx, task2idx, slot2idx, is_training=False)
+    X_train, X_char_train, Y_intent_train, Y_task_train, Y_slots_train = vectorize_samples(train_samples, word2idx, char2idx, intent2idx, task2idx, slot2idx, is_training=True)
+    X_val, X_char_val, Y_intent_val, Y_task_val, Y_slots_val = vectorize_samples(val_samples, word2idx, char2idx, intent2idx, task2idx, slot2idx, is_training=False)
+    X_test, X_char_test, Y_intent_test, Y_task_test, Y_slots_test = vectorize_samples(test_samples, word2idx, char2idx, intent2idx, task2idx, slot2idx, is_training=False)
 
     embedding_matrix = load_fasttext_embeddings(word2idx)
 
-    model = build_model(len(vocab), len(intents_list), len(tasks_list), len(slots_list), embedding_matrix)
+    model = build_model(len(vocab), len(char_vocab), len(intents_list), len(tasks_list), len(slots_list), embedding_matrix)
     model.summary()
 
     model.compile(
@@ -618,9 +637,9 @@ def main():
     
     print("\n[*] Commencing Stage 1: Training Dense Layers (Embeddings Frozen)...")
     history = model.fit(
-        X_train,
+        [X_train, X_char_train],
         {"intent": Y_intent_train, "taskType": Y_task_train, "slots": Y_slots_train},
-        validation_data=(X_val, {"intent": Y_intent_val, "taskType": Y_task_val, "slots": Y_slots_val}),
+        validation_data=([X_val, X_char_val], {"intent": Y_intent_val, "taskType": Y_task_val, "slots": Y_slots_val}),
         epochs=EPOCHS,
         batch_size=BATCH_SIZE,
         callbacks=[early_stopping],
@@ -658,9 +677,9 @@ def main():
         )
         
         history_ft = model.fit(
-            X_train,
+            [X_train, X_char_train],
             {"intent": Y_intent_train, "taskType": Y_task_train, "slots": Y_slots_train},
-            validation_data=(X_val, {"intent": Y_intent_val, "taskType": Y_task_val, "slots": Y_slots_val}),
+            validation_data=([X_val, X_char_val], {"intent": Y_intent_val, "taskType": Y_task_val, "slots": Y_slots_val}),
             epochs=FINETUNE_EPOCHS,
             batch_size=BATCH_SIZE,
             callbacks=[early_stopping_ft],
@@ -669,21 +688,21 @@ def main():
         )
     
     print("\n[*] Evaluating convergence constraints against hold-out test set...")
-    test_results = model.evaluate(X_test, {"intent": Y_intent_test, "taskType": Y_task_test, "slots": Y_slots_test}, verbose=0)
+    test_results = model.evaluate([X_test, X_char_test], {"intent": Y_intent_test, "taskType": Y_task_test, "slots": Y_slots_test}, verbose=0)
     
     # Extract overall metrics. Keras mapping relies on output names
     overall_loss = test_results[0]
     print(f"    - Overall Loss (Cross Entropy): {overall_loss:.4f}")
 
-    Y_pred_raw = model.predict(X_test, batch_size=BATCH_SIZE)
+    Y_pred_raw = model.predict([X_test, X_char_test], batch_size=BATCH_SIZE)
     Y_intent_pred = np.argmax(Y_pred_raw[0], axis=-1)
     Y_task_pred = np.argmax(Y_pred_raw[1], axis=-1)
     Y_slots_pred = np.argmax(Y_pred_raw[2], axis=-1)
 
     print("\n[*] Calibrating intent confidence and decision boundaries...")
-    Y_val_pred_raw = model.predict(X_val, batch_size=BATCH_SIZE, verbose=0)
+    Y_val_pred_raw = model.predict([X_val, X_char_val], batch_size=BATCH_SIZE, verbose=0)
     temperature_scaling = fit_temperature(Y_val_pred_raw[0], Y_intent_val)
-    decision_boundary = build_intent_decision_boundary(model, X_train, Y_intent_train, intents_list)
+    decision_boundary = build_intent_decision_boundary(model, [X_train, X_char_train], Y_intent_train, intents_list)
     print(f"    - Temperature: {temperature_scaling['temperature']:.2f}")
     print(f"    - Boundary classes: {len(decision_boundary['centroids'])}")
 
@@ -783,7 +802,7 @@ def main():
     vocab_file = os.path.join(output_dir, "vocabulary.json")
     print(f"\n[*] Writing dictionary definitions to: {vocab_file}")
     with open(vocab_file, "w") as f:
-        json.dump({"vocab": vocab, "word2idx": word2idx}, f, indent=2)
+        json.dump({"vocab": vocab, "word2idx": word2idx, "char_vocab": char_vocab, "char2idx": char2idx}, f, indent=2)
         
     labels_file = os.path.join(output_dir, "labels.json")
     print(f"[*] Writing class registries to: {labels_file}")
@@ -864,19 +883,18 @@ def main():
     # compatibility patching is what the real deployed model needs).
     tfjs_output_path = os.path.join(output_dir, "tfjs")
     print(f"[*] Converting to TensorFlow.js via convert.py: {tfjs_output_path}")
+    import convert
     try:
-        import convert
-        convert.convert(model=model, tfjs_dir=tfjs_output_path)
+        import convert_tfjs
+        convert_tfjs.convert(model_path=keras_model_path, out_dir=tfjs_output_path)
         print("[+] TFJS converter completed successfully! Compiled model.json and shard.bin")
         convert.check_export_integrity(output_dir)
-    except ImportError as e:
-        print(f"[!] Warning: convert.py's dependencies not available: {e}")
-        print("[*] Local conversion command bypass: ")
-        print(f"    python convert.py")
     except convert.IntegrityError as e:
         print(f"[!] EXPORT INTEGRITY CHECK FAILED: {e}")
         print("[!] This export MUST NOT be promoted to the app repo until fixed.")
         raise
+    except Exception as e:
+        print(f"[!] Warning: convert_tfjs.py failed: {e}")
 
     # 10. Hard-example benchmark — measures real-world performance on the
     # specific failure classes already observed in production, not just

@@ -128,7 +128,10 @@
       "Is mahine {CATEGORY} ka kitna bacha hai?",
       "Kya {PERIOD} mein {CATEGORY} ka budget track pe hai?",
       "Yeh {CATEGORY} ke liye {PERIODSHORT} ka budget dekho, kitna use ho chuka?",
-      "Kya {CATEGORY} ke liye {DATE} ka budget sahi hai?"
+      "Kya {CATEGORY} ke liye {DATE} ka budget sahi hai?",
+      "why did my {CATEGORY} budget exceed last {PERIOD}",
+      "check if my {CATEGORY} spending aligns with the budget I set",
+      "did I cross my {CATEGORY} limit {PERIODSHORT}?"
     ],
     "ALLOCATION": [
       "how should I split my income",
@@ -207,7 +210,8 @@
       "keep {AMOUNT} for {CATEGORY} and divide the remaining",
       "{AMOUNT} ko {CATEGORY1} aur {CATEGORY2} me baant do",
       "{AMOUNT} ka budget banao {PERIODSHORT} ke liye",
-      "{AMOUNT} me se {CATEGORY} ke liye kitna rakhu"
+      "{AMOUNT} me se {CATEGORY} ke liye kitna rakhu",
+      "How much should I budget for {CATEGORY} on average per month"
     ]
   }
 }

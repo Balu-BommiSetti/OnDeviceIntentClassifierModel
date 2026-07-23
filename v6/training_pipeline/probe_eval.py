@@ -44,12 +44,12 @@ def run(export_dir: str, probe_path: str, show_failures: bool = False):
             f"  ./scripts/run-ts.sh src/knowledge/bucketProbe.ts"
         )
 
-    labels, word2idx, model = load_artifacts(export_dir)
+    labels, word2idx, char2idx, model = load_artifacts(export_dir)
     cases = [json.loads(l) for l in open(probe_path) if l.strip()]
 
     results = []
     for c in cases:
-        pred = predict_full(c["utterance"], model, word2idx, labels)
+        pred = predict_full(c["utterance"], model, word2idx, labels, char2idx)
         intent_ok = pred["intent"] == c["intent"]
         task_ok = pred["task"] == c["taskType"]
         results.append({

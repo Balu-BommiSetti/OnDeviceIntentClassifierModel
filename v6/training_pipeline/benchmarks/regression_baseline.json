@@ -47,29 +47,53 @@
     "passed": true,
     "utterance": "remove my home loan"
   },
-  "AFFORDABILITY_CHECK|ANALYSIS|can I afford food for 500": {
+  "AFFORDABILITY_CHECK|ANALYSIS|can I afford a 500 food": {
     "passed": true,
-    "utterance": "can I afford food for 500"
+    "utterance": "can I afford a 500 food"
   },
-  "AFFORDABILITY_CHECK|WHAT_IF|what if I buy food for 500": {
+  "AFFORDABILITY_CHECK|WHAT_IF|what if I put {DOWNPAYMENT} down on a 500 food": {
     "passed": true,
-    "utterance": "what if I buy food for 500"
+    "utterance": "what if I put {DOWNPAYMENT} down on a 500 food"
   },
-  "BUDGET_PLANNING|SUMMARY|show my budget this month": {
+  "BUDGET_PLANNING|SUMMARY|how is my budget looking": {
     "passed": true,
-    "utterance": "show my budget this month"
+    "utterance": "how is my budget looking"
   },
-  "CASHFLOW_WARNING|SUMMARY|show my cashflow this month": {
+  "BUDGET_PLANNING|STATUS|am I over budget on food": {
     "passed": true,
-    "utterance": "show my cashflow this month"
+    "utterance": "am I over budget on food"
   },
-  "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra towards debt": {
+  "BUDGET_PLANNING|ALLOCATION|how should I split my income": {
     "passed": true,
-    "utterance": "what if I pay 1000 extra towards debt"
+    "utterance": "how should I split my income"
   },
-  "DEBT_FREEDOM_ANALYSIS|SUMMARY|show my debt payoff plan for my home loan": {
+  "CASHFLOW_WARNING|SUMMARY|am I going to run out of money": {
     "passed": true,
-    "utterance": "show my debt payoff plan for my home loan"
+    "utterance": "am I going to run out of money"
+  },
+  "CASHFLOW_WARNING|ANALYSIS|why is my cashflow negative this month": {
+    "passed": true,
+    "utterance": "why is my cashflow negative this month"
+  },
+  "DEBT_FREEDOM_ANALYSIS|SUMMARY|how soon can I clear all my debt": {
+    "passed": true,
+    "utterance": "how soon can I clear all my debt"
+  },
+  "DEBT_FREEDOM_ANALYSIS|WHAT_IF|suppose I add 1000 to every payment": {
+    "passed": true,
+    "utterance": "suppose I add 1000 to every payment"
+  },
+  "DEBT_FREEDOM_ANALYSIS|STRATEGY|what sequence should I repay these in": {
+    "passed": true,
+    "utterance": "what sequence should I repay these in"
+  },
+  "DEBT_FREEDOM_ANALYSIS|SCHEDULE|split my next payment into interest and principal": {
+    "passed": true,
+    "utterance": "split my next payment into interest and principal"
+  },
+  "DEBT_FREEDOM_ANALYSIS|RISK|rate my debt health": {
+    "passed": true,
+    "utterance": "rate my debt health"
   },
   "FAMILY_TRANSFER|CREATE|sent 500 to my roommate": {
     "passed": true,
@@ -95,6 +119,22 @@
     "passed": true,
     "utterance": "will I reach my a car goal by next year"
   },
+  "INCOME_ANALYSIS|SUMMARY|how much did I earn this month": {
+    "passed": true,
+    "utterance": "how much did I earn this month"
+  },
+  "INCOME_ANALYSIS|ANALYSIS|why is my income lower this month": {
+    "passed": true,
+    "utterance": "why is my income lower this month"
+  },
+  "INCOME_ANALYSIS|TREND|is my income growing": {
+    "passed": true,
+    "utterance": "is my income growing"
+  },
+  "INCOME_ANALYSIS|COMPARISON|compare my income {PERIOD1} vs {PERIOD2}": {
+    "passed": true,
+    "utterance": "compare my income {PERIOD1} vs {PERIOD2}"
+  },
   "INCOME_DECLARATION|CREATE|my monthly salary is 500": {
     "passed": true,
     "utterance": "my monthly salary is 500"
@@ -103,17 +143,17 @@
     "passed": true,
     "utterance": "update my salary to 500"
   },
-  "LOAN_ANALYSIS|ANALYSIS|how much of my salary goes to EMI": {
+  "LOAN_ANALYSIS|ANALYSIS|why is my home loan repayment from the bank so high": {
     "passed": true,
-    "utterance": "how much of my salary goes to EMI"
+    "utterance": "why is my home loan repayment from the bank so high"
   },
   "LOAN_ANALYSIS|SUMMARY|show my home loan details": {
-    "passed": false,
+    "passed": true,
     "utterance": "show my home loan details"
   },
-  "DEBT_FREEDOM_ANALYSIS|WHAT_IF|what if I pay 1000 extra on my loan": {
+  "LOAN_ANALYSIS|WHAT_IF|how much do I save if I refinance at 8%": {
     "passed": true,
-    "utterance": "what if I pay 1000 extra on my loan"
+    "utterance": "how much do I save if I refinance at 8%"
   },
   "NET_WORTH_CHECK|SUMMARY|what is my net worth": {
     "passed": true,
@@ -131,36 +171,64 @@
     "passed": true,
     "utterance": "remove the Amazon refund"
   },
-  "SAVINGS_ADVICE|SUMMARY|how much am I saving this month": {
-    "passed": true,
-    "utterance": "how much am I saving this month"
+  "SAVINGS_ADVICE|SUMMARY|how can I save more": {
+    "passed": false,
+    "utterance": "how can I save more"
   },
-  "SPENDING_ANALYSIS|ANALYSIS|why is my food spending so high": {
+  "SAVINGS_ADVICE|ANALYSIS|why am I not saving enough": {
+    "passed": true,
+    "utterance": "why am I not saving enough"
+  },
+  "SIP_VS_PREPAY|SUMMARY|should I invest or pay off my loan first": {
+    "passed": true,
+    "utterance": "should I invest or pay off my loan first"
+  },
+  "SIP_VS_PREPAY|COMPARISON|compare SIP returns against prepaying my loan": {
+    "passed": true,
+    "utterance": "compare SIP returns against prepaying my loan"
+  },
+  "SIP_VS_PREPAY|WHAT_IF|what if I prepay {LUMPSUM} instead of investing it in SIP": {
+    "passed": true,
+    "utterance": "what if I prepay {LUMPSUM} instead of investing it in SIP"
+  },
+  "SPENDING_ANALYSIS|SUMMARY|spending": {
+    "passed": false,
+    "utterance": "spending"
+  },
+  "SPENDING_ANALYSIS|BREAKDOWN|expense breakdown yesterday": {
+    "passed": false,
+    "utterance": "expense breakdown yesterday"
+  },
+  "SPENDING_ANALYSIS|ROOT_CAUSE|why is my food spending so high": {
     "passed": true,
     "utterance": "why is my food spending so high"
   },
-  "SPENDING_ANALYSIS|SUMMARY|show my spending report this month": {
+  "SPENDING_ANALYSIS|TREND|is my spending going up over the last this month": {
     "passed": true,
-    "utterance": "show my spending report this month"
+    "utterance": "is my spending going up over the last this month"
   },
   "SPENDING_ANALYSIS|COMPARISON|compare my food spend this month vs last": {
     "passed": true,
     "utterance": "compare my food spend this month vs last"
   },
-  "SPENDING_ANALYSIS|INSIGHTS|give me insights on my spending": {
+  "SPENDING_ANALYSIS|TOP_SPENDERS|top merchants I spent at yesterday": {
     "passed": true,
-    "utterance": "give me insights on my spending"
+    "utterance": "top merchants I spent at yesterday"
+  },
+  "SPENDING_ANALYSIS|ANOMALY_DETECTION|any unusual spending this month": {
+    "passed": true,
+    "utterance": "any unusual spending this month"
+  },
+  "SPENDING_ANALYSIS|SUBSCRIPTIONS|can you highlight any recurring costs in my statements": {
+    "passed": true,
+    "utterance": "can you highlight any recurring costs in my statements"
+  },
+  "SPENDING_ANALYSIS|AVERAGES|What is the average spend on food for this month": {
+    "passed": true,
+    "utterance": "What is the average spend on food for this month"
   },
   "UNKNOWN|NONE|asdfgh": {
     "passed": true,
     "utterance": "asdfgh"
-  },
-  "SIP_VS_PREPAY|COMPARISON|compare investing 500 vs prepaying my loan": {
-    "passed": true,
-    "utterance": "compare investing 500 vs prepaying my loan"
-  },
-  "SIP_VS_PREPAY|WHAT_IF|what if I invest 500 instead of prepaying": {
-    "passed": true,
-    "utterance": "what if I invest 500 instead of prepaying"
   }
 }

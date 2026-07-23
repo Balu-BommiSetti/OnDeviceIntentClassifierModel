@@ -21,6 +21,8 @@ import numpy as np
 import tensorflow as tf
 
 MAX_SEQ_LENGTH = 64
+# Must match train.py exactly (char-CNN branch: input_chars is (SEQ, CHAR)).
+MAX_CHAR_LENGTH = 15
 _CURRENCY_SYMBOLS = re.compile(r"[$₹£€₨]")
 _SENTENCE_PUNCT = re.compile(r"(?<!\d)[.,](?!\d)|[?!]")
 
@@ -46,6 +48,11 @@ def load_artifacts(export_dir):
     with open(os.path.join(export_dir, "vocabulary.json")) as f:
         vocab_raw = json.load(f)
     word2idx = vocab_raw.get("word2idx", vocab_raw)
+    # The model has a char-CNN branch (input_chars) alongside input_tokens —
+    # predict() must build both or model.predict() raises "expects 2 input(s),
+    # but it received 1" (this crashed the post-training benchmark/regression
+    # hooks silently — see train.py's try/except around run_benchmark.run()).
+    char2idx = vocab_raw.get("char2idx", {})
     # Intent-conditioned taskType mask (action_mask.json, built from the
     # specs' supported_actions). The task head is a GLOBAL softmax that knows
     # nothing about the predicted intent, so unmasked it can emit combinations
@@ -60,17 +67,21 @@ def load_artifacts(export_dir):
         with open(mask_path) as f:
             labels["_allowed_tasks"] = json.load(f)["allowed"]
     model = tf.keras.models.load_model(os.path.join(export_dir, "nlp_multitask_model.h5"))
-    return labels, word2idx, model
+    return labels, word2idx, char2idx, model
 
 
-def predict(text, model, word2idx, labels):
+def predict(text, model, word2idx, labels, char2idx=None):
     tokens = clean_tokenize(text)
     X = np.zeros((1, MAX_SEQ_LENGTH), dtype=np.int32)
+    X_char = np.zeros((1, MAX_SEQ_LENGTH, MAX_CHAR_LENGTH), dtype=np.int32)
+    char2idx = char2idx or {}
     for j, token in enumerate(tokens[:MAX_SEQ_LENGTH]):
         key = numeric_vocab_key(token)
         X[0, j] = word2idx.get(key, word2idx.get("<UNK>", 1))
+        for k, c in enumerate(token[:MAX_CHAR_LENGTH]):
+            X_char[0, j, k] = char2idx.get(c, char2idx.get("<UNK>", 1))
 
-    intent_out, task_out, _slots_out = model.predict(X, verbose=0)
+    intent_out, task_out, _slots_out = model.predict([X, X_char], verbose=0)
     intent_idx = int(np.argmax(intent_out[0]))
     intent_name = labels["intents"][intent_idx]
 
@@ -94,14 +105,14 @@ def predict(text, model, word2idx, labels):
 
 
 def run(export_dir, cases_path):
-    labels, word2idx, model = load_artifacts(export_dir)
+    labels, word2idx, char2idx, model = load_artifacts(export_dir)
 
     with open(cases_path) as f:
         cases = [json.loads(l) for l in f if l.strip()]
 
     results = []
     for case in cases:
-        pred = predict(case["text"], model, word2idx, labels)
+        pred = predict(case["text"], model, word2idx, labels, char2idx)
         intent_ok = pred["intent"] == case["expected_intent"]
         task_ok = pred["task"] == case["expected_task"]
         results.append({**case, **pred, "intent_ok": intent_ok, "task_ok": task_ok, "both_ok": intent_ok and task_ok})

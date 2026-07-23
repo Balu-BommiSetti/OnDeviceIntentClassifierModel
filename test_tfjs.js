@@ -26,6 +26,7 @@ async function run() {
   const text = "log 200 rs on petrol today";
   const words = text.split(" ");
   const seq = new Int32Array(64);
+  const charSeq = new Int32Array(64 * 15);
   const vocabKeys = words.map(w => {
       if (!/\d/.test(w)) return w;
       const digits = w.replace(/[^0-9]/g, "");
@@ -35,11 +36,15 @@ async function run() {
   console.log("vocabKeys:", vocabKeys);
   for (let i = 0; i < words.length; i++) {
     seq[i] = word2idx[vocabKeys[i]] || word2idx["<UNK>"];
+    for (let j = 0; j < Math.min(words[i].length, 15); j++) {
+      charSeq[i * 15 + j] = vocabData.char2idx?.[words[i][j]] || 1; // UNK char
+    }
   }
   console.log("seq slice:", seq.slice(0, 10));
 
   const inputTensor = tf.tensor2d(seq, [1, 64], 'int32');
-  const preds = model.predict(inputTensor);
+  const charTensor = tf.tensor3d(charSeq, [1, 64, 15], 'int32');
+  const preds = model.predict([inputTensor, charTensor]);
   
   const intentData = await preds[0].data();
   console.log("Intent max prob:", Math.max(...intentData), "at index:", intentData.indexOf(Math.max(...intentData)));

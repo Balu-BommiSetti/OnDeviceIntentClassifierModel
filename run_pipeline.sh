@@ -109,12 +109,12 @@ fi
 # shellcheck disable=SC1091
 source "$VENV/bin/activate"
 echo "${dim}Installing training dependencies (first run may take a few minutes)…${reset}"
-pip install --quiet --upgrade pip
-pip install --quiet -r v6/training_pipeline/requirements.txt
-ok "Python env ready ($(python --version 2>&1))"
+"$PY" -m pip install --quiet --upgrade pip
+"$PY" -m pip install --quiet -r v6/training_pipeline/requirements.txt
+ok "Python env ready ($("$PY" --version 2>&1))"
 
 step "7/7 Train model + export TensorFlow.js"
-( cd v6/training_pipeline && python train.py )
+( cd v6/training_pipeline && "$PY" train.py )
 ok "Training complete"
 
 # ── 7b. sync binary model artifacts into the app repo — optional ───────────
@@ -124,7 +124,7 @@ ok "Training complete"
 # together these are the ONLY writers of app model assets (Phase 4 item 3).
 if [[ -n "$APP_DIR" && -d "$APP_DIR" ]]; then
   step "7b Sync model binaries into app repo"
-  if ( cd v6/training_pipeline && python app_sync.py "$APP_DIR" ); then
+  if ( cd v6/training_pipeline && "$PY" app_sync.py "$APP_DIR" ); then
     ok "Model binaries synced into $APP_DIR/assets/nlp/"
   else
     die "App asset sync FAILED — export integrity check rejected this build. Not promoted to $APP_DIR."

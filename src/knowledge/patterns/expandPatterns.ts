@@ -183,11 +183,15 @@ const ACTION_SEMANTICS: Record<string, string> = {
   CREATE: "record a NEW entry (log something that happened)",
   UPDATE: "change an entry that already exists",
   DELETE: "remove an entry",
-  SUMMARY: "report the TOTAL or a breakdown for ONE time period — just the numbers",
-  ANALYSIS: "explain WHY spending is what it is — which categories or merchants are DRIVING it. The user is asking for a cause, not a total",
-  TREND: "show whether spending is going UP or DOWN across SEVERAL months — a trajectory over time, not a two-period comparison",
-  INSIGHTS: "surface a notable pattern or recommendation the user did not explicitly ask about",
-  COMPARISON: "compare TWO different time periods against each other",
+  SUMMARY: "report the TOTAL for ONE time period — just the numbers",
+  BREAKDOWN: "ask for a percentage or categorical DISTRIBUTION of expenses — where did my money go, pie chart",
+  ROOT_CAUSE: "explain WHY spending is what it is — which categories or merchants are DRIVING it. The user is asking for a cause",
+  TREND: "show whether spending is going UP or DOWN across SEVERAL months — a trajectory over time",
+  COMPARISON: "compare TWO different time periods or categories against each other",
+  TOP_SPENDERS: "ask for a RANKED LIST of the highest expenses or top merchants",
+  ANOMALY_DETECTION: "ask to flag UNUSUAL spending, spikes, or anomalies in the budget",
+  SUBSCRIPTIONS: "ask to find RECURRING charges, fixed fees, or forgotten subscriptions",
+  AVERAGES: "ask for the AVERAGE or run-rate of spending (e.g. per day or per month)",
   WHAT_IF: "project a hypothetical scenario ('what if I paid X more')",
   // Debt taskTypes. Each maps to a DIFFERENT DebtFreedomEngine output, so the
   // wording that distinguishes them has to reach the model.
@@ -247,6 +251,12 @@ export function findLiteralEntityValue(pattern: string, spec: IntentSpec): strin
   }
   return null;
 }
+
+const TOP_SPENDERS_CUE = /\b(top|biggest|highest|most|frequent|worst|largest)\b/i;
+const ANOMALY_CUE = /\b(unusual|odd|spike|anomaly|weird|surprise|anomalies|spikes|abnormal|deviat\w*|suspicious|fraud)\b/i;
+const SUBSCRIPTIONS_CUE = /\b(subscription|recurring|fixed|regular|hidden|subscription|monthly fee|repeat\w*)\b/i;
+const BREAKDOWN_CUE = /\b(breakdown|distribution|pie chart|where .* money (go|went)|percentage|proportion|split by)\b/i;
+const AVERAGES_CUE = /\b(average|per day|per month|per week|run rate|velocity|mean|typically|typical)\b/i;
 
 /** Comparison markers/cues — mirrors period.grammar.json#comparison. */
 const COMPARISON_CUE =
@@ -382,11 +392,26 @@ export function checkActionShape(pattern: string, action: string): { ok: boolean
     }
     return { ok: true };
   }
-  if (action === "ANALYSIS" && !ANALYSIS_CUE.test(pattern)) {
-    return { ok: false, reason: "not an ANALYSIS: must ask WHY / what is driving it, not just request a total (that is SUMMARY)" };
+  if (action === "TOP_SPENDERS" && !TOP_SPENDERS_CUE.test(pattern)) {
+    return { ok: false, reason: "not a TOP_SPENDERS question: needs top/biggest/highest/most wording" };
+  }
+  if (action === "ANOMALY_DETECTION" && !ANOMALY_CUE.test(pattern)) {
+    return { ok: false, reason: "not an ANOMALY_DETECTION question: needs unusual/spike/anomaly/surprise wording" };
+  }
+  if (action === "SUBSCRIPTIONS" && !SUBSCRIPTIONS_CUE.test(pattern)) {
+    return { ok: false, reason: "not a SUBSCRIPTIONS question: needs recurring/subscription/fixed/regular wording" };
+  }
+  if (action === "BREAKDOWN" && !BREAKDOWN_CUE.test(pattern)) {
+    return { ok: false, reason: "not a BREAKDOWN question: needs breakdown/distribution/where money went wording" };
+  }
+  if (action === "AVERAGES" && !AVERAGES_CUE.test(pattern)) {
+    return { ok: false, reason: "not an AVERAGES question: needs average/per day/run rate wording" };
+  }
+  if (action === "ROOT_CAUSE" && !ANALYSIS_CUE.test(pattern)) {
+    return { ok: false, reason: "not a ROOT_CAUSE question: must ask WHY or what is driving it" };
   }
   if (action === "SUMMARY" && ANALYSIS_CUE.test(pattern)) {
-    return { ok: false, reason: "SUMMARY must not ask WHY — that is ANALYSIS" };
+    return { ok: false, reason: "SUMMARY must not ask WHY — that is ROOT_CAUSE" };
   }
   // WHAT_IF hygiene for debt: a pattern must not put a ONE-TIME windfall word
   // next to {EXTRAPAYMENT} (recurring) or a RECURRING word next to {LUMPSUM}.
@@ -614,6 +639,55 @@ export function validateCandidate(pattern: string, ctx: ValidationContext): { ok
  * and let the five auto-validation rules downstream reject anything wrong.
  * Constraints belong in the validator, not the prompt.
  */
+/**
+ * Discriminator ("must use one of") + forbidden-sibling ("must not use") words
+ * per SPENDING_ANALYSIS sub-task. This REPLACES the earlier idea of forcing an
+ * entity token into every utterance — the taskType is separated by its ACTION
+ * word, not by the presence of {CATEGORY}/{PERIOD}/{MERCHANT}. Forcing entities
+ * distorts the distribution and teaches the NER head to over-extract; the engine
+ * already handles entity-less queries with disclosed defaults. Mirrors
+ * scripts/spending_conflict_lint.py (the validator gate). Human-readable words,
+ * not regexes — this is prompt copy.
+ */
+const SPENDING_DISCRIMINATORS: Record<string, string[]> = {
+  SUMMARY: ["total", "how much", "summary", "report", "combined", "sum up"],
+  BREAKDOWN: ["breakdown", "split", "by category", "distribution", "percentage", "pie chart"],
+  ROOT_CAUSE: ["why", "what's driving", "reason", "cause", "what led to", "explain"],
+  TREND: ["trend", "over time", "month over month", "rising", "falling", "going up or down"],
+  COMPARISON: ["vs", "versus", "compare", "difference between", "X or Y", "more than"],
+  TOP_SPENDERS: ["top", "biggest", "largest", "most", "main merchant", "who did I pay", "biggest contributors"],
+  ANOMALY_DETECTION: ["unusual", "anomaly", "spike", "deviation", "abnormal", "sudden", "out of the ordinary"],
+  SUBSCRIPTIONS: ["subscription", "recurring", "sip", "auto-debit", "membership", "renewal", "standing order"],
+  AVERAGES: ["average", "avg", "mean", "per day", "per month", "on average", "daily rate"],
+};
+// The single strongest, most-poisoning signal word(s) of each sub-task — used to
+// build the "do NOT use" list for its siblings.
+const SPENDING_SIGNAL: Record<string, string[]> = {
+  SUMMARY: [],
+  BREAKDOWN: ["breakdown", "split", "by category"],
+  ROOT_CAUSE: ["why", "what's driving"],
+  TREND: ["trend", "over time"],
+  COMPARISON: ["vs", "versus", "compare"],
+  TOP_SPENDERS: ["top", "biggest", "contributors"],
+  ANOMALY_DETECTION: ["unusual", "spike", "anomaly"],
+  SUBSCRIPTIONS: ["subscription", "recurring"],
+  AVERAGES: ["average", "per day"],
+};
+
+function spendingConflictHint(intent: string, action: string): string {
+  if (intent !== "SPENDING_ANALYSIS" || !SPENDING_DISCRIMINATORS[action]) return "";
+  const must = SPENDING_DISCRIMINATORS[action];
+  const forbidden = Object.entries(SPENDING_SIGNAL)
+    .filter(([tt]) => tt !== action)
+    .flatMap(([, w]) => w);
+  const mustLine = action === "SUMMARY"
+    ? `\nSUB-TASK RULE: SUMMARY is the plain-total case. It needs NO special action word, but it MUST NOT carry another sub-task's word.`
+    : `\nSUB-TASK RULE: every pattern MUST express the ${action} action with one of: ${must.map((w) => `"${w}"`).join(", ")}.`;
+  return `${mustLine}
+Do NOT use any of these words (they belong to sibling sub-tasks): ${forbidden.map((w) => `"${w}"`).join(", ")}.
+Vary entity presence REALISTICALLY: about 60-70% of patterns should include a placeholder like {CATEGORY}/{PERIOD}/{MERCHANT}, and 30-40% should be bare (no placeholder). Do NOT force an entity into every line. Include some Hinglish (Hindi-English) variants.`;
+}
+
 function buildPrompt(spec: IntentSpec, action: string, existing: string[], need: number): string {
   const slots = [...legalSlots(spec, action)];
   const slotHelp = slots.length
@@ -648,7 +722,7 @@ EVERY pattern must clearly ${semantics}.
 ${scopeReminder}
 Do not write patterns that belong to a different intent.
 
-Use these placeholders instead of real values: ${slotHelp}${comparisonHint}${requiredHint}${literalWarning}
+Use these placeholders instead of real values: ${slotHelp}${comparisonHint}${requiredHint}${literalWarning}${spendingConflictHint(spec.intent, action)}
 
 Format examples:
 ${(examples.length ? examples : ["<no examples yet>"]).map((p) => `- ${p}`).join("\n")}

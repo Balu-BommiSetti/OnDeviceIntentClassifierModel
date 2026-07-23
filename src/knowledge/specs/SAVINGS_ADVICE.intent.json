@@ -74,7 +74,8 @@
       "Mera {AMOUNT} savings is {PERIOD} me kitna hai?",
       "Kya main har {PERIODSHORT} me {AMOUNT} bacha raha hoon?",
       "Is mahine mein {PLAINAMOUNT} bachane ke liye tips?",
-      "Kaun se kharchon mein main {AMOUNT} bacha sakta hoon?"
+      "Kaun se kharchon mein main {AMOUNT} bacha sakta hoon?",
+      "Kitna bacha {PERIOD}?"
     ],
     "ANALYSIS": [
       "why am I not saving enough",
@@ -122,7 +123,10 @@
       "Maine {DATE} tak {PLAINAMOUNT} bachaya, par still savings low hai. Kyun?",
       "Kya {CATEGORY} ke kharche se mera savings rate prabhavit ho raha hai?",
       "Mere expenses mein {AMOUNT} ka hissa barh gaya, saving kam ho raha, kyun?",
-      "Mere credit card bill mein {AMOUNT} aaya, ab saving kam kaise ho raha hai?"
+      "Mere credit card bill mein {AMOUNT} aaya, ab saving kam kaise ho raha hai?",
+      "how much had I saved by {DATE}",
+      "was I on track for my savings goal by {DATE}",
+      "what did my savings look like on {DATE}"
     ]
   }
 }

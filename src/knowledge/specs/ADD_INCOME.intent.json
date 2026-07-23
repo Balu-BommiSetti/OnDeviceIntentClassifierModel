@@ -149,7 +149,7 @@
       "the income I logged {DATE} should be {AMOUNT}",
       "set my {DATE} income amount to {AMOUNT}",
       "make that income {PLAINAMOUNT} instead",
-      "change it to {PLAINAMOUNT}",
+      "change income to {PLAINAMOUNT}",
       "actually the income was {PLAINAMOUNT}",
       "correct my {DATE} income to {PLAINAMOUNT}",
       "change {DATE} salary to {AMOUNT}",

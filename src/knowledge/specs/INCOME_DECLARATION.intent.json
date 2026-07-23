@@ -79,7 +79,10 @@
       "Mere liye base salary set karo {AMOUNT}",
       "Salary declare karo {PLAINAMOUNT} {PERIODSHORT}",
       "Mera income update karo {AMOUNT} {DATE}",
-      "Salary input karo {AMOUNT} {PERIODSHORT}"
+      "Salary input karo {AMOUNT} {PERIODSHORT}",
+      "update my base salary to {AMOUNT}, effective {DATE}",
+      "my recurring monthly income is now {AMOUNT} starting {DATE}",
+      "my new base planning income is {AMOUNT}, starting {DATE}"
     ],
     "UPDATE": [
       "update my salary to {AMOUNT}",

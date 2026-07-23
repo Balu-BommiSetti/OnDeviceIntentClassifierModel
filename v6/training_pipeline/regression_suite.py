@@ -65,7 +65,7 @@ def run(export_dir):
             f"{SUITE_PATH} not found — run `npx tsx src/knowledge/buildRegressionSuite.ts` first."
         )
 
-    labels, word2idx, model = load_artifacts(export_dir)
+    labels, word2idx, char2idx, model = load_artifacts(export_dir)
 
     with open(SUITE_PATH) as f:
         cases = [json.loads(l) for l in f if l.strip()]
@@ -82,7 +82,7 @@ def run(export_dir):
     new_baseline = {}
 
     for case in cases:
-        pred = predict(case["utterance"], model, word2idx, labels)
+        pred = predict(case["utterance"], model, word2idx, labels, char2idx)
         passed = (
             pred["intent"] == case["intent"]
             and pred["task"] == case["taskType"]

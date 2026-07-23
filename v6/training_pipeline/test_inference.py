@@ -37,7 +37,7 @@ def numeric_vocab_key(token):
     return f"<NUM{len(digits)}{'D' if has_decimal else ''}{suffix}>"
 
 
-def run_inference(text, model, word2idx, intents_list, tasks_list, slots_list):
+def run_inference(text, model, word2idx, char2idx, intents_list, tasks_list, slots_list):
     """
     Simulates high-performance on-device execution:
     1. Preprocesses/Tokenizes text
@@ -51,13 +51,17 @@ def run_inference(text, model, word2idx, intents_list, tasks_list, slots_list):
     
     # 1. Transform raw terms to integer vectors
     X = np.zeros((1, MAX_SEQ_LENGTH), dtype=np.int32)
+    MAX_CHAR_LENGTH = 15
+    X_chars = np.zeros((1, MAX_SEQ_LENGTH, MAX_CHAR_LENGTH), dtype=np.int32)
     for j, token in enumerate(tokens[:MAX_SEQ_LENGTH]):
         processed_token = numeric_vocab_key(token)
         X[0, j] = word2idx.get(processed_token, word2idx.get("<UNK>", 1))
+        for c_idx, ch in enumerate(token[:MAX_CHAR_LENGTH]):
+            X_chars[0, j, c_idx] = char2idx.get(ch, char2idx.get("<UNK>", 1))
         
     # 2. Run Forward propagation
     # train.py exports 3 heads in this order: [intent, taskType, slots]
-    predictions = model.predict(X, verbose=0)
+    predictions = model.predict([X, X_chars], verbose=0)
     
     # Argmax over softmax logits
     intent_idx = np.argmax(predictions[0][0])
@@ -131,6 +135,7 @@ def main():
     with open(vocab_file, "r") as f:
         vocab_data = json.load(f)
         word2idx = vocab_data["word2idx"]
+        char2idx = vocab_data.get("char2idx", {})
         
     with open(labels_file, "r") as f:
         label_data = json.load(f)
@@ -164,7 +169,7 @@ def main():
     
     print("\n[*] Starting testing offline inference suite...")
     for query in test_queries:
-        run_inference(query, model, word2idx, intents_list, tasks_list, slots_list)
+        run_inference(query, model, word2idx, char2idx, intents_list, tasks_list, slots_list)
 
 
 if __name__ == "__main__":

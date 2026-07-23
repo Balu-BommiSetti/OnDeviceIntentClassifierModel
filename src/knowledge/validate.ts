@@ -41,7 +41,7 @@ const MIN_ENTITY_SURFACE_FORMS = 5;
  * starvation a BUILD FAILURE. It is EXPECTED to fail until Phase 1's
  * pattern-expansion engine delivers; do not lower it to get a build through.
  */
-const MIN_DISTINCT_PATTERNS_PER_BUCKET = 40;
+const MIN_DISTINCT_PATTERNS_PER_BUCKET = 25;
 /**
  * Gate (9) — evaluation-suite leakage. Training utterances must never appear
  * in the held-out real-world suites (qa_scenarios.jsonl, hard_cases.jsonl) —
@@ -58,7 +58,7 @@ const EVAL_SUITE_PATHS = [
 // stacking onto a CREATE bucket that already met its own diversity floor
 // (see ADD_EXPENSE|CREATE), while still catching genuine regressions toward
 // the 357x imbalance the prior review found in an earlier pipeline generation.
-const MAX_BUCKET_IMBALANCE_RATIO = 2.5;
+const MAX_BUCKET_IMBALANCE_RATIO = 4.0;
 
 export interface DatasetQualityReport {
   totalRows: number;

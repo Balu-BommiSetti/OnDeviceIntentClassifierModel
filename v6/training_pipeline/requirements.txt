@@ -35,7 +35,7 @@ importlib_resources==7.1.0
 jax==0.10.2
 jaxlib==0.10.2
 joblib==1.5.3
-keras==3.15.0
+keras
 libclang==18.1.1
 Markdown==3.10.2
 markdown-it-py==4.2.0
@@ -66,11 +66,11 @@ simplejson==4.1.1
 six==1.17.0
 tensorboard==2.19.0
 tensorboard-data-server==0.7.2
-tensorflow==2.21.0
+tensorflow
 tensorflow-io-gcs-filesystem==0.37.1
 tensorstore==0.1.84
 termcolor==3.3.0
-tf_keras==2.19.0
+tf_keras
 threadpoolctl==3.6.0
 treescope==0.1.10
 typing_extensions==4.16.0

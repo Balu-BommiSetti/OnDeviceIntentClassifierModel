@@ -61,7 +61,7 @@ def decode_bio_spans(tokens, tags):
     return [{"type": s["type"], "value": " ".join(s["tokens"])} for s in spans]
 
 
-def predict_full(text, model, word2idx, labels):
+def predict_full(text, model, word2idx, labels, char2idx=None):
     """
     WHY THE TASK ARGMAX IS MASKED
     load_artifacts (run_benchmark.py) already populates labels["_allowed_tasks"]
@@ -76,10 +76,18 @@ def predict_full(text, model, word2idx, labels):
     """
     tokens = clean_tokenize(text)
     X = np.zeros((1, MAX_SEQ_LENGTH), dtype=np.int32)
+    # Model has a char-CNN branch (input_chars) alongside input_tokens — must
+    # build both or model.predict() raises "expects 2 input(s)" (MAX_CHAR_LENGTH
+    # must match train.py exactly).
+    MAX_CHAR_LENGTH = 15
+    X_char = np.zeros((1, MAX_SEQ_LENGTH, MAX_CHAR_LENGTH), dtype=np.int32)
+    char2idx = char2idx or {}
     for j, tok in enumerate(tokens[:MAX_SEQ_LENGTH]):
         X[0, j] = word2idx.get(numeric_vocab_key(tok), word2idx.get("<UNK>", 1))
+        for k, c in enumerate(tok[:MAX_CHAR_LENGTH]):
+            X_char[0, j, k] = char2idx.get(c, char2idx.get("<UNK>", 1))
 
-    intent_out, task_out, slots_out = model.predict(X, verbose=0)
+    intent_out, task_out, slots_out = model.predict([X, X_char], verbose=0)
     i_idx = int(np.argmax(intent_out[0]))
     intent_name = labels["intents"][i_idx]
 
@@ -211,13 +219,13 @@ def grade_entities(expected, predicted):
 
 
 def run(export_dir, qa_path):
-    labels, word2idx, model = load_artifacts(export_dir)
+    labels, word2idx, char2idx, model = load_artifacts(export_dir)
     cases = [json.loads(l) for l in open(qa_path) if l.strip()]
 
     results = []
     for c in cases:
         exp = c["expected"]
-        pred = predict_full(c["utterance"], model, word2idx, labels)
+        pred = predict_full(c["utterance"], model, word2idx, labels, char2idx)
 
         intent_ok = pred["intent"] == exp.get("intent")
         task_ok = pred["task"] == exp.get("taskType")

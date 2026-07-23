@@ -20,7 +20,8 @@
     "pipeline": "./run_pipeline.sh",
     "pipeline:no-train": "./run_pipeline.sh --no-train",
     "patterns:expand": "tsx src/knowledge/patterns/expandPatterns.ts",
-    "patterns:merge": "tsx src/knowledge/patterns/mergePatterns.ts"
+    "patterns:merge": "tsx src/knowledge/patterns/mergePatterns.ts",
+    "patterns:lint-spending": "python3 scripts/spending_conflict_lint.py"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
