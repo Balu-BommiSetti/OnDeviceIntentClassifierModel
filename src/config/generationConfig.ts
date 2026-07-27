@@ -108,6 +108,29 @@ export const CATEGORIES = [
   // here would reintroduce the documented Amazon-class cross-pool conflict.
   "Debt", "Housing", "Transport", "Utilities", "Healthcare",
   "Other Expense", "Other Income", "Goal Funding", "Savings Transfer",
+  // "loan" added 2026-07-28 as a bare spending-category word. REVERTED to a
+  // single copy after a weighted-duplication tuning attempt (2026-07-28,
+  // runs 5-7) failed to find a stable improvement:
+  //   run 5 — 1 copy  -> ~34 draws  -> did NOT converge as CATEGORY at all.
+  //   run 6 — 6x/5x (loan/Debt) -> ~260/217 draws -> converged (2/3 loan,
+  //           1/2 debt phrasings extracted) but measurably hurt overall
+  //           model health (intent accuracy 95.2%->92.8%, hard-example
+  //           86.7%->76.7%, confidence down broadly across unrelated
+  //           categories) — over-skewed the CATEGORY distribution enough to
+  //           destabilize training generally, not just these two words.
+  //   run 7 — 3x/3x (half of run 6) -> WORSE than run 6, not better: loan
+  //           extraction regressed to 0/2, and "tea" — solid since the
+  //           original fix — newly mistagged as DATE instead of CATEGORY.
+  // Conclusion: pool-weight duplication is NOT a safe lever for this pair —
+  // "loan" carries an extremely strong competing prior (3,249 LIABILITYTYPE-
+  // tagged occurrences in "home loan"/"car loan" across LOAN_ANALYSIS/
+  // DEBT_FREEDOM_ANALYSIS/ADD_LIABILITY) and any weight strong enough to
+  // move it visibly also destabilizes the shared pool's balance for
+  // everything else. Left at 1 copy (this run's live/best baseline, "run
+  // 4"). If revisited, use DEDICATED sentence templates (like the original
+  // Tea & Coffee fix) instead of pool-weight tuning — a more controlled
+  // signal than competing for draws in a 100+-value shared array.
+  "loan",
 ];
 
 export const FREQUENCIES = [
