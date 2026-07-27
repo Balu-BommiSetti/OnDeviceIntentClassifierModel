@@ -351,6 +351,13 @@ const SLOT_VALUES_BY_INTENT: Record<string, Record<string, string[]>> = {
       "salary", "freelance work", "consulting", "rent received", "dividends",
       "interest", "my side business", "bonus", "commission", "overtime",
       "royalties", "capital gains", "my part time job", "tuition fees",
+      // Exact app inflow-category names added 2026-07-28 (constants/
+      // categoryTaxonomy.ts's Inflows group) — the pool above already covers
+      // "salary"/"bonus" as generic phrasing but was missing the app's own
+      // exact category labels for the rest, e.g. "Rental Income" vs the
+      // looser "rent received" already here.
+      "freelance", "rental income", "cashback", "gift received",
+      "tax refund", "interest income", "investment return",
     ],
     MERCHANT: [
       "my employer", "my client", "the company", "my tenant", "the agency",

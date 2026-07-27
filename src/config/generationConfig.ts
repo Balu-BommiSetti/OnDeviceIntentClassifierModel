@@ -57,15 +57,57 @@ export const REGIONAL_SLANG: Record<Region, { expensive: string, cheap: string, 
 };
 
 export const CATEGORIES = [
-  "food", "dining", "groceries", "rent", "mortgage", "electricity", "water", "internet", 
+  "food", "dining", "groceries", "rent", "mortgage", "electricity", "water", "internet",
   // Brand names REMOVED from categories 2026-07-19 (Netflix/Spotify/Uber/
   // Amazon): they also live in the MERCHANT pool, so the NER head trained
   // "Amazon"=CATEGORY in some rows and =MERCHANT in others — the SIP-class
   // cross-pool conflict. QA's contract is unanimous: brands are MERCHANT.
-  "subscriptions", "streaming", "Gym", "ride hailing", "online shopping", "Shopping", "Clothing", "Medicine", 
-  "Hospital", "Education", "Tuition", "Insurance", "Fuel", "Petrol", "Dining out", 
+  "subscriptions", "streaming", "Gym", "ride hailing", "online shopping", "Shopping", "Clothing", "Medicine",
+  "Hospital", "Education", "Tuition", "Insurance", "Fuel", "Petrol", "Dining out",
   "Travel", "Flights", "Hotel", "Cinema", "Gaming", "Taxes", "Investment",
-  "the wedding", "a birthday party", "vacation", "festival shopping", "electronics", "a phone", "furniture"
+  "the wedding", "a birthday party", "vacation", "festival shopping", "electronics", "a phone", "furniture",
+  // Real app subcategories added 2026-07-27 — the prior list was generic
+  // top-level words only, so every leaf subcategory the app actually stores
+  // (constants/categoryTaxonomy.ts, wealthpilot_native_app) was OOV for
+  // SPENDING_ANALYSIS/ADD_EXPENSE/BUDGET_PLANNING training. A query like "how
+  // much did I spend on tea" had zero learned association with any spending
+  // intent and fell through to sentence-shape matching, misclassifying as
+  // DEBT_FREEDOM_ANALYSIS (whose "how much... remaining... {PERIOD}" templates
+  // structurally resemble the unfamiliar phrasing). Checked for zero overlap
+  // with MERCHANT/ASSETTYPE/LIABILITYTYPE/LENDER pools before adding (the
+  // documented SIP-class cross-pool conflict above is exactly what this would
+  // reintroduce if any of these collided).
+  //   Food
+  "Food Delivery", "Tea & Coffee", "Snacks", "Breakfast", "Lunch", "Dinner", "Office / Work Meals",
+  //   Housing
+  "Home Maintenance", "Society / Maintenance", "Property Tax", "Repairs", "Household Supplies", "Home Appliances",
+  //   Transport
+  "Public Transport", "Parking & Toll", "Auto / Cab", "Bike / Scooter Fuel", "Metro / Bus Pass",
+  "Vehicle Service", "Vehicle Repair", "Vehicle Insurance", "Vehicle Registration",
+  //   Utilities
+  "Electricity Bill", "Water Bill", "Gas Bill", "Internet / Broadband", "Mobile / Phone Bill", "DTH / Cable",
+  //   Lifestyle
+  "Personal Care", "Pet Care", "Electronics / Gadgets", "Kids / Family", "Gifts & Donations",
+  "Entertainment", "Coffee Shop", "Movies", "Gym / Fitness", "Hobbies",
+  //   Healthcare
+  "Pharmacy", "Doctor / Consultation", "Medical Tests", "Dental", "Vision / Eye Care", "Mental Wellness", "Medical Equipment",
+  //   Education
+  "School / Tuition Fees", "College Fees", "Books & Stationery", "Coaching / Classes", "Online Course", "School Transport", "School Activities",
+  //   Debt (as spending categories — NOT LIABILITYTYPE; EMI was deliberately
+  //   removed from LIABILITYTYPE 2026-07-19 as a payment, not a loan type)
+  "EMI", "Tax", "Credit Card Bill",
+  //   Insurance (premiums are an expense category, not an ASSETTYPE/LIABILITYTYPE)
+  "Health Insurance", "Life Insurance", "Term Insurance", "Home Insurance", "Other Insurance",
+  // Parent group + catch-all names added 2026-07-28 — the previous pass only
+  // covered LEAF subcategories, so a query at the GROUP level ("what is my
+  // debt expenses") or the catch-all bucket ("what is my other expenses")
+  // was still OOV. Live app trace: "What is my debt expenses" failed to
+  // classify at all; "other expenses" partially misrouted to BUDGET_PLANNING/
+  // UNKNOWN depending on phrasing. "Lifestyle" deliberately EXCLUDED — it
+  // already lives in the MERCHANT pool (a retail brand), and duplicating it
+  // here would reintroduce the documented Amazon-class cross-pool conflict.
+  "Debt", "Housing", "Transport", "Utilities", "Healthcare",
+  "Other Expense", "Other Income", "Goal Funding", "Savings Transfer",
 ];
 
 export const FREQUENCIES = [
