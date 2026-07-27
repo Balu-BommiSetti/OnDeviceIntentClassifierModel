@@ -101,6 +101,15 @@ const SLOT_VALUES: Record<string, string[]> = {
     "5 lakh", "10 lakh", "15 lakh", "20 lakh", "25 lakh", "50 lakh",
     "1 crore", "2 crore", "5 lakhs", "12 lakhs", "30 lakh",
     "500000", "1050000", "1500000", "2500000", "75 lakh",
+    // Bare-digit ₹1 Cr-scale values added 2026-07-28 — the app's flagship
+    // "₹1 Cr Journey" milestone gets spoken as a bare number ("help me reach
+    // 10000000"/the ₹ symbol strips to a raw digit string at tokenization,
+    // see clean_tokenize), but the pool topped out at 2500000 (25 lakh) —
+    // nothing near 1 Cr existed as a bare digit string, only as the word
+    // "1 crore". That gap (+ no bare-{TARGETAMOUNT}-only template, see the
+    // ANALYSIS patterns above) made "help me reach ₹10000000" fall through
+    // to sentence-shape matching and misclassify as ADD_EXPENSE.
+    "10000000", "5000000", "20000000",
   ],
   TARGETDATE: buildTargetDateFillers(),
   // EXTRAPAYMENT is a RECURRING monthly extra on a loan. It shared the full
