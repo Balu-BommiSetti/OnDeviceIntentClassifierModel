@@ -506,7 +506,37 @@ function fill(pattern: string, rng: () => number, intent?: string): { utterance:
 // 32, up from 24 (2026-07-19): common bare replies ("yesterday") were still
 // missed by RNG sampling within a 24-row budget spread across 3-4 patterns
 // and a ~24-value filler pool per entity.
-const SHORT_REPLY_COUNT = 32;
+// 50, up from 32 (2026-07-28): hard-example benchmark showed bare merchant/
+// asset replies ("Zomato", "gold") still generalizing poorly — those exact
+// words are correctly held out of training (they're the benchmark cases
+// themselves), so the fix is broader exposure to the SHAPE across more of
+// the ~90-value MERCHANT/ASSETTYPE pools, not touching the held-out guard.
+const SHORT_REPLY_COUNT = 50;
+
+// How many training rows each DISTINCT bare-value ("Zomato", "gold") gets from
+// the exact-bare "{ENTITY}" pattern. Diagnosed 2026-07-28: SHORT_REPLY_COUNT
+// controls BREADTH (how many distinct pool values get covered at all) but each
+// covered value only got 1 row — too fragile against dropout at inference
+// (measured: "Starbucks" had exactly 1 training row and still failed the
+// benchmark). This adds DEPTH per value without touching breadth.
+const BARE_REPLY_REPEATS = 4;
+
+// How many DISTINCT bare values get the BARE_REPLY_REPEATS treatment, PER
+// ENTITY TYPE. Flat 10 (run13) is the proven-stable value. A per-type scale-up
+// to MERCHANT:20/CATEGORY:20 was tried (run15, 2026-07-28) specifically to fix
+// "Zomato"/"Flipkart" bare-merchant misclassification and made things WORSE,
+// not better: overall intent accuracy 95.0%→93.5%, hard-example accuracy
+// 96.7%→86.7%, new failures in unrelated categories (correction,
+// ambiguous_boundary), and Zomato/Flipkart flipped from a wrong-but-plausible
+// ADD_EXPENSE guess to UNKNOWN — no actual entity-extraction improvement
+// anywhere. Root cause: doubling the bare-pattern's row budget (up to 80 dup
+// rows per entity type) measurably crowded out training signal for other,
+// subtler intent boundaries. Reverted to flat 10 — do not re-attempt this
+// exact lever; "Zomato" bare-merchant generalization needs a different fix
+// (e.g. an app-layer deterministic fallback for clarification-reply context,
+// not more synthetic-data repetition of THIS shape).
+const BARE_REPEAT_VALUE_CAP: Record<string, number> = {};
+const DEFAULT_BARE_REPEAT_VALUE_CAP = 10;
 
 function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
   const rows: Row[] = [];
@@ -652,6 +682,21 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
       const seen = new Set<string>();
       let attempts = 0;
       const maxAttempts = SHORT_REPLY_COUNT * 40;
+      // BARE_REPLY_REPEATS: see the constant's own comment for the diagnosis
+      // (each distinct bare merchant/asset value got exactly 1 training row,
+      // too fragile against dropout at inference). FIRST ATTEMPT (repeating
+      // every one of the up-to-50 distinct bare draws) measurably regressed
+      // entity tagging elsewhere: it let the bare pattern's row count scale
+      // with the underlying pool SIZE (MERCHANT ~90 values vs CATEGORY's much
+      // smaller pool), so large pools got proportionally over-repeated and
+      // skewed the single-token tag distribution — B-MERCHANT rows outnumbered
+      // B-CATEGORY 44:20, and the model started guessing MERCHANT for isolated
+      // nouns ("tea", "debt") that were correctly CATEGORY before. Capping the
+      // repeat to a FIXED number of distinct values (not "however many the
+      // pool has room for") bounds the bare pattern's total contribution
+      // regardless of pool size, so it can add depth without dominating breadth.
+      let bareRepeatsUsed = 0;
+      const maxBareRepeatValues = BARE_REPEAT_VALUE_CAP[entityType] ?? DEFAULT_BARE_REPEAT_VALUE_CAP;
 
       while (seen.size < SHORT_REPLY_COUNT && attempts < maxAttempts) {
         attempts++;
@@ -666,7 +711,7 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
 
         const taggedEntities = remapComparisonSlots(filled.entities);
         const { tokens, tags } = buildTags(finalUtterance, taggedEntities);
-        rows.push({
+        const row: Row = {
           utterance: finalUtterance,
           intent: spec.intent,
           taskType: requiringAction,
@@ -675,7 +720,13 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
           tokens,
           tags,
           sourcePattern: pattern,
-        });
+        };
+        rows.push(row);
+
+        if (pattern === `{${entityType}}` && bareRepeatsUsed < maxBareRepeatValues) {
+          bareRepeatsUsed++;
+          for (let i = 0; i < BARE_REPLY_REPEATS - 1; i++) rows.push(row);
+        }
       }
     }
   }
