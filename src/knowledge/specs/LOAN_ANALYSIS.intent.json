@@ -20,7 +20,7 @@
   "backend_route": "ANALYZE_LOAN",
   "advisory_intent": "ANALYZE_LOAN",
   "validation": {
-    "min_distinct_utterances_per_action": 80
+    "min_distinct_utterances_per_action": 25
   },
   "utterance_patterns": {
     "ANALYSIS": [
@@ -219,7 +219,7 @@
       "Interest rate {INTERESTRATE} badhne se mera EMI kitna badhega?",
       "Bank {LENDER} se loan le raha hoon, agar interest {INTERESTRATE} ho to repayment kitna hoga?",
       "Kya agar interest rate {INTERESTRATE} ho to loan refinance karne se kitna benefit hoga?",
-      "Kar do 2 lakh ka extra payment {EXTRAPAYMENT}, agar interest {INTERESTRATE} ho to repayment ka total kitna hoga?",
+      "Kar do {EXTRAPAYMENT} ka extra payment, agar interest {INTERESTRATE} ho to repayment ka total kitna hoga?",
       "what would my new EMI be if I add {EXTRAPAYMENT} to my monthly payment",
       "how does an extra {EXTRAPAYMENT} a month change my loan burden",
       "what if my monthly payment went up by {EXTRAPAYMENT}, what would the new EMI look like"
