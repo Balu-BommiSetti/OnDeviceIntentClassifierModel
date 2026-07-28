@@ -96,7 +96,15 @@ const SLOT_VALUES: Record<string, string[]> = {
   // everyday transaction amount. Multi-token values are deliberate here:
   // I-TARGETAMOUNT can only be learned from spans that HAVE a continuation.
   // Goal scale: larger and rounder than a windfall, so the RANGE separates
-  // them rather than artificial oddness. No value appears in another pool.
+  // them rather than artificial oddness.
+  // CORRECTION 2026-07-27: this comment previously claimed "No value appears
+  // in another pool" — false as of the DOWNPAYMENT/LUMPSUM audit that day:
+  // "5 lakhs" is present in this pool AND LUMPSUM's AND (pre-fix) DOWNPAYMENT's.
+  // Left as-is here (not re-tuned) for the same reason LUMPSUM itself is
+  // left as-is — this pool has its own hard-won tuning history above (the
+  // TARGETAMOUNT/AMOUNTS collision fix) and per-type F1 changes here have
+  // proven not to correlate with real QA performance; only DOWNPAYMENT (the
+  // newest, untuned pool) was changed to resolve the collision.
   TARGETAMOUNT: [
     "5 lakh", "10 lakh", "15 lakh", "20 lakh", "25 lakh", "50 lakh",
     "1 crore", "2 crore", "5 lakhs", "12 lakhs", "30 lakh",
@@ -165,8 +173,20 @@ const SLOT_VALUES: Record<string, string[]> = {
   // DOWNPAYMENT is read by FinanceDispatcher's AFFORDABILITY_CHECK branch
   // (downPaymentPercent) but was never declared in the spec, so the model had
   // no way to emit it. Both percentage and absolute phrasings appear in real
-  // questions ("20% down" / "2 lakh down").
-  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "1 lakh", "200000", "50000", "5 lakhs", "2 lakh"],
+  // questions ("20% down" / "4 lakh down").
+  // Absolute values below were changed 2026-07-27: the original pool ("1
+  // lakh", "200000", "50000", "5 lakhs", "2 lakh") was a verbatim subset of
+  // LUMPSUM's and EXTRAPAYMENT's pools — a real, code-verified reachability
+  // collision on the shared NER head (see the generator's own
+  // "reachable as MORE THAN ONE entity type" warning), and EXTRAPAYMENT's
+  // "1 lakh" is independently pinned there by a documented prior bug fix
+  // (see EXTRAPAYMENT's comment below) — so DOWNPAYMENT is the side that
+  // moves. LUMPSUM/EXTRAPAYMENT/TARGETAMOUNT are deliberately NOT touched
+  // here: LUMPSUM's pool has an explicit history of three tuning attempts
+  // that each improved its own tag F1 while making real QA scores worse and
+  // was reverted every time (see LUMPSUM's comment below) — do not re-tune
+  // it opportunistically as a side effect of an unrelated fix.
+  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "4 lakh", "150000", "60000", "8 lakh", "40000"],
   // PERIOD1/PERIOD2 exist so COMPARISON patterns can carry two DISTINCT period
   // spans. Both draw from the same grammar pool; fill() de-duplicates within a
   // single pattern so "June vs June" can't be generated. The NER head tags both
@@ -601,6 +621,30 @@ function generateForSpec(spec: IntentSpec, rng: () => number): Row[] {
             new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i"),
             typoed,
           );
+
+          // Real typo-laden queries rarely have exactly one typo'd word
+          // ("hwo much did i speend on amazon lst week" has three) — but the
+          // pass above only ever mutates a single token, so the model never
+          // saw that shape in training (two measured production failures
+          // trace directly to this: multi-typo inputs either produced
+          // garbage entity extraction or missed classification entirely).
+          // A second, independent, lower-probability pass on a DIFFERENT
+          // token teaches the model that multi-typo utterances exist too,
+          // without materially diluting the single-typo/clean-text ratio.
+          if (rng() < 0.25 && tokens.length > 3) {
+            const tIdx2 = Math.floor(rng() * tokens.length);
+            if (tIdx2 !== tIdx) {
+              const original2 = tokens[tIdx2];
+              const typoed2 = injectTypo(original2, rng);
+              if (typoed2 !== original2) {
+                tokens[tIdx2] = typoed2;
+                finalUtterance = finalUtterance.replace(
+                  new RegExp(`\\b${original2.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i"),
+                  typoed2,
+                );
+              }
+            }
+          }
         }
       }
 

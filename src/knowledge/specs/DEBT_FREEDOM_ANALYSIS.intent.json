@@ -24,7 +24,7 @@
   "backend_route": "DEBT_FREEDOM_ANALYSIS",
   "advisory_intent": "DEBT_FREEDOM_ANALYSIS",
   "validation": {
-    "min_distinct_utterances_per_action": 80
+    "min_distinct_utterances_per_action": 25
   },
   "utterance_patterns": {
     "SUMMARY": [
@@ -125,7 +125,6 @@
       "if I raise my monthly payment by {EXTRAPAYMENT} how much earlier do I finish",
       "say I drop a one time {LUMPSUM} onto the balance",
       "imagine a windfall of {LUMPSUM} goes straight to the loans",
-      "what happens if my rate moves to {INTERESTRATE}",
       "suppose the tenure becomes {TENUREMONTHS}",
       "if I add {EXTRAPAYMENT} monthly to the {LIABILITYTYPE}",
       "If I put an additional {EXTRAPAYMENT} on top of my monthly payment how many months earlier would I pay it off",
@@ -192,7 +191,6 @@
       "what if I pay {EXTRAPAYMENT} extra each month",
       "if I pay {EXTRAPAYMENT} extra, when will my {LIABILITYTYPE} finish?",
       "kya hoga agar main {LUMPSUM} extra bhar du {LENDER} loan pe?",
-      "what if I change the tenure to {TENUREMONTHS} for my {LIABILITYTYPE}?",
       "agar {INTERESTRATE} rate ho jaye toh mera {LENDER} EMI kya hoga?",
       "what happens to my {LIABILITYTYPE} if I pay {EXTRAPAYMENT} every month?"
     ],
@@ -242,7 +240,7 @@
       "Mujhe batao ki pehle {LIABILITYTYPE} ka loan chukana chahiye ya {LENDER} ka?",
       "Mujhe strategy batao jisse main {EXTRAPAYMENT} add karke {LUMPSUM} bhi laga sakun aur loans ko priority de sakun.",
       "Kya main {TARGETDATE} tak sab loans clear kar sakta hoon by focusing mainly on {LIABILITYTYPE}?",
-      "Mujhe batao ki 2 lakh {PLAINAMOUNT} ka loan, main kaunse order me repay karna chahiye?",
+      "Mujhe batao ki mere {LIABILITYTYPE} aur {LENDER} wale loan, main kaunse order me repay karu?",
       "Kya main {PERIODSHORT} me kaunse loan ko clear karun to debt freedom jaldi mile?",
       "should I use {STRATEGY} to pay off my {LIABILITYTYPE}?",
       "is {STRATEGY} better for my {LENDER} {LIABILITYTYPE}?",

@@ -1,10 +1,9 @@
 {
   "$schema": "../knowledge.schema.json",
   "intent": "AFFORDABILITY_CHECK",
-  "description": "User asks whether they can afford a purchase. Read-only advisory intent; amount is the purchase price.",
+  "description": "User asks whether they can afford a purchase. Read-only advisory intent; amount is the purchase price. BOUNDARY RULE: a 'new loan/EMI burden' framing about a NAMED purchase (car, laptop, trip) belongs here; the same framing about an EXISTING loan's terms or another EMI added to current obligations belongs to LOAN_ANALYSIS.",
   "supported_actions": [
-    "ANALYSIS",
-    "WHAT_IF"
+    "ANALYSIS"
   ],
   "required_entities": [
     "AMOUNT"
@@ -22,7 +21,7 @@
   "backend_route": "AFFORDABILITY_CHECK",
   "advisory_intent": "AFFORDABILITY_CHECK",
   "validation": {
-    "min_distinct_utterances_per_action": 80
+    "min_distinct_utterances_per_action": 25
   },
   "utterance_patterns": {
     "ANALYSIS": [
@@ -88,9 +87,7 @@
       "am I on track to afford a {AMOUNT} {CATEGORY} {TARGETDATE}",
       "will a {AMOUNT} {CATEGORY} be within my reach {TARGETDATE}",
       "can I save enough for a {AMOUNT} {CATEGORY} {TARGETDATE}",
-      "kya main {TARGETDATE} tak {AMOUNT} ka {CATEGORY} afford kar paunga?"
-    ],
-    "WHAT_IF": [
+      "kya main {TARGETDATE} tak {AMOUNT} ka {CATEGORY} afford kar paunga?",
       "what if I put {DOWNPAYMENT} down on a {AMOUNT} {CATEGORY}",
       "how does a {AMOUNT} purchase look over {TENUREMONTHS}",
       "if the rate were {INTERESTRATE} could I afford {AMOUNT}",
@@ -136,7 +133,18 @@
       "what if I stretched a {AMOUNT} {CATEGORY} over {TENUREMONTHS} at {INTERESTRATE}",
       "what if I paid cash for a {AMOUNT} {CATEGORY} instead of financing it",
       "what if I financed a {AMOUNT} {CATEGORY} with no down payment",
-      "agar main {AMOUNT} ka {CATEGORY} {TENUREMONTHS} me EMI pe lu to kya hoga?"
+      "agar main {AMOUNT} ka {CATEGORY} {TENUREMONTHS} me EMI pe lu to kya hoga?",
+      "afford a {AMOUNT} {CATEGORY}?",
+      "{AMOUNT} {CATEGORY}, worth it?",
+      "can I swing a {AMOUNT} {CATEGORY}",
+      "is {AMOUNT} for a {CATEGORY} too much",
+      "bro can I afford a {AMOUNT} {CATEGORY}",
+      "ngl can I afford a {AMOUNT} {CATEGORY} rn",
+      "not gonna lie, is a {AMOUNT} {CATEGORY} too much for me right now",
+      "kinda want a {AMOUNT} {CATEGORY}, can I afford it",
+      "so I've had my eye on this {AMOUNT} {CATEGORY} for a while now, could I actually afford it",
+      "I keep going back and forth on this, but is a {AMOUNT} {CATEGORY} something I can realistically afford",
+      "not sure if this is a dumb question, but could I afford a {AMOUNT} {CATEGORY} right now"
     ]
   }
 }

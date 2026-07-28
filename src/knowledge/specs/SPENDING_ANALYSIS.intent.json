@@ -18,7 +18,8 @@
     "CATEGORY",
     "PERIOD",
     "DATE",
-    "MERCHANT"
+    "MERCHANT",
+    "AMOUNT"
   ],
   "backend_route": "ANALYZE_SPENDING",
   "advisory_intent": "ANALYZE_SPENDING",
@@ -147,7 +148,19 @@
       "analyze my spending {PERIODSHORT}",
       "analyse my {CATEGORY} spend {PERIODSHORT}",
       "give me an analysis of my expenses {PERIODSHORT}",
-      "do an analysis on my {CATEGORY} costs"
+      "do an analysis on my {CATEGORY} costs",
+      "did I spend more than {PLAINAMOUNT} on {CATEGORY} {PERIODSHORT}",
+      "did I spend more than {PLAINAMOUNT} {PERIODSHORT}",
+      "was my spend over {PLAINAMOUNT} this {PERIOD}",
+      "did I spend less than {PLAINAMOUNT} on {CATEGORY} {PERIODSHORT}",
+      "did I stay under {PLAINAMOUNT} on {CATEGORY} this {PERIOD}",
+      "have I spent more than {PLAINAMOUNT} so far this {PERIOD}",
+      "am I over {PLAINAMOUNT} in {CATEGORY} spending {PERIODSHORT}",
+      "did my {CATEGORY} spending exceed {PLAINAMOUNT} {PERIODSHORT}",
+      "have I gone over {PLAINAMOUNT} on {CATEGORY} this {PERIOD}",
+      "kya maine {PLAINAMOUNT} se zyada kharch kiya {CATEGORY} pe {PERIODSHORT}",
+      "kya mera {CATEGORY} spend {PLAINAMOUNT} se kam raha {PERIODSHORT}",
+      "how much did I blow between {DATE} and {DATE} on {CATEGORY}"
     ],
     "BREAKDOWN": [
       "expense breakdown {DATE}",
@@ -203,7 +216,9 @@
       "got any insights on where my money went {PERIODSHORT}",
       "analyze where my money went {PERIODSHORT}",
       "Break down my spending by {CATEGORY} for {PERIOD}",
-      "Show me how much I spent by category during {PERIOD}"
+      "Show me how much I spent by category during {PERIOD}",
+      "how is the {PLAINAMOUNT} I spent on {CATEGORY} divided",
+      "how is the {PLAINAMOUNT} I spent on {CATEGORY} split up"
     ],
     "ROOT_CAUSE": [
       "why is my {CATEGORY} spending so high",
@@ -391,7 +406,8 @@
       "highlight any seasonal shifts in my {CATEGORY} spending pattern",
       "find any noticeable patterns in my recent transactions",
       "can you detect any seasonal shifts in my {CATEGORY} spending over {PERIOD}",
-      "spot any hidden patterns in my monthly {CATEGORY} expenses"
+      "spot any hidden patterns in my monthly {CATEGORY} expenses",
+      "show my {CATEGORY} trend"
     ],
     "COMPARISON": [
       "compare my {CATEGORY} spend this month vs last",
@@ -542,7 +558,10 @@
       "what is the biggest drain on my {CATEGORY} spending",
       "what parts of my {CATEGORY} spending are the biggest contributors",
       "tell me which categories and merchants are contributing most to my {CATEGORY} costs",
-      "which {MERCHANT} contributes most to my {CATEGORY} spending"
+      "which {MERCHANT} contributes most to my {CATEGORY} spending",
+      "top merchants",
+      "top spenders",
+      "my top merchants"
     ],
     "ANOMALY_DETECTION": [
       "any unusual spending {PERIOD}",
@@ -610,7 +629,13 @@
       "is there any merchant where my monthly spend is rising unexpectedly",
       "can you highlight any merchant that repeatedly charges me unexpectedly",
       "can you surface any merchant that deviates from my typical spending pattern",
-      "are there any surprise indirect fees hidden in my {CATEGORY} purchases"
+      "are there any surprise indirect fees hidden in my {CATEGORY} purchases",
+      "check karo koi gadbad transaction toh nahi hai",
+      "koi gadbad transaction toh nahi hai check karo",
+      "did they double charge me",
+      "was I double charged at {MERCHANT}",
+      "did {MERCHANT} charge me twice",
+      "check if any transaction looks off"
     ],
     "SUBSCRIPTIONS": [
       "can you highlight any recurring costs in my statements",
@@ -720,7 +745,11 @@
       "What was my average daily spend on {CATEGORY} between {DATE} and {DATE}",
       "What is the average spend on {CATEGORY} per month over the past {PERIOD}",
       "Find out how much I spend on {CATEGORY} on average per day between {DATE} and {DATE}",
-      "let me know if my exposure to {CATEGORY} is above average"
+      "let me know if my exposure to {CATEGORY} is above average",
+      "mean spend on {MERCHANT}",
+      "mean spend on {CATEGORY}",
+      "roughly how much money leaves my account on a typical week for {CATEGORY}",
+      "roughly how much do I spend on a typical week for {CATEGORY}"
     ]
   }
 }
