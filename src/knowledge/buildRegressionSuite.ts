@@ -57,7 +57,15 @@ function buildSuite(): { utterance: string; intent: string; taskType: string }[]
   return rows;
 }
 
-const rows = buildSuite();
+// Hand-picked cases beyond "first pattern per (intent, action)": phrasings
+// that have burned us in production before (silently regressed across 2 full
+// training runs because they weren't in the suite at all) and so must always
+// be checked going forward, even though they aren't pattern[0] for their bucket.
+const EXTRA_CASES: { utterance: string; intent: string; taskType: string }[] = [
+  { utterance: "how much did i spend?", intent: "SPENDING_ANALYSIS", taskType: "SUMMARY" },
+];
+
+const rows = [...buildSuite(), ...EXTRA_CASES];
 fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
 fs.writeFileSync(OUTPUT, rows.map((r) => JSON.stringify(r)).join("\n") + "\n");
 console.log(`✅ Built regression suite: ${rows.length} cases -> ${OUTPUT}`);

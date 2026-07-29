@@ -169,8 +169,17 @@ const SLOT_VALUES: Record<string, string[]> = {
   // ZERO rows: 92 of its 140 patterns generated nothing and the intent stayed
   // unmeasurable (0 test rows) across four training runs while appearing
   // "populated" in the spec.
+  // Proper names added 2026-07-29: the pool was 100% relationship-word based
+  // ("my brother", "mom"), so the model had never seen a NAMED person as a
+  // SPLITWITH value and consistently misrouted "make the transfer to Priya
+  // ₹1800"/"sent ₹5000 to Rahul" to ADD_EXPENSE/BUDGET_PLANNING instead of
+  // FAMILY_TRANSFER — confirmed via harness cases #365/#364. A generic,
+  // gender-mixed first-name sample (not tied to any real person) teaches the
+  // model "a bare proper noun after send/transfer to" is the same slot shape
+  // as the relationship words, without needing an exhaustive name list.
   SPLITWITH: ["my brother", "my sister", "mom", "dad", "my parents", "my wife", "my husband",
-              "my son", "my daughter", "my cousin", "my friend", "my roommate", "my flatmate"],
+              "my son", "my daughter", "my cousin", "my friend", "my roommate", "my flatmate",
+              "Priya", "Rahul", "Amit", "Rohan", "Sneha", "Anjali", "Vikram", "Neha"],
   // DOWNPAYMENT is read by FinanceDispatcher's AFFORDABILITY_CHECK branch
   // (downPaymentPercent) but was never declared in the spec, so the model had
   // no way to emit it. Both percentage and absolute phrasings appear in real

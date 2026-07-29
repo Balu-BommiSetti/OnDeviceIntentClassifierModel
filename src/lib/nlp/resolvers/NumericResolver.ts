@@ -4,6 +4,10 @@ const SUFFIX_MULTIPLIERS: Record<string, number> = {
   k: 1_000,
   m: 1_000_000,
   b: 1_000_000_000,
+  // Bare "l"/"L" shorthand for "lakh" — see the mirrored fix + full
+  // explanation in the app repo's utils/ai/nlp/resolvers/NumericResolver.ts
+  // (kept in sync; this file is a duplicate of that one).
+  l: 100_000,
   lakh: 100_000,
   lakhs: 100_000,
   lac: 100_000,
@@ -124,7 +128,11 @@ export class NumericResolver {
       };
     }
 
-    // 4. Word-based amounts
+    // 4. Word-based amounts. Bare "a"/"an" rejected — see the mirrored fix
+    // + full explanation in the app repo's copy of this file.
+    if (text === 'a' || text === 'an') {
+      return { value: 0, currency, confidence: 'low', original };
+    }
     const value = NumericResolver.parseWordNumber(text);
     if (value !== null) {
       let finalValue = value;
