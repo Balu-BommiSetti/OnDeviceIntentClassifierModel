@@ -33,13 +33,17 @@ if (!APP || !fs.existsSync(APP)) {
   process.exit(1);
 }
 
-// assets/nlp/ is the path the app ACTUALLY loads at runtime — ModelLoader.ts,
-// IntentClassifier.ts, and VocabularyTokenizer.ts all require() from here.
-// src/ai/model/assets/ is a stale, unused duplicate (confirmed via grep: no
-// require() of its model.json/vocabulary.json/labels.json anywhere in the app)
-// with a mismatched vocabulary/model pair — do not target it again.
-const LABELS_PATH = path.join(APP, "assets/nlp/labels.json");
-const OUT_LABELS = path.join(APP, "assets/nlp/labels.generated.json");
+// model-src/nlp/ is the plaintext SOURCE the app's scripts/encrypt-nlp-assets.js
+// reads to produce the encrypted assets (assets/nlp-enc/*.enc) ModelLoader.ts /
+// IntentClassifier.ts / VocabularyTokenizer.ts actually load at runtime via
+// nlpAssetCache.ts. CHANGED 2026-08-04 (P0-1 fix, app repo): this used to
+// target assets/nlp/ directly, before that directory was removed from the
+// bundled asset tree (it shipped a plaintext copy of the same taxonomy the
+// encrypted assets were supposed to protect). See app_sync.py's docstring in
+// this repo for the full history — the same change applies here.
+// src/ai/model/assets/ remains a stale, unused duplicate — do not target it.
+const LABELS_PATH = path.join(APP, "model-src/nlp/labels.json");
+const OUT_LABELS = path.join(APP, "model-src/nlp/labels.generated.json");
 const OUT_ROUTEMAP = path.join(APP, "utils/ai/nlp/intentRouteMap.generated.ts");
 
 function buildLabels() {

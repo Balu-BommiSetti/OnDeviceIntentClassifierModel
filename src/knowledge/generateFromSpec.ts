@@ -149,7 +149,17 @@ const SLOT_VALUES: Record<string, string[]> = {
   // correlated here, and QA is the honest measure. Left as-is deliberately.
   LUMPSUM: ["50000", "100000", "2 lakh", "1.5 lakhs", "200000", "75000", "3 lakh", "5 lakhs", "25000", "10 lakhs"],
   STRATEGY: ["snowball", "avalanche", "highest interest first", "smallest balance first", "debt consolidation", "consolidation"],
-  TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months"],
+  // Widened 2026-08-04: was loan-tenure-scale only (12-60 months / 5-10
+  // years), so a goal-planning duration ("by the end of 3 months", "in 2
+  // months") had zero matching surface forms — confirmed live: "I want to
+  // have 50000 rupees by the end of 3 months, is it possible?" misclassified
+  // as ANALYZE_BUDGET, since GOAL_PLANNING's spec had no TENUREMONTHS
+  // pattern at all to compete with. Short forms added here specifically for
+  // GOAL_PLANNING's new duration-feasibility/UPDATE patterns below; the
+  // model already has this slot trained (shared across LOAN_ANALYSIS/
+  // ADD_LIABILITY/AFFORDABILITY_CHECK/DEBT_FREEDOM_ANALYSIS), so this is a
+  // template-coverage gap, not a new entity.
+  TENUREMONTHS: ["12 months", "24 months", "36 months", "5 years", "10 years", "60 months", "2 months", "3 months", "4 months", "6 months", "1 month", "45 days"],
   // SHORT-FORM pools. The generic pools are diversity-weighted toward long
   // forms ("July through October", "in the last 6 weeks", "2.5 lakhs"), so
   // the SHORT regime QA actually tests — bare noun + short relative period,
@@ -184,7 +194,16 @@ const SLOT_VALUES: Record<string, string[]> = {
   // (downPaymentPercent) but was never declared in the spec, so the model had
   // no way to emit it. Both percentage and absolute phrasings appear in real
   // questions ("20% down" / "2 lakh down").
-  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "1 lakh", "200000", "50000", "5 lakhs", "2 lakh"],
+  // Widened 2026-08-04: only 10 surface forms, all bare numbers/percentages
+  // (audit finding: DOWNPAYMENT F1 0.50 on 2/6 test instances — too few to
+  // trust, but the LOW surface diversity was flagged as the likely lever,
+  // not row count). Added currency-symbol and lakh/crore-word variants of
+  // the SAME magnitudes already present, not new amounts — mirrors AMOUNT's
+  // own diversity pattern (which scores 0.95) rather than guessing at a
+  // fix. Kept conservative given LUMPSUM's sibling pool above was widened
+  // three times and made QA WORSE each time — do not widen further without
+  // measuring per-type F1 + QA entity-exact before/after.
+  DOWNPAYMENT: ["10%", "20%", "25%", "30%", "50%", "1 lakh", "200000", "50000", "5 lakhs", "2 lakh", "₹50000", "₹2 lakh", "15%", "40%", "1.5 lakh"],
   // PERIOD1/PERIOD2 exist so COMPARISON patterns can carry two DISTINCT period
   // spans. Both draw from the same grammar pool; fill() de-duplicates within a
   // single pattern so "June vs June" can't be generated. The NER head tags both

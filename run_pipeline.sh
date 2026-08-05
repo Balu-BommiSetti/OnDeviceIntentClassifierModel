@@ -125,7 +125,7 @@ ok "Training complete"
 if [[ -n "$APP_DIR" && -d "$APP_DIR" ]]; then
   step "7b Sync model binaries into app repo"
   if ( cd v6/training_pipeline && "$PY" app_sync.py "$APP_DIR" ); then
-    ok "Model binaries synced into $APP_DIR/assets/nlp/"
+    ok "Model binaries synced into $APP_DIR/model-src/nlp/"
   else
     die "App asset sync FAILED — export integrity check rejected this build. Not promoted to $APP_DIR."
   fi
@@ -136,6 +136,6 @@ echo "${bold}${green}Pipeline finished.${reset}"
 echo "  Dataset : exported_dataset/spec_dataset.jsonl"
 echo "  Model   : v6/training_pipeline/exported_model/  (tfjs/model.json, weights, labels.json, vocabulary.json)"
 if [[ -n "$APP_DIR" ]]; then
-  echo "  App gen : $APP_DIR/assets/nlp/ (tfjs/*, vocabulary.json, category_mapping.json)"
+  echo "  App gen : $APP_DIR/model-src/nlp/ (tfjs/*, vocabulary.json, category_mapping.json)"
   echo "            $APP_DIR (labels.generated.json, intentRouteMap.generated.ts — review + promote by hand)"
 fi

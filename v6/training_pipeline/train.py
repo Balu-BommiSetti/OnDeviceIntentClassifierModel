@@ -27,6 +27,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, TimeDistributed, Dropout, GlobalAveragePooling1D
 from sklearn.metrics import classification_report, confusion_matrix
+from span_eval import span_level_report
 
 # Configuration Constants
 MAX_SEQ_LENGTH = 64
@@ -54,6 +55,22 @@ FINETUNE_EPOCHS = 150
 # op-level nondeterminism on this hardware). The spread across seeds is the
 # honest error bar for ANY single-run comparison.
 RANDOM_SEED = int(os.environ.get("SEED", "42"))
+# See vectorize_samples' dropout block for the full rationale. BASE_UNK_RATE
+# is the original global rate (unchanged). MERCHANT_LENDER_UNK_RATE is new
+# (2026-08-04) and applies ONLY to B-/I-MERCHANT and B-/I-LENDER token
+# positions — a starting value, not a swept-and-chosen one; if B-MERCHANT/
+# B-LENDER recall doesn't move after this run, revisit the multiplier before
+# assuming the hypothesis (OOV-robustness, not diversity) is wrong.
+# Lowered from 0.25 (run 20260804-181954): that value regressed
+# "remove the Amazon refund" (REFUND/DELETE -> ADD_INCOME/DELETE @0.51,
+# previously passing at 0/60 regressions) — plausibly diluting the "refund"
+# signal specifically on MERCHANT-adjacent tokens when "Amazon" itself got
+# UNK'd during training. B-MERCHANT/B-LENDER recall still improved
+# (0.475->0.484, 0.377->0.579) at the lower rate in the prior run's own
+# trajectory from 0.10->0.25, so 0.17 (roughly midpoint) is the next probe,
+# not a full revert to baseline.
+BASE_UNK_RATE = 0.10
+MERCHANT_LENDER_UNK_RATE = 0.17
 BOUNDARY_PERCENTILE = 95
 BOUNDARY_RADIUS_MULTIPLIER = 1.15
 TEMPERATURE_GRID = np.linspace(0.5, 5.0, 46)
@@ -216,11 +233,33 @@ def vectorize_samples(samples, word2idx, char2idx, intent2idx, task2idx, slot2id
                 X_char[i, j, k] = char2idx.get(c, char2idx["<UNK>"])
         
         # Data augmentation: random token dropout (training only)
+        #
+        # MERCHANT/LENDER-boosted UNK rate (2026-08-04): B-/I-MERCHANT and
+        # B-/I-LENDER get a higher dropout rate (MERCHANT_LENDER_UNK_RATE)
+        # than every other position (BASE_UNK_RATE, the original global 10%).
+        # Root cause (audit): both are OPEN-set entity types — a real
+        # merchant/lender name at inference is disproportionately likely to
+        # be OOV (a name this exact dataset never generated) — yet the
+        # measured signature was HIGH PRECISION / LOW RECALL (B-MERCHANT
+        # r=0.475, B-LENDER r=0.377 despite p=0.86/0.91): the model already
+        # tags them correctly when the token IS in-vocab, it just declines to
+        # tag when the token is UNK. More dropout specifically on these
+        # positions is the deliberate INVERSE of the (correctly rejected)
+        # forced-O-relabeling experiment above — this still keeps the TRUE
+        # tag on the UNK'd position (see the comment on tag_sequence below),
+        # it just makes that lesson ("UNK can still be a MERCHANT/LENDER")
+        # appear more often for exactly the two types where it's weakest.
         if is_training:
-            for j in range(min(len(tokens), MAX_SEQ_LENGTH)):
-                if X[i, j] != 0 and np.random.random() < 0.10:
+            seq_len = min(len(tokens), MAX_SEQ_LENGTH)
+            tag_seq = sample.get("tags", [])
+            for j in range(seq_len):
+                if X[i, j] == 0:
+                    continue
+                tag = tag_seq[j].upper() if j < len(tag_seq) else "O"
+                rate = MERCHANT_LENDER_UNK_RATE if tag in ("B-MERCHANT", "I-MERCHANT", "B-LENDER", "I-LENDER") else BASE_UNK_RATE
+                if np.random.random() < rate:
                     X[i, j] = word2idx["<UNK>"]
-            
+
         # 2. Map Intent & TaskType label
         Y_intent[i] = intent2idx.get(sample["intent"], intent2idx.get("UNKNOWN", 0))
         if "taskType" in sample:
@@ -425,6 +464,49 @@ def fit_temperature(probabilities, labels):
     }
 
 
+def expected_calibration_error(probabilities, labels, n_bins=15):
+    """
+    P1-4: Expected Calibration Error — the metric NLL doesn't give you.
+    NLL rewards a model for being confidently RIGHT and punishes confidently
+    WRONG, but says nothing about whether "70% confident" predictions are
+    actually right 70% of the time — the property temperature scaling is
+    supposed to buy, and the ONE thing the prior eval_report.json (temperature
+    + validationNll only) never actually verified. Standard equal-width-bin
+    ECE: predictions are bucketed by their own top-1 confidence, and each
+    bin's |accuracy - mean_confidence| is weighted by bin size.
+
+    Returns (ece, bins) where bins is a list of per-bin diagnostics — useful
+    for spotting WHERE calibration breaks (e.g. systematically overconfident
+    in the 0.9-1.0 bin) rather than just a single collapsed number.
+    """
+    confidences = np.max(probabilities, axis=1)
+    predictions = np.argmax(probabilities, axis=1)
+    correct = (predictions == labels).astype(np.float64)
+
+    bin_edges = np.linspace(0.0, 1.0, n_bins + 1)
+    ece = 0.0
+    bins = []
+    n = len(labels)
+    for i in range(n_bins):
+        lo, hi = bin_edges[i], bin_edges[i + 1]
+        # Last bin is closed on both ends so confidence==1.0 is included.
+        in_bin = (confidences > lo) & (confidences <= hi) if i > 0 else (confidences >= lo) & (confidences <= hi)
+        bin_count = int(np.sum(in_bin))
+        if bin_count == 0:
+            bins.append({"range": [round(float(lo), 3), round(float(hi), 3)], "count": 0, "accuracy": None, "avgConfidence": None})
+            continue
+        bin_acc = float(np.mean(correct[in_bin]))
+        bin_conf = float(np.mean(confidences[in_bin]))
+        ece += (bin_count / n) * abs(bin_acc - bin_conf)
+        bins.append({
+            "range": [round(float(lo), 3), round(float(hi), 3)],
+            "count": bin_count,
+            "accuracy": round(bin_acc, 4),
+            "avgConfidence": round(bin_conf, 4),
+        })
+    return float(ece), bins
+
+
 def build_intent_decision_boundary(model, X_reference, Y_reference, intents_list):
     """
     Builds adaptive decision boundaries over the intent embedding space.
@@ -464,6 +546,67 @@ def build_intent_decision_boundary(model, X_reference, Y_reference, intents_list
         "centroids": centroids,
         "radii": radii,
         "counts": counts,
+    }
+
+
+def score_decision_boundary(model, X_test_input, Y_intent_test, intents_list, decision_boundary):
+    """
+    P1-4: the decision boundary (centroids + radii, built above) has shipped
+    since before this audit with zero quality metric — enabled, unmeasured.
+    Scores it the only way the test set actually allows: against the
+    UNKNOWN-labelled test rows, which are the closest proxy this dataset has
+    for genuinely out-of-distribution input (see the prior audit's own
+    framing of this same limitation).
+
+    False Accept Rate (FAR): fraction of UNKNOWN test rows whose intent_dense
+    embedding falls WITHIN at least one class's radius — the boundary
+    SHOULD have rejected these (flagged them as "doesn't look like any
+    known intent") but didn't.
+    False Reject Rate is the boundary's OTHER failure mode — rejecting a
+    genuinely in-distribution row — which cannot be measured from UNKNOWN
+    rows alone (they are the wrong population for it, by construction: every
+    row IS OOD). Reported as null with an explanation rather than a number
+    computed from the wrong data.
+    """
+    if "UNKNOWN" not in intents_list:
+        return {"enabled": decision_boundary["enabled"], "note": "UNKNOWN not in intents_list — cannot score", "falseAcceptRate": None, "falseRejectRate": None}
+
+    unknown_idx = intents_list.index("UNKNOWN")
+    unknown_mask = Y_intent_test == unknown_idx
+    unknown_count = int(np.sum(unknown_mask))
+    if unknown_count == 0:
+        return {"enabled": decision_boundary["enabled"], "note": "0 UNKNOWN rows in test set — cannot score", "falseAcceptRate": None, "falseRejectRate": None}
+
+    embedding_model = Model(
+        inputs=model.input,
+        outputs=model.get_layer("intent_dense").output,
+        name="boundary_scoring_exporter",
+    )
+    unknown_embeddings = embedding_model.predict(
+        [x[unknown_mask] for x in X_test_input], batch_size=BATCH_SIZE, verbose=0
+    )
+
+    centroids = decision_boundary["centroids"]
+    radii = decision_boundary["radii"]
+    false_accepts = 0
+    for emb in unknown_embeddings:
+        accepted = False
+        for intent_name, centroid in centroids.items():
+            dist = float(np.linalg.norm(emb - np.array(centroid)))
+            if dist <= radii[intent_name]:
+                accepted = True
+                break
+        if accepted:
+            false_accepts += 1
+
+    far = false_accepts / unknown_count
+    return {
+        "enabled": decision_boundary["enabled"],
+        "falseAcceptRate": round(far, 4),
+        "falseAcceptCount": false_accepts,
+        "unknownTestSupport": unknown_count,
+        "falseRejectRate": None,
+        "note": "falseRejectRate cannot be measured from UNKNOWN-labelled rows alone (every row IS out-of-distribution, by construction) — would need a held-out set of genuinely in-distribution rows scored against the boundary, not computed today.",
     }
 
 
@@ -706,6 +849,27 @@ def main():
     print(f"    - Temperature: {temperature_scaling['temperature']:.2f}")
     print(f"    - Boundary classes: {len(decision_boundary['centroids'])}")
 
+    # P1-4: ECE on the TEST set (consistent with every other reported metric —
+    # temperature itself is fit on val, per fit_temperature's own docstring,
+    # to avoid tuning and evaluating calibration on the same split). Computed
+    # both pre- and post-scaling so it's possible to tell whether T=<value>
+    # is actually helping, not just producing a lower validation NLL (NLL and
+    # calibration are related but NOT the same property — this eval_report.json
+    # previously reported NLL only and never actually checked this).
+    pre_scale_ece, pre_scale_bins = expected_calibration_error(Y_pred_raw[0], Y_intent_test)
+    post_scale_probs = _temperature_scale(Y_pred_raw[0], temperature_scaling["temperature"])
+    post_scale_ece, post_scale_bins = expected_calibration_error(post_scale_probs, Y_intent_test)
+    print(f"    - ECE pre-scaling:  {pre_scale_ece:.4f}")
+    print(f"    - ECE post-scaling: {post_scale_ece:.4f} "
+          f"({'IMPROVED' if post_scale_ece <= pre_scale_ece else 'WORSE — temperature grid search may need review'})")
+
+    boundary_score = score_decision_boundary(model, [X_test, X_char_test], Y_intent_test, intents_list, decision_boundary)
+    if boundary_score["falseAcceptRate"] is not None:
+        print(f"    - Decision boundary FAR (UNKNOWN rows falsely accepted): {boundary_score['falseAcceptRate']:.4f} "
+              f"({boundary_score['falseAcceptCount']}/{boundary_score['unknownTestSupport']})")
+    else:
+        print(f"    - Decision boundary FAR: not scored ({boundary_score['note']})")
+
     # Compile Intent Classification Metrics
     print("\n[A] Intent Head Classifier Evaluation (16 Intents Mapping):")
     intent_report = classification_report(
@@ -788,6 +952,35 @@ def main():
             target_names=target_names_without_O, digits=4, zero_division=0, output_dict=True
         )
 
+    # P1-1: span-level entity F1 — see span_eval.py's module doc for why this
+    # exists alongside (not instead of) the token-level report above. Reuses
+    # the same per-example trimming (actual_len) as the flat token metrics,
+    # but keeps sequences UN-flattened since span decoding needs order and
+    # example boundaries, not a global token bag.
+    print("\n[C.3] Slot Head - SPAN-LEVEL Entity F1 (exact (type,start,end) match, "
+          "the metric the app's own BIO decoder — bioSpanDecoder.ts — actually "
+          "produces; stricter than the token-level report above, which counts a "
+          "partially-tagged span as a partial success):")
+    entity_types_no_bio = sorted({tag[2:] for tag in slots_list if tag != "O"})
+    gold_tag_seqs = []
+    pred_tag_seqs = []
+    for i in range(len(X_test)):
+        zero_indices = np.where(X_test[i] == 0)[0]
+        actual_len = zero_indices[0] if len(zero_indices) > 0 else MAX_SEQ_LENGTH
+        if actual_len == 0:
+            actual_len = 1
+        gold_tag_seqs.append([slots_list[t] for t in Y_slots_test[i, :actual_len]])
+        pred_tag_seqs.append([slots_list[t] for t in Y_slots_pred[i, :actual_len]])
+    span_report_dict = span_level_report(gold_tag_seqs, pred_tag_seqs, entity_types_no_bio)
+    token_level_f1_str = f"{entity_report_dict['weighted avg']['f1-score']:.4f}" if entity_report_dict else "N/A"
+    print(f"    - Span-level micro F1: {span_report_dict['micro']['f1-score']:.4f} "
+          f"(token-level was {token_level_f1_str}; "
+          "span-level is expected to be <= token-level for every type — a violation "
+          "means the BIO decode port has a bug, not that the model improved)")
+    for etype, m in sorted(span_report_dict["perType"].items(), key=lambda kv: -kv[1]["support"]):
+        print(f"      {etype:16s} p={m['precision']:.4f} r={m['recall']:.4f} "
+              f"f1={m['f1-score']:.4f} support={m['support']}")
+
     # 8. Package Outputs & Export directory structures
     output_dir = "exported_model"
     # Regenerate the intent->taskType mask from the specs on EVERY export. A
@@ -829,10 +1022,28 @@ def main():
         "calibration": {
             "temperature": temperature_scaling["temperature"],
             "validationNll": temperature_scaling.get("validation_nll"),
+            # P1-4: ECE measured on the TEST set (temperature itself is fit on
+            # val — see fit_temperature). ece/eceBins are POST-scaling (the
+            # number that matters for production, since inference always
+            # applies the fitted temperature); ecePreScaling/eceBinsPreScaling
+            # are the pre-scaling baseline so a regression in the scaling
+            # itself (post > pre) is visible instead of silently assumed away.
+            "ece": round(post_scale_ece, 4),
+            "eceBins": post_scale_bins,
+            "ecePreScaling": round(pre_scale_ece, 4),
+            "eceBinsPreScaling": pre_scale_bins,
         },
         "decisionBoundary": {
             "enabled": decision_boundary["enabled"],
             "boundaryClasses": len(decision_boundary["centroids"]),
+            # P1-4: was shipped-but-unmeasured before this. See
+            # score_decision_boundary()'s docstring for why falseRejectRate
+            # is null (measurable population doesn't exist in this dataset).
+            "falseAcceptRate": boundary_score["falseAcceptRate"],
+            "falseRejectRate": boundary_score["falseRejectRate"],
+            "falseAcceptCount": boundary_score.get("falseAcceptCount"),
+            "unknownTestSupport": boundary_score.get("unknownTestSupport"),
+            "note": boundary_score.get("note"),
         },
         "intent": {
             "accuracy": intent_report_dict["accuracy"],
@@ -853,7 +1064,16 @@ def main():
         "entities": {
             "tokenLevelF1": entity_report_dict["weighted avg"]["f1-score"] if entity_report_dict else None,
             "perType": {k: v for k, v in entity_report_dict.items() if k not in ("accuracy", "macro avg", "weighted avg")} if entity_report_dict else {},
-            "note": "Token-level F1, not span-level — a partially-tagged multi-token entity (e.g. only B-AMOUNT correct, I-AMOUNT missed) counts as a partial success here, not a full span failure. Span-level F1 is a documented future improvement, not computed today.",
+            # P1-1: span-level F1 now computed alongside the token-level metric
+            # above (kept for continuity with prior archived runs). Uses exact
+            # (type, start, end) span matching via the SAME BIO decode semantics
+            # as the shipped app's bioSpanDecoder.ts (ported in span_eval.py) —
+            # this is the metric that reflects real entity-extraction quality,
+            # since a partially-tagged multi-token entity that the token-level
+            # metric above counts as a partial success is a full span failure here.
+            "spanLevelF1": span_report_dict["micro"]["f1-score"],
+            "perTypeSpan": span_report_dict["perType"],
+            "note": "tokenLevelF1/perType are TOKEN-level — a partially-tagged multi-token entity (e.g. only B-AMOUNT correct, I-AMOUNT missed) counts as a partial success there, not a full span failure. spanLevelF1/perTypeSpan (added 2026-08-04) score exact span matches and are the metric that reflects actual product behaviour; spanLevelF1 is expected to be <= tokenLevelF1 for every type.",
         },
     }
     eval_report_path = os.path.join(output_dir, "eval_report.json")

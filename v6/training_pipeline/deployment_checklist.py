@@ -172,7 +172,10 @@ def check_export_integrity_gate(export_dir):
 def check_app_artifacts(app_dir):
     if not app_dir:
         return CheckResult("App-side artifacts", True, "skipped — no --app dir given")
-    app_nlp_dir = os.path.join(app_dir, "assets", "nlp")
+    # model-src/nlp/ is the plaintext sync target as of 2026-08-04 (P0-1 fix,
+    # app repo) — assets/nlp/ was removed from the app's bundled asset tree.
+    # See app_sync.py's docstring for the full history.
+    app_nlp_dir = os.path.join(app_dir, "model-src", "nlp")
     try:
         check_export_integrity(app_nlp_dir)
         return CheckResult("App-side artifacts", True, f"{app_nlp_dir} internally consistent")

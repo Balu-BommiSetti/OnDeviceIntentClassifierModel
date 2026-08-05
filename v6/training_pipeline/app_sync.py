@@ -1,11 +1,22 @@
 #!/usr/bin/env python3
 """
 Syncs binary model artifacts (tfjs/*, vocabulary.json, category_mapping.json)
-into the app repo's assets/nlp/ directory — the ONLY directory the app
-actually loads from at runtime (confirmed: ModelLoader.ts, IntentClassifier.ts,
-VocabularyTokenizer.ts all require() from assets/nlp/, never from
-src/ai/model/assets/, which is a stale, unused duplicate — see Phase 1's
-findings in on_device_nlp_implementation_roadmap.md).
+into the app repo's model-src/nlp/ directory — the PLAINTEXT SOURCE the app's
+own scripts/encrypt-nlp-assets.js reads to produce the encrypted assets
+(assets/nlp-enc/*.enc) that ModelLoader.ts/IntentClassifier.ts/
+VocabularyTokenizer.ts actually load at runtime via nlpAssetCache.ts.
+
+CHANGED 2026-08-04 (P0-1 fix, app repo): this used to target assets/nlp/
+directly, back when the app read plaintext model assets straight from the
+bundle. That directory shipped BOTH an encrypted and a plaintext copy of the
+same taxonomy (utils/ai/nlp/resolvers/taxonomyData.ts still required the
+plaintext file), defeating the point of encrypting it — assets/nlp/ was
+moved out of the bundled asset tree entirely to model-src/nlp/, and only
+scripts/encrypt-nlp-assets.js (build tooling) reads from it now. Syncing
+here (not assets/nlp/, which no longer exists) is what keeps this pipeline
+correctly feeding that flow — a sync to the old path would silently write to
+a resurrected assets/nlp/, which the app repo's own
+scripts/check-no-plaintext-nlp.js build gate would then fail loudly on.
 
 Paired with codegenApp.ts, which syncs labels.json + the route map into the
 same app repo. Together these two scripts are the ONLY writers of app model
@@ -13,6 +24,9 @@ assets (Phase 4 item 3) — no more manual copies, no more silently-stale
 duplicate directories.
 
 Runs the export integrity check FIRST and refuses to sync a broken pairing.
+Does NOT run the app's encrypt-nlp-assets.js step — that must be run
+separately in the app repo after this sync (or via whatever release process
+wires the two together), same as before this change.
 
 Usage: python app_sync.py /path/to/wealthpilot_native_app [exported_model_dir]
 """
@@ -32,7 +46,7 @@ FILES_TO_SYNC = ["vocabulary.json", "category_mapping.json", "labels.json", "act
 
 
 def sync(app_dir: str, export_dir: str = "exported_model"):
-    app_nlp_dir = os.path.join(app_dir, "assets", "nlp")
+    app_nlp_dir = os.path.join(app_dir, "model-src", "nlp")
     if not os.path.isdir(app_dir):
         raise FileNotFoundError(f"App directory not found: {app_dir}")
 
@@ -77,7 +91,7 @@ def sync(app_dir: str, export_dir: str = "exported_model"):
     # never reported as success.
     import subprocess
     smoke = subprocess.run(
-        ["node", "scripts/tfjs_smoke_test.mjs", os.path.join("assets", "nlp", "tfjs")],
+        ["node", "scripts/tfjs_smoke_test.mjs", os.path.join("model-src", "nlp", "tfjs")],
         cwd=app_dir, capture_output=True, text=True,
     )
     print(smoke.stdout.strip())
